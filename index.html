@@ -7,19 +7,40 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #f2f2f2;
       font-family: "Segoe UI", sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+    }
+
+    header {
+      padding: 30px 0 10px 0;
+      text-align: center;
     }
 
     h1 {
       color: #1e63b1; /* Azul JW */
-      font-size: 2.8rem;
-      margin-bottom: 25px;
+      font-size: 2.6rem;
+      margin: 0;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      width: 100%;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     input[type="text"] {
@@ -36,6 +57,58 @@
       box-shadow: 0 0 8px #1e63b1;
     }
 
+    button {
+      background-color: #1e63b1;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #15508a;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      background-color: white;
+      padding: 10px;
+      border: 1px solid #ddd;
+      transition: transform 0.2s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      padding: 15px;
+      border-top: 1px solid #ddd;
+      width: 100%;
+      background-color: #f7f7f7;
+    }
+
+    footer a {
+      color: #1e63b1;
+      text-decoration: none;
+    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2rem; }
       input[type="text"] { width: 80%; }
@@ -43,8 +116,38 @@
   </style>
 </head>
 <body>
-  <h1>RepuestosYa</h1>
-  <input type="text" placeholder="Buscar número de parte..." />
+  <header>
+    <h1>RepuestosYa</h1>
+  </header>
+
+  <main>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Buscar número de parte..." />
+      <button onclick="buscar()">Buscar</button>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <img src="https://via.placeholder.com/150?text=Pastilla+de+Freno+1" alt="Pastilla de freno 1">
+      <img src="https://via.placeholder.com/150?text=Pastilla+de+Freno+2" alt="Pastilla de freno 2">
+      <img src="https://via.placeholder.com/150?text=Pastilla+de+Freno+3" alt="Pastilla de freno 3">
+    </div>
+  </main>
+
+  <footer>
+    <p>Página para consultas gratuitas, sin ánimo de lucro.</p>
+    <p>Contacto: <a href="mailto:hectorguti95@gmail.com">hectorguti95@gmail.com</a> | 
+    <a href="https://wa.me/573057478032" target="_blank">WhatsApp</a></p>
+  </footer>
+
+  <script>
+    function buscar() {
+      const valor = document.getElementById('search').value.trim();
+      if (valor) {
+        alert(`Buscando repuesto con número: ${valor}`);
+      } else {
+        alert("Por favor, escribe un número de parte para buscar.");
+      }
+    }
+  </script>
 </body>
 </html>
-
