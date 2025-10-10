@@ -5,7 +5,7 @@ Un sistema moderno y elegante para la consulta de repuestos automotrices, diseñ
 
 ## Características Principales
 
-- **Diseño Minimalista**: Interfaz limpia y profesional inspirada en el diseño de Apple
+- **Diseño Minimalista**: Interfaz limpia y profesional.
 - **Responsive**: Funciona perfectamente en dispositivos móviles, tabletas y escritorio
 - **Panel de Administración**: Sistema completo para gestionar categorías, marcas, modelos y repuestos
 - **Búsqueda Avanzada**: Filtros múltiples por categoría, marca, modelo y año
