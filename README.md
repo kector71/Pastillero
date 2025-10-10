@@ -1,6 +1,5 @@
 # RepuestosYa - Sistema de Consulta de Repuestos Automotrices
 
-![RepuestosYa](https://placehold.co/800x400/3b82f6/FFFFFF?text=RepuestosYa+Logo)
 
 Un sistema moderno y elegante para la consulta de repuestos automotrices, diseñado con un estilo similar al de Apple Inc.
 
