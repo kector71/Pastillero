@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel de Administración</title>
+</head>
+<body>
+  <h1>Panel de Administración</h1>
+  <div id="login">
+    <input id="email" type="email" placeholder="Correo">
+    <input id="password" type="password" placeholder="Contraseña">
+    <button id="loginBtn">Iniciar sesión</button>
+  </div>
+
+  <div id="panel" style="display:none;">
+    <h2>Subir producto</h2>
+    <input id="nombre" placeholder="Nombre">
+    <input id="precio" placeholder="Precio">
+    <button id="guardarBtn">Guardar en Firestore</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPpe9AgwqHPkjVK9fE_AvrJtvjvrVHUA0",
+      authDomain: "repuestosya-catalogo.firebaseapp.com",
+      projectId: "repuestosya-catalogo",
+      storageBucket: "repuestosya-catalogo.firebasestorage.app",
+      messagingSenderId: "770179439513",
+      appId: "1:770179439513:web:544597e763fb811d779108",
+      measurementId: "G-VYMR8ERCGT"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const loginBtn = document.getElementById("loginBtn");
+    const panel = document.getElementById("panel");
+
+    loginBtn.addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById("login").style.display = "none";
+        panel.style.display = "block";
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    });
+
+    document.getElementById("guardarBtn").addEventListener("click", async () => {
+      const nombre = document.getElementById("nombre").value;
+      const precio = document.getElementById("precio").value;
+      try {
+        await addDoc(collection(db, "productos"), { nombre, precio });
+        alert("Producto guardado ✅");
+      } catch (e) {
+        alert("Error: " + e.message);
+      }
+    });
+  </script>
+</body>
+</html>
