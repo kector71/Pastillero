@@ -9,8 +9,8 @@ Un sistema moderno y elegante para la consulta de repuestos automotrices, diseñ
 - **Responsive**: Funciona perfectamente en dispositivos móviles, tabletas y escritorio
 - **Panel de Administración**: Sistema completo para gestionar categorías, marcas, modelos y repuestos
 - **Búsqueda Avanzada**: Filtros múltiples por categoría, marca, modelo y año
-- **Persistencia de Datos**: Los datos se guardan localmente usando localStorage
-- **Notificaciones**: Sistema de notificaciones visuales para acciones del usuario
+- **Persistencia de Datos**: 
+
 
 ## Funcionalidades
 
