@@ -1,218 +1,391 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RepuestosYa — Consulta de Repuestos</title>
-  <style>
-    :root{
-      --azul:#1e63b1;
-      --grisfondo:#f6f7f8;
-      --griscard:#ffffff;
-      --grisline:#e6e9ee;
-      --texto:#222;
-      --muted:#6b7280;
-      --btn-clean:#6b7280;
-      --btn-search:var(--azul);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial, sans-serif;
-      background:var(--grisfondo);
-      color:var(--texto);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    /* Header */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:18px 28px;
-      background:transparent;
-      border-bottom:1px solid rgba(0,0,0,0.04);
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .logo-mark{
-      width:36px;height:36px;border-radius:8px;
-      background:var(--azul); display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
-      box-shadow:0 2px 6px rgba(30,99,177,0.12);
-    }
-    .brand h2{margin:0;font-size:18px;letter-spacing:0.2px}
-    .admin-btn{
-      background:var(--azul);
-      color:#fff;padding:8px 14px;border-radius:8px;border:0;font-weight:600;
-      box-shadow:0 4px 12px rgba(30,99,177,0.12);
-      display:inline-flex;align-items:center;gap:8px;cursor:pointer;
-    }
-
-    /* Main */
-    .wrap{max-width:1120px;margin:36px auto;padding:0 20px;}
-    .hero{ text-align:center;padding:2px 0 18px 0; }
-    .hero h1{margin:8px 0 6px;font-size:34px;}
-    .hero p{margin:0;color:var(--muted);font-size:15px;}
-
-    /* Card */
-    .card{
-      margin-top:28px;
-      background:var(--griscard);
-      border-radius:10px;
-      padding:22px;
-      box-shadow: 0 6px 18px rgba(16,24,40,0.06);
-      border:1px solid var(--grisline);
-    }
-
-    .filters{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:14px;
-      align-items:center;
-    }
-    label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
-    select, input[type="text"]{
-      width:100%;
-      padding:12px 14px;
-      border-radius:8px;
-      border:1px solid var(--grisline);
-      background:#fff;
-      font-size:15px;
-      color:var(--texto);
-      outline:none;
-    }
-    .search-row{display:flex;gap:12px;margin-top:16px;align-items:center}
-    .search-row input[type="text"]{flex:1}
-
-    .btn {
-      padding:11px 18px;
-      border-radius:8px;
-      border:0;
-      font-weight:600;
-      cursor:pointer;
-      display:inline-flex;align-items:center;gap:10px;
-    }
-    .btn-search{background:var(--btn-search);color:#fff}
-    .btn-clean{background:var(--btn-clean);color:#fff;opacity:0.95}
-
-    /* Responsive */
-    @media (max-width:980px){
-      .filters{grid-template-columns: repeat(2, 1fr)}
-    }
-    @media (max-width:640px){
-      header{padding:12px}
-      .hero h1{font-size:24px}
-      .filters{grid-template-columns:1fr}
-      .search-row{flex-direction:column;align-items:stretch}
-      .admin-btn{padding:8px 10px}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepuestosYa - Consulta de repuestos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .search-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-select {
+            padding: 0.75rem;
+            border: 1px solid #d1d5da;
+            border-radius: 0.5rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: #000000;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .result-image {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .info-card {
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <div class="brand">
-      <div class="logo-mark">R</div>
-      <h2>RepuestosYa</h2>
-    </div>
-    <button class="admin-btn" type="button">Admin</button>
-  </header>
-
-  <main class="wrap">
-    <div class="hero">
-      <h1>Consulta de Repuestos</h1>
-      <p>Sistema de consulta para repuestos automotrices</p>
-    </div>
-
-    <div class="card" role="region" aria-label="Buscador de repuestos">
-      <h3 style="margin:0 0 12px 0;font-size:18px;color:var(--texto)">Buscar Repuesto</h3>
-
-      <div class="filters" aria-hidden="false">
-        <div>
-          <label for="categoria">Categoría</label>
-          <select id="categoria" aria-label="Categoría">
-            <option value="">Todas</option>
-            <!-- valores vacíos (sin ejemplos) -->
-          </select>
+<body class="bg-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-tools text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-gray-900">RepuestosYa</h1>
+                </div>
+                <a href="https://github.com/tu-usuario/repuestosya" target="_blank" class="text-gray-600 hover:text-gray-900 text-sm">
+                    <i class="fab fa-github mr-1"></i> Código Fuente
+                </a>
+            </div>
         </div>
+    </header>
 
-        <div>
-          <label for="marca">Marca</label>
-          <select id="marca" aria-label="Marca">
-            <option value="">Todas</option>
-          </select>
+    <!-- Hero Section -->
+    <section class="hero-gradient py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6 leading-tight">
+                Consulta repuestos para tu vehículo
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Encuentra información precisa sobre repuestos compatibles con tu vehículo. 
+                Base de datos actualizada y referencias visuales de alta calidad.
+            </p>
         </div>
+    </section>
 
-        <div>
-          <label for="modelo">Modelo</label>
-          <select id="modelo" aria-label="Modelo">
-            <option value="">Todos</option>
-          </select>
+    <!-- Search Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 shadow-lg">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-8 text-center">Consulta tu repuesto</h3>
+                
+                <div class="space-y-6">
+                    <!-- Filter Group -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Categoría</label>
+                            <select id="categoria" class="filter-select">
+                                <option value="">Todas las categorías</option>
+                                <option value="pastilla-freno">Pastillas de Freno</option>
+                                <option value="disco-freno">Discos de Freno</option>
+                                <option value="pinza-freno">Pinzas de Freno</option>
+                                <option value="kit-freno">Kits de Freno</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Marca</label>
+                            <select id="marca" class="filter-select">
+                                <option value="">Todas las marcas</option>
+                                <option value="toyota">Toyota</option>
+                                <option value="honda">Honda</option>
+                                <option value="ford">Ford</option>
+                                <option value="chevrolet">Chevrolet</option>
+                                <option value="nissan">Nissan</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Modelo</label>
+                            <select id="modelo" class="filter-select" disabled>
+                                <option value="">Todos los modelos</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
+                            <select id="anio" class="filter-select">
+                                <option value="">Todos los años</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Input -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input type="text" id="buscarInput" placeholder="Buscar por nombre..." class="flex-1 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                        <div class="grid grid-cols-2 gap-3 w-full sm:w-auto">
+                            <button id="buscarBtn" class="btn-primary">
+                                <i class="fas fa-search mr-2"></i> Buscar
+                            </button>
+                            <button id="limpiarBtn" class="btn-secondary">
+                                <i class="fas fa-eraser mr-2"></i> Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div>
-          <label for="anio">Año</label>
-          <select id="anio" aria-label="Año">
-            <option value="">Todos</option>
-          </select>
+    <!-- Results Section -->
+    <section id="resultados" class="py-16 bg-gray-50 hidden">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-8 text-center">Información para <span id="busquedaTitulo" class="text-blue-600 font-medium"></span></h3>
+            
+            <div class="max-w-4xl mx-auto info-card bg-white p-8">
+                <div id="resultadosLista" class="space-y-6">
+                    <!-- Resultados se cargarán aquí -->
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="search-row" style="margin-top:18px;">
-        <input id="q" type="text" placeholder="Buscar por número o nombre..." aria-label="Buscar" />
-        <button class="btn btn-search" id="buscarBtn" type="button">🔍 Buscar</button>
-        <button class="btn btn-clean" id="limpiarBtn" type="button">🧽 Limpiar</button>
-      </div>
-    </div>
-
-    <!-- espacio para resultados -->
-    <div id="resultados" style="margin-top:20px"></div>
-  </main>
-
-  <script>
-    // Código mínimo: filtros vacíos (según tu petición).
-    // Aquí tienes funciones simples para Buscar y Limpiar.
-    const buscarBtn = document.getElementById('buscarBtn');
-    const limpiarBtn = document.getElementById('limpiarBtn');
-    const qInput = document.getElementById('q');
-
-    buscarBtn.addEventListener('click', () => {
-      const q = qInput.value.trim();
-      const categoria = document.getElementById('categoria').value;
-      const marca = document.getElementById('marca').value;
-      const modelo = document.getElementById('modelo').value;
-      const anio = document.getElementById('anio').value;
-
-      // comportamiento de ejemplo: muestra los criterios seleccionados (sin datos reales)
-      const resultados = document.getElementById('resultados');
-      resultados.innerHTML = `
-        <div style="margin-top:18px;background:#fff;padding:16px;border-radius:8px;border:1px solid rgba(0,0,0,0.04)">
-          <strong>Resultados (demo):</strong>
-          <div style="margin-top:8px;color: #444;">
-            <div><strong>Texto buscado:</strong> ${q || '—'}</div>
-            <div><strong>Categoría:</strong> ${categoria || '—'}</div>
-            <div><strong>Marca:</strong> ${marca || '—'}</div>
-            <div><strong>Modelo:</strong> ${modelo || '—'}</div>
-            <div><strong>Año:</strong> ${anio || '—'}</div>
-          </div>
+    <!-- Features Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">Características Principales</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">Nuestro sistema ofrece una experiencia de consulta completa y precisa</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-database text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Base de Datos Completa</h4>
+                    <p class="text-gray-600 leading-relaxed">Información detallada sobre repuestos compatibles con tu vehículo.</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-image text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Imágenes de Referencia</h4>
+                    <p class="text-gray-600 leading-relaxed">Visualiza cómo se ve el repuesto con imágenes de alta calidad.</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-sync-alt text-white text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-3">Actualización Continua</h4>
+                    <p class="text-gray-600 leading-relaxed">Nuestro sistema se actualiza constantemente con nuevos repuestos.</p>
+                </div>
+            </div>
         </div>
-      `;
-    });
+    </section>
 
-    limpiarBtn.addEventListener('click', () => {
-      qInput.value = '';
-      document.getElementById('categoria').value = '';
-      document.getElementById('marca').value = '';
-      document.getElementById('modelo').value = '';
-      document.getElementById('anio').value = '';
-      document.getElementById('resultados').innerHTML = '';
-    });
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-tools text-white text-sm"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">RepuestosYa</h3>
+                </div>
+                <p class="text-gray-400 mb-6 max-w-lg mx-auto">
+                    Tu sistema de consulta de repuestos automotrices. Información precisa y actualizada para profesionales y entusiastas.
+                </p>
+                <div class="border-t border-gray-800 pt-6 text-gray-400 text-sm">
+                    <p>&copy; 2024 RepuestosYa. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    // Si en el futuro conectas Firebase/Supabase, aquí es donde deberías cargar datos
-    // y poblar los <select> con valores únicos. Por ahora los dejamos vacíos por pedido.
-  </script>
+    <script>
+        // Datos de ejemplo
+        const repuestosDB = [
+            {
+                categoria: 'pastilla-freno',
+                marca: 'toyota',
+                modelo: 'camry',
+                anio: 2022,
+                nombre: 'Pastillas de Freno Delanteras',
+                descripcion: 'Pastillas de freno delanteras de alta calidad para Toyota Camry 2022. Diseñadas para ofrecer un frenado suave y eficiente con bajo nivel de ruido.',
+                imagen: 'https://placehold.co/600x400/6366f1/FFFFFF?text=Pastillas+Toyota+Camry'
+            },
+            {
+                categoria: 'pastilla-freno',
+                marca: 'honda',
+                modelo: 'civic',
+                anio: 2021,
+                nombre: 'Pastillas de Freno Traseras',
+                descripcion: 'Pastillas de freno traseras para Honda Civic 2021. Fabricadas con materiales de fricción avanzados para una mayor durabilidad y rendimiento.',
+                imagen: 'https://placehold.co/600x400/8b5cf6/FFFFFF?text=Pastillas+Honda+Civic'
+            },
+            {
+                categoria: 'disco-freno',
+                marca: 'ford',
+                modelo: 'focus',
+                anio: 2020,
+                nombre: 'Discos de Freno Delanteros',
+                descripcion: 'Discos de freno delanteros de alto rendimiento para Ford Focus 2020. Resistencia superior al calor y desgaste.',
+                imagen: 'https://placehold.co/600x400/059669/FFFFFF?text=Discos+Freno+Ford+Focus'
+            }
+        ];
+
+        // Modelos por marca
+        const modelosPorMarca = {
+            toyota: ['camry', 'corolla', 'rav4'],
+            honda: ['civic', 'accord', 'cr-v'],
+            ford: ['focus', 'fusion', 'escape'],
+            chevrolet: ['cruze', 'malibu', 'equinox'],
+            nissan: ['sentra', 'altima', 'rogue']
+        };
+
+        // Actualizar modelos cuando cambia la marca
+        document.getElementById('marca').addEventListener('change', function() {
+            const modeloSelect = document.getElementById('modelo');
+            const marca = this.value;
+            
+            // Limpiar opciones existentes
+            modeloSelect.innerHTML = '<option value="">Todos los modelos</option>';
+            
+            if (marca && modelosPorMarca[marca]) {
+                modeloSelect.disabled = false;
+                
+                // Agregar modelos disponibles para la marca seleccionada
+                modelosPorMarca[marca].forEach(modelo => {
+                    const option = document.createElement('option');
+                    option.value = modelo;
+                    option.textContent = modelo.charAt(0).toUpperCase() + modelo.slice(1);
+                    modeloSelect.appendChild(option);
+                });
+            } else {
+                modeloSelect.disabled = true;
+            }
+        });
+
+        // Buscar repuesto
+        document.getElementById('buscarBtn').addEventListener('click', function() {
+            const categoria = document.getElementById('categoria').value;
+            const marca = document.getElementById('marca').value;
+            const modelo = document.getElementById('modelo').value;
+            const anio = parseInt(document.getElementById('anio').value);
+            const searchTerm = document.getElementById('buscarInput').value.toLowerCase();
+            
+            if (!marca && !modelo && !anio && !searchTerm) {
+                alert('Por favor, seleccione al menos un filtro');
+                return;
+            }
+            
+            // Filtrar repuestos
+            let resultados = repuestosDB.filter(r => 
+                (!categoria || r.categoria === categoria) && 
+                (!marca || r.marca === marca) && 
+                (!modelo || r.modelo === modelo) && 
+                (!anio || r.anio === anio)
+            );
+            
+            // Filtrar por búsqueda de texto si hay término de búsqueda
+            if (searchTerm) {
+                resultados = resultados.filter(r => 
+                    r.nombre.toLowerCase().includes(searchTerm) || 
+                    r.descripcion.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            const resultadosSection = document.getElementById('resultados');
+            const busquedaTitulo = document.getElementById('busquedaTitulo');
+            const resultadosLista = document.getElementById('resultadosLista');
+            
+            // Construir título de búsqueda
+            let titulo = [];
+            if (marca) titulo.push(marca.toUpperCase());
+            if (modelo) titulo.push(modelo.toUpperCase());
+            if (anio) titulo.push(anio);
+            if (titulo.length === 0) titulo.push('todos los vehículos');
+            busquedaTitulo.textContent = titulo.join(' ');
+            
+            if (resultados.length > 0) {
+                resultadosLista.innerHTML = '';
+                resultados.forEach(repuesto => {
+                    const item = document.createElement('div');
+                    item.innerHTML = `
+                        <div class="text-center mb-6">
+                            <div class="result-image mx-auto">
+                                <img src="${repuesto.imagen}" alt="${repuesto.nombre}" class="w-full h-64 object-cover">
+                            </div>
+                        </div>
+                        <h4 class="text-2xl font-semibold text-gray-900 mb-4 text-center">${repuesto.nombre}</h4>
+                        <p class="text-gray-700 text-lg leading-relaxed">${repuesto.descripcion}</p>
+                        <div class="mt-8 p-6 bg-blue-50 rounded-xl">
+                            <p class="text-sm text-blue-800 flex items-center">
+                                <i class="fas fa-info-circle mr-3 text-lg"></i>
+                                Esta información es de referencia. Consulte con un especialista antes de realizar cualquier reparación.
+                            </p>
+                        </div>
+                    `;
+                    resultadosLista.appendChild(item);
+                });
+                resultadosSection.classList.remove('hidden');
+                resultadosSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                resultadosLista.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-search text-6xl text-gray-400 mb-6 opacity-50"></i>
+                        <h4 class="text-2xl font-semibold text-gray-900 mb-4">No se encontró información</h4>
+                        <p class="text-gray-600 text-lg">No tenemos datos sobre repuestos que coincidan con tu búsqueda.</p>
+                    </div>
+                `;
+                resultadosSection.classList.remove('hidden');
+                resultadosSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Limpiar filtros
+        document.getElementById('limpiarBtn').addEventListener('click', function() {
+            document.getElementById('categoria').value = '';
+            document.getElementById('marca').value = '';
+            document.getElementById('modelo').value = '';
+            document.getElementById('anio').value = '';
+            document.getElementById('buscarInput').value = '';
+            
+            document.getElementById('modelo').disabled = true;
+            
+            document.getElementById('resultados').classList.add('hidden');
+            
+            document.getElementById('categoria').focus();
+        });
+    </script>
 </body>
 </html>
