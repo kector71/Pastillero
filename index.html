@@ -1,146 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RepuestosYa</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RepuestosYa — Consulta de Repuestos</title>
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: #f2f2f2;
-      font-family: "Segoe UI", sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    :root{
+      --azul:#1e63b1;
+      --grisfondo:#f6f7f8;
+      --griscard:#ffffff;
+      --grisline:#e6e9ee;
+      --texto:#222;
+      --muted:#6b7280;
+      --btn-clean:#6b7280;
+      --btn-search:var(--azul);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, Arial, sans-serif;
+      background:var(--grisfondo);
+      color:var(--texto);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    header {
-      padding: 30px 0 10px 0;
-      text-align: center;
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 28px;
+      background:transparent;
+      border-bottom:1px solid rgba(0,0,0,0.04);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo-mark{
+      width:36px;height:36px;border-radius:8px;
+      background:var(--azul); display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
+      box-shadow:0 2px 6px rgba(30,99,177,0.12);
+    }
+    .brand h2{margin:0;font-size:18px;letter-spacing:0.2px}
+    .admin-btn{
+      background:var(--azul);
+      color:#fff;padding:8px 14px;border-radius:8px;border:0;font-weight:600;
+      box-shadow:0 4px 12px rgba(30,99,177,0.12);
+      display:inline-flex;align-items:center;gap:8px;cursor:pointer;
     }
 
-    h1 {
-      color: #1e63b1; /* Azul JW */
-      font-size: 2.6rem;
-      margin: 0;
+    /* Main */
+    .wrap{max-width:1120px;margin:36px auto;padding:0 20px;}
+    .hero{ text-align:center;padding:2px 0 18px 0; }
+    .hero h1{margin:8px 0 6px;font-size:34px;}
+    .hero p{margin:0;color:var(--muted);font-size:15px;}
+
+    /* Card */
+    .card{
+      margin-top:28px;
+      background:var(--griscard);
+      border-radius:10px;
+      padding:22px;
+      box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+      border:1px solid var(--grisline);
     }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-grow: 1;
-      width: 100%;
+    .filters{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
+      align-items:center;
     }
-
-    .search-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      justify-content: center;
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+    select, input[type="text"]{
+      width:100%;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid var(--grisline);
+      background:#fff;
+      font-size:15px;
+      color:var(--texto);
+      outline:none;
     }
+    .search-row{display:flex;gap:12px;margin-top:16px;align-items:center}
+    .search-row input[type="text"]{flex:1}
 
-    input[type="text"] {
-      width: 320px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      outline: none;
-      transition: box-shadow 0.2s ease;
+    .btn {
+      padding:11px 18px;
+      border-radius:8px;
+      border:0;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:10px;
     }
+    .btn-search{background:var(--btn-search);color:#fff}
+    .btn-clean{background:var(--btn-clean);color:#fff;opacity:0.95}
 
-    input[type="text"]:focus {
-      box-shadow: 0 0 8px #1e63b1;
+    /* Responsive */
+    @media (max-width:980px){
+      .filters{grid-template-columns: repeat(2, 1fr)}
     }
-
-    button {
-      background-color: #1e63b1;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 24px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    button:hover {
-      background-color: #15508a;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      width: 90%;
-      max-width: 800px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-      background-color: white;
-      padding: 10px;
-      border: 1px solid #ddd;
-      transition: transform 0.2s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-      padding: 15px;
-      border-top: 1px solid #ddd;
-      width: 100%;
-      background-color: #f7f7f7;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      input[type="text"] { width: 80%; }
+    @media (max-width:640px){
+      header{padding:12px}
+      .hero h1{font-size:24px}
+      .filters{grid-template-columns:1fr}
+      .search-row{flex-direction:column;align-items:stretch}
+      .admin-btn{padding:8px 10px}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>RepuestosYa</h1>
+    <div class="brand">
+      <div class="logo-mark">R</div>
+      <h2>RepuestosYa</h2>
+    </div>
+    <button class="admin-btn" type="button">Admin</button>
   </header>
 
-  <main>
-    <div class="search-box">
-      <input type="text" id="search" placeholder="Buscar número de parte..." />
-      <button onclick="buscar()">Buscar</button>
+  <main class="wrap">
+    <div class="hero">
+      <h1>Consulta de Repuestos</h1>
+      <p>Sistema de consulta para repuestos automotrices</p>
     </div>
 
-    <div class="gallery" id="gallery">
-      <img src="https://via.placeholder.com/150?text=Pastilla+de+Freno+1" alt="Pastilla de freno 1">
-      <img src="https://via.placeholder.com/150?text=Pastilla+de+Freno+2" alt="Pastilla de freno 2">
-      <img src="https://via.placeholder.com/150?text=Pastilla+de+Freno+3" alt="Pastilla de freno 3">
+    <div class="card" role="region" aria-label="Buscador de repuestos">
+      <h3 style="margin:0 0 12px 0;font-size:18px;color:var(--texto)">Buscar Repuesto</h3>
+
+      <div class="filters" aria-hidden="false">
+        <div>
+          <label for="categoria">Categoría</label>
+          <select id="categoria" aria-label="Categoría">
+            <option value="">Todas</option>
+            <!-- valores vacíos (sin ejemplos) -->
+          </select>
+        </div>
+
+        <div>
+          <label for="marca">Marca</label>
+          <select id="marca" aria-label="Marca">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="modelo">Modelo</label>
+          <select id="modelo" aria-label="Modelo">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="anio">Año</label>
+          <select id="anio" aria-label="Año">
+            <option value="">Todos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="search-row" style="margin-top:18px;">
+        <input id="q" type="text" placeholder="Buscar por número o nombre..." aria-label="Buscar" />
+        <button class="btn btn-search" id="buscarBtn" type="button">🔍 Buscar</button>
+        <button class="btn btn-clean" id="limpiarBtn" type="button">🧽 Limpiar</button>
+      </div>
     </div>
+
+    <!-- espacio para resultados -->
+    <div id="resultados" style="margin-top:20px"></div>
   </main>
 
-  <footer>
-    <p>Página para consultas gratuitas, sin ánimo de lucro.</p>
-  </footer>
-
   <script>
-    function buscar() {
-      const valor = document.getElementById('search').value.trim();
-      if (valor) {
-        alert(`Buscando repuesto con número: ${valor}`);
-      } else {
-        alert("Por favor, escribe un número de parte para buscar.");
-      }
-    }
+    // Código mínimo: filtros vacíos (según tu petición).
+    // Aquí tienes funciones simples para Buscar y Limpiar.
+    const buscarBtn = document.getElementById('buscarBtn');
+    const limpiarBtn = document.getElementById('limpiarBtn');
+    const qInput = document.getElementById('q');
+
+    buscarBtn.addEventListener('click', () => {
+      const q = qInput.value.trim();
+      const categoria = document.getElementById('categoria').value;
+      const marca = document.getElementById('marca').value;
+      const modelo = document.getElementById('modelo').value;
+      const anio = document.getElementById('anio').value;
+
+      // comportamiento de ejemplo: muestra los criterios seleccionados (sin datos reales)
+      const resultados = document.getElementById('resultados');
+      resultados.innerHTML = `
+        <div style="margin-top:18px;background:#fff;padding:16px;border-radius:8px;border:1px solid rgba(0,0,0,0.04)">
+          <strong>Resultados (demo):</strong>
+          <div style="margin-top:8px;color: #444;">
+            <div><strong>Texto buscado:</strong> ${q || '—'}</div>
+            <div><strong>Categoría:</strong> ${categoria || '—'}</div>
+            <div><strong>Marca:</strong> ${marca || '—'}</div>
+            <div><strong>Modelo:</strong> ${modelo || '—'}</div>
+            <div><strong>Año:</strong> ${anio || '—'}</div>
+          </div>
+        </div>
+      `;
+    });
+
+    limpiarBtn.addEventListener('click', () => {
+      qInput.value = '';
+      document.getElementById('categoria').value = '';
+      document.getElementById('marca').value = '';
+      document.getElementById('modelo').value = '';
+      document.getElementById('anio').value = '';
+      document.getElementById('resultados').innerHTML = '';
+    });
+
+    // Si en el futuro conectas Firebase/Supabase, aquí es donde deberías cargar datos
+    // y poblar los <select> con valores únicos. Por ahora los dejamos vacíos por pedido.
   </script>
 </body>
 </html>
