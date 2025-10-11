@@ -301,17 +301,6 @@
             color: #b0b0b0;
         }
         
-        .help-text {
-            font-size: 0.65rem;
-            color: #6b7280;
-            margin-top: 0.1rem;
-            padding-left: 0.25rem;
-        }
-        
-        .dark .help-text {
-            color: #9ca3af;
-        }
-        
         /* Ajustes para header más compacto */
         .header-container {
             padding: 0.5rem 0;
@@ -351,11 +340,11 @@
             font-size: 12px;
         }
         
-        /* Botón para subir rápido */
+        /* Botón para subir rápido - MOVIDO A LA IZQUIERDA */
         .scroll-top-btn {
             position: fixed;
             bottom: 1rem;
-            right: 1rem;
+            left: 1rem; /* Cambiado de right a left */
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -365,18 +354,25 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease-out;
             z-index: 99;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
+            will-change: transform, opacity;
         }
         
         .scroll-top-btn.visible {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .dark .scroll-top-btn {
@@ -386,6 +382,11 @@
         .scroll-top-btn svg {
             width: 16px;
             height: 16px;
+        }
+        
+        .scroll-top-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -417,20 +418,17 @@
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
                                 <div class="form-control">
-                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="ACURA">
+                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="MARCA">
                                     <datalist id="marcaList"></datalist>
-                                    <div class="help-text">Ej: ACURA, BMW, FORD</div>
                                 </div>
                                 
                                 <div class="form-control">
-                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="Integra">
+                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="MODELO">
                                     <datalist id="modeloList"></datalist>
-                                    <div class="help-text">Ej: Integra, 3 Series, Mustang</div>
                                 </div>
                                 
                                 <div class="form-control">
-                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="2000">
-                                    <div class="help-text">Ej: 2000, 2015, 2023</div>
+                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="AÑO">
                                 </div>
                                 
                                 <div>
@@ -445,7 +443,6 @@
                                             <span>Tras</span>
                                         </div>
                                     </div>
-                                    <div class="help-text mt-1">Selecciona una posición</div>
                                 </div>
                             </div>
                         </div>
@@ -462,18 +459,15 @@
                                 </div>
                                 <div class="space-y-1">
                                     <div class="form-control">
-                                        <input type="text" id="referencia" class="form-input" placeholder="7382">
-                                        <div class="help-text">Ej: 7382, 7890, 7580</div>
+                                        <input type="text" id="referencia" class="form-input" placeholder="REFERENCIA">
                                     </div>
                                     
                                     <div class="form-control">
-                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="D503">
-                                        <div class="help-text">Ej: D503, D1200, D950</div>
+                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="PLATINA FMSI">
                                     </div>
                                     
                                     <div class="form-control">
-                                        <input type="text" id="oem" class="form-input" placeholder="0446002410">
-                                        <div class="help-text">Ej: 0446002410, 0446002570</div>
+                                        <input type="text" id="oem" class="form-input" placeholder="OEM">
                                     </div>
                                 </div>
                             </div>
@@ -489,26 +483,21 @@
                                 <div class="space-y-1">
                                     <div class="measure-grid">
                                         <div class="form-control">
-                                            <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="140.5">
-                                            <div class="help-text">Ej: 140.5</div>
+                                            <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="LONGITUD">
                                         </div>
                                         <div class="form-control">
-                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="55.2">
-                                            <div class="help-text">Ej: 55.2</div>
+                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="ANCHO">
                                         </div>
                                         <div class="form-control">
-                                            <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="18.0">
-                                            <div class="help-text">Ej: 18.0</div>
+                                            <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="GROSOR">
                                         </div>
                                         <div class="form-control">
-                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="52.3">
-                                            <div class="help-text">Ej: 52.3</div>
+                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="ALTURA">
                                         </div>
                                     </div>
                                     
                                     <div class="form-control">
-                                        <input type="number" id="medidaDiametro" step="0.1" class="form-input" placeholder="10.5">
-                                        <div class="help-text">Ej: 10.5</div>
+                                        <input type="number" id="medidaDiametro" step="0.1" class="form-input" placeholder="DIÁMETRO">
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +524,6 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="help-text">Busca por marca, modelo o referencia</div>
                             </div>
                             
                             <div class="filter-actions">
@@ -590,7 +578,7 @@
         </svg>
     </div>
     
-    <!-- Botón para subir rápido -->
+    <!-- Botón para subir rápido MOVIDO A LA IZQUIERDA -->
     <div class="scroll-top-btn" id="scrollTopBtn" title="Volver arriba">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
@@ -962,9 +950,9 @@
                 });
             });
             
-            // Show/hide scroll to top button
+            // Show/hide scroll to top button - reducido el umbral de 300px a 100px
             window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
+                if (window.pageYOffset > 100) {
                     scrollTopBtn.classList.add('visible');
                 } else {
                     scrollTopBtn.classList.remove('visible');
