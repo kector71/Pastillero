@@ -1,298 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RepuestosYa - Consulta de repuestos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RepuestosYa</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
 
-        .hero-gradient {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        }
+    header {
+      background-color: #0a5fb4;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
 
-        .filter-input {
-            padding: 0.75rem;
-            border: 1px solid #d1d5da;
-            border-radius: 0.5rem;
-            width: 100%;
-        }
+    section.banner {
+      text-align: center;
+      padding: 40px 10px;
+    }
 
-        .btn-primary {
-            background-color: #000000;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+    section.banner h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
 
-        .btn-secondary {
-            background-color: #f3f4f6;
-            color: #4b5563;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+    section.banner p {
+      font-size: 1rem;
+      color: #555;
+    }
 
-        .result-image {
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
+    .buscador {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: center;
+    }
 
-        .info-card {
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+    .buscador input {
+      width: 30%;
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
 
-        .tool-logo {
-            filter: grayscale(100%) opacity(0.7);
-            transition: all 0.3s ease;
-            border-radius: 8px;
-        }
+    .buscador button {
+      background-color: #0a5fb4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-        .tool-logo:hover {
-            filter: grayscale(0%) opacity(1);
-            transform: scale(1.1);
-        }
-    </style>
+    .buscador button:hover {
+      background-color: #084c8d;
+    }
+
+    #resultados {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .repuesto-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin: 10px;
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .repuesto-card:hover {
+      transform: scale(1.03);
+    }
+
+    .repuesto-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #0a5fb4;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 30px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .buscador input {
+        width: 80%;
+        display: block;
+        margin: 8px auto;
+      }
+    }
+  </style>
 </head>
-<body class="bg-white min-h-screen">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center">
-                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-3">
-                    <i class="fas fa-tools text-white text-sm"></i>
-                </div>
-                <h1 class="text-xl font-semibold text-gray-900">RepuestosYa</h1>
-            </div>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero-gradient py-16 md:py-24">
-        <div class="container mx-auto px-4 text-center">
-            <h1 style="font-size: 1.8rem;">Consulta repuestos de forma rápida y gratuita</h1>
+<body>
+  <header>🔧 RepuestosYa</header>
 
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Encuentra información precisa sobre repuestos compatibles con tu vehículo. 
-                Base de datos actualizada y referencias visuales de alta calidad.
-            </p>
-        </div>
-    </section>
+  <section class="banner">
+    <h1>Consulta repuestos de forma rápida y gratuita</h1>
+    <p>Encuentra referencias por marca, modelo o año sin llenar todos los campos</p>
+  </section>
 
-    <!-- Search Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 shadow-lg">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-8 text-center">Consulta tu repuesto</h3>
-                
-                <div class="space-y-6">
-                    <!-- Filtros -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Categoría</label>
-                            <input type="text" id="categoria" class="filter-input" placeholder="">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Marca</label>
-                            <input type="text" id="marca" class="filter-input" placeholder="">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Modelo</label>
-                            <input type="text" id="modelo" class="filter-input" placeholder="">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
-                            <input type="number" id="anio" class="filter-input" placeholder="">
-                        </div>
-                    </div>
+  <section class="buscador">
+    <input type="text" id="marca" placeholder="Marca" />
+    <input type="text" id="modelo" placeholder="Modelo" />
+    <input type="text" id="anio" placeholder="Año" />
+    <br />
+    <button id="buscarBtn">Buscar</button>
+  </section>
 
-                    <!-- Buscador -->
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <input type="text" id="buscarInput" class="flex-1 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar por nombre...">
-                        <div class="grid grid-cols-2 gap-3 w-full sm:w-auto">
-                            <button id="buscarBtn" class="btn-primary">
-                                <i class="fas fa-search mr-2"></i> Buscar
-                            </button>
-                            <button id="limpiarBtn" class="btn-secondary">
-                                <i class="fas fa-eraser mr-2"></i> Limpiar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div id="resultados"></div>
 
-    <!-- Resultados -->
-    <section id="resultados" class="py-16 bg-gray-50 hidden">
-        <div class="container mx-auto px-4">
-            <h3 class="text-2xl font-semibold text-gray-900 mb-8 text-center">
-                Información para <span id="busquedaTitulo" class="text-blue-600 font-medium"></span>
-            </h3>
-            <div class="max-w-4xl mx-auto info-card bg-white p-8">
-                <div id="resultadosLista" class="space-y-6"></div>
-            </div>
-        </div>
-    </section>
+  <footer>
+    © 2025 RepuestosYa | Consulta gratuita sin ánimo de lucro
+  </footer>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-8">
-                <div class="flex items-center justify-center mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-tools text-white text-sm"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">RepuestosYa</h3>
-                </div>
-                <p class="text-gray-400 mb-6 max-w-lg mx-auto">
-                    Tu sistema de consulta de repuestos automotrices. Información precisa y actualizada para profesionales y entusiastas.
-                </p>
-                <div class="border-t border-gray-800 pt-6 text-gray-400 text-sm">
-                    <p>&copy; 2026 RepuestosYa. Todos los derechos reservados.</p>
-                </div>
-            </div>
+  <!-- SDKs de Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js" type="module"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js" type="module"></script>
 
-            <!-- Herramientas -->
-            <div class="text-center">
-                <h4 class="text-lg font-semibold text-white mb-4">Herramientas Utilizadas</h4>
-                <div class="flex flex-wrap justify-center gap-8 items-center">
-                    <div class="text-center">
-                        <img src="https://qwenlm.github.io/qwen/assets/img/logo.png" alt="Qwen Chat" class="w-16 h-16 mx-auto mb-2 tool-logo">
-                        <p class="text-gray-300 text-sm">Qwen Chat</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" class="w-16 h-16 mx-auto mb-2 tool-logo">
-                        <p class="text-gray-300 text-sm">ChatGPT</p>
-                    </div>
-                    <div class="text-center">
-                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="w-16 h-16 mx-auto mb-2 tool-logo">
-                        <p class="text-gray-300 text-sm">GitHub</p>
-                    </div>
-                </div>
-                <p class="text-gray-500 text-sm mt-6">
-                    Este proyecto fue desarrollado utilizando herramientas avanzadas de inteligencia artificial y plataformas de desarrollo.
-                </p>
-            </div>
-        </div>
-    </footer>
+  <!-- Configuración de Firebase -->
+  <script type="module" src="firebase-config.js"></script>
 
-    <script>
-        // Base vacía
-        const repuestosDB = [];
+  <!-- Script principal -->
+  <script type="module">
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { app } from "./firebase-config.js";
 
-        // Buscar repuesto
-        document.getElementById('buscarBtn').addEventListener('click', function() {
-            const categoria = document.getElementById('categoria').value.trim().toLowerCase();
-            const marca = document.getElementById('marca').value.trim().toLowerCase();
-            const modelo = document.getElementById('modelo').value.trim().toLowerCase();
-            const anio = parseInt(document.getElementById('anio').value);
-            const searchTerm = document.getElementById('buscarInput').value.toLowerCase();
-
-            if (!marca || !modelo || !anio) {
-                alert('Por favor, completa los campos de marca, modelo y año');
-                return;
-            }
-
-            let resultados = repuestosDB.filter(r =>
-                (!categoria || r.categoria.includes(categoria)) &&
-                r.marca.includes(marca) &&
-                r.modelo.includes(modelo) &&
-                r.anio === anio
-            );
-
-            if (searchTerm) {
-                resultados = resultados.filter(r =>
-                    r.nombre.toLowerCase().includes(searchTerm) ||
-                    r.descripcion.toLowerCase().includes(searchTerm)
-                );
-            }
-
-            const resultadosSection = document.getElementById('resultados');
-            const busquedaTitulo = document.getElementById('busquedaTitulo');
-            const resultadosLista = document.getElementById('resultadosLista');
-
-            busquedaTitulo.textContent = `${marca.toUpperCase()} ${modelo.toUpperCase()} ${anio}`;
-
-            if (resultados.length > 0) {
-                resultadosLista.innerHTML = '';
-                resultados.forEach(repuesto => {
-                    const item = document.createElement('div');
-                    item.innerHTML = `
-                        <div class="text-center mb-6">
-                            <div class="result-image mx-auto">
-                                <img src="${repuesto.imagen}" alt="${repuesto.nombre}" class="w-full h-64 object-cover">
-                            </div>
-                        </div>
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-4 text-center">${repuesto.nombre}</h4>
-                        <p class="text-gray-700 text-lg leading-relaxed">${repuesto.descripcion}</p>
-                    `;
-                    resultadosLista.appendChild(item);
-                });
-            } else {
-                resultadosLista.innerHTML = `
-                    <div class="text-center py-12">
-                        <i class="fas fa-search text-6xl text-gray-400 mb-6 opacity-50"></i>
-                        <h4 class="text-2xl font-semibold text-gray-900 mb-4">No se encontró información</h4>
-                        <p class="text-gray-600 text-lg">No tenemos datos sobre repuestos que coincidan con tu búsqueda.</p>
-                    </div>
-                `;
-            }
-
-            resultadosSection.classList.remove('hidden');
-            resultadosSection.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Limpiar filtros
-        document.getElementById('limpiarBtn').addEventListener('click', function() {
-            document.getElementById('categoria').value = '';
-            document.getElementById('marca').value = '';
-            document.getElementById('modelo').value = '';
-            document.getElementById('anio').value = '';
-            document.getElementById('buscarInput').value = '';
-            document.getElementById('resultados').classList.add('hidden');
-            document.getElementById('categoria').focus();
-        });
-    </script>
-    <!-- Scripts principales (versión moderna de Firebase) -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAPpe9AgwqHPkjVK9fE_AvrJtvjvrVHUA0",
-      authDomain: "repuestosya-catalogo.firebaseapp.com",
-      projectId: "repuestosya-catalogo",
-      storageBucket: "repuestosya-catalogo.firebasestorage.app",
-      messagingSenderId: "770179439513",
-      appId: "1:770179439513:web:544597e763fb811d779108",
-      measurementId: "G-VYMR8ERCGT"
-    };
-
-    const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const analytics = getAnalytics(app);
 
-    console.log("✅ Firebase conectado correctamente");
-</script>
+    async function buscarRepuestos() {
+      const marca = document.getElementById("marca").value.trim();
+      const modelo = document.getElementById("modelo").value.trim();
+      const anio = document.getElementById("anio").value.trim();
 
+      let q = collection(db, "repuestos");
+      let filtros = [];
+
+      if (marca) filtros.push(where("marca", "==", marca));
+      if (modelo) filtros.push(where("modelo", "==", modelo));
+      if (anio) filtros.push(where("anio", "==", anio));
+
+      if (filtros.length > 0) {
+        q = query(collection(db, "repuestos"), ...filtros);
+      }
+
+      const resultados = await getDocs(q);
+      const contenedor = document.getElementById("resultados");
+      contenedor.innerHTML = "";
+
+      if (resultados.empty) {
+        contenedor.innerHTML = "<p>No se encontraron repuestos con esos datos.</p>";
+        return;
+      }
+
+      resultados.forEach((doc) => {
+        const data = doc.data();
+        contenedor.innerHTML += `
+          <div class="repuesto-card">
+            <img src="${data.imagen}" alt="${data.referencia}" />
+            <h3>${data.marca} ${data.modelo} (${data.anio})</h3>
+            <p><b>Referencia:</b> ${data.referencia}</p>
+          </div>
+        `;
+      });
+    }
+
+    document.getElementById("buscarBtn").addEventListener("click", buscarRepuestos);
+  </script>
 </body>
 </html>
