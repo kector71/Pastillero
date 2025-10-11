@@ -14,13 +14,11 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
-    /* 🌞 Modo claro */
     body {
       background-color: #f8fafc;
       color: #0f172a;
     }
 
-    /* 🌙 Modo oscuro */
     body.dark {
       background-color: #1a1c2e;
       color: #f8fafc;
@@ -44,24 +42,9 @@
       color: #a1a1aa;
     }
 
-    body.dark select option {
-      color: #0f172a;
-    }
-
-    body.dark table {
-      color: #f8fafc;
-    }
-
-    body.dark th {
-      background-color: #2d3049 !important;
-    }
-
-    body.dark tr:hover {
-      background-color: #3a3d5a !important;
-    }
-
-    body.dark footer {
-      background-color: #1a1c2e !important;
+    .card:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s;
     }
 
     input, select {
@@ -74,7 +57,7 @@
   <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
     <div class="container mx-auto px-4 py-8 text-center">
       <h1 class="text-4xl md:text-5xl font-bold mb-2">EL PASTILLERO 💊</h1>
-      <p class="text-xl md:text-2xl opacity-90">Catálogo de pastillas de freno</p>
+      <p class="text-xl md:text-2xl opacity-90">Catálogo visual de pastillas de freno</p>
     </div>
   </header>
 
@@ -120,24 +103,8 @@
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
     </div>
 
-    <!-- Tabla -->
-    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition">
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead class="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th class="px-6 py-3 font-bold text-left">MARCA</th>
-              <th class="px-6 py-3 font-bold text-left">MODELO</th>
-              <th class="px-6 py-3 font-bold text-left">AÑO</th>
-              <th class="px-6 py-3 font-bold text-left">POSICIÓN</th>
-              <th class="px-6 py-3 font-bold text-left">REF INCOLBEST</th>
-              <th class="px-6 py-3 font-bold text-left">PLATINA FMSI</th>
-            </tr>
-          </thead>
-          <tbody id="table-body" class="divide-y divide-gray-200 dark:divide-gray-600"></tbody>
-        </table>
-      </div>
-    </div>
+    <!-- Catálogo visual -->
+    <div id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
   </section>
 
   <!-- Footer -->
@@ -156,7 +123,7 @@
       const modeloSelect = document.getElementById('modelo');
       const anioInput = document.getElementById('anio');
       const busquedaInput = document.getElementById('busqueda');
-      const tableBody = document.getElementById('table-body');
+      const catalogo = document.getElementById('catalogo');
       const limpiarBtn = document.getElementById('limpiar-btn');
       const modoBtn = document.getElementById('modo-btn');
 
@@ -166,7 +133,7 @@
       try {
         const res = await fetch('pastillas.json');
         data = await res.json();
-        renderTable(data);
+        renderCatalogo(data);
         cargarMarcas(data);
       } catch (error) {
         console.error('Error al cargar el JSON:', error);
@@ -176,23 +143,23 @@
         return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
       }
 
-      function renderTable(lista) {
-        tableBody.innerHTML = '';
+      function renderCatalogo(lista) {
+        catalogo.innerHTML = '';
         const fragment = document.createDocumentFragment();
         lista.forEach(item => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-gray-100 dark:hover:bg-gray-700';
-          tr.innerHTML = `
-            <td class="px-6 py-4">${item.marca}</td>
-            <td class="px-6 py-4">${item.modelo}</td>
-            <td class="px-6 py-4">${item.desde ? item.desde : '-'} - ${item.hasta ? item.hasta : '-'}</td>
-            <td class="px-6 py-4">${item.posicion}</td>
-            <td class="px-6 py-4">${item.ref}</td>
-            <td class="px-6 py-4">${item.fmsi}</td>
+          const div = document.createElement('div');
+          div.className = 'bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 card transition';
+          div.innerHTML = `
+            <img src="${item.imagen || 'https://via.placeholder.com/150'}" alt="${item.marca} ${item.modelo}" class="w-full h-40 object-cover rounded-md mb-4">
+            <h3 class="text-lg font-semibold mb-1">${item.marca} ${item.modelo}</h3>
+            <p class="text-sm mb-1">Año: ${item.desde ? item.desde : '-'} - ${item.hasta ? item.hasta : '-'}</p>
+            <p class="text-sm mb-1">Posición: ${item.posicion}</p>
+            <p class="text-sm mb-1">Ref: ${item.ref}</p>
+            <p class="text-sm">FMSI: ${item.fmsi}</p>
           `;
-          fragment.appendChild(tr);
+          fragment.appendChild(div);
         });
-        tableBody.appendChild(fragment);
+        catalogo.appendChild(fragment);
       }
 
       function cargarMarcas(data) {
@@ -217,7 +184,7 @@
         modeloSelect.disabled = modelos.length === 0;
       }
 
-      function filterTable() {
+      function filterCatalogo() {
         const marca = marcaSelect.value;
         const modelo = modeloSelect.value;
         const anio = anioInput.value ? parseInt(anioInput.value) : null;
@@ -231,16 +198,16 @@
           return matchesMarca && matchesModelo && matchesAnio && matchesSearch;
         });
 
-        renderTable(filtrados);
+        renderCatalogo(filtrados);
       }
 
       marcaSelect.addEventListener('change', () => {
         cargarModelos(marcaSelect.value);
-        filterTable();
+        filterCatalogo();
       });
-      modeloSelect.addEventListener('change', filterTable);
-      anioInput.addEventListener('input', filterTable);
-      busquedaInput.addEventListener('input', filterTable);
+      modeloSelect.addEventListener('change', filterCatalogo);
+      anioInput.addEventListener('input', filterCatalogo);
+      busquedaInput.addEventListener('input', filterCatalogo);
 
       limpiarBtn.addEventListener('click', () => {
         marcaSelect.value = '';
@@ -248,7 +215,7 @@
         modeloSelect.disabled = true;
         anioInput.value = '';
         busquedaInput.value = '';
-        renderTable(data);
+        renderCatalogo(data);
       });
 
       modoBtn.addEventListener('click', () => {
