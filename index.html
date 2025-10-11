@@ -14,43 +14,62 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
+    /* 🌞 Modo claro */
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+
+    /* 🌙 Modo oscuro */
     body.dark {
-      background-color: #0f172a;
-      color: #f1f5f9;
+      background-color: #1a1c2e;
+      color: #f8fafc;
     }
 
     body.dark header {
-      background: linear-gradient(to right, #1e293b, #334155);
+      background: linear-gradient(to right, #1f2937, #374151);
     }
 
     body.dark .bg-white {
-      background-color: #1e293b !important;
+      background-color: #24263a !important;
     }
 
     body.dark input, body.dark select {
-      background-color: #334155;
-      color: #f1f5f9;
-      border-color: #475569;
+      background-color: #2d3049;
+      color: #f8fafc;
+      border-color: #4b5563;
+    }
+
+    body.dark input::placeholder {
+      color: #a1a1aa;
+    }
+
+    body.dark select option {
+      color: #0f172a;
     }
 
     body.dark table {
-      color: #f1f5f9;
+      color: #f8fafc;
     }
 
     body.dark th {
-      background-color: #334155 !important;
+      background-color: #2d3049 !important;
     }
 
     body.dark tr:hover {
-      background-color: #475569 !important;
+      background-color: #3a3d5a !important;
     }
 
     body.dark footer {
-      background-color: #0f172a !important;
+      background-color: #1a1c2e !important;
+    }
+
+    input, select {
+      outline: none;
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body>
   <!-- Header -->
   <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
     <div class="container mx-auto px-4 py-8 text-center">
@@ -92,20 +111,20 @@
         <div>
           <label class="block text-sm font-medium mb-1">AÑO</label>
           <input type="number" id="anio" min="1900" max="2025" placeholder="Ej. 2018"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
         </div>
       </div>
 
       <!-- Barra de búsqueda -->
       <input type="text" id="busqueda" placeholder="🔍 Buscar por palabra clave..."
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
     </div>
 
     <!-- Tabla -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden transition">
       <div class="overflow-x-auto">
         <table class="w-full">
-          <thead class="bg-gray-50">
+          <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
               <th class="px-6 py-3 font-bold text-left">MARCA</th>
               <th class="px-6 py-3 font-bold text-left">MODELO</th>
@@ -115,7 +134,7 @@
               <th class="px-6 py-3 font-bold text-left">PLATINA FMSI</th>
             </tr>
           </thead>
-          <tbody id="table-body" class="divide-y divide-gray-200"></tbody>
+          <tbody id="table-body" class="divide-y divide-gray-200 dark:divide-gray-600"></tbody>
         </table>
       </div>
     </div>
@@ -157,7 +176,7 @@
         tableBody.innerHTML = '';
         lista.forEach(item => {
           const row = `
-            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
               <td class="px-6 py-4">${item.marca}</td>
               <td class="px-6 py-4">${item.modelo}</td>
               <td class="px-6 py-4">${item.desde || item.hasta || '-'}</td>
