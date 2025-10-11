@@ -91,7 +91,6 @@
             stroke: #f8f9fa;
         }
         
-        /* Fix for form elements in dark mode */
         .dark .border-gray-300 {
             border-color: #4a5568 !important;
             background-color: #2d3748 !important;
@@ -106,10 +105,6 @@
             background-color: #2d3748 !important;
             color: #e9ecef !important;
             border-color: #4a5568 !important;
-        }
-        
-        .dark .focus\:ring-blue-500:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
         }
         
         .result-card {
@@ -146,28 +141,6 @@
         }
         .dark .field-value.text-blue-600 {
             color: #63b3ed !important;
-        }
-        
-        /* Ensure all text is visible in dark mode */
-        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, 
-        .dark p, .dark span, .dark div, .dark label, .dark td, .dark th {
-            color: #f8f9fa !important;
-        }
-        
-        .reset-filters {
-            background-color: #e53e3e;
-            color: white;
-            transition: all 0.2s;
-        }
-        .reset-filters:hover {
-            background-color: #c53030;
-            transform: translateY(-2px);
-        }
-        .dark .reset-filters {
-            background-color: #e53e3e;
-        }
-        .dark .reset-filters:hover {
-            background-color: #c53030;
         }
         
         .filter-group {
@@ -243,7 +216,6 @@
             font-weight: 500;
         }
         
-        /* Position indicators in results */
         .position-badge {
             display: inline-block;
             padding: 0.15rem 0.5rem;
@@ -303,7 +275,6 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">MARCA</label>
                             <select id="marca" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option>Todas</option>
-                                <!-- Las marcas se cargarán dinámicamente -->
                             </select>
                         </div>
                         
@@ -311,7 +282,6 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1">MODELO</label>
                             <select id="modelo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
                                 <option>Todos</option>
-                                <!-- Los modelos se cargarán dinámicamente -->
                             </select>
                         </div>
                         
@@ -406,7 +376,15 @@
 
         <!-- Results Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden" id="results-container">
-            <!-- Los resultados se generarán aquí dinámicamente -->
+            <div class="p-12 text-center">
+                <div class="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-1">No hay datos disponibles</h3>
+                <p class="text-gray-500 max-w-md mx-auto">Por favor, carga datos para comenzar la búsqueda</p>
+            </div>
         </div>
     </section>
 
@@ -447,58 +425,13 @@
             const darkModeToggle = document.getElementById('darkModeToggle');
             const modeIcon = document.getElementById('modeIcon');
             
-            // Datos de los registros - ahora con datos de ejemplo
-            let brakePadsData = [
-                { marca: 'ACURA', modelo: 'CL', desde: 1998, hasta: 1999, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503', oemCode: '0446002410' },
-                { marca: 'ACURA', modelo: 'Integra', desde: 1999, hasta: 1999, posicion: 'Del', refIncolbest: '7104', platinaFmsi: 'D177', oemCode: '0446002420' },
-                { marca: 'ACURA', modelo: 'Integra', desde: 1990, hasta: 1991, posicion: 'Del', refIncolbest: '7235', platinaFmsi: 'D409', oemCode: '0446002430' },
-                { marca: 'ACURA', modelo: 'Integra', desde: 2000, hasta: 2001, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503', oemCode: '0446002410' },
-                { marca: 'ACURA', modelo: 'Legend', desde: 1986, hasta: 1987, posicion: 'Tras', refIncolbest: '7236', platinaFmsi: 'D342', oemCode: '0446002450' },
-                { marca: 'ACURA', modelo: 'Legend', desde: 1991, hasta: 1995, posicion: 'Tras', refIncolbest: '7418', platinaFmsi: 'D536', oemCode: '0446002460' },
-                { marca: 'ACURA', modelo: 'NSX', desde: 1994, hasta: 2005, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503', oemCode: '0446002410' },
-                { marca: 'ACURA', modelo: 'RDX', desde: 2007, hasta: 2010, posicion: 'Del', refIncolbest: '7994', platinaFmsi: 'D1089', oemCode: '0446002480' },
-                { marca: 'ACURA', modelo: 'RSX', desde: 2002, hasta: 2002, posicion: 'Del', refIncolbest: '7497', platinaFmsi: 'D948', oemCode: '0446002490' },
-                { marca: 'ACURA', modelo: 'SLX', desde: 1992, hasta: 1998, posicion: 'Del', refIncolbest: '7437', platinaFmsi: 'D558', oemCode: '0446002500' },
-                { marca: 'ALFA ROMEO', modelo: 'Alfa Romeo 01/05 NUEVA', desde: 2001, hasta: 2005, posicion: 'Del', refIncolbest: '8675', platinaFmsi: 'D1476', oemCode: '0446002510' },
-                { marca: 'ALFA ROMEO', modelo: 'Alfetta', desde: 1972, hasta: 1977, posicion: 'Del', refIncolbest: '736', platinaFmsi: 'D31', oemCode: '0446002520' },
-                { marca: 'ALFA ROMEO', modelo: 'Alfetta', desde: 1972, hasta: 1977, posicion: 'Del / Tras', refIncolbest: '7057', platinaFmsi: 'D127', oemCode: '0446002530' },
-                { marca: 'AUDI', modelo: 'A6', desde: 2005, hasta: 2011, posicion: 'Del', refIncolbest: '7796', platinaFmsi: 'D1111', oemCode: '0446002540' },
-                { marca: 'AUDI', modelo: '100 series', desde: 1989, hasta: 1991, posicion: 'Del', refIncolbest: '7143', platinaFmsi: 'D290', oemCode: '0446002550' },
-                { marca: 'AUDI', modelo: '4000-4', desde: 1984, hasta: 1987, posicion: 'Del', refIncolbest: '7177', platinaFmsi: 'D227', oemCode: '0446002560' },
-                { marca: 'BMW', modelo: '3 Series', desde: 1999, hasta: 2005, posicion: 'Del', refIncolbest: '7890', platinaFmsi: 'D1200', oemCode: '0446002570' },
-                { marca: 'BMW', modelo: '5 Series', desde: 2004, hasta: 2010, posicion: 'Del', refIncolbest: '7950', platinaFmsi: 'D1250', oemCode: '0446002580' },
-                { marca: 'CHEVROLET', modelo: 'Camaro', desde: 1993, hasta: 2002, posicion: 'Del', refIncolbest: '7650', platinaFmsi: 'D1000', oemCode: '0446002590' },
-                { marca: 'CHEVROLET', modelo: 'Corvette', desde: 2005, hasta: 2013, posicion: 'Del', refIncolbest: '7720', platinaFmsi: 'D1050', oemCode: '0446002600' },
-                { marca: 'FORD', modelo: 'Mustang', desde: 1994, hasta: 2004, posicion: 'Del', refIncolbest: '7580', platinaFmsi: 'D950', oemCode: '0446002610' },
-                { marca: 'FORD', modelo: 'Explorer', desde: 2002, hasta: 2006, posicion: 'Del', refIncolbest: '7620', platinaFmsi: 'D980', oemCode: '0446002620' }
-            ];
+            // Datos vacíos - listo para recibir datos externos
+            let brakePadsData = [];
             
-            // Modelo options based on marca - ahora vacío
+            // Modelo options based on marca
             const modeloOptions = {
-                'Todas': ['Todos'],
-                'ACURA': ['Todos', 'CL', 'Integra', 'Legend', 'NSX', 'RDX', 'RSX', 'SLX'],
-                'ALFA ROMEO': ['Todos', 'Alfa Romeo 01/05 NUEVA', 'Alfetta'],
-                'AUDI': ['Todos', 'A6', '100 series', '4000-4'],
-                'BMW': ['Todos', '3 Series', '5 Series'],
-                'CHEVROLET': ['Todos', 'Camaro', 'Corvette'],
-                'FORD': ['Todos', 'Mustang', 'Explorer']
+                'Todas': ['Todos']
             };
-            
-            // Cargar marcas en el select
-            function loadMarcas() {
-                marcaSelect.innerHTML = '<option>Todas</option>';
-                
-                // Obtener marcas únicas
-                const marcas = [...new Set(brakePadsData.map(item => item.marca))];
-                
-                // Agregar marcas al select
-                marcas.forEach(marca => {
-                    const option = document.createElement('option');
-                    option.value = marca;
-                    option.textContent = marca;
-                    marcaSelect.appendChild(option);
-                });
-            }
             
             // Render results vertically
             function renderResults(data) {
@@ -520,7 +453,6 @@
                     html += '<div class="divide-y divide-gray-200">';
                     
                     data.forEach(item => {
-                        // Determinar si es delantera, trasera o ambas
                         let positionBadge = '';
                         if (item.posicion.includes('Del') && item.posicion.includes('Tras')) {
                             positionBadge = '<span class="position-badge position-delantera mr-1">Delantera</span><span class="position-badge position-trasera">Trasera</span>';
@@ -554,7 +486,6 @@
             // Update dark mode icon based on current mode
             function updateDarkModeIcon() {
                 if (document.body.classList.contains('dark')) {
-                    // Modo oscuro activo - mostrar sol (modo claro)
                     modeIcon.innerHTML = `
                         <circle cx="12" cy="12" r="5"/>
                         <line x1="12" y1="1" x2="12" y2="3"/>
@@ -567,7 +498,6 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                     `;
                 } else {
-                    // Modo claro activo - mostrar luna (modo oscuro)
                     modeIcon.innerHTML = `
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                     `;
@@ -576,26 +506,17 @@
             
             // Handle position selection
             function setupPositionSelection() {
-                // Set initial state - both inactive
-                positionDelantera.classList.remove('active');
-                positionTrasera.classList.remove('active');
-                
-                // Add click event listeners
                 positionDelantera.addEventListener('click', function() {
-                    if (this.classList.contains('active')) {
-                        this.classList.remove('active');
-                    } else {
-                        this.classList.add('active');
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active') && positionTrasera.classList.contains('active')) {
                         positionTrasera.classList.remove('active');
                     }
                     filterData();
                 });
                 
                 positionTrasera.addEventListener('click', function() {
-                    if (this.classList.contains('active')) {
-                        this.classList.remove('active');
-                    } else {
-                        this.classList.add('active');
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active') && positionDelantera.classList.contains('active')) {
                         positionDelantera.classList.remove('active');
                     }
                     filterData();
@@ -721,7 +642,6 @@
                 } else {
                     modeloSelect.disabled = false;
                     
-                    // Verificar si la marca existe en modeloOptions
                     if (modeloOptions.hasOwnProperty(marca)) {
                         modeloOptions[marca].forEach(modelo => {
                             const option = document.createElement('option');
@@ -762,8 +682,7 @@
             // Initialize position selection
             setupPositionSelection();
             
-            // Inicializar con datos de ejemplo
-            loadMarcas();
+            // Initialize with empty state
             filterData();
         });
     </script>
