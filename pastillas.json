@@ -1,0 +1,12 @@
+[
+  {"marca": "ACURA", "modelo": "CL", "desde": 1998, "hasta": 1999, "posicion": "Del", "ref": "7382", "fmsi": "D503"},
+  {"marca": "ACURA", "modelo": "Integra", "desde": 1999, "hasta": 1999, "posicion": "Del", "ref": "7104", "fmsi": "D177"},
+  {"marca": "ACURA", "modelo": "Legend", "desde": 1991, "hasta": 1995, "posicion": "Tras", "ref": "7418", "fmsi": "D536"},
+  {"marca": "ACURA", "modelo": "RDX", "desde": 2007, "hasta": 2010, "posicion": "Del", "ref": "7994", "fmsi": "D1089"},
+  {"marca": "ALFA ROMEO", "modelo": "Alfa Romeo 01/05 NUEVA", "desde": 2001, "hasta": 2005, "posicion": "Del", "ref": "8675", "fmsi": "D1476"},
+  {"marca": "ALFA ROMEO", "modelo": "Alfetta", "desde": 1972, "hasta": 1977, "posicion": "Del", "ref": "736", "fmsi": "D31"},
+  {"marca": "AMERICAN MOTORS", "modelo": "Eagle", "desde": 1980, "hasta": 1981, "posicion": "Del", "ref": "7027A", "fmsi": "D91"},
+  {"marca": "ASIA", "modelo": "Hi Topic", "desde": 1993, "hasta": 1999, "posicion": "Del", "ref": "047", "fmsi": "D1513"},
+  {"marca": "AUDI", "modelo": "A6", "desde": 2005, "hasta": 2011, "posicion": "Del", "ref": "7796", "fmsi": "D1111"},
+  {"marca": "AUDI", "modelo": "100 series", "desde": 1989, "hasta": 1991, "posicion": "Del", "ref": "7143", "fmsi": "D290"}
+]
