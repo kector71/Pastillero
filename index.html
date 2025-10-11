@@ -506,5 +506,21 @@
             }
         };
     </script>
+    
+    async function cargarPastillas() {
+  const respuesta = await fetch('data/pastillas.csv');
+  const texto = await respuesta.text();
+  const lineas = texto.split('\n').slice(1); // omite encabezado
+  const datos = lineas.map(linea => {
+    const [marca, modelo, anio, platina, referencias, nombre, descripcion, imagen] = linea.split(',');
+    return { marca, modelo, anio: parseInt(anio), platina, referencias, nombre, descripcion, imagen };
+  });
+  return datos;
+}
+
+// Reemplaza tu base de datos fija por esto:
+let pastillasDB = [];
+cargarPastillas().then(data => pastillasDB = data);
+    
 </body>
 </html>
