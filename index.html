@@ -1,74 +1,233 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Catálogo de Pastillas</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
-input { padding: 10px; width: 60%; border: 1px solid #ccc; border-radius: 5px; }
-table { border-collapse: collapse; width: 100%; margin-top: 15px; background: white; }
-th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-th { background-color: #007bff; color: white; }
-tr:nth-child(even) { background-color: #f2f2f2; }
-img { width: 80px; height: auto; border-radius: 5px; }
-</style>
-</head>
-<body>
+import React, { useState, useMemo } from 'react';
+import { Search } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-<h2>🔍 Catálogo de Pastillas Incolbest</h2>
-<input type="text" id="busqueda" placeholder="Busca por marca, modelo, año o referencia...">
-<div id="resultados"></div>
+const mockBrakePads = [
+  { marca: 'ACURA', modelo: 'CL', desde: 1998, hasta: 1999, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503' },
+  { marca: 'ACURA', modelo: 'Integra', desde: 1999, hasta: 1999, posicion: 'Del', refIncolbest: '7104', platinaFmsi: 'D177' },
+  { marca: 'ACURA', modelo: 'Integra', desde: 1990, hasta: 1991, posicion: 'Del', refIncolbest: '7235', platinaFmsi: 'D409' },
+  { marca: 'ACURA', modelo: 'Integra', desde: 2000, hasta: 2001, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503' },
+  { marca: 'ACURA', modelo: 'Legend', desde: 1986, hasta: 1987, posicion: 'Tras', refIncolbest: '7236', platinaFmsi: 'D342' },
+  { marca: 'ACURA', modelo: 'Legend', desde: 1991, hasta: 1995, posicion: 'Tras', refIncolbest: '7418', platinaFmsi: 'D536' },
+  { marca: 'ACURA', modelo: 'NXS', desde: 1994, hasta: 2005, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503' },
+  { marca: 'ACURA', modelo: 'RDX', desde: 2007, hasta: 2010, posicion: 'Del', refIncolbest: '7994', platinaFmsi: 'D1089' },
+  { marca: 'ACURA', modelo: 'RSX', desde: 2002, hasta: 2002, posicion: 'Del', refIncolbest: '7497', platinaFmsi: 'D948' },
+  { marca: 'ACURA', modelo: 'SLX', desde: 1992, hasta: 1998, posicion: 'Del', refIncolbest: '7437', platinaFmsi: 'D558' },
+  { marca: 'ALFA ROMEO', modelo: 'Alfa Romeo 01/05 NUEVA', desde: 2001, hasta: 2005, posicion: 'Del', refIncolbest: '8675', platinaFmsi: 'D1476' },
+  { marca: 'ALFA ROMEO', modelo: 'Alfetta', desde: 1972, hasta: 1977, posicion: 'Del', refIncolbest: '736', platinaFmsi: 'D31' },
+  { marca: 'ALFA ROMEO', modelo: 'Alfetta', desde: 1972, hasta: 1977, posicion: 'Del / Tras', refIncolbest: '7057', platinaFmsi: 'D127' },
+  { marca: 'AMERICAN MOTORS', modelo: 'Eagle', desde: 1980, hasta: 1981, posicion: 'Del', refIncolbest: '7027A', platinaFmsi: 'D91' },
+  { marca: 'ASIA', modelo: 'Hi Topic', desde: 1993, hasta: 1999, posicion: 'Del', refIncolbest: '047', platinaFmsi: 'D1513' },
+  { marca: 'AUDI', modelo: 'A6', desde: 2005, hasta: 2011, posicion: 'Del', refIncolbest: '7796', platinaFmsi: 'D1111' },
+  { marca: 'AUDI', modelo: '100 series', desde: 1989, hasta: 1991, posicion: 'Del', refIncolbest: '7143', platinaFmsi: 'D290' },
+  { marca: 'AUDI', modelo: '4000-4', desde: 1984, hasta: 1987, posicion: 'Del', refIncolbest: '7177', platinaFmsi: 'D227' }
+];
 
-<script>
-async function cargarDatos() {
-  const response = await fetch('data/pastillas.csv');
-  const texto = await response.text();
-  const filas = texto.trim().split('\n');
-  const encabezados = filas[0].split(',');
-  const datos = filas.slice(1).map(fila => {
-    const valores = fila.split(',');
-    const registro = {};
-    encabezados.forEach((col, i) => registro[col.trim()] = valores[i] ? valores[i].trim() : '');
-    return registro;
+const App = () => {
+  const [filters, setFilters] = useState({
+    marca: '',
+    modelo: '',
+    desde: '',
+    hasta: '',
+    posicion: ''
   });
-  return datos;
-}
 
-async function buscar() {
-  const input = document.getElementById('busqueda').value.toLowerCase();
-  const resultadosDiv = document.getElementById('resultados');
-  resultadosDiv.innerHTML = '';
-  
-  const datos = await cargarDatos();
-  const filtrados = datos.filter(item =>
-    Object.values(item).some(valor => valor.toLowerCase().includes(input))
+  const uniqueMarcas = useMemo(() => {
+    const marcas = [...new Set(mockBrakePads.map(item => item.marca))];
+    return ['Todas', ...marcas.sort()];
+  }, []);
+
+  const uniqueModelos = useMemo(() => {
+    if (!filters.marca || filters.marca === 'Todas') {
+      return ['Todos', ...new Set(mockBrakePads.map(item => item.modelo))];
+    }
+    return ['Todos', ...new Set(mockBrakePads.filter(item => item.marca === filters.marca).map(item => item.modelo))];
+  }, [filters.marca]);
+
+  const uniquePosiciones = useMemo(() => {
+    return ['Todas', ...new Set(mockBrakePads.map(item => item.posicion))];
+  }, []);
+
+  const filteredData = useMemo(() => {
+    return mockBrakePads.filter(item => {
+      const matchesMarca = !filters.marca || filters.marca === 'Todas' || item.marca === filters.marca;
+      const matchesModelo = !filters.modelo || filters.modelo === 'Todos' || item.modelo === filters.modelo;
+      const matchesDesde = !filters.desde || item.desde >= parseInt(filters.desde);
+      const matchesHasta = !filters.hasta || item.hasta <= parseInt(filters.hasta);
+      const matchesPosicion = !filters.posicion || filters.posicion === 'Todas' || item.posicion === filters.posicion;
+      
+      return matchesMarca && matchesModelo && matchesDesde && matchesHasta && matchesPosicion;
+    });
+  }, [filters]);
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prev => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center mb-4 md:mb-0">
+              <div className="bg-white text-blue-600 rounded-lg p-2 mr-3">
+                <Search size={24} />
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold">El Pastillero</h1>
+            </div>
+            <p className="text-blue-100 max-w-md">Tu catálogo de pastillas de freno rápido y preciso</p>
+          </div>
+        </div>
+      </header>
+
+      {/* Search Section */}
+      <section className="container mx-auto px-4 py-8">
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Filtrar resultados</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Marca</label>
+              <select 
+                name="marca"
+                value={filters.marca}
+                onChange={handleFilterChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {uniqueMarcas.map(marca => (
+                  <option key={marca} value={marca}>{marca}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Modelo</label>
+              <select 
+                name="modelo"
+                value={filters.modelo}
+                onChange={handleFilterChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={!filters.marca || filters.marca === 'Todas'}
+              >
+                {uniqueModelos.map(modelo => (
+                  <option key={modelo} value={modelo}>{modelo}</option>
+                ))}
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Desde (Año)</label>
+              <input 
+                type="number"
+                name="desde"
+                value={filters.desde}
+                onChange={handleFilterChange}
+                min="1900"
+                max="2024"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Hasta (Año)</label>
+              <input 
+                type="number"
+                name="hasta"
+                value={filters.hasta}
+                onChange={handleFilterChange}
+                min="1900"
+                max="2024"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Posición</label>
+              <select 
+                name="posicion"
+                value={filters.posicion}
+                onChange={handleFilterChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {uniquePosiciones.map(posicion => (
+                  <option key={posicion} value={posicion}>{posicion}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Results Section */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+              <span className="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+              Resultados encontrados: {filteredData.length}
+            </h2>
+          </div>
+          
+          {filteredData.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marca</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modelo</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Año</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posición</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ref Incolbest</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Platina FMSI</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {filteredData.map((item, index) => (
+                    <motion.tr 
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="hover:bg-blue-50 transition-colors"
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap">{item.marca}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{item.modelo}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{item.desde} - {item.hasta}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{item.posicion}</td>
+                      <td className="px-6 py-4 whitespace-nowrap font-medium text-blue-600">{item.refIncolbest}</td>
+                      <td className="px-6 py-4 whitespace-nowrap">{item.platinaFmsi}</td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="p-12 text-center">
+              <div className="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Search className="text-blue-500" size={24} />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-1">No se encontraron resultados</h3>
+              <p className="text-gray-500 max-w-md mx-auto">Intenta ajustar tus filtros de búsqueda para encontrar las pastillas de freno que necesitas</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white mt-12">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <h3 className="text-xl font-bold">El Pastillero</h3>
+              <p className="text-gray-400">Catálogo de pastillas de freno | Incolbest</p>
+            </div>
+            <div className="text-sm text-gray-400">
+              © {new Date().getFullYear()} El Pastillero. Todos los derechos reservados.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
-  
-  if (filtrados.length === 0) {
-    resultadosDiv.innerHTML = '<p>❌ No se encontró ninguna coincidencia.</p>';
-    return;
-  }
-  
-  let tabla = '<table><tr><th>Marca</th><th>Modelo</th><th>Desde</th><th>Hasta</th><th>Posición</th><th>Ref Incolbest</th><th>Platina FMSI</th><th>Imagen</th></tr>';
-  filtrados.forEach(item => {
-    tabla += `<tr>
-      <td>${item.MARCA}</td>
-      <td>${item.MODELO}</td>
-      <td>${item.DESDE}</td>
-      <td>${item.HASTA}</td>
-      <td>${item.POSICIÓN}</td>
-      <td>${item['REF INCOLBEST']}</td>
-      <td>${item['PLATINA FMSI']}</td>
-      <td>${item.IMAGEN ? `<img src="${item.IMAGEN}" alt="Pastilla">` : '—'}</td>
-    </tr>`;
-  });
-  tabla += '</table>';
-  
-  resultadosDiv.innerHTML = tabla;
-}
+};
 
-document.getElementById('busqueda').addEventListener('input', buscar);
-</script>
-
-</body>
-</html>
+export default App;
