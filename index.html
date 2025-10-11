@@ -3,194 +3,253 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buscador de Pastillas</title>
+  <title>EL PASTILLERO 💊</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      color: #222;
-      transition: background 0.3s, color 0.3s;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .oscuro {
-      background-color: #121212;
-      color: #f5f5f5;
+    /* 🌞 Modo claro */
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
+    /* 🌙 Modo oscuro */
+    body.dark {
+      background-color: #1a1c2e;
+      color: #f8fafc;
     }
 
-    h1 {
-      margin-bottom: 20px;
+    body.dark header {
+      background: linear-gradient(to right, #1f2937, #374151);
     }
 
-    .filtros {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
+    body.dark .bg-white {
+      background-color: #24263a !important;
     }
 
-    input, select, button {
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+    body.dark input, body.dark select {
+      background-color: #2d3049;
+      color: #f8fafc;
+      border-color: #4b5563;
     }
 
-    body.oscuro input, 
-    body.oscuro select {
-      background-color: #222;
-      color: #fff;
-      border: 1px solid #555;
+    body.dark input::placeholder {
+      color: #a1a1aa;
     }
 
-    button {
-      cursor: pointer;
+    body.dark select option {
+      color: #0f172a;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+    body.dark table {
+      color: #f8fafc;
     }
 
-    th, td {
-      border: 1px solid #aaa;
-      padding: 8px;
-      text-align: center;
+    body.dark th {
+      background-color: #2d3049 !important;
     }
 
-    body.oscuro th, body.oscuro td {
-      border-color: #444;
+    body.dark tr:hover {
+      background-color: #3a3d5a !important;
     }
 
-    .modo-btn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      padding: 10px 15px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    body.dark footer {
+      background-color: #1a1c2e !important;
     }
 
-    body.oscuro .modo-btn {
-      background-color: #0d6efd;
-    }
-
-    .logo {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      font-weight: bold;
-      color: #007bff;
-      opacity: 0.7;
-    }
-
-    body.oscuro .logo {
-      color: #6ea8fe;
+    input, select {
+      outline: none;
     }
   </style>
 </head>
 <body>
-  <button class="modo-btn" onclick="toggleModo()">🌙</button>
-  <div class="container">
-    <h1>🔍 Buscador de Pastillas</h1>
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <div class="container mx-auto px-4 py-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">EL PASTILLERO 💊</h1>
+      <p class="text-xl md:text-2xl opacity-90">Catálogo de pastillas de freno</p>
+    </div>
+  </header>
 
-    <div class="filtros">
-      <input type="text" id="marca" placeholder="Marca" list="listaMarcas">
-      <datalist id="listaMarcas"></datalist>
+  <!-- Filtros -->
+  <section class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8 transition">
+      <div class="flex flex-wrap justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Filtrar resultados</h2>
+        <div class="flex gap-2">
+          <button id="modo-btn" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition">
+            🌙 Modo oscuro
+          </button>
+          <button id="limpiar-btn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+            🧹 Limpiar filtros
+          </button>
+        </div>
+      </div>
 
-      <input type="text" id="modelo" placeholder="Modelo" list="listaModelos">
-      <datalist id="listaModelos"></datalist>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">MARCA</label>
+          <select id="marca" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+            <option value="">Todas</option>
+          </select>
+        </div>
 
-      <input type="number" id="anio" placeholder="Año">
-      <button onclick="buscar()">Buscar</button>
+        <div>
+          <label class="block text-sm font-medium mb-1">MODELO</label>
+          <select id="modelo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" disabled>
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">AÑO</label>
+          <input type="number" id="anio" min="1900" max="2025" placeholder="Ej. 2018"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
+        </div>
+      </div>
+
+      <!-- Barra de búsqueda -->
+      <input type="text" id="busqueda" placeholder="🔍 Buscar por palabra clave..."
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
     </div>
 
-    <table id="tabla">
-      <thead>
-        <tr>
-          <th>Marca</th>
-          <th>Modelo</th>
-          <th>Desde</th>
-          <th>Hasta</th>
-          <th>Posición</th>
-          <th>Ref</th>
-          <th>FMSI</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+    <!-- Tabla -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden transition">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 font-bold text-left">MARCA</th>
+              <th class="px-6 py-3 font-bold text-left">MODELO</th>
+              <th class="px-6 py-3 font-bold text-left">AÑO</th>
+              <th class="px-6 py-3 font-bold text-left">POSICIÓN</th>
+              <th class="px-6 py-3 font-bold text-left">REF INCOLBEST</th>
+              <th class="px-6 py-3 font-bold text-left">PLATINA FMSI</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="divide-y divide-gray-200 dark:divide-gray-600"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-  <div class="logo">JW 🫶🏼</div>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white mt-12 transition">
+    <div class="container mx-auto px-4 py-8 text-center">
+      <h3 class="text-xl font-bold">EL PASTILLERO 💊</h3>
+      <div class="mt-4 text-sm text-gray-400">
+        © 2025 EL PASTILLERO 💊. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
 
   <script>
-    let datos = [];
-    let modoOscuro = false;
+    document.addEventListener('DOMContentLoaded', async () => {
+      const marcaSelect = document.getElementById('marca');
+      const modeloSelect = document.getElementById('modelo');
+      const anioInput = document.getElementById('anio');
+      const busquedaInput = document.getElementById('busqueda');
+      const tableBody = document.getElementById('table-body');
+      const limpiarBtn = document.getElementById('limpiar-btn');
+      const modoBtn = document.getElementById('modo-btn');
 
-    // Cargar JSON
-    fetch("pastillas.json")
-      .then(res => res.json())
-      .then(data => {
-        datos = data;
-        llenarListas(data);
-        mostrarTabla(data);
+      let data = [];
+      let darkMode = false;
+
+      try {
+        const res = await fetch('pastillas.json');
+        data = await res.json();
+        renderTable(data);
+        cargarMarcas(data);
+      } catch (error) {
+        console.error('Error al cargar el JSON:', error);
+      }
+
+      function renderTable(lista) {
+        tableBody.innerHTML = '';
+        lista.forEach(item => {
+          const row = `
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+              <td class="px-6 py-4">${item.marca}</td>
+              <td class="px-6 py-4">${item.modelo}</td>
+              <td class="px-6 py-4">${item.desde || item.hasta || '-'}</td>
+              <td class="px-6 py-4">${item.posicion}</td>
+              <td class="px-6 py-4">${item.ref}</td>
+              <td class="px-6 py-4">${item.fmsi}</td>
+            </tr>`;
+          tableBody.insertAdjacentHTML('beforeend', row);
+        });
+      }
+
+      function cargarMarcas(data) {
+        const marcas = [...new Set(data.map(i => i.marca))].sort();
+        marcas.forEach(m => {
+          const option = document.createElement('option');
+          option.value = m;
+          option.textContent = m;
+          marcaSelect.appendChild(option);
+        });
+      }
+
+      function cargarModelos(marca) {
+        modeloSelect.innerHTML = '<option value="">Todos</option>';
+        const modelos = [...new Set(data.filter(i => i.marca === marca).map(i => i.modelo))].sort();
+        modelos.forEach(m => {
+          const option = document.createElement('option');
+          option.value = m;
+          option.textContent = m;
+          modeloSelect.appendChild(option);
+        });
+        modeloSelect.disabled = modelos.length === 0;
+      }
+
+      function filterTable() {
+        const marca = marcaSelect.value;
+        const modelo = modeloSelect.value;
+        const anio = anioInput.value ? parseInt(anioInput.value) : null;
+        const search = busquedaInput.value.toLowerCase();
+
+        const filtrados = data.filter(item => {
+          const matchesMarca = !marca || item.marca === marca;
+          const matchesModelo = !modelo || item.modelo === modelo;
+          const matchesAnio = !anio || (item.desde <= anio && item.hasta >= anio);
+          const matchesSearch = Object.values(item).join(' ').toLowerCase().includes(search);
+          return matchesMarca && matchesModelo && matchesAnio && matchesSearch;
+        });
+
+        renderTable(filtrados);
+      }
+
+      marcaSelect.addEventListener('change', () => {
+        cargarModelos(marcaSelect.value);
+        filterTable();
+      });
+      modeloSelect.addEventListener('change', filterTable);
+      anioInput.addEventListener('input', filterTable);
+      busquedaInput.addEventListener('input', filterTable);
+
+      limpiarBtn.addEventListener('click', () => {
+        marcaSelect.value = '';
+        modeloSelect.innerHTML = '<option value="">Todos</option>';
+        modeloSelect.disabled = true;
+        anioInput.value = '';
+        busquedaInput.value = '';
+        renderTable(data);
       });
 
-    function llenarListas(data) {
-      const marcas = [...new Set(data.map(d => d.marca))];
-      const modelos = [...new Set(data.map(d => d.modelo))];
-
-      document.getElementById("listaMarcas").innerHTML = marcas.map(m => `<option value="${m}">`).join("");
-      document.getElementById("listaModelos").innerHTML = modelos.map(m => `<option value="${m}">`).join("");
-    }
-
-    function buscar() {
-      const marca = document.getElementById("marca").value.toLowerCase();
-      const modelo = document.getElementById("modelo").value.toLowerCase();
-      const anio = parseInt(document.getElementById("anio").value);
-
-      const filtrados = datos.filter(d => {
-        const coincideMarca = !marca || d.marca.toLowerCase().includes(marca);
-        const coincideModelo = !modelo || d.modelo.toLowerCase().includes(modelo);
-        const coincideAnio = !anio || (anio >= d.desde && anio <= d.hasta);
-        return coincideMarca && coincideModelo && coincideAnio;
+      modoBtn.addEventListener('click', () => {
+        darkMode = !darkMode;
+        document.body.classList.toggle('dark', darkMode);
+        modoBtn.textContent = darkMode ? '🌞 Modo claro' : '🌙 Modo oscuro';
       });
-
-      mostrarTabla(filtrados);
-    }
-
-    function mostrarTabla(data) {
-      const cuerpo = document.querySelector("#tabla tbody");
-      cuerpo.innerHTML = data.map(d => `
-        <tr>
-          <td>${d.marca}</td>
-          <td>${d.modelo}</td>
-          <td>${d.desde}</td>
-          <td>${d.hasta}</td>
-          <td>${d.posicion}</td>
-          <td>${d.ref}</td>
-          <td>${d.fmsi}</td>
-        </tr>
-      `).join("");
-    }
-
-    function toggleModo() {
-      document.body.classList.toggle("oscuro");
-      modoOscuro = !modoOscuro;
-      document.querySelector(".modo-btn").textContent = modoOscuro ? "☀️" : "🌙";
-    }
+    });
   </script>
 </body>
 </html>
