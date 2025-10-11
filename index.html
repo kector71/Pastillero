@@ -1,196 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RepuestosYa</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #0a5fb4;
-      color: white;
-      text-align: center;
-      padding: 15px 0;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-    section.banner {
-      text-align: center;
-      padding: 40px 10px;
-    }
-
-    section.banner h1 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    section.banner p {
-      font-size: 1rem;
-      color: #555;
-    }
-
-    .buscador {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: 20px auto;
-      text-align: center;
-    }
-
-    .buscador input {
-      width: 30%;
-      padding: 8px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .buscador button {
-      background-color: #0a5fb4;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .buscador button:hover {
-      background-color: #084c8d;
-    }
-
-    #resultados {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .repuesto-card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      margin: 10px;
-      padding: 15px;
-      width: 250px;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-
-    .repuesto-card:hover {
-      transform: scale(1.03);
-    }
-
-    .repuesto-card img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
-    footer {
-      background: #0a5fb4;
-      color: white;
-      text-align: center;
-      padding: 15px 0;
-      margin-top: 30px;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 600px) {
-      .buscador input {
-        width: 80%;
-        display: block;
-        margin: 8px auto;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastillero - Consulta de pastillas de freno</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-small {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 1.5rem 0;
+        }
+        
+        .search-container {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .input-field {
+            padding: 0.75rem;
+            border: 1px solid #d1d5da;
+            border-radius: 0.5rem;
+            width: 100%;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn-primary {
+            background-color: #000000;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #4b5563;
+        }
+        
+        .result-img {
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .tool-logo {
+            filter: grayscale(100%) opacity(0.7);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .tool-logo:hover {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.1);
+        }
+        
+        /* Estilo del logo */
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        .logo-bg {
+            background-color: #2563eb;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
+<body class="bg-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center">
+                <div class="logo-bg mr-3">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-bold text-gray-900">Pastillero</h1>
+            </div>
+        </div>
+    </header>
 
-<body>
-  <header>🔧 RepuestosYa</header>
+    <!-- Hero Section -->
+    <section class="hero-small">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg font-bold text-gray-800 max-w-2xl mx-auto">
+                Consulta referencias de pastillas de freno para tu vehículo
+            </p>
+        </div>
+    </section>
 
-  <section class="banner">
-    <h1>Consulta repuestos de forma rápida y gratuita</h1>
-    <p>Encuentra referencias por marca, modelo o año sin llenar todos los campos</p>
-  </section>
+    <!-- Search Section -->
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl p-6 shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Marca</label>
+                        <input type="text" id="marca" placeholder="Ej: toyota" class="input-field">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Modelo</label>
+                        <input type="text" id="modelo" placeholder="Ej: camry" class="input-field">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
+                        <input type="number" id="anio" placeholder="Ej: 2022" class="input-field" onkeydown="if(event.key === 'ArrowUp' || event.key === 'ArrowDown') event.preventDefault()">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Platina</label>
+                        <input type="text" id="platina" placeholder="Ej: BOSCH" class="input-field">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Otras Referencias</label>
+                    <input type="text" id="referencias" placeholder="Ej: P2000" class="input-field">
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="buscarInput" placeholder="Buscar por nombre..." class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <div class="grid grid-cols-2 gap-3 w-full sm:w-auto">
+                        <button id="buscarBtn" class="btn btn-primary">
+                            <i class="fas fa-search mr-2"></i> Buscar
+                        </button>
+                        <button id="limpiarBtn" class="btn btn-secondary">
+                            <i class="fas fa-eraser mr-2"></i> Limpiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="buscador">
-    <input type="text" id="marca" placeholder="Marca" />
-    <input type="text" id="modelo" placeholder="Modelo" />
-    <input type="text" id="anio" placeholder="Año" />
-    <br />
-    <button id="buscarBtn">Buscar</button>
-  </section>
+    <!-- Results Section -->
+    <section id="resultados" class="py-12 bg-gray-50 hidden">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-8 text-center">Información para <span id="busquedaTitulo" class="text-blue-600 font-medium"></span></h3>
+            
+            <div class="max-w-3xl mx-auto bg-white rounded-xl p-6">
+                <div id="resultadosLista" class="space-y-6"></div>
+            </div>
+        </div>
+    </section>
 
-  <div id="resultados"></div>
+    <!-- Features Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">Características Principales</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">Nuestro sistema ofrece una experiencia de consulta completa y precisa</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="text-center p-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-database text-white text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-2">Base de Datos Completa</h4>
+                    <p class="text-gray-600 text-sm">Información detallada sobre pastillas de freno compatibles con tu vehículo.</p>
+                </div>
+                
+                <div class="text-center p-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-image text-white text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-2">Imágenes de Referencia</h4>
+                    <p class="text-gray-600 text-sm">Visualiza cómo se ve la pastilla con imágenes de alta calidad.</p>
+                </div>
+                
+                <div class="text-center p-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-sync-alt text-white text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-900 mb-2">Actualización Continua</h4>
+                    <p class="text-gray-600 text-sm">Nuestro sistema se actualiza constantemente con nuevas referencias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    © 2025 RepuestosYa | Consulta gratuita sin ánimo de lucro
-  </footer>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-6">
+                <div class="flex items-center justify-center mb-3">
+                    <div class="logo-bg mr-3">
+                        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold">Pastillero</h3>
+                </div>
+                <p class="text-gray-400 mb-4 max-w-lg mx-auto text-sm">
+                    Tu sistema de consulta de pastillas de freno automotrices. Información precisa y actualizada.
+                </p>
+                <div class="border-t border-gray-800 pt-4 text-gray-400 text-xs">
+                    <p>&copy; 2024 Pastillero. Todos los derechos reservados.</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <h4 class="text-sm font-semibold text-white mb-3">Herramientas Utilizadas</h4>
+                <div class="flex flex-wrap justify-center gap-6 items-center">
+                    <div class="text-center">
+                        <img src="https://qwenlm.github.io/qwen/assets/img/logo.png" alt="Qwen Chat" class="w-12 h-12 mx-auto mb-1 tool-logo" onerror="this.src='https://placehold.co/80x80/000000/FFFFFF?text=Qwen'">
+                        <p class="text-gray-300 text-xs">Qwen Chat</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" class="w-12 h-12 mx-auto mb-1 tool-logo" onerror="this.src='https://placehold.co/80x80/10a37f/FFFFFF?text=ChatGPT'">
+                        <p class="text-gray-300 text-xs">ChatGPT</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="w-12 h-12 mx-auto mb-1 tool-logo" onerror="this.src='https://placehold.co/80x80/181717/FFFFFF?text=GitHub'">
+                        <p class="text-gray-300 text-xs">GitHub</p>
+                    </div>
+                </div>
+                <p class="text-gray-500 text-xs mt-4">
+                    Este proyecto fue desarrollado utilizando estas herramientas avanzadas de inteligencia artificial.
+                </p>
+            </div>
+        </div>
+    </footer>
 
-  <!-- SDKs de Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js" type="module"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js" type="module"></script>
+    <script>
+        // Base de datos simplificada
+        const pastillasDB = [
+            { marca: 'toyota', modelo: 'camry', anio: 2022, platina: 'BOSCH', referencias: 'P2000', nombre: 'Pastillas Toyota Camry 2022', descripcion: 'Pastillas de freno delanteras de alta calidad para Toyota Camry 2022.', imagen: 'https://placehold.co/600x400/6366f1/FFFFFF?text=Pastillas+Toyota+Camry' },
+            { marca: 'honda', modelo: 'civic', anio: 2021, platina: 'ACDelco', referencias: 'H300', nombre: 'Pastillas Honda Civic 2021', descripcion: 'Pastillas de freno traseras para Honda Civic 2021.', imagen: 'https://placehold.co/600x400/8b5cf6/FFFFFF?text=Pastillas+Honda+Civic' },
+            { marca: 'ford', modelo: 'focus', anio: 2020, platina: 'Ferodo', referencias: 'F100', nombre: 'Kit Pastillas Ford Focus 2020', descripcion: 'Kit completo de pastillas de freno delanteras para Ford Focus 2020.', imagen: 'https://placehold.co/600x400/059669/FFFFFF?text=Kit+Pastillas+Ford+Focus' },
+            { marca: 'chevrolet', modelo: 'malibu', anio: 2019, platina: 'Centric', referencias: 'C500', nombre: 'Pastillas Cerámicas Chevy 2019', descripcion: 'Pastillas de freno cerámicas para Chevrolet Malibu 2019.', imagen: 'https://placehold.co/600x400/dc2626/FFFFFF?text=Pastillas+Cerámicas+Chevy' }
+        ];
 
-  <!-- Configuración de Firebase -->
-  <script type="module" src="firebase-config.js"></script>
+        // Función de búsqueda optimizada
+        document.getElementById('buscarBtn').addEventListener('click', () => {
+            const marca = getCleanValue('marca');
+            const modelo = getCleanValue('modelo');
+            const anio = validateYear(getCleanValue('anio'));
+            const platina = getCleanValue('platina');
+            const referencias = getCleanValue('referencias');
+            const searchTerm = document.getElementById('buscarInput').value.toLowerCase();
+            
+            if (!marca && !modelo && !anio && !platina && !referencias && !searchTerm) {
+                alert('Completa al menos un campo de búsqueda');
+                return;
+            }
+            
+            const resultados = buscarPastillas(marca, modelo, anio, platina, referencias, searchTerm);
+            mostrarResultados(resultados, marca, modelo, anio, platina, referencias);
+        });
 
-  <!-- Script principal -->
-  <script type="module">
-    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    import { app } from "./firebase-config.js";
+        // Funciones auxiliares
+        function getCleanValue(id) {
+            return document.getElementById(id).value.trim().toLowerCase();
+        }
 
-    const db = getFirestore(app);
+        function validateYear(yearStr) {
+            if (!yearStr) return null;
+            const year = parseInt(yearStr);
+            if (isNaN(year) || year < 1900 || year > new Date().getFullYear() + 1) {
+                alert('Año inválido');
+                return null;
+            }
+            return year;
+        }
 
-    async function buscarRepuestos() {
-      const marca = document.getElementById("marca").value.trim();
-      const modelo = document.getElementById("modelo").value.trim();
-      const anio = document.getElementById("anio").value.trim();
+        function buscarPastillas(marca, modelo, anio, platina, referencias, searchTerm) {
+            return pastillasDB.filter(p => {
+                const matches = (!marca || p.marca.includes(marca)) &&
+                               (!modelo || p.modelo.includes(modelo)) &&
+                               (!anio || p.anio === anio) &&
+                               (!platina || p.platina.includes(platina)) &&
+                               (!referencias || p.referencias.includes(referencias));
+                
+                if (!matches) return false;
+                
+                return !searchTerm || 
+                       p.nombre.toLowerCase().includes(searchTerm) || 
+                       p.descripcion.toLowerCase().includes(searchTerm);
+            });
+        }
 
-      let q = collection(db, "repuestos");
-      let filtros = [];
+        function mostrarResultados(resultados, marca, modelo, anio, platina, referencias) {
+            const section = document.getElementById('resultados');
+            const titulo = document.getElementById('busquedaTitulo');
+            const lista = document.getElementById('resultadosLista');
+            
+            // Título de búsqueda
+            const parts = [];
+            if (marca) parts.push(marca.toUpperCase());
+            if (modelo) parts.push(modelo.toUpperCase());
+            if (anio) parts.push(anio);
+            if (platina) parts.push(`Platina: ${platina.toUpperCase()}`);
+            if (referencias) parts.push(`Ref: ${referencias.toUpperCase()}`);
+            titulo.textContent = parts.length ? parts.join(' | ') : 'todos los vehículos';
+            
+            // Mostrar resultados
+            lista.innerHTML = resultados.length ? 
+                resultados.map(p => crearResultadoHTML(p)).join('') :
+                `<div class="text-center py-8">
+                    <i class="fas fa-search text-4xl text-gray-400 mb-4 opacity-50"></i>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-2">No se encontró información</h4>
+                    <p class="text-gray-600">No tenemos datos sobre pastillas que coincidan con tu búsqueda.</p>
+                </div>`;
+            
+            section.classList.remove('hidden');
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
 
-      if (marca) filtros.push(where("marca", "==", marca));
-      if (modelo) filtros.push(where("modelo", "==", modelo));
-      if (anio) filtros.push(where("anio", "==", anio));
+        function crearResultadoHTML(pastilla) {
+            return `
+                <div class="text-center mb-4">
+                    <img src="${pastilla.imagen}" alt="${pastilla.nombre}" class="w-full h-48 object-cover result-img mx-auto">
+                </div>
+                <h4 class="text-xl font-semibold text-gray-900 mb-3 text-center">${pastilla.nombre}</h4>
+                <p class="text-gray-700 leading-relaxed">${pastilla.descripcion}</p>
+                <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                    <p class="text-sm text-blue-800 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Esta información es de referencia.
+                    </p>
+                </div>
+            `;
+        }
 
-      if (filtros.length > 0) {
-        q = query(collection(db, "repuestos"), ...filtros);
-      }
+        // Limpiar filtros
+        document.getElementById('limpiarBtn').addEventListener('click', () => {
+            ['marca', 'modelo', 'anio', 'platina', 'referencias', 'buscarInput'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('resultados').classList.add('hidden');
+            document.getElementById('marca').focus();
+        });
 
-      const resultados = await getDocs(q);
-      const contenedor = document.getElementById("resultados");
-      contenedor.innerHTML = "";
-
-      if (resultados.empty) {
-        contenedor.innerHTML = "<p>No se encontraron repuestos con esos datos.</p>";
-        return;
-      }
-
-      resultados.forEach((doc) => {
-        const data = doc.data();
-        contenedor.innerHTML += `
-          <div class="repuesto-card">
-            <img src="${data.imagen}" alt="${data.referencia}" />
-            <h3>${data.marca} ${data.modelo} (${data.anio})</h3>
-            <p><b>Referencia:</b> ${data.referencia}</p>
-          </div>
-        `;
-      });
-    }
-
-    document.getElementById("buscarBtn").addEventListener("click", buscarRepuestos);
-  </script>
+        // Búsqueda con Enter
+        document.addEventListener('keypress', e => {
+            if (e.key === 'Enter') document.getElementById('buscarBtn').click();
+        });
+    </script>
 </body>
 </html>
