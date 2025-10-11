@@ -271,5 +271,28 @@
             document.getElementById('categoria').focus();
         });
     </script>
+    <!-- Scripts principales (versión moderna de Firebase) -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAPpe9AgwqHPkjVK9fE_AvrJtvjvrVHUA0",
+      authDomain: "repuestosya-catalogo.firebaseapp.com",
+      projectId: "repuestosya-catalogo",
+      storageBucket: "repuestosya-catalogo.firebasestorage.app",
+      messagingSenderId: "770179439513",
+      appId: "1:770179439513:web:544597e763fb811d779108",
+      measurementId: "G-VYMR8ERCGT"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const analytics = getAnalytics(app);
+
+    console.log("✅ Firebase conectado correctamente");
+</script>
+
 </body>
 </html>
