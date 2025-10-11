@@ -1,229 +1,424 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EL PASTILLERO 💊</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    body {
-      background-color: #f8fafc;
-      color: #0f172a;
-    }
-
-    body.dark {
-      background-color: #1a1c2e;
-      color: #f8fafc;
-    }
-
-    body.dark header {
-      background: linear-gradient(to right, #1f2937, #374151);
-    }
-
-    body.dark .bg-white {
-      background-color: #24263a !important;
-    }
-
-    body.dark input, body.dark select {
-      background-color: #2d3049;
-      color: #f8fafc;
-      border-color: #4b5563;
-    }
-
-    body.dark input::placeholder {
-      color: #a1a1aa;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      transition: transform 0.3s;
-    }
-
-    input, select {
-      outline: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL PASTILLERO 💊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark {
+            background-color: #121212 !important;
+            color: #e0e0e0 !important;
+        }
+        .dark .bg-white {
+            background-color: #1e1e1e !important;
+        }
+        .dark .bg-gray-50 {
+            background-color: #2d2d2d !important;
+        }
+        .dark .bg-gray-800 {
+            background-color: #0a0a0a !important;
+        }
+        .dark .border-gray-200 {
+            border-color: #444 !important;
+        }
+        .dark .text-gray-700 {
+            color: #d4d4d4 !important;
+        }
+        .dark .text-gray-800 {
+            color: #e0e0e0 !important;
+        }
+        .dark .text-gray-400 {
+            color: #888 !important;
+        }
+        .dark .divide-gray-200 > tr {
+            border-color: #444 !important;
+        }
+        .dark .bg-blue-100 {
+            background-color: #1a365d !important;
+        }
+        .dark .bg-gradient-to-r {
+            background: linear-gradient(to right, #1e40af, #1d4ed8) !important;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dark-mode-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+        .dark .dark-mode-toggle {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+        .dark .dark-mode-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+        .dark-mode-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+        .dark .dark-mode-toggle svg {
+            fill: #e0e0e0;
+        }
+    </style>
 </head>
-<body>
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-    <div class="container mx-auto px-4 py-8 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-2">EL PASTILLERO 💊</h1>
-      <p class="text-xl md:text-2xl opacity-90">Catálogo visual de pastillas de freno</p>
-    </div>
-  </header>
-
-  <!-- Filtros -->
-  <section class="container mx-auto px-4 py-8">
-    <div class="bg-white rounded-xl shadow-lg p-6 mb-8 transition">
-      <div class="flex flex-wrap justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Filtrar resultados</h2>
-        <div class="flex gap-2">
-          <button id="modo-btn" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition">
-            🌙 Modo oscuro
-          </button>
-          <button id="limpiar-btn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-            🧹 Limpiar filtros
-          </button>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">EL PASTILLERO 💊</h1>
+                <p class="text-xl md:text-2xl opacity-90">Catálogo de pastillas de freno</p>
+            </div>
         </div>
-      </div>
+        <div class="dark-mode-toggle" id="darkModeToggle">
+            <svg id="modeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 3c.132 0 .26.01.39.034 6.627.95 11.665 6.315 11.665 12.666 0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0c1.79 0 3.48.39 4.97.97.22.09.45.13.67.13.46 0 .84-.38.84-.84 0-.17-.05-.34-.13-.49A10.74 10.74 0 0 0 12 3z"/>
+            </svg>
+        </div>
+    </header>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-        <div>
-          <label class="block text-sm font-medium mb-1">MARCA</label>
-          <select id="marca" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-            <option value="">Todas</option>
-          </select>
+    <!-- Search Section -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Filtrar resultados</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">MARCA</label>
+                    <select id="marca" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Todas</option>
+                        <option>ACURA</option>
+                        <option>ALFA ROMEO</option>
+                        <option>AUDI</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">MODELO</label>
+                    <select id="modelo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                        <option>Todos</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">AÑO</label>
+                    <input type="number" id="ano" min="1900" max="2024" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: 2000">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">CATEGORÍA</label>
+                    <select id="categoria" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Todas</option>
+                        <option>Delantera</option>
+                        <option>Trasera</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">MODELO</label>
-          <select id="modelo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" disabled>
-            <option value="">Todos</option>
-          </select>
+        <!-- Results Section -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <tbody id="table-body" class="divide-y divide-gray-200">
+                        <tr class="bg-gray-50">
+                            <td class="px-6 py-4 font-bold">MARCA</td>
+                            <td class="px-6 py-4 font-bold">MODELO</td>
+                            <td class="px-6 py-4 font-bold">DESDE</td>
+                            <td class="px-6 py-4 font-bold">HASTA</td>
+                            <td class="px-6 py-4 font-bold">POSICIÓN</td>
+                            <td class="px-6 py-4 font-bold">REF INCOLBEST</td>
+                            <td class="px-6 py-4 font-bold">PLATINA FMSI</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">CL</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1998</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1999</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7382</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D503</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Integra</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1999</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1999</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7104</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D177</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Integra</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1990</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1991</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7235</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D409</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Integra</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2000</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2001</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7382</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D503</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Legend</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1986</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1987</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Tras</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7236</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D342</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Legend</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1991</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1995</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Tras</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7418</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D536</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">NXS</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1994</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2005</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7382</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D503</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">RDX</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2007</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2010</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7994</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D1089</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">RSX</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2002</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2002</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7497</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D948</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">SLX</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1992</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1998</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7437</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D558</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ALFA ROMEO</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Alfa Romeo 01/05 NUEVA</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2001</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2005</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">8675</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D1476</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ALFA ROMEO</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Alfetta</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1972</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1977</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">736</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D31</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">ALFA ROMEO</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Alfetta</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1972</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1977</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del / Tras</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7057</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D127</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">AUDI</td>
+                            <td class="px-6 py-4 whitespace-nowrap">A6</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2005</td>
+                            <td class="px-6 py-4 whitespace-nowrap">2011</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7796</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D1111</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">AUDI</td>
+                            <td class="px-6 py-4 whitespace-nowrap">100 series</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1989</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1991</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7143</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D290</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">AUDI</td>
+                            <td class="px-6 py-4 whitespace-nowrap">4000-4</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1984</td>
+                            <td class="px-6 py-4 whitespace-nowrap">1987</td>
+                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
+                            <td class="px-6 py-4 whitespace-nowrap">7177</td>
+                            <td class="px-6 py-4 whitespace-nowrap">D227</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </section>
 
-        <div>
-          <label class="block text-sm font-medium mb-1">AÑO</label>
-          <input type="number" id="anio" min="1900" max="2025" placeholder="Ej. 2018"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h3 class="text-xl font-bold">EL PASTILLERO 💊</h3>
+                <div class="mt-4 text-sm text-gray-400">
+                    © 2023 EL PASTILLERO 💊. Todos los derechos reservados.
+                </div>
+            </div>
         </div>
-      </div>
+    </footer>
 
-      <!-- Barra de búsqueda -->
-      <input type="text" id="busqueda" placeholder="🔍 Buscar por palabra clave..."
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-white">
-    </div>
-
-    <!-- Catálogo visual -->
-    <div id="catalogo" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white mt-12 transition">
-    <div class="container mx-auto px-4 py-8 text-center">
-      <h3 class="text-xl font-bold">EL PASTILLERO 💊</h3>
-      <div class="mt-4 text-sm text-gray-400">
-        © 2025 EL PASTILLERO 💊. Todos los derechos reservados.
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const marcaSelect = document.getElementById('marca');
-      const modeloSelect = document.getElementById('modelo');
-      const anioInput = document.getElementById('anio');
-      const busquedaInput = document.getElementById('busqueda');
-      const catalogo = document.getElementById('catalogo');
-      const limpiarBtn = document.getElementById('limpiar-btn');
-      const modoBtn = document.getElementById('modo-btn');
-
-      let data = [];
-      let darkMode = false;
-
-      try {
-        const res = await fetch('pastillas.json');
-        data = await res.json();
-        renderCatalogo(data);
-        cargarMarcas(data);
-      } catch (error) {
-        console.error('Error al cargar el JSON:', error);
-      }
-
-      function normalize(str) {
-        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-      }
-
-      function renderCatalogo(lista) {
-        catalogo.innerHTML = '';
-        const fragment = document.createDocumentFragment();
-        lista.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 card transition';
-          div.innerHTML = `
-            <img src="${item.imagen || 'https://via.placeholder.com/150'}" alt="${item.marca} ${item.modelo}" class="w-full h-40 object-cover rounded-md mb-4">
-            <h3 class="text-lg font-semibold mb-1">${item.marca} ${item.modelo}</h3>
-            <p class="text-sm mb-1">Año: ${item.desde ? item.desde : '-'} - ${item.hasta ? item.hasta : '-'}</p>
-            <p class="text-sm mb-1">Posición: ${item.posicion}</p>
-            <p class="text-sm mb-1">Ref: ${item.ref}</p>
-            <p class="text-sm">FMSI: ${item.fmsi}</p>
-          `;
-          fragment.appendChild(div);
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const marcaSelect = document.getElementById('marca');
+            const modeloSelect = document.getElementById('modelo');
+            const anoInput = document.getElementById('ano');
+            const categoriaSelect = document.getElementById('categoria');
+            const tableBody = document.getElementById('table-body');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const modeIcon = document.getElementById('modeIcon');
+            
+            // Modelo options based on marca
+            const modeloOptions = {
+                'Todas': ['Todos'],
+                'ACURA': ['Todos', 'CL', 'Integra', 'Legend', 'NXS', 'RDX', 'RSX', 'SLX'],
+                'ALFA ROMEO': ['Todos', 'Alfa Romeo 01/05 NUEVA', 'Alfetta'],
+                'AUDI': ['Todos', 'A6', '100 series', '4000-4']
+            };
+            
+            // Filter the table based on selected filters
+            function filterTable() {
+                const marca = marcaSelect.value;
+                const modelo = modeloSelect.value;
+                const ano = anoInput.value ? parseInt(anoInput.value) : null;
+                const categoria = categoriaSelect.value;
+                
+                const rows = tableBody.getElementsByTagName('tr');
+                
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    // Skip header row
+                    if (i === 0) continue;
+                    
+                    const marcaCell = row.cells[0].textContent;
+                    const modeloCell = row.cells[1].textContent;
+                    const desdeCell = parseInt(row.cells[2].textContent);
+                    const hastaCell = parseInt(row.cells[3].textContent);
+                    const posicionCell = row.cells[4].textContent;
+                    
+                    let matchesMarca = marca === 'Todas' || marca === '' || marcaCell === marca;
+                    let matchesModelo = modelo === 'Todos' || modelo === '' || modeloCell === modelo;
+                    
+                    // Convertir posición a categoría
+                    let categoriaActual = '';
+                    if (posicionCell.includes('Del')) {
+                        categoriaActual = 'Delantera';
+                    }
+                    if (posicionCell.includes('Tras')) {
+                        categoriaActual = 'Trasera';
+                    }
+                    
+                    let matchesCategoria = categoria === 'Todas' || categoria === '' || categoriaActual === categoria;
+                    
+                    // Si se especifica un año, debe estar dentro del rango desde-hasta
+                    let matchesAno = true;
+                    if (ano) {
+                        matchesAno = ano >= desdeCell && ano <= hastaCell;
+                    }
+                    
+                    if (matchesMarca && matchesModelo && matchesAno && matchesCategoria) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+            
+            // Update modelo options when marca changes
+            marcaSelect.addEventListener('change', function() {
+                const marca = marcaSelect.value;
+                modeloSelect.innerHTML = '';
+                
+                if (marca === '' || marca === 'Todas') {
+                    modeloSelect.disabled = true;
+                    const option = document.createElement('option');
+                    option.value = 'Todos';
+                    option.textContent = 'Todos';
+                    modeloSelect.appendChild(option);
+                } else {
+                    modeloSelect.disabled = false;
+                    modeloOptions[marca].forEach(modelo => {
+                        const option = document.createElement('option');
+                        option.value = modelo;
+                        option.textContent = modelo;
+                        modeloSelect.appendChild(option);
+                    });
+                }
+                
+                modeloSelect.value = 'Todos';
+                filterTable();
+            });
+            
+            // Add event listeners for filtering
+            modeloSelect.addEventListener('change', filterTable);
+            anoInput.addEventListener('input', filterTable);
+            categoriaSelect.addEventListener('change', filterTable);
+            
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark');
+                
+                // Update icon
+                if (document.body.classList.contains('dark')) {
+                    modeIcon.innerHTML = '<path d="M12 2.6a.6.6 0 0 1 .6.6v2a.6.6 0 0 1-1.2 0V3.2a.6.6 0 0 1 .6-.6zm8.8 4.8a.6.6 0 0 1 .4.7l-1.4 3.6a.6.6 0 0 1-1.1-.4l1.4-3.6a.6.6 0 0 1 .7-.4zm-17.6 0a.6.6 0 0 1 .7.4l1.4 3.6a.6.6 0 0 1-1.1.4l-1.4-3.6a.6.6 0 0 1 .4-.7zM12 19.4a.6.6 0 0 1 .6.6v2a.6.6 0 0 1-1.2 0v-2a.6.6 0 0 1 .6-.6zm7.2-5.2a.6.6 0 0 1 .4.7l-1.4 3.6a.6.6 0 0 1-1.1-.4l1.4-3.6a.6.6 0 0 1 .7-.4zM4.8 14.2a.6.6 0 0 1 .7.4l1.4 3.6a.6.6 0 0 1-1.1.4l-1.4-3.6a.6.6 0 0 1 .4-.7zm10.8-6.4a.6.6 0 0 1 .4.7l-1.4 3.6a.6.6 0 0 1-1.1-.4l1.4-3.6a.6.6 0 0 1 .7-.4zM3.4 8.8a.6.6 0 0 1 .7.4l1.4 3.6a.6.6 0 0 1-1.1.4L3 9.6a.6.6 0 0 1 .4-.8z"/>';
+                } else {
+                    modeIcon.innerHTML = '<path d="M12 3c.132 0 .26.01.39.034 6.627.95 11.665 6.315 11.665 12.666 0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0c1.79 0 3.48.39 4.97.97.22.09.45.13.67.13.46 0 .84-.38.84-.84 0-.17-.05-.34-.13-.49A10.74 10.74 0 0 0 12 3z"/>';
+                }
+            });
         });
-        catalogo.appendChild(fragment);
-      }
-
-      function cargarMarcas(data) {
-        const marcas = [...new Set(data.map(i => i.marca))].sort();
-        marcas.forEach(m => {
-          const option = document.createElement('option');
-          option.value = m;
-          option.textContent = m;
-          marcaSelect.appendChild(option);
-        });
-      }
-
-      function cargarModelos(marca) {
-        modeloSelect.innerHTML = '<option value="">Todos</option>';
-        const modelos = [...new Set(data.filter(i => i.marca === marca).map(i => i.modelo))].sort();
-        modelos.forEach(m => {
-          const option = document.createElement('option');
-          option.value = m;
-          option.textContent = m;
-          modeloSelect.appendChild(option);
-        });
-        modeloSelect.disabled = modelos.length === 0;
-      }
-
-      function filterCatalogo() {
-        const marca = marcaSelect.value;
-        const modelo = modeloSelect.value;
-        const anio = anioInput.value ? parseInt(anioInput.value) : null;
-        const search = normalize(busquedaInput.value);
-
-        const filtrados = data.filter(item => {
-          const matchesMarca = !marca || item.marca === marca;
-          const matchesModelo = !modelo || item.modelo === modelo;
-          const matchesAnio = !anio || ((item.desde || 0) <= anio && (!item.hasta || item.hasta >= anio));
-          const matchesSearch = normalize(Object.values(item).join(' ')).includes(search);
-          return matchesMarca && matchesModelo && matchesAnio && matchesSearch;
-        });
-
-        renderCatalogo(filtrados);
-      }
-
-      marcaSelect.addEventListener('change', () => {
-        cargarModelos(marcaSelect.value);
-        filterCatalogo();
-      });
-      modeloSelect.addEventListener('change', filterCatalogo);
-      anioInput.addEventListener('input', filterCatalogo);
-      busquedaInput.addEventListener('input', filterCatalogo);
-
-      limpiarBtn.addEventListener('click', () => {
-        marcaSelect.value = '';
-        modeloSelect.innerHTML = '<option value="">Todos</option>';
-        modeloSelect.disabled = true;
-        anioInput.value = '';
-        busquedaInput.value = '';
-        renderCatalogo(data);
-      });
-
-      modoBtn.addEventListener('click', () => {
-        darkMode = !darkMode;
-        document.body.classList.toggle('dark', darkMode);
-        modoBtn.textContent = darkMode ? '🌞 Modo claro' : '🌙 Modo oscuro';
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
