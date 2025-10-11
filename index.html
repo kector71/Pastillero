@@ -172,20 +172,27 @@
         console.error('Error al cargar el JSON:', error);
       }
 
+      function normalize(str) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      }
+
       function renderTable(lista) {
         tableBody.innerHTML = '';
+        const fragment = document.createDocumentFragment();
         lista.forEach(item => {
-          const row = `
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-              <td class="px-6 py-4">${item.marca}</td>
-              <td class="px-6 py-4">${item.modelo}</td>
-              <td class="px-6 py-4">${item.desde || item.hasta || '-'}</td>
-              <td class="px-6 py-4">${item.posicion}</td>
-              <td class="px-6 py-4">${item.ref}</td>
-              <td class="px-6 py-4">${item.fmsi}</td>
-            </tr>`;
-          tableBody.insertAdjacentHTML('beforeend', row);
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-gray-100 dark:hover:bg-gray-700';
+          tr.innerHTML = `
+            <td class="px-6 py-4">${item.marca}</td>
+            <td class="px-6 py-4">${item.modelo}</td>
+            <td class="px-6 py-4">${item.desde ? item.desde : '-'} - ${item.hasta ? item.hasta : '-'}</td>
+            <td class="px-6 py-4">${item.posicion}</td>
+            <td class="px-6 py-4">${item.ref}</td>
+            <td class="px-6 py-4">${item.fmsi}</td>
+          `;
+          fragment.appendChild(tr);
         });
+        tableBody.appendChild(fragment);
       }
 
       function cargarMarcas(data) {
@@ -214,13 +221,13 @@
         const marca = marcaSelect.value;
         const modelo = modeloSelect.value;
         const anio = anioInput.value ? parseInt(anioInput.value) : null;
-        const search = busquedaInput.value.toLowerCase();
+        const search = normalize(busquedaInput.value);
 
         const filtrados = data.filter(item => {
           const matchesMarca = !marca || item.marca === marca;
           const matchesModelo = !modelo || item.modelo === modelo;
-          const matchesAnio = !anio || (item.desde <= anio && item.hasta >= anio);
-          const matchesSearch = Object.values(item).join(' ').toLowerCase().includes(search);
+          const matchesAnio = !anio || ((item.desde || 0) <= anio && (!item.hasta || item.hasta >= anio));
+          const matchesSearch = normalize(Object.values(item).join(' ')).includes(search);
           return matchesMarca && matchesModelo && matchesAnio && matchesSearch;
         });
 
