@@ -15,7 +15,7 @@
         }
         .dark {
             background-color: #121212 !important;
-            color: #e0e0e0 !important;
+            color: #f8f9fa !important;
         }
         .dark .bg-white {
             background-color: #1e1e1e !important;
@@ -30,13 +30,13 @@
             border-color: #444 !important;
         }
         .dark .text-gray-700 {
-            color: #d4d4d4 !important;
+            color: #e9ecef !important;
         }
         .dark .text-gray-800 {
-            color: #e0e0e0 !important;
+            color: #f8f9fa !important;
         }
         .dark .text-gray-400 {
-            color: #888 !important;
+            color: #adb5bd !important;
         }
         .dark .divide-gray-200 > tr {
             border-color: #444 !important;
@@ -48,52 +48,162 @@
             background: linear-gradient(to right, #1e40af, #1d4ed8) !important;
         }
         .dark-mode-toggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 40px;
-            height: 40px;
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
         }
         .dark-mode-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: scale(1.05);
+            transform: scale(1.12) translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            animation-play-state: paused;
         }
         .dark .dark-mode-toggle {
-            background-color: rgba(0, 0, 0, 0.15);
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
         .dark .dark-mode-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
         }
         .dark-mode-toggle svg {
             width: 20px;
             height: 20px;
-            fill: white;
+            stroke: #2d3748;
+            stroke-width: 2;
         }
         .dark .dark-mode-toggle svg {
-            fill: #e0e0e0;
+            stroke: #f8f9fa;
+        }
+        
+        /* Fix for form elements in dark mode */
+        .dark .border-gray-300 {
+            border-color: #4a5568 !important;
+            background-color: #2d3748 !important;
+            color: #e9ecef !important;
+        }
+        
+        .dark .border-gray-300::placeholder {
+            color: #adb5bd !important;
+        }
+        
+        .dark select {
+            background-color: #2d3748 !important;
+            color: #e9ecef !important;
+            border-color: #4a5568 !important;
+        }
+        
+        .dark .focus\:ring-blue-500:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
+        }
+        
+        .result-card {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        .dark .result-card {
+            border-bottom-color: #444;
+        }
+        .result-card:hover {
+            background-color: #f8fafc;
+        }
+        .dark .result-card:hover {
+            background-color: #2d2d2d;
+        }
+        .result-field {
+            margin-bottom: 0.5rem;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #4a5568;
+            display: inline-block;
+            min-width: 120px;
+        }
+        .dark .field-label {
+            color: #cbd5e0 !important;
+        }
+        .field-value {
+            color: #2d3748;
+        }
+        .dark .field-value {
+            color: #f8f9fa !important;
+        }
+        .dark .field-value.text-blue-600 {
+            color: #63b3ed !important;
+        }
+        
+        /* Ensure all text is visible in dark mode */
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, 
+        .dark p, .dark span, .dark div, .dark label, .dark td, .dark th {
+            color: #f8f9fa !important;
+        }
+        
+        .reset-filters {
+            background-color: #e53e3e;
+            color: white;
+            transition: all 0.2s;
+        }
+        .reset-filters:hover {
+            background-color: #c53030;
+            transform: translateY(-2px);
+        }
+        .dark .reset-filters {
+            background-color: #e53e3e;
+        }
+        .dark .reset-filters:hover {
+            background-color: #c53030;
+        }
+        
+        .filter-group {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+        .dark .filter-group {
+            background-color: #2d3748;
+        }
+        .light .filter-group {
+            background-color: #f8fafc;
+        }
+        
+        .filter-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .filter-title svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white relative">
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
         <div class="container mx-auto px-4 py-8">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-2">EL PASTILLERO 💊</h1>
                 <p class="text-xl md:text-2xl opacity-90">Catálogo de pastillas de freno</p>
             </div>
-        </div>
-        <div class="dark-mode-toggle" id="darkModeToggle">
-            <svg id="modeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 3c.132 0 .26.01.39.034 6.627.95 11.665 6.315 11.665 12.666 0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0c1.79 0 3.48.39 4.97.97.22.09.45.13.67.13.46 0 .84-.38.84-.84 0-.17-.05-.34-.13-.49A10.74 10.74 0 0 0 12 3z"/>
-            </svg>
         </div>
     </header>
 
@@ -101,201 +211,111 @@
     <section class="container mx-auto px-4 py-8">
         <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Filtrar resultados</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">MARCA</label>
-                    <select id="marca" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option>Todas</option>
-                        <option>ACURA</option>
-                        <option>ALFA ROMEO</option>
-                        <option>AUDI</option>
-                    </select>
+            
+            <!-- Grupo de filtros principales -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div class="filter-group bg-gray-50">
+                    <div class="filter-title text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-1M3 16l5-5 5 5M13 12l5 5M3 8l5-5 5 5" />
+                        </svg>
+                        Información del vehículo
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">MARCA</label>
+                            <select id="marca" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>Todas</option>
+                                <!-- Las marcas se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">MODELO</label>
+                            <select id="modelo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                                <option>Todos</option>
+                                <!-- Los modelos se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">AÑO</label>
+                            <input type="number" id="ano" min="1900" max="2024" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: 2000">
+                        </div>
+                    </div>
                 </div>
                 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">MODELO</label>
-                    <select id="modelo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
-                        <option>Todos</option>
-                    </select>
+                <!-- Grupo de filtros de especificaciones -->
+                <div class="filter-group bg-gray-50">
+                    <div class="filter-title text-green-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Especificaciones
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">CATEGORÍA</label>
+                            <select id="categoria" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>Todas</option>
+                                <option>Delantera</option>
+                                <option>Trasera</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">REFERENCIA</label>
+                            <input type="text" id="referencia" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: 7382">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">OEM</label>
+                            <input type="text" id="oem" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: D503">
+                        </div>
+                    </div>
                 </div>
                 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">AÑO</label>
-                    <input type="number" id="ano" min="1900" max="2024" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ej: 2000">
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">CATEGORÍA</label>
-                    <select id="categoria" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option>Todas</option>
-                        <option>Delantera</option>
-                        <option>Trasera</option>
-                    </select>
+                <!-- Búsqueda rápida y acciones -->
+                <div class="filter-group bg-gray-50">
+                    <div class="filter-title text-purple-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Búsqueda rápida
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">BUSCAR</label>
+                            <div class="flex">
+                                <input type="text" id="busquedaRapida" class="w-full px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Marca, modelo, ref...">
+                                <button id="limpiarBusqueda" class="bg-gray-100 border border-l-0 border-gray-300 px-3 rounded-r-md hover:bg-gray-200 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button id="resetFilters" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2A8.001 8.001 0 0020.418 9m0 0h-5m-5 5v-5m5 5v5m5-11v5h.581m-15.356 0A8.001 8.001 0 004.582 9m0 0H9m5-5a7 7 0 00-7 7m0 0v5" />
+                                </svg>
+                                Reiniciar filtros
+                            </button>
+                        </div>
+                        
+                        <div class="text-center mt-4 text-sm text-gray-500">
+                            <span id="resultCount">0</span> resultados encontrados
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Results Section -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <tbody id="table-body" class="divide-y divide-gray-200">
-                        <tr class="bg-gray-50">
-                            <td class="px-6 py-4 font-bold">MARCA</td>
-                            <td class="px-6 py-4 font-bold">MODELO</td>
-                            <td class="px-6 py-4 font-bold">DESDE</td>
-                            <td class="px-6 py-4 font-bold">HASTA</td>
-                            <td class="px-6 py-4 font-bold">POSICIÓN</td>
-                            <td class="px-6 py-4 font-bold">REF INCOLBEST</td>
-                            <td class="px-6 py-4 font-bold">PLATINA FMSI</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">CL</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1998</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1999</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7382</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D503</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Integra</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1999</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1999</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7104</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D177</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Integra</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1990</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1991</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7235</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D409</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Integra</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2000</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2001</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7382</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D503</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Legend</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1986</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1987</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Tras</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7236</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D342</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Legend</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1991</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1995</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Tras</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7418</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D536</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">NXS</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1994</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2005</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7382</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D503</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">RDX</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2007</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2010</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7994</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D1089</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">RSX</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2002</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2002</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7497</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D948</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ACURA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">SLX</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1992</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1998</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7437</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D558</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ALFA ROMEO</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Alfa Romeo 01/05 NUEVA</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2001</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2005</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">8675</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D1476</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ALFA ROMEO</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Alfetta</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1972</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1977</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">736</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D31</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">ALFA ROMEO</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Alfetta</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1972</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1977</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del / Tras</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7057</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D127</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">AUDI</td>
-                            <td class="px-6 py-4 whitespace-nowrap">A6</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2005</td>
-                            <td class="px-6 py-4 whitespace-nowrap">2011</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7796</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D1111</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">AUDI</td>
-                            <td class="px-6 py-4 whitespace-nowrap">100 series</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1989</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1991</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7143</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D290</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">AUDI</td>
-                            <td class="px-6 py-4 whitespace-nowrap">4000-4</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1984</td>
-                            <td class="px-6 py-4 whitespace-nowrap">1987</td>
-                            <td class="px-6 py-4 whitespace-nowrap">Del</td>
-                            <td class="px-6 py-4 whitespace-nowrap">7177</td>
-                            <td class="px-6 py-4 whitespace-nowrap">D227</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden" id="results-container">
+            <!-- Los resultados se generarán aquí dinámicamente -->
         </div>
     </section>
 
@@ -311,53 +331,165 @@
         </div>
     </footer>
 
+    <!-- Floating Dark Mode Toggle Button -->
+    <div class="dark-mode-toggle" id="darkModeToggle" title="Alternar modo claro/oscuro">
+        <svg id="modeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const marcaSelect = document.getElementById('marca');
             const modeloSelect = document.getElementById('modelo');
             const anoInput = document.getElementById('ano');
             const categoriaSelect = document.getElementById('categoria');
-            const tableBody = document.getElementById('table-body');
+            const referenciaInput = document.getElementById('referencia');
+            const oemInput = document.getElementById('oem');
+            const busquedaRapidaInput = document.getElementById('busquedaRapida');
+            const limpiarBusquedaBtn = document.getElementById('limpiarBusqueda');
+            const resetFiltersBtn = document.getElementById('resetFilters');
+            const resultsContainer = document.getElementById('results-container');
+            const resultCountElement = document.getElementById('resultCount');
             const darkModeToggle = document.getElementById('darkModeToggle');
             const modeIcon = document.getElementById('modeIcon');
             
-            // Modelo options based on marca
+            // Datos de los registros - ahora con datos de ejemplo
+            let brakePadsData = [
+                { marca: 'ACURA', modelo: 'CL', desde: 1998, hasta: 1999, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503' },
+                { marca: 'ACURA', modelo: 'Integra', desde: 1999, hasta: 1999, posicion: 'Del', refIncolbest: '7104', platinaFmsi: 'D177' },
+                { marca: 'ACURA', modelo: 'Integra', desde: 1990, hasta: 1991, posicion: 'Del', refIncolbest: '7235', platinaFmsi: 'D409' },
+                { marca: 'ACURA', modelo: 'Integra', desde: 2000, hasta: 2001, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503' },
+                { marca: 'ACURA', modelo: 'Legend', desde: 1986, hasta: 1987, posicion: 'Tras', refIncolbest: '7236', platinaFmsi: 'D342' },
+                { marca: 'ACURA', modelo: 'Legend', desde: 1991, hasta: 1995, posicion: 'Tras', refIncolbest: '7418', platinaFmsi: 'D536' },
+                { marca: 'ACURA', modelo: 'NSX', desde: 1994, hasta: 2005, posicion: 'Del', refIncolbest: '7382', platinaFmsi: 'D503' },
+                { marca: 'ACURA', modelo: 'RDX', desde: 2007, hasta: 2010, posicion: 'Del', refIncolbest: '7994', platinaFmsi: 'D1089' },
+                { marca: 'ACURA', modelo: 'RSX', desde: 2002, hasta: 2002, posicion: 'Del', refIncolbest: '7497', platinaFmsi: 'D948' },
+                { marca: 'ACURA', modelo: 'SLX', desde: 1992, hasta: 1998, posicion: 'Del', refIncolbest: '7437', platinaFmsi: 'D558' },
+                { marca: 'ALFA ROMEO', modelo: 'Alfa Romeo 01/05 NUEVA', desde: 2001, hasta: 2005, posicion: 'Del', refIncolbest: '8675', platinaFmsi: 'D1476' },
+                { marca: 'ALFA ROMEO', modelo: 'Alfetta', desde: 1972, hasta: 1977, posicion: 'Del', refIncolbest: '736', platinaFmsi: 'D31' },
+                { marca: 'ALFA ROMEO', modelo: 'Alfetta', desde: 1972, hasta: 1977, posicion: 'Del / Tras', refIncolbest: '7057', platinaFmsi: 'D127' },
+                { marca: 'AUDI', modelo: 'A6', desde: 2005, hasta: 2011, posicion: 'Del', refIncolbest: '7796', platinaFmsi: 'D1111' },
+                { marca: 'AUDI', modelo: '100 series', desde: 1989, hasta: 1991, posicion: 'Del', refIncolbest: '7143', platinaFmsi: 'D290' },
+                { marca: 'AUDI', modelo: '4000-4', desde: 1984, hasta: 1987, posicion: 'Del', refIncolbest: '7177', platinaFmsi: 'D227' },
+                { marca: 'BMW', modelo: '3 Series', desde: 1999, hasta: 2005, posicion: 'Del', refIncolbest: '7890', platinaFmsi: 'D1200' },
+                { marca: 'BMW', modelo: '5 Series', desde: 2004, hasta: 2010, posicion: 'Del', refIncolbest: '7950', platinaFmsi: 'D1250' },
+                { marca: 'CHEVROLET', modelo: 'Camaro', desde: 1993, hasta: 2002, posicion: 'Del', refIncolbest: '7650', platinaFmsi: 'D1000' },
+                { marca: 'CHEVROLET', modelo: 'Corvette', desde: 2005, hasta: 2013, posicion: 'Del', refIncolbest: '7720', platinaFmsi: 'D1050' },
+                { marca: 'FORD', modelo: 'Mustang', desde: 1994, hasta: 2004, posicion: 'Del', refIncolbest: '7580', platinaFmsi: 'D950' },
+                { marca: 'FORD', modelo: 'Explorer', desde: 2002, hasta: 2006, posicion: 'Del', refIncolbest: '7620', platinaFmsi: 'D980' }
+            ];
+            
+            // Modelo options based on marca - ahora vacío
             const modeloOptions = {
                 'Todas': ['Todos'],
-                'ACURA': ['Todos', 'CL', 'Integra', 'Legend', 'NXS', 'RDX', 'RSX', 'SLX'],
+                'ACURA': ['Todos', 'CL', 'Integra', 'Legend', 'NSX', 'RDX', 'RSX', 'SLX'],
                 'ALFA ROMEO': ['Todos', 'Alfa Romeo 01/05 NUEVA', 'Alfetta'],
-                'AUDI': ['Todos', 'A6', '100 series', '4000-4']
+                'AUDI': ['Todos', 'A6', '100 series', '4000-4'],
+                'BMW': ['Todos', '3 Series', '5 Series'],
+                'CHEVROLET': ['Todos', 'Camaro', 'Corvette'],
+                'FORD': ['Todos', 'Mustang', 'Explorer']
             };
             
-            // Filter the table based on selected filters
-            function filterTable() {
+            // Cargar marcas en el select
+            function loadMarcas() {
+                marcaSelect.innerHTML = '<option>Todas</option>';
+                
+                // Obtener marcas únicas
+                const marcas = [...new Set(brakePadsData.map(item => item.marca))];
+                
+                // Agregar marcas al select
+                marcas.forEach(marca => {
+                    const option = document.createElement('option');
+                    option.value = marca;
+                    option.textContent = marca;
+                    marcaSelect.appendChild(option);
+                });
+            }
+            
+            // Render results vertically
+            function renderResults(data) {
+                let html = '<div class="overflow-x-auto">';
+                
+                if (data.length === 0) {
+                    html += `
+                    <div class="p-12 text-center">
+                        <div class="bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-1">No se encontraron resultados</h3>
+                        <p class="text-gray-500 max-w-md mx-auto">Intenta ajustar tus filtros de búsqueda para encontrar las pastillas de freno que necesitas</p>
+                    </div>
+                    `;
+                } else {
+                    html += '<div class="divide-y divide-gray-200">';
+                    
+                    data.forEach(item => {
+                        html += `
+                        <div class="result-card">
+                            <div class="result-field"><span class="field-label">MARCA:</span> <span class="field-value">${item.marca}</span></div>
+                            <div class="result-field"><span class="field-label">MODELO:</span> <span class="field-value">${item.modelo}</span></div>
+                            <div class="result-field"><span class="field-label">AÑO:</span> <span class="field-value">${item.desde} - ${item.hasta}</span></div>
+                            <div class="result-field"><span class="field-label">POSICIÓN:</span> <span class="field-value">${item.posicion}</span></div>
+                            <div class="result-field"><span class="field-label">REFERENCIA:</span> <span class="field-value font-medium text-blue-600">${item.refIncolbest}</span></div>
+                            <div class="result-field"><span class="field-label">PLATINA FMSI:</span> <span class="field-value">${item.platinaFmsi}</span></div>
+                        </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+                
+                html += '</div>';
+                resultsContainer.innerHTML = html;
+                resultCountElement.textContent = data.length;
+            }
+            
+            // Update dark mode icon based on current mode
+            function updateDarkModeIcon() {
+                if (document.body.classList.contains('dark')) {
+                    // Modo oscuro activo - mostrar sol (modo claro)
+                    modeIcon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    `;
+                } else {
+                    // Modo claro activo - mostrar luna (modo oscuro)
+                    modeIcon.innerHTML = `
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    `;
+                }
+            }
+            
+            // Filter the data based on selected filters
+            function filterData() {
                 const marca = marcaSelect.value;
                 const modelo = modeloSelect.value;
                 const ano = anoInput.value ? parseInt(anoInput.value) : null;
                 const categoria = categoriaSelect.value;
+                const referencia = referenciaInput.value.trim().toUpperCase();
+                const oem = oemInput.value.trim().toUpperCase();
+                const busquedaRapida = busquedaRapidaInput.value.toLowerCase().trim();
                 
-                const rows = tableBody.getElementsByTagName('tr');
-                
-                for (let i = 0; i < rows.length; i++) {
-                    const row = rows[i];
-                    // Skip header row
-                    if (i === 0) continue;
-                    
-                    const marcaCell = row.cells[0].textContent;
-                    const modeloCell = row.cells[1].textContent;
-                    const desdeCell = parseInt(row.cells[2].textContent);
-                    const hastaCell = parseInt(row.cells[3].textContent);
-                    const posicionCell = row.cells[4].textContent;
-                    
-                    let matchesMarca = marca === 'Todas' || marca === '' || marcaCell === marca;
-                    let matchesModelo = modelo === 'Todos' || modelo === '' || modeloCell === modelo;
+                let filteredData = brakePadsData.filter(item => {
+                    let matchesMarca = marca === 'Todas' || marca === '' || item.marca === marca;
+                    let matchesModelo = modelo === 'Todos' || modelo === '' || item.modelo === modelo;
                     
                     // Convertir posición a categoría
                     let categoriaActual = '';
-                    if (posicionCell.includes('Del')) {
+                    if (item.posicion.includes('Del')) {
                         categoriaActual = 'Delantera';
                     }
-                    if (posicionCell.includes('Tras')) {
+                    if (item.posicion.includes('Tras')) {
                         categoriaActual = 'Trasera';
                     }
                     
@@ -366,15 +498,54 @@
                     // Si se especifica un año, debe estar dentro del rango desde-hasta
                     let matchesAno = true;
                     if (ano) {
-                        matchesAno = ano >= desdeCell && ano <= hastaCell;
+                        matchesAno = ano >= item.desde && ano <= item.hasta;
                     }
                     
-                    if (matchesMarca && matchesModelo && matchesAno && matchesCategoria) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
+                    // Si se especifica una referencia, debe coincidir
+                    let matchesReferencia = true;
+                    if (referencia) {
+                        matchesReferencia = item.refIncolbest.toUpperCase().includes(referencia);
                     }
-                }
+                    
+                    // Si se especifica un OEM, debe coincidir
+                    let matchesOem = true;
+                    if (oem) {
+                        matchesOem = item.platinaFmsi.toUpperCase().includes(oem);
+                    }
+                    
+                    // Busqueda rápida - buscar en todos los campos
+                    let matchesBusquedaRapida = true;
+                    if (busquedaRapida) {
+                        const searchTerm = busquedaRapida.toLowerCase();
+                        matchesBusquedaRapida = 
+                            item.marca.toLowerCase().includes(searchTerm) ||
+                            item.modelo.toLowerCase().includes(searchTerm) ||
+                            item.refIncolbest.toLowerCase().includes(searchTerm) ||
+                            item.platinaFmsi.toLowerCase().includes(searchTerm);
+                    }
+                    
+                    return matchesMarca && matchesModelo && matchesAno && matchesCategoria && 
+                           matchesReferencia && matchesOem && matchesBusquedaRapida;
+                });
+                
+                renderResults(filteredData);
+            }
+            
+            // Reset all filters to default state
+            function resetAllFilters() {
+                marcaSelect.value = 'Todas';
+                modeloSelect.innerHTML = '';
+                const option = document.createElement('option');
+                option.value = 'Todos';
+                option.textContent = 'Todos';
+                modeloSelect.appendChild(option);
+                modeloSelect.disabled = true;
+                anoInput.value = '';
+                categoriaSelect.value = 'Todas';
+                referenciaInput.value = '';
+                oemInput.value = '';
+                busquedaRapidaInput.value = '';
+                filterData();
             }
             
             // Update modelo options when marca changes
@@ -390,34 +561,48 @@
                     modeloSelect.appendChild(option);
                 } else {
                     modeloSelect.disabled = false;
-                    modeloOptions[marca].forEach(modelo => {
-                        const option = document.createElement('option');
-                        option.value = modelo;
-                        option.textContent = modelo;
-                        modeloSelect.appendChild(option);
-                    });
+                    
+                    // Verificar si la marca existe en modeloOptions
+                    if (modeloOptions.hasOwnProperty(marca)) {
+                        modeloOptions[marca].forEach(modelo => {
+                            const option = document.createElement('option');
+                            option.value = modelo;
+                            option.textContent = modelo;
+                            modeloSelect.appendChild(option);
+                        });
+                    }
                 }
                 
                 modeloSelect.value = 'Todos';
-                filterTable();
+                filterData();
             });
             
             // Add event listeners for filtering
-            modeloSelect.addEventListener('change', filterTable);
-            anoInput.addEventListener('input', filterTable);
-            categoriaSelect.addEventListener('change', filterTable);
+            modeloSelect.addEventListener('change', filterData);
+            anoInput.addEventListener('input', filterData);
+            categoriaSelect.addEventListener('change', filterData);
+            referenciaInput.addEventListener('input', filterData);
+            oemInput.addEventListener('input', filterData);
+            busquedaRapidaInput.addEventListener('input', filterData);
+            
+            // Clear search button
+            limpiarBusquedaBtn.addEventListener('click', function() {
+                busquedaRapidaInput.value = '';
+                filterData();
+            });
+            
+            // Reset filters button
+            resetFiltersBtn.addEventListener('click', resetAllFilters);
             
             // Dark mode toggle
             darkModeToggle.addEventListener('click', function() {
                 document.body.classList.toggle('dark');
-                
-                // Update icon
-                if (document.body.classList.contains('dark')) {
-                    modeIcon.innerHTML = '<path d="M12 2.6a.6.6 0 0 1 .6.6v2a.6.6 0 0 1-1.2 0V3.2a.6.6 0 0 1 .6-.6zm8.8 4.8a.6.6 0 0 1 .4.7l-1.4 3.6a.6.6 0 0 1-1.1-.4l1.4-3.6a.6.6 0 0 1 .7-.4zm-17.6 0a.6.6 0 0 1 .7.4l1.4 3.6a.6.6 0 0 1-1.1.4l-1.4-3.6a.6.6 0 0 1 .4-.7zM12 19.4a.6.6 0 0 1 .6.6v2a.6.6 0 0 1-1.2 0v-2a.6.6 0 0 1 .6-.6zm7.2-5.2a.6.6 0 0 1 .4.7l-1.4 3.6a.6.6 0 0 1-1.1-.4l1.4-3.6a.6.6 0 0 1 .7-.4zM4.8 14.2a.6.6 0 0 1 .7.4l1.4 3.6a.6.6 0 0 1-1.1.4l-1.4-3.6a.6.6 0 0 1 .4-.7zm10.8-6.4a.6.6 0 0 1 .4.7l-1.4 3.6a.6.6 0 0 1-1.1-.4l1.4-3.6a.6.6 0 0 1 .7-.4zM3.4 8.8a.6.6 0 0 1 .7.4l1.4 3.6a.6.6 0 0 1-1.1.4L3 9.6a.6.6 0 0 1 .4-.8z"/>';
-                } else {
-                    modeIcon.innerHTML = '<path d="M12 3c.132 0 .26.01.39.034 6.627.95 11.665 6.315 11.665 12.666 0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0c1.79 0 3.48.39 4.97.97.22.09.45.13.67.13.46 0 .84-.38.84-.84 0-.17-.05-.34-.13-.49A10.74 10.74 0 0 0 12 3z"/>';
-                }
+                updateDarkModeIcon();
             });
+            
+            // Inicializar con datos de ejemplo
+            loadMarcas();
+            filterData();
         });
     </script>
 </body>
