@@ -301,6 +301,17 @@
             color: #b0b0b0;
         }
         
+        .help-text {
+            font-size: 0.65rem;
+            color: #6b7280;
+            margin-top: 0.1rem;
+            padding-left: 0.25rem;
+        }
+        
+        .dark .help-text {
+            color: #9ca3af;
+        }
+        
         /* Ajustes para header más compacto */
         .header-container {
             padding: 0.5rem 0;
@@ -406,17 +417,20 @@
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
                                 <div class="form-control">
-                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="MARCA (Ej: ACURA)">
+                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="ACURA">
                                     <datalist id="marcaList"></datalist>
+                                    <div class="help-text">Ej: ACURA, BMW, FORD</div>
                                 </div>
                                 
                                 <div class="form-control">
-                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="MODELO (Ej: Integra)">
+                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="Integra">
                                     <datalist id="modeloList"></datalist>
+                                    <div class="help-text">Ej: Integra, 3 Series, Mustang</div>
                                 </div>
                                 
                                 <div class="form-control">
-                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="AÑO (Ej: 2000)">
+                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="2000">
+                                    <div class="help-text">Ej: 2000, 2015, 2023</div>
                                 </div>
                                 
                                 <div>
@@ -431,6 +445,7 @@
                                             <span>Tras</span>
                                         </div>
                                     </div>
+                                    <div class="help-text mt-1">Selecciona una posición</div>
                                 </div>
                             </div>
                         </div>
@@ -447,15 +462,18 @@
                                 </div>
                                 <div class="space-y-1">
                                     <div class="form-control">
-                                        <input type="text" id="referencia" class="form-input" placeholder="REFERENCIA (Ej: 7382)">
+                                        <input type="text" id="referencia" class="form-input" placeholder="7382">
+                                        <div class="help-text">Ej: 7382, 7890, 7580</div>
                                     </div>
                                     
                                     <div class="form-control">
-                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="PLATINA FMSI (Ej: D503)">
+                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="D503">
+                                        <div class="help-text">Ej: D503, D1200, D950</div>
                                     </div>
                                     
                                     <div class="form-control">
-                                        <input type="text" id="oem" class="form-input" placeholder="OEM (Ej: 0446002410)">
+                                        <input type="text" id="oem" class="form-input" placeholder="0446002410">
+                                        <div class="help-text">Ej: 0446002410, 0446002570</div>
                                     </div>
                                 </div>
                             </div>
@@ -471,21 +489,26 @@
                                 <div class="space-y-1">
                                     <div class="measure-grid">
                                         <div class="form-control">
-                                            <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="LONG">
+                                            <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="140.5">
+                                            <div class="help-text">Ej: 140.5</div>
                                         </div>
                                         <div class="form-control">
-                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="ANCHO">
+                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="55.2">
+                                            <div class="help-text">Ej: 55.2</div>
                                         </div>
                                         <div class="form-control">
-                                            <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="GROSOR">
+                                            <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="18.0">
+                                            <div class="help-text">Ej: 18.0</div>
                                         </div>
                                         <div class="form-control">
-                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="ALTURA">
+                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="52.3">
+                                            <div class="help-text">Ej: 52.3</div>
                                         </div>
                                     </div>
                                     
                                     <div class="form-control">
-                                        <input type="number" id="medidaDiametro" step="0.1" class="form-input" placeholder="DIÁM">
+                                        <input type="number" id="medidaDiametro" step="0.1" class="form-input" placeholder="10.5">
+                                        <div class="help-text">Ej: 10.5</div>
                                     </div>
                                 </div>
                             </div>
@@ -512,6 +535,7 @@
                                         </svg>
                                     </button>
                                 </div>
+                                <div class="help-text">Busca por marca, modelo o referencia</div>
                             </div>
                             
                             <div class="filter-actions">
