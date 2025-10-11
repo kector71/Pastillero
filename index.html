@@ -301,30 +301,6 @@
             color: #b0b0b0;
         }
         
-        .mobile-filter-btn {
-            position: fixed;
-            bottom: 1rem;
-            left: 1rem;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: #2563eb;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 90;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-filter-btn {
-                display: flex;
-            }
-        }
-        
         /* Ajustes para header más compacto */
         .header-container {
             padding: 0.5rem 0;
@@ -368,7 +344,7 @@
         .scroll-top-btn {
             position: fixed;
             bottom: 1rem;
-            right: 5rem;
+            right: 1rem;
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -590,15 +566,8 @@
         </svg>
     </div>
     
-    <!-- Mobile Filter Button -->
-    <div class="mobile-filter-btn" id="mobileFilterBtn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-        </svg>
-    </div>
-    
     <!-- Botón para subir rápido -->
-    <div class="scroll-top-btn" id="scrollTopBtn">
+    <div class="scroll-top-btn" id="scrollTopBtn" title="Volver arriba">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
@@ -626,7 +595,6 @@
             const resultCountElement = document.getElementById('resultCount');
             const darkModeToggle = document.getElementById('darkModeToggle');
             const modeIcon = document.getElementById('modeIcon');
-            const mobileFilterBtn = document.getElementById('mobileFilterBtn');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             
             // Datos vacíos
@@ -960,13 +928,6 @@
             darkModeToggle.addEventListener('click', function() {
                 document.body.classList.toggle('dark');
                 updateDarkModeIcon();
-            });
-            
-            // Mobile filter button
-            mobileFilterBtn.addEventListener('click', () => {
-                document.querySelector('.filter-group').scrollIntoView({ 
-                    behavior: 'smooth' 
-                });
             });
             
             // Scroll to top button
