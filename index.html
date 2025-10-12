@@ -86,7 +86,7 @@
         }
         
         .dark .border-gray-300::placeholder {
-            color: #ffffff !important; /* Texto guía blanco en modo oscuro */
+            color: #ffffff !important;
         }
         
         .dark select {
@@ -171,6 +171,7 @@
             height: 2.3rem;
             display: flex;
             align-items: center;
+            width: 100%;
         }
         
         .form-control input,
@@ -183,10 +184,9 @@
             background-color: white;
             font-size: 12px;
             transition: all 0.2s;
-            color: #000 !important; /* Texto negro en modo claro */
+            color: #000 !important;
         }
         
-        /* Texto guía (placeholders) en modo claro - NEGRO */
         .form-control input::placeholder,
         .form-control select::placeholder {
             color: #000 !important;
@@ -196,10 +196,9 @@
         .dark .form-control select {
             border-color: #404040 !important;
             background-color: #1e1e1e !important;
-            color: #ffffff !important; /* Texto blanco en modo oscuro */
+            color: #ffffff !important;
         }
         
-        /* Texto guía (placeholders) en modo oscuro - BLANCO */
         .dark .form-control input::placeholder,
         .dark .form-control select::placeholder {
             color: #ffffff !important;
@@ -219,7 +218,7 @@
             font-size: 0.75rem;
             font-weight: 500;
             min-width: 100px;
-            color: #000 !important; /* Texto negro en modo claro */
+            color: #000 !important;
         }
         
         .position-btn.active {
@@ -231,7 +230,7 @@
         .dark .position-btn {
             border-color: #404040;
             background-color: #1e1e1e;
-            color: #ffffff !important; /* Texto blanco en modo oscuro */
+            color: #ffffff !important;
         }
         
         .dark .position-btn.active {
@@ -310,11 +309,11 @@
         .measure-field label {
             font-size: 0.6rem;
             margin-bottom: 0.05rem;
-            color: #000 !important; /* Texto negro en modo claro */
+            color: #000 !important;
         }
         
         .dark .measure-field label {
-            color: #ffffff !important; /* Texto blanco en modo oscuro */
+            color: #ffffff !important;
         }
         
         /* Ajustes para header más compacto */
@@ -435,6 +434,7 @@
             height: 2.3rem !important;
             display: flex;
             align-items: center;
+            width: 100%;
         }
         
         .form-control-busqueda-rapida .form-input {
@@ -446,10 +446,9 @@
             background-color: white !important;
             font-size: 12px !important;
             transition: all 0.2s !important;
-            color: #000 !important; /* Texto negro en modo claro */
+            color: #000 !important;
         }
         
-        /* Texto guía (placeholders) en modo claro - NEGRO */
         .form-control-busqueda-rapida .form-input::placeholder {
             color: #000 !important;
         }
@@ -457,10 +456,9 @@
         .dark .form-control-busqueda-rapida .form-input {
             border-color: #404040 !important;
             background-color: #1e1e1e !important;
-            color: #ffffff !important; /* Texto blanco en modo oscuro */
+            color: #ffffff !important;
         }
         
-        /* Texto guía (placeholders) en modo oscuro - BLANCO */
         .dark .form-control-busqueda-rapida .form-input::placeholder {
             color: #ffffff !important;
         }
@@ -495,6 +493,28 @@
         .dark .position-badge {
             color: #ffffff !important;
         }
+        
+        /* Ajuste clave para que el cuadro de búsqueda tenga el mismo ancho que los demás filtros */
+        .search-container {
+            width: 100%;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100% !important;
+        }
+        
+        .search-container button {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -511,7 +531,7 @@
     <!-- Search Section -->
     <section class="container mx-auto px-2 py-2">
         <div class="bg-white rounded-lg shadow p-2">
-            <!-- Búsqueda rápida ahora es el primer filtro - Mismo ancho en móvil que otros filtros -->
+            <!-- Búsqueda rápida - Mismo ancho que otros filtros -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2 mb-2">
                 <div class="lg:col-span-1">
                     <div class="filter-group bg-gray-50 rounded h-full">
@@ -523,9 +543,10 @@
                         </div>
                         <div class="space-y-2">
                             <div class="form-control-busqueda-rapida">
-                                <div class="relative">
+                                <!-- Contenedor ajustado para que tome el ancho completo -->
+                                <div class="search-container">
                                     <input type="text" id="busquedaRapida" class="form-input form-input-busqueda" placeholder="Buscar...">
-                                    <button id="limpiarBusqueda" class="absolute right-0 top-0 h-full w-8 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                                    <button id="limpiarBusqueda" class="text-gray-400 hover:text-gray-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
