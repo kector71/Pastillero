@@ -45,12 +45,6 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
 .lp-fbtn.cat-bounce:hover{animation:lp-bounce .4s;}
 @keyframes lp-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 
-.lp-trashed-item{
-  position:fixed;border-radius:50%;z-index:998;pointer-events:none;
-  animation:lp-fallTrash .8s forwards;clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-@keyframes lp-fallTrash{0%{transform:translate(0,0) scale(1);opacity:1;}70%{transform:translate(var(--dx,10px),var(--dy,30px)) scale(var(--scale,0.8));opacity:1;}100%{transform:translate(0,50px) scale(0);opacity:0;}}
-
 .lp-modal{
   position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;
@@ -80,6 +74,42 @@ body.lp-dark #lpCloseModal{color:#fff;}
 
 footer{margin-top:3rem;font-size:.9rem;color:#555;text-align:center;}
 body.lp-dark footer{color:#ccc;}
+
+/* Chispas estilo soldadura ultra realistas optimizadas */
+.lp-trashed-item{
+  position: fixed;
+  border-radius: 50%;
+  z-index: 998;
+  pointer-events: none;
+  background: radial-gradient(circle, #fff 0%, #ffea00 50%, #ff4d4d 100%);
+  box-shadow: 0 0 10px 3px #fff, 0 0 18px 5px #ffea00, 0 0 25px 7px #ff4d4d;
+  animation: lp-sparkFall 0.8s forwards, lp-sparkTwinkle 0.25s infinite alternate;
+}
+@keyframes lp-sparkFall{
+  0% { transform: translate(0,0) scale(1); opacity:1; }
+  30% { transform: translate(var(--dx,20px), var(--dy,-20px)) scale(var(--scale,0.9)); opacity:1; }
+  60% { transform: translate(calc(var(--dx,20px)*1.1), calc(var(--dy,-20px)*1.3)) scale(var(--scale,0.8)); opacity:0.7; }
+  100% { transform: translate(calc(var(--dx,20px)*1.4), calc(var(--dy,-20px)*1.6)) scale(0); opacity:0; }
+}
+@keyframes lp-sparkTwinkle{
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.lp-spark-particle{
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  width: 2-3px;
+  height: 2-3px;
+  background: radial-gradient(circle, #fff 0%, #ffea00 50%, #ff4d4d 100%);
+  opacity: 0.7;
+  animation: lp-particleFade 0.9s forwards;
+}
+@keyframes lp-particleFade{
+  0% { transform: translate(0,0) scale(1); opacity:0.7; }
+  100% { transform: translate(var(--dx,10px), var(--dy,10px)) scale(0); opacity:0; }
+}
 </style>
 </head>
 <body>
@@ -141,22 +171,53 @@ body.lp-dark footer{color:#ccc;}
   window.addEventListener('scroll',()=>{const show=window.scrollY>200;topBtn.style.opacity=show?'1':'0';topBtn.style.pointerEvents=show?'auto':'none';});
   btns.forEach(b=>b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.setProperty('--mx',`${e.clientX-r.left}px`);b.style.setProperty('--my',`${e.clientY-r.top}px`);}));
 
-  trashBtn.onclick=()=>{
-    if(navigator.vibrate) navigator.vibrate([100,50,100]);
-    for(let i=0;i<5;i++){
-      const s=document.createElement('div');s.className='lp-trashed-item';
-      const r=trashBtn.getBoundingClientRect(),size=Math.random()*6+4;
-      const dx=Math.random()*40-20, dy=Math.random()*40-10;
-      const colors=['#ff4d4d','#ffb84d','#4d94ff','#4dff88','#ffff4d'];
-      s.style.cssText=`width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};
-        left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy}px;--scale:${Math.random()*0.5+0.5}`;
-      document.body.appendChild(s);setTimeout(()=>s.remove(),800);
+  // Chispas optimizadas estilo soldadura
+  trashBtn.onclick = () => {
+    if(navigator.vibrate) navigator.vibrate([50,30,50]);
+    const r = trashBtn.getBoundingClientRect();
+    const isMobile = window.innerWidth < 768;
+    const sparksCount = isMobile ? 6 : 10;
+    const particleMax = isMobile ? 1 : 2;
+
+    for(let i=0; i<sparksCount; i++){
+      const s = document.createElement('div');
+      s.className = 'lp-trashed-item';
+      const size = Math.random()*8 + 5;
+      const dx = (Math.random() - 0.5) * 120;
+      const dy = (Math.random() - 1) * 120;
+      s.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${r.left + r.width/2}px;
+        top: ${r.top + r.height/2}px;
+        --dx: ${dx}px;
+        --dy: ${dy}px;
+        --scale: ${Math.random()*0.7+0.6};
+        box-shadow: 0 0 ${size}px ${size/2}px #fff, 0 0 ${size*2}px ${size}px #ffea00, 0 0 ${size*3}px ${size*1.5}px #ff4d4d;
+      `;
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), 900);
+
+      const particleCount = Math.floor(Math.random()*particleMax) + 1;
+      for(let j=0; j<particleCount; j++){
+        const p = document.createElement('div');
+        p.className = 'lp-spark-particle';
+        const pdx = (Math.random() - 0.5) * 50;
+        const pdy = (Math.random() - 0.5) * 50;
+        p.style.cssText = `
+          left: ${r.left + r.width/2}px;
+          top: ${r.top + r.height/2}px;
+          --dx: ${pdx}px;
+          --dy: ${pdy}px;
+        `;
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(), 900);
+      }
     }
   };
 
   const modal=document.getElementById('lpModal');
   const closeModal=document.getElementById('lpCloseModal');
-
   catBtn.onclick=()=>{modal.classList.toggle('show');};
   closeModal.onclick=()=>modal.classList.remove('show');
   modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('show');});
