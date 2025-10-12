@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+    
+                
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,267 +21,49 @@
     <title>EL PASTILLERO 💊</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* ==========================
-           🩵 EL PASTILLERO — BASE CSS
-           ========================== */
-        
-        /* ==== FUENTES Y VARIABLES ==== */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        :root {
-            --font-primary: 'Poppins', 'Inter', 'Segoe UI', Roboto, sans-serif;
-            --color-bg: #ffffff;
-            --color-text: #000000;
-            --color-card: #f8fafc;
-            --color-border: #e2e8f0;
-            --color-header: #000000;
-            --color-accent: #2563eb;
-            --color-error: #ef4444;
-            --color-blue: #3b82f6;
-            --color-green: #10b981;
-            --color-orange: #f97316;
-            --color-purple: #8b5cf6;
-            --transition-base: 0.2s ease;
-            --transition-button: 0.3s ease;
-            --shadow-sm: 0 2px 6px rgba(0,0,0,0.15);
-            --shadow-md: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
         body {
-            font-family: var(--font-primary);
-            font-size: 14px;
-            color: var(--color-text);
-            background-color: var(--color-bg);
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            transition: background-color var(--transition-base), color var(--transition-base);
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 14px;
+            color: #333;
         }
-
-        /* ==== MODO OSCURO ==== */
         .dark {
-            --color-bg: #000000;
-            --color-text: #f0f0f0;
-            --color-card: #121212;
-            --color-border: #2d2d2d;
-            --color-blue: #4F9EFF;
-            --color-green: #4ADE80;
-            --color-orange: #F59E0B;
-            --color-purple: #C792EA;
+            background-color: #000000 !important;
+            color: #f0f0f0 !important;
         }
-
-        /* ==== CONTENEDOR PRINCIPAL ==== */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+        .dark .bg-white {
+            background-color: #121212 !important;
         }
-
-        .px-2 {
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
+        .dark .bg-gray-50 {
+            background-color: #0a0a0a !important;
         }
-
-        .py-2 {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+        .dark .bg-gray-800 {
+            background-color: #000000 !important;
         }
-
-        /* ==== HEADER ==== */
-        .header-container {
-            padding: 1.5rem 0;
-            text-align: center;
+        .dark .border-gray-200 {
+            border-color: #2d2d2d !important;
         }
-
-        .header-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: var(--color-header);
+        .dark .text-gray-700 {
+            color: #c0c0c0 !important;
         }
-
-        .header-subtitle {
-            font-weight: 400;
-            font-size: 0.9rem;
-            opacity: 0.9;
-            color: var(--color-header);
+        .dark .text-gray-800 {
+            color: #f0f0f0 !important;
         }
-
-        /* ==== CARD PRINCIPAL ==== */
-        .main-card {
-            background-color: var(--color-card);
-            border-radius: 0.5rem;
-            overflow: hidden;
-            margin: 0 auto;
-            max-width: 800px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        .dark .text-gray-400 {
+            color: #a0a0a0 !important;
         }
-
-        /* ==== SECCIÓN DE BÚSQUEDA ==== */
-        .section-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--color-border);
+        .dark .divide-gray-200 > tr {
+            border-color: #2d2d2d !important;
         }
-
-        .search-container {
-            position: relative;
-            margin-bottom: 1.5rem;
+        .dark .bg-blue-100 {
+            background-color: #0a2463 !important;
         }
-
-        .search-input {
-            width: 100%;
-            height: 2.5rem;
-            padding: 0 2.5rem 0 1rem;
-            border-radius: 0.375rem;
-            border: 1px solid var(--color-border);
-            background-color: var(--color-card);
-            color: var(--color-text);
-            font-size: 1rem;
-            transition: all var(--transition-base);
+        .dark .bg-gradient-to-r {
+            background: linear-gradient(to right, #1e40af, #1d4ed8) !important;
         }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--color-blue);
-            box-shadow: 0 0 0 1px var(--color-blue);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--color-border);
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-
-        .result-count {
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            color: var(--color-text);
-        }
-
-        /* ==== SECCIONES DE FORMULARIO ==== */
-        .form-section {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-section-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .form-section-title.blue {
-            color: var(--color-blue);
-        }
-
-        .form-section-title.green {
-            color: var(--color-green);
-        }
-
-        .form-section-title.orange {
-            color: var(--color-orange);
-        }
-
-        .form-control {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-control label {
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-            color: var(--color-text);
-        }
-
-        .form-input {
-            width: 100%;
-            height: 2.5rem;
-            padding: 0 1rem;
-            border-radius: 0.375rem;
-            border: 1px solid var(--color-border);
-            background-color: var(--color-card);
-            color: var(--color-text);
-            font-size: 1rem;
-            transition: all var(--transition-base);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--color-blue);
-            box-shadow: 0 0 0 1px var(--color-blue);
-        }
-
-        /* ==== BOTONES DE POSICIÓN ==== */
-        .position-selector {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.25rem;
-        }
-
-        .position-btn {
-            height: 2.5rem;
-            padding: 0 1rem;
-            border-radius: 0.375rem;
-            border: 1px solid var(--color-border);
-            background-color: var(--color-card);
-            cursor: pointer;
-            transition: all var(--transition-base);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-            color: var(--color-text);
-        }
-
-        .position-btn.active {
-            border-color: var(--color-blue);
-            background-color: #1e40af;
-            color: white;
-        }
-
-        .position-btn:hover {
-            background-color: #1e40af;
-            color: white;
-        }
-
-        /* ==== BOTÓN LIMPIAR FILTROS ==== */
-        .clear-filters-btn {
-            width: 100%;
-            height: 2.5rem;
-            padding: 0 1rem;
-            border-radius: 0.375rem;
-            border: 1px solid var(--color-border);
-            background-color: var(--color-card);
-            cursor: pointer;
-            transition: all var(--transition-base);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: var(--color-text);
-            margin-top: 1.5rem;
-        }
-
-        .clear-filters-btn:hover {
-            background-color: #1e40af;
-            color: white;
-            border-color: #1e40af;
-        }
-
-        /* ==== BOTÓN DE MODO OSCURO ==== */
         .dark-mode-toggle {
             position: fixed;
             bottom: 3.5rem;
@@ -274,229 +71,697 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background-color: #1a1a1a;
-            border: 1px solid var(--color-border);
-            box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+            background-color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all var(--transition-button);
+            transition: all 0.3s;
             z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            opacity: 0.95;
+            border: 1.5px solid #cbd5e0; /* Borde más grueso y visible en modo claro */
         }
-
-        .dark-mode-toggle:hover {
-            background-color: #2a2a2a;
+        .dark .dark-mode-toggle {
+            background-color: #121212;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            border: 1.5px solid #4a5568; /* Borde azul oscuro en modo oscuro */
         }
-
         .dark-mode-toggle svg {
             width: 16px;
             height: 16px;
-            stroke: #e0e0e0;
+            stroke: #2d3748;
             stroke-width: 2;
         }
-
-        /* ==== RESULTADOS ==== */
-        .results-container {
-            margin-top: 1.5rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        .dark .dark-mode-toggle svg {
+            stroke: #e0e0e0;
         }
-
-        .no-results {
-            padding: 1.5rem;
-            text-align: center;
-            background-color: var(--color-card);
-            border-radius: 0.5rem;
-            border: 1px solid var(--color-border);
+        
+        .dark .border-gray-300 {
+            border-color: #404040 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
         }
-
-        .no-results-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
+        
+        .dark .border-gray-300::placeholder {
+            color: #ffffff !important;
         }
-
-        /* ==== ANIMACIONES ==== */
+        
+        .dark select {
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+            border-color: #404040 !important;
+        }
+        
+        .result-card {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .dark .result-card {
+            border-bottom-color: #2d2d2d;
+        }
+        .result-card:hover {
+            background-color: #f8fafc;
+        }
+        .dark .result-card:hover {
+            background-color: #1a1a1a;
+        }
+        .result-field {
+            margin-bottom: 0.25rem;
+            display: flex;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #4a5568;
+            display: inline-block;
+            min-width: 80px;
+            font-size: 12px;
+        }
+        .dark .field-label {
+            color: #c0c0c0 !important;
+        }
+        .field-value {
+            color: #2d3748;
+            font-size: 12px;
+        }
+        .dark .field-value {
+            color: #ffffff !important;
+        }
+        .dark .field-value.text-blue-600 {
+            color: #63b3ed !important;
+        }
+        
+        .filter-group {
+            padding: 0.65rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+            background-color: #f9f9f9;
+        }
+        .dark .filter-group {
+            background-color: #121212;
+            border: 1px solid #333333;
+        }
+        .light .filter-group {
+            background-color: #f8fafc;
+        }
+        
+        .filter-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+        }
+        .filter-title svg {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        
+        .position-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .form-control {
+            height: 2.3rem;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .form-control input,
+        .form-control select {
+            height: 100%;
+            width: 100%;
+            padding: 0 0.65rem;
+            border-radius: 0.2rem;
+            border: 1px solid #e2e8f0;
+            background-color: white;
+            font-size: 12px;
+            transition: all 0.2s;
+            color: #000 !important;
+        }
+        
+        .form-control input::placeholder,
+        .form-control select::placeholder {
+            color: #000 !important;
+        }
+        
+        .dark .form-control input,
+        .dark .form-control select {
+            border-color: #404040 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+        }
+        
+        .dark .form-control input::placeholder,
+        .dark .form-control select::placeholder {
+            color: #ffffff !important;
+        }
+        
+        .position-btn {
+            height: 2.4rem;
+            padding: 0 0.6rem;
+            border-radius: 0.25rem;
+            border: 1px solid #e2e8f0;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            min-width: 100px;
+            color: #000 !important;
+        }
+        
+        .position-btn.active {
+            border-color: #2563eb;
+            background-color: #dbeafe;
+            color: #1d4ed8;
+        }
+        
+        .dark .position-btn {
+            border-color: #404040;
+            background-color: #1e1e1e;
+            color: #ffffff !important;
+        }
+        
+        .dark .position-btn.active {
+            border-color: #63b3ed;
+            background-color: #0a2463;
+            color: white;
+        }
+        
+        .position-icon {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+        
+        .position-badge {
+            display: inline-block;
+            padding: 0.05rem 0.25rem;
+            border-radius: 0.4rem;
+            font-size: 0.6rem;
+            font-weight: 500;
+        }
+        
+        .position-delantera {
+            background-color: #dbeafe;
+            color: #1d4ed8;
+        }
+        
+        .position-trasera {
+            background-color: #fef2f2;
+            color: #b91c1c;
+        }
+        
+        .dark .position-delantera {
+            background-color: #0a2463;
+            color: #63b3ed;
+        }
+        
+        .dark .position-trasera {
+            background-color: #5a0a0a;
+            color: #fca5a5;
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+        
+        .favorite-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .filter-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.4rem;
+            gap: 0.4rem;
+        }
+        
+        .measure-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.2rem;
+        }
+        
+        .measure-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .measure-field label {
+            font-size: 0.6rem;
+            margin-bottom: 0.05rem;
+            color: #000 !important;
+        }
+        
+        .dark .measure-field label {
+            color: #ffffff !important;
+        }
+        
+        /* Ajustes para header más compacto */
+        .header-container {
+            padding: 0.4rem 0;
+        }
+        
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+        
+        .header-title h1 {
+            font-size: 1.05rem;
+            margin-bottom: 0;
+        }
+        
+        .header-title p {
+            font-size: 0.7rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        /* Ajustes para el placeholder de búsqueda rápida */
+        #busquedaRapida::placeholder {
+            font-size: 11px;
+        }
+        
+        /* Botón para subir rápido - MOVIDO A LA IZQUIERDA */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 3.5rem;
+            left: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            z-index: 99;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            will-change: transform, opacity;
+            border: 1.5px solid #cbd5e0; /* Borde más grueso y visible en modo claro */
+        }
+        
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            animation: fadeIn 0.3s ease-out;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* ==== UTILIDADES ==== */
-        .mb-2 {
-            margin-bottom: 0.5rem;
+        
+        .dark .scroll-top-btn {
+            background-color: #3b82f6;
+            border: 1.5px solid #4a5568; /* Borde azul oscuro en modo oscuro */
         }
-
-        .mb-3 {
-            margin-bottom: 0.75rem;
+        
+        .scroll-top-btn svg {
+            width: 14px;
+            height: 14px;
         }
-
-        .mt-4 {
-            margin-top: 1rem;
+        
+        .scroll-top-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
-
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto;
+        
+        /* Botón flotante de limpiar filtros */
+        .reset-filters-floating-btn {
+            position: fixed;
+            bottom: 3.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #ef4444;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border: 1.5px solid #cbd5e0; /* Borde más grueso y visible en modo claro */
         }
-
-        .text-center {
-            text-align: center;
+        
+        .dark .reset-filters-floating-btn {
+            background-color: #f87171;
+            color: #121212;
+            border: 1.5px solid #ffffff; /* Borde blanco en modo oscuro */
         }
-
-        .w-full {
+        
+        .reset-filters-floating-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .reset-filters-floating-btn:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Ajustes específicos para el input de búsqueda rápida */
+        .form-control-busqueda-rapida {
+            height: 2.3rem !important;
+            display: flex;
+            align-items: center;
             width: 100%;
         }
-
-        .overflow-hidden {
-            overflow: hidden;
+        
+        .form-control-busqueda-rapida .form-input {
+            height: 100% !important;
+            width: 100% !important;
+            padding: 0 0.65rem !important;
+            border-radius: 0.2rem !important;
+            border: 1px solid #e2e8f0 !important;
+            background-color: white !important;
+            font-size: 12px !important;
+            transition: all 0.2s !important;
+            color: #000 !important;
         }
-
-        .shadow {
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        
+        .form-control-busqueda-rapida .form-input::placeholder {
+            color: #000 !important;
         }
-
-        .rounded-lg {
-            border-radius: 0.5rem;
+        
+        .dark .form-control-busqueda-rapida .form-input {
+            border-color: #404040 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
         }
-
-        .p-4 {
-            padding: 1rem;
+        
+        .dark .form-control-busqueda-rapida .form-input::placeholder {
+            color: #ffffff !important;
         }
-
-        .bg-gray-50 {
-            background-color: #f9f9f9;
+        
+        /* Ajustes adicionales para mejorar legibilidad en modo oscuro */
+        .dark .form-control input::placeholder,
+        .dark .form-control select::placeholder {
+            color: #ffffff !important;
         }
-
-        .dark .bg-gray-50 {
-            background-color: #0a0a0a;
+        
+        .dark .filter-group {
+            border: 1px solid #333333;
+        }
+        
+        .dark .filter-title {
+            color: #e0e0e0;
+        }
+        
+        .dark .result-card {
+            border-bottom-color: #333333;
+        }
+        
+        .dark .text-gray-500 {
+            color: #a0a0a0 !important;
+        }
+        
+        /* Asegurar que todos los textos en los filtros sean blancos en modo oscuro */
+        .dark .form-control input,
+        .dark .form-control select,
+        .dark .position-btn,
+        .dark .position-icon,
+        .dark .position-badge {
+            color: #ffffff !important;
+        }
+        
+        /* Ajuste clave para que el cuadro de búsqueda tenga el mismo ancho que los demás filtros */
+        .search-container {
+            width: 100%;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100% !important;
+        }
+        
+        .search-container button {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Banners en negro para pantallas AMOLED */
+        header {
+            background-color: #000000 !important;
+            color: white !important;
+            position: relative; /* Necesario para el pseudo-elemento */
+        }
+        
+        footer {
+            background-color: #000000 !important;
+            color: white !important;
+            position: relative; /* Necesario para el pseudo-elemento */
+        }
+        
+        /* Línea blanca delgada en modo oscuro para el borde inferior del header */
+        .dark header::after {
+            content: '';
+            display: block;
+            height: 1px;
+            background-color: white;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        
+        /* Línea blanca delgada en modo oscuro para el borde superior del footer */
+        .dark footer::before {
+            content: '';
+            display: block;
+            height: 1px;
+            background-color: white;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Texto de resultados en negro en modo claro y blanco en modo oscuro */
+        .result-count-text {
+            color: #000 !important;
+        }
+        
+        .dark .result-count-text {
+            color: #ffffff !important;
         }
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Header -->
-    <header>
-        <div class="container px-2">
-            <div class="header-container">
-                <div class="header-title">
-                    <h1>EL PASTILLERO</h1>
-                    <span>💊</span>
-                    <p class="header-subtitle">Catálogo de pastillas de freno</p>
-                </div>
+    <!-- Header compacto - NEGRO para AMOLED con texto blanco -->
+    <header class="text-white">
+        <div class="container mx-auto px-2 header-container">
+            <div class="header-title">
+                <h1 class="font-bold">EL PASTILLERO 💊</h1>
+                <p class="opacity-90">Catálogo de pastillas de freno</p>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container px-2">
-        <div class="main-card">
-            <!-- Búsqueda rápida -->
-            <div class="p-4">
-                <h2 class="section-title">Búsqueda rápida</h2>
-                <div class="search-container">
-                    <input type="text" id="busquedaRapida" class="search-input" placeholder="Buscar...">
-                    <div class="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="result-count">
-                    <span id="resultCount">0</span> resultados
-                </div>
-            </div>
-
-            <!-- Información del vehículo -->
-            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-                <h2 class="form-section-title blue">Información del vehículo</h2>
-                <div class="form-section">
-                    <div class="form-control">
-                        <label for="marcaInput">Marca</label>
-                        <input type="text" id="marcaInput" class="form-input" placeholder="Marca">
-                    </div>
-                    <div class="form-control">
-                        <label for="modeloInput">Modelo</label>
-                        <input type="text" id="modeloInput" class="form-input" placeholder="Modelo">
-                    </div>
-                    <div class="form-control">
-                        <label for="ano">Año</label>
-                        <input type="number" id="ano" class="form-input" placeholder="Año">
-                    </div>
-                    <div class="form-control">
-                        <label>Posición</label>
-                        <div class="position-selector">
-                            <div class="position-btn" id="positionDelantera">
-                                Delantera
+    <!-- Search Section -->
+    <section class="container mx-auto px-2 py-2">
+        <div class="bg-white rounded-lg shadow p-2">
+            <!-- Búsqueda rápida - Mismo ancho que otros filtros -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2 mb-2">
+                <div class="lg:col-span-1">
+                    <div class="filter-group bg-gray-50 rounded h-full">
+                        <div class="filter-title text-purple-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            Búsqueda rápida
+                        </div>
+                        <div class="space-y-2">
+                            <div class="form-control-busqueda-rapida">
+                                <!-- Contenedor ajustado para que tome el ancho completo -->
+                                <div class="search-container">
+                                    <input type="text" id="busquedaRapida" class="form-input form-input-busqueda" placeholder="Buscar...">
+                                    <button id="limpiarBusqueda" class="text-gray-400 hover:text-gray-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="position-btn" id="positionTrasera">
-                                Trasera
+                            
+                            <div class="filter-actions">
+                                <!-- Texto de resultados con color ajustado -->
+                                <div class="text-xs result-count-text">
+                                    <span id="resultCount">0</span> resultados
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Especificaciones y Medidas -->
-            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <h2 class="form-section-title green">Especificaciones</h2>
-                        <div class="form-section">
-                            <div class="form-control">
-                                <label for="referencia">Referencia</label>
-                                <input type="text" id="referencia" class="form-input" placeholder="Referencia">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2">
+                <!-- Filtros principales -->
+                <div class="lg:col-span-2">
+                    <div class="space-y-1.5">
+                        <!-- Grupo de información del vehículo -->
+                        <div class="filter-group bg-gray-50 rounded">
+                            <!-- Icono de vehículo actualizado -->
+                            <div class="filter-title text-blue-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                </svg>
+                                Información del vehículo
                             </div>
-                            <div class="form-control">
-                                <label for="platinaFmsi">Platina FMSI</label>
-                                <input type="text" id="platinaFmsi" class="form-input" placeholder="Platina FMSI">
-                            </div>
-                            <div class="form-control">
-                                <label for="oem">OEM</label>
-                                <input type="text" id="oem" class="form-input" placeholder="OEM">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-1">
+                                <div class="form-control">
+                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="Marca">
+                                    <datalist id="marcaList"></datalist>
+                                </div>
+                                
+                                <div class="form-control">
+                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="Modelo">
+                                    <datalist id="modeloList"></datalist>
+                                </div>
+                                
+                                <div class="form-control">
+                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="Año">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-0.5">Posición</label>
+                                    <div class="position-selector">
+                                        <div class="position-btn" id="positionDelantera">
+                                            <span class="position-icon">►</span>
+                                            <span>Delantera</span>
+                                        </div>
+                                        <div class="position-btn" id="positionTrasera">
+                                            <span class="position-icon">◄</span>
+                                            <span>Trasera</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <h2 class="form-section-title orange">Medidas (mm)</h2>
-                        <div class="form-section">
-                            <div class="form-control">
-                                <label for="medidaLongitud">Longitud</label>
-                                <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="Longitud">
+                        
+                        <!-- Grupo de especificaciones y medidas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-1">
+                            <!-- Especificaciones -->
+                            <div class="filter-group bg-gray-50 rounded">
+                                <div class="filter-title text-green-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    Especificaciones
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="form-control">
+                                        <input type="text" id="referencia" class="form-input" placeholder="Referencia">
+                                    </div>
+                                    
+                                    <div class="form-control">
+                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="Platina FMSI">
+                                    </div>
+                                    
+                                    <div class="form-control">
+                                        <input type="text" id="oem" class="form-input" placeholder="OEM">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-control">
-                                <label for="medidaAncho">Ancho</label>
-                                <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="Ancho">
-                            </div>
-                            <div class="form-control">
-                                <label for="medidaGrosor">Grosor</label>
-                                <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="Grosor">
+                            
+                            <!-- Medidas -->
+                            <div class="filter-group bg-gray-50 rounded">
+                                <!-- Icono de medidas actualizado -->
+                                <div class="filter-title text-orange-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                    </svg>
+                                    Medidas (mm)
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="measure-grid">
+                                        <div class="form-control">
+                                            <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="Longitud">
+                                        </div>
+                                        <div class="form-control">
+                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="Ancho">
+                                        </div>
+                                        <div class="form-control">
+                                            <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="Grosor">
+                                        </div>
+                                        <div class="form-control">
+                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="Altura">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-control">
+                                        <input type="number" id="medidaDiametro" step="0.1" class="form-input" placeholder="Diámetro">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Botón limpiar filtros -->
-            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-                <button id="resetFiltersButton" class="clear-filters-btn">
-                    Limpiar filtros
-                </button>
             </div>
         </div>
 
         <!-- Results Section -->
-        <div class="results-container">
-            <div class="no-results">
-                <h3 class="no-results-title">No hay resultados</h3>
+        <div class="bg-white rounded-lg shadow overflow-hidden mt-2" id="results-container">
+            <div class="p-3 text-center">
+                <div class="bg-blue-50 rounded-full w-7 h-7 flex items-center justify-center mx-auto mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <!-- Texto de resultados con color ajustado -->
+                <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">☹️</h3>
+                <p class="text-gray-500 dark:text-white text-xs max-w-md mx-auto">No hay resultados</p>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
-    <footer class="mt-8 py-4 text-center text-xs text-gray-500">
-        <div class="container px-2">
-            © 2026 EL PASTILLERO 💊. Todos los derechos reservados.
+    <!-- Footer - NEGRO para AMOLED con texto blanco -->
+    <footer class="text-white mt-2 py-1.5">
+        <div class="container mx-auto px-2">
+            <div class="text-center">
+                <h3 class="text-sm font-bold">EL PASTILLERO 💊</h3>
+                <div class="mt-0.5 text-xs text-gray-400">
+                    © 2026 EL PASTILLERO 💊. Todos los derechos reservados.
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -504,6 +769,20 @@
     <div class="dark-mode-toggle" id="darkModeToggle" title="Alternar modo claro/oscuro">
         <svg id="modeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </div>
+    
+    <!-- Botón para subir rápido MOVIDO A LA IZQUIERDA -->
+    <div class="scroll-top-btn" id="scrollTopBtn" title="Volver arriba">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </div>
+    
+    <!-- Botón flotante de limpiar filtros -->
+    <div class="reset-filters-floating-btn" id="resetFiltersFloating" title="Limpiar filtros">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
     </div>
 
@@ -520,18 +799,137 @@
             const medidaLongitud = document.getElementById('medidaLongitud');
             const medidaAncho = document.getElementById('medidaAncho');
             const medidaGrosor = document.getElementById('medidaGrosor');
+            const medidaAltura = document.getElementById('medidaAltura');
+            const medidaDiametro = document.getElementById('medidaDiametro');
             const busquedaRapidaInput = document.getElementById('busquedaRapida');
-            const resetFiltersButton = document.getElementById('resetFiltersButton');
+            const limpiarBusquedaBtn = document.getElementById('limpiarBusqueda');
+            const resetFiltersFloatingBtn = document.getElementById('resetFiltersFloating');
             const resultsContainer = document.getElementById('results-container');
             const resultCountElement = document.getElementById('resultCount');
             const darkModeToggle = document.getElementById('darkModeToggle');
             const modeIcon = document.getElementById('modeIcon');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
             
             // Datos vacíos
             let brakePadsData = [];
             
             // Variable para debounce
             let searchTimeout;
+            
+            // Render results
+            function renderResults(data) {
+                let html = '<div class="overflow-x-auto">';
+                
+                if (data.length === 0) {
+                    html += `
+                    <div class="p-3 text-center">
+                        <div class="bg-blue-50 rounded-full w-7 h-7 flex items-center justify-center mx-auto mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">☹️</h3>
+                        <p class="text-gray-500 dark:text-white text-xs max-w-md mx-auto">No hay resultados</p>
+                    </div>
+                    `;
+                } else {
+                    html += '<div class="divide-y divide-gray-200">';
+                    
+                    data.forEach((item, index) => {
+                        let positionBadge = '';
+                        if (item.posicion.includes('Del') && item.posicion.includes('Tras')) {
+                            positionBadge = '<span class="position-badge position-delantera mr-1">Delantera</span><span class="position-badge position-trasera">Trasera</span>';
+                        } else if (item.posicion.includes('Del')) {
+                            positionBadge = '<span class="position-badge position-delantera">Delantera</span>';
+                        } else {
+                            positionBadge = '<span class="position-badge position-trasera">Trasera</span>';
+                        }
+                        
+                        // Verificar si es favorito
+                        const isFavorite = isItemFavorite(index);
+                        
+                        // Crear HTML para las medidas si existen
+                        let medidasHTML = '';
+                        if (item.medidas) {
+                            medidasHTML = `
+                            <div class="result-field"><span class="field-label">L:</span> <span class="field-value">${item.medidas.longitud}mm</span></div>
+                            <div class="result-field"><span class="field-label">A:</span> <span class="field-value">${item.medidas.ancho}mm</span></div>
+                            <div class="result-field"><span class="field-label">G:</span> <span class="field-value">${item.medidas.grosor}mm</span></div>
+                            <div class="result-field"><span class="field-label">H:</span> <span class="field-value">${item.medidas.altura}mm</span></div>
+                            ${item.medidas.diametro ? `<div class="result-field"><span class="field-label">D:</span> <span class="field-value">${item.medidas.diametro}mm</span></div>` : ''}
+                            `;
+                        }
+                        
+                        html += `
+                        <div class="result-card">
+                            <svg class="favorite-btn" data-id="${index}" xmlns="http://www.w3.org/2000/svg" fill="${isFavorite ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="${isFavorite ? 'none' : 'currentColor'}" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                            </svg>
+                            <div class="result-field"><span class="field-label">M:</span> <span class="field-value">${item.marca}</span></div>
+                            <div class="result-field"><span class="field-label">Mod:</span> <span class="field-value">${item.modelo}</span></div>
+                            <div class="result-field"><span class="field-label">A:</span> <span class="field-value">${item.desde}-${item.hasta}</span></div>
+                            <div class="result-field"><span class="field-label">P:</span> <span class="field-value">${positionBadge}</span></div>
+                            <div class="result-field"><span class="field-label">Ref:</span> <span class="field-value font-medium text-blue-600">${item.refIncolbest}</span></div>
+                            <div class="result-field"><span class="field-label">Plat:</span> <span class="field-value">${item.platinaFmsi}</span></div>
+                            <div class="result-field"><span class="field-label">OEM:</span> <span class="field-value">${item.oemCode}</span></div>
+                            ${medidasHTML}
+                        </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+                
+                html += '</div>';
+                resultsContainer.innerHTML = html;
+                resultCountElement.textContent = data.length;
+                
+                // Añadir evento a los botones de favoritos
+                document.querySelectorAll('.favorite-btn').forEach(btn => {
+                    btn.addEventListener('click', toggleFavorite);
+                });
+            }
+            
+            // Check if item is favorite
+            function isItemFavorite(index) {
+                try {
+                    const favorites = JSON.parse(localStorage.getItem('brakePadFavorites') || '[]');
+                    return favorites.includes(index.toString());
+                } catch (e) {
+                    return false;
+                }
+            }
+            
+            // Toggle favorite status
+            function toggleFavorite(e) {
+                const id = e.target.closest('.favorite-btn').dataset.id;
+                const isFavorite = e.target.closest('.favorite-btn').classList.toggle('fill-current');
+                
+                // Update SVG
+                const svg = e.target.closest('.favorite-btn');
+                if (isFavorite) {
+                    svg.setAttribute('fill', 'currentColor');
+                    svg.setAttribute('stroke', 'none');
+                } else {
+                    svg.setAttribute('fill', 'none');
+                    svg.setAttribute('stroke', 'currentColor');
+                }
+                
+                // Save to localStorage
+                try {
+                    let favorites = JSON.parse(localStorage.getItem('brakePadFavorites') || '[]');
+                    if (isFavorite) {
+                        if (!favorites.includes(id)) {
+                            favorites.push(id);
+                        }
+                    } else {
+                        favorites = favorites.filter(favId => favId !== id);
+                    }
+                    localStorage.setItem('brakePadFavorites', JSON.stringify(favorites));
+                } catch (e) {
+                    console.error('Error saving favorites:', e);
+                }
+            }
             
             // Update dark mode icon
             function updateDarkModeIcon() {
@@ -561,6 +959,7 @@
                     if (this.classList.contains('active') && positionTrasera.classList.contains('active')) {
                         positionTrasera.classList.remove('active');
                     }
+                    filterData();
                 });
                 
                 positionTrasera.addEventListener('click', function() {
@@ -568,6 +967,7 @@
                     if (this.classList.contains('active') && positionDelantera.classList.contains('active')) {
                         positionDelantera.classList.remove('active');
                     }
+                    filterData();
                 });
             }
             
@@ -595,6 +995,8 @@
                 const longitud = medidaLongitud.value ? parseFloat(medidaLongitud.value) : null;
                 const ancho = medidaAncho.value ? parseFloat(medidaAncho.value) : null;
                 const grosor = medidaGrosor.value ? parseFloat(medidaGrosor.value) : null;
+                const altura = medidaAltura.value ? parseFloat(medidaAltura.value) : null;
+                const diametro = medidaDiametro.value ? parseFloat(medidaDiametro.value) : null;
                 const busquedaRapida = busquedaRapidaInput.value.toLowerCase().trim();
                 
                 let filteredData = brakePadsData.filter(item => {
@@ -657,6 +1059,12 @@
                         if (grosor && item.medidas.grosor !== grosor) {
                             matchesMedidas = false;
                         }
+                        if (altura && item.medidas.altura !== altura) {
+                            matchesMedidas = false;
+                        }
+                        if (diametro && (!item.medidas.diametro || item.medidas.diametro !== diametro)) {
+                            matchesMedidas = false;
+                        }
                     } else {
                         matchesMedidas = false;
                     }
@@ -681,29 +1089,6 @@
                 renderResults(filteredData);
             }
             
-            // Render results
-            function renderResults(data) {
-                let html = '';
-                
-                if (data.length === 0) {
-                    html = `
-                    <div class="no-results">
-                        <h3 class="no-results-title">No hay resultados</h3>
-                    </div>
-                    `;
-                } else {
-                    // En una implementación real, aquí se mostrarían los resultados
-                    html = `
-                    <div class="no-results">
-                        <h3 class="no-results-title">${data.length} resultados encontrados</h3>
-                    </div>
-                    `;
-                }
-                
-                resultsContainer.innerHTML = html;
-                resultCountElement.textContent = data.length;
-            }
-            
             // Reset all filters
             function resetAllFilters() {
                 marcaInput.value = '';
@@ -720,6 +1105,8 @@
                 medidaLongitud.value = '';
                 medidaAncho.value = '';
                 medidaGrosor.value = '';
+                medidaAltura.value = '';
+                medidaDiametro.value = '';
                 busquedaRapidaInput.value = '';
                 filterData();
             }
@@ -729,7 +1116,8 @@
                 const inputs = [
                     anoInput, referenciaInput, platinaFmsiInput, 
                     oemInput, busquedaRapidaInput, modeloInput,
-                    medidaLongitud, medidaAncho, medidaGrosor
+                    medidaLongitud, medidaAncho, medidaGrosor,
+                    medidaAltura, medidaDiametro
                 ];
                 
                 inputs.forEach(input => {
@@ -740,10 +1128,36 @@
                 });
             }
             
+            // Clear search button
+            limpiarBusquedaBtn.addEventListener('click', function() {
+                busquedaRapidaInput.value = '';
+                filterData();
+            });
+            
+            // Reset filters button
+            resetFiltersFloatingBtn.addEventListener('click', resetAllFilters);
+            
             // Dark mode toggle
             darkModeToggle.addEventListener('click', function() {
                 document.body.classList.toggle('dark');
                 updateDarkModeIcon();
+            });
+            
+            // Scroll to top button
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Show/hide scroll to top button
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 100) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
             });
             
             // Initialize position selection
@@ -754,10 +1168,16 @@
             
             // Initialize with empty state
             filterData();
-            
-            // Reset filters button
-            resetFiltersButton.addEventListener('click', resetAllFilters);
         });
     </script>
 </body>
 </html>
+
+
+    
+              <script>
+                              
+              </script>
+                        </body>
+                        </html>
+                    
