@@ -9,5 +9,5 @@
   {"marca": "ASIA", "modelo": "Hi Topic", "desde": 1993, "hasta": 1999, "posicion": "Del", "ref": "047", "fmsi": "D1513"},
   {"marca": "AUDI", "modelo": "A6", "desde": 2005, "hasta": 2011, "posicion": "Del", "ref": "7796", "fmsi": "D1111"},
   {"marca": "AUDI", "modelo": "100 series", "desde": 1989, "hasta": 1991, "posicion": "Del", "ref": "7143", "fmsi": "D290"}
-  {"marca": "KECTOR", "modelo": "7", "desde": 1995, "hasta": hoy, "posicion": "Del", "ref": "7668", "fmsi": "D290"}
+  {"marca": "KECTOR", "modelo": "7", "desde": 1995, "hasta": "hoy": "posicion": "Del", "ref": "7668", "fmsi": "D290"}
 ]
