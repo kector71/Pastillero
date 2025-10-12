@@ -9,7 +9,11 @@
 body {margin:0;font-family:'Inter','Segoe UI',Roboto,sans-serif;transition:background .35s,color .35s;background:#f5f5f5;color:#111;}
 body.lp-dark {background:#000;color:#fff;}
 
-.lp-header,.lp-footer{position:relative;text-align:center;border-radius:1rem;margin:1rem;padding:.5rem 1rem;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);box-shadow:0 8px 20px rgba(0,0,0,0.25);transition:transform .25s,background .35s;}
+.lp-header,.lp-footer{
+  position:relative;text-align:center;border-radius:1rem;margin:1rem;padding:.5rem 1rem;
+  background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);transition:transform .25s,background .35s;
+}
 .lp-header:hover,.lp-footer:hover{transform:translateY(-3px);}
 .lp-header h1,.lp-footer h3{margin:0;font-weight:bold;color:#111;}
 .lp-header p,.lp-footer .lp-footer-subtext{margin:0;color:#333;font-size:.85rem;}
@@ -17,22 +21,47 @@ body.lp-dark .lp-header,body.lp-dark .lp-footer{background:rgba(0,0,0,0.35);}
 body.lp-dark .lp-header h1,body.lp-dark .lp-footer h3{color:#fff;}
 body.lp-dark .lp-header p,body.lp-dark .lp-footer .lp-footer-subtext{color:#ccc;}
 
-.lp-fbtn{position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);backdrop-filter:blur(20px) saturate(200%) brightness(1.2);box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s,background .35s;z-index:9999;width:45px;height:45px;overflow:hidden;animation:lp-float 2.5s ease-in-out infinite;}
+.lp-fbtn{
+  position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,0.12);backdrop-filter:blur(20px) saturate(200%) brightness(1.2);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s,background .35s;
+  z-index:9999;width:45px;height:45px;overflow:hidden;animation:lp-float 2.5s ease-in-out infinite;
+}
 @keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.lp-fbtn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);mix-blend-mode:screen;filter:blur(6px);transition:transform .2s;}
-.lp-fbtn::after{content:'';position:absolute;top:50%;left:50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);border-radius:50%;transform:translate(-50%,-50%) scale(0);transition:transform .25s,opacity .25s;opacity:0;pointer-events:none;}
+.lp-fbtn::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;
+  pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);
+  mix-blend-mode:screen;filter:blur(6px);transition:transform .2s;
+}
+.lp-fbtn::after{
+  content:'';position:absolute;top:50%;left:50%;width:200%;height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);border-radius:50%;
+  transform:translate(-50%,-50%) scale(0);transition:transform .25s,opacity .25s;opacity:0;pointer-events:none;
+}
 .lp-fbtn svg{width:22px;height:22px;stroke:#111;stroke-width:2;fill:none;transition:all .25s;}
 body.lp-dark .lp-fbtn svg{stroke:#fff;}
 .lp-fbtn.lp-shake:hover{animation:lp-shake .3s;}
 @keyframes lp-shake{0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
-@keyframes lp-shake-bounce {0% { transform: translate(0,0); } 20% { transform: translate(-3px,-2px); } 40% { transform: translate(3px,-1px); } 60% { transform: translate(-2px,1px); } 80% { transform: translate(2px,0); } 100% { transform: translate(0,0); }}
+.lp-fbtn.cat-bounce:hover{animation:lp-bounce .4s;}
+@keyframes lp-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 
-.lp-trashed-item{position:fixed;border-radius:2px;z-index:998;pointer-events:none;animation:lp-fallTrash .8s forwards;}
+.lp-trashed-item{
+  position:fixed;border-radius:50%;z-index:998;pointer-events:none;
+  animation:lp-fallTrash .8s forwards;clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
 @keyframes lp-fallTrash{0%{transform:translate(0,0) scale(1);opacity:1;}70%{transform:translate(var(--dx,10px),var(--dy,30px)) scale(var(--scale,0.8));opacity:1;}100%{transform:translate(0,50px) scale(0);opacity:0;}}
 
-.lp-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9998;}
-.lp-modal.show{opacity:1;}
-.lp-modal-content{position:relative;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);padding:2rem 1.5rem;border-radius:1.5rem;max-width:500px;width:90%;text-align:left;max-height:70vh;overflow-y:auto;transform:translateY(-50px);transition:transform .35s,opacity .35s;}
+.lp-modal{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;z-index:9998;
+}
+.lp-modal.show{opacity:1;pointer-events:auto;}
+.lp-modal-content{
+  position:relative;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);
+  padding:2rem 1.5rem;border-radius:1.5rem;max-width:500px;width:90%;text-align:left;max-height:70vh;overflow-y:auto;
+  transform:translateY(-50px);transition:transform .35s,opacity .35s;
+}
 body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
 .lp-modal-content h1{margin-bottom:1rem;font-weight:600;color:#111;text-align:center;}
 body.lp-dark .lp-modal-content h1{color:#fff;}
@@ -48,9 +77,6 @@ body.lp-dark .categoria-desc{color:#aaa;}
 #lpCloseModal{position:absolute;top:.5rem;right:.7rem;font-size:1.6rem;background:none;border:none;cursor:pointer;transition:transform .2s;color:#111;}
 body.lp-dark #lpCloseModal{color:#fff;}
 #lpCloseModal:hover{transform:scale(1.2);color:#ff4d4d;}
-
-.lp-fbtn.cat-bounce:hover{animation:lp-bounce .4s;}
-@keyframes lp-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 
 footer{margin-top:3rem;font-size:.9rem;color:#555;text-align:center;}
 body.lp-dark footer{color:#ccc;}
@@ -68,7 +94,6 @@ body.lp-dark footer{color:#ccc;}
   <div class="lp-footer-subtext">© 2026 EL PASTILLERO 💊. Todos los derechos reservados.</div>
 </footer>
 
-<!-- POP-UP CATEGORÍAS -->
 <div id="lpModal" class="lp-modal">
   <div class="lp-modal-content">
     <button id="lpCloseModal">×</button>
@@ -77,45 +102,32 @@ body.lp-dark footer{color:#ccc;}
       <li><span class="categoria-nombre">🚗 Sedán</span><p class="categoria-desc">Tres compartimientos: motor, cabina y maletero. Ideales para familias y viajes cómodos.</p></li>
       <li><span class="categoria-nombre">🚙 SUV</span><p class="categoria-desc">Vehículos utilitarios deportivos, con mayor altura y tracción en las cuatro ruedas. Perfectos para viajes y familia.</p></li>
       <li><span class="categoria-nombre">🏎️ Coupé</span><p class="categoria-desc">Diseño de dos puertas, líneas deportivas y rendimiento ágil. Enfocados en estilo y velocidad.</p></li>
-      <li><span class="categoria-nombre">🚘 Hatchback</span><p class="categoria-desc">Compactos con puerta trasera abatible. Prácticos, versátiles y fáciles de estacionar en ciudad.</p></li>
-      <li><span class="categoria-nombre">🚐 Minivan / MPV</span><p class="categoria-desc">Vehículos familiares grandes con múltiples filas de asientos. Perfectos para familias numerosas.</p></li>
-      <li><span class="categoria-nombre">🛻 Pickup / Camioneta</span><p class="categoria-desc">Cabina y caja trasera, ideal para cargar objetos y manejar en terrenos difíciles.</p></li>
-      <li><span class="categoria-nombre">🚖 Crossover</span><p class="categoria-desc">Mezcla de SUV y hatchback. Maniobrables y cómodos para ciudad, con espacio extra.</p></li>
-      <li><span class="categoria-nombre">🚙 Station Wagon / Familiar</span><p class="categoria-desc">Autos largos con maletero extendido. Gran capacidad de carga y estabilidad en carretera.</p></li>
-      <li><span class="categoria-nombre">🏁 Roadster</span><p class="categoria-desc">Autos deportivos de 2 plazas con techo abierto. Máxima diversión al volante.</p></li>
-      <li><span class="categoria-nombre">🔋 Eléctrico / EV</span><p class="categoria-desc">Impulsados 100% por baterías. Silenciosos, ecológicos y con ahorro de combustible.</p></li>
-      <li><span class="categoria-nombre">⚡ Híbrido</span><p class="categoria-desc">Motor de combustión + eléctrico. Menor consumo y menor impacto ambiental.</p></li>
+      <li><span class="categoria-nombre">🚘 Hatchback</span><p class="categoria-desc">Compactos con puerta trasera abatible. Prácticos y fáciles de estacionar en ciudad.</p></li>
+      <li><span class="categoria-nombre">🛻 Pickup / Camioneta</span><p class="categoria-desc">Cabina y caja trasera, ideal para cargar objetos y terrenos difíciles.</p></li>
+      <li><span class="categoria-nombre">🔋 Eléctrico / EV</span><p class="categoria-desc">Impulsados 100% por baterías. Silenciosos y ecológicos.</p></li>
     </ul>
   </div>
 </div>
 
 <script>
 (() => {
-  const createBtn=(cls,pos,html)=>{
-    const b=document.createElement('button'); 
-    b.className='lp-fbtn '+(cls||''); 
-    Object.assign(b.style,pos); 
-    b.innerHTML=html; 
-    document.body.appendChild(b); 
+  const createBtn = (cls,pos,html)=>{
+    const b=document.createElement('button');
+    b.className='lp-fbtn '+(cls||''); Object.assign(b.style,pos); b.innerHTML=html; document.body.appendChild(b);
     return b;
   };
 
-  const darkBtn=createBtn('',{bottom:'20px',right:'20px'},`
+  const darkBtn = createBtn('',{bottom:'20px',right:'20px'},`
     <svg class="lp-icon-sun" viewBox="0 0 24 24" style="opacity:.9"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
-    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  `);
+    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`);
 
-  const trashBtn=createBtn('lp-shake',{bottom:'80px',right:'20px'},`
-    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><line x1="9" y1="6" x2="9" y2="4"/><line x1="15" y1="6" x2="15" y2="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
-  `);
+  const trashBtn = createBtn('lp-shake',{bottom:'80px',right:'20px'},`
+    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><line x1="9" y1="6" x2="9" y2="4"/><line x1="15" y1="6" x2="15" y2="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>`);
 
-  const catBtn=createBtn('cat-bounce',{bottom:'140px',right:'20px'},`≡`);
-  catBtn.style.fontSize='26px';
-  catBtn.style.lineHeight='45px';
-  catBtn.style.textAlign='center';
-  catBtn.style.color='#4d94ff';
+  const catBtn = createBtn('cat-bounce',{bottom:'140px',right:'20px'},`≡`);
+  catBtn.style.cssText+='font-size:26px;line-height:45px;text-align:center;color:#4d94ff;';
 
-  const topBtn=createBtn('',{bottom:'20px',left:'20px'},`<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>`);
+  const topBtn = createBtn('',{bottom:'20px',left:'20px'},`<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>`);
 
   const btns=[darkBtn,trashBtn,catBtn,topBtn];
 
@@ -126,61 +138,28 @@ body.lp-dark footer{color:#ccc;}
   };
 
   topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
-  window.addEventListener('scroll',()=>{
-    const show=window.scrollY>200;
-    topBtn.style.opacity=show?'1':'0';
-    topBtn.style.pointerEvents=show?'auto':'none';
-  });
-
-  btns.forEach(b=>b.addEventListener('mousemove',e=>{
-    const r=b.getBoundingClientRect();
-    b.style.setProperty('--mx',`${e.clientX-r.left}px`);
-    b.style.setProperty('--my',`${e.clientY-r.top}px`);
-  }));
+  window.addEventListener('scroll',()=>{const show=window.scrollY>200;topBtn.style.opacity=show?'1':'0';topBtn.style.pointerEvents=show?'auto':'none';});
+  btns.forEach(b=>b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.setProperty('--mx',`${e.clientX-r.left}px`);b.style.setProperty('--my',`${e.clientY-r.top}px`);}));
 
   trashBtn.onclick=()=>{
-    if (navigator.vibrate) navigator.vibrate([100,50,100,50,100]);
-    trashBtn.style.animation='lp-shake-bounce 0.4s';
-    trashBtn.addEventListener('animationend',()=>{trashBtn.style.animation='';},{once:true});
-    trashBtn.style.transform+=' scale(1.05)';
-    setTimeout(()=>{trashBtn.style.transform=trashBtn.style.transform.replace(' scale(1.05)','');},200);
-
-    for(let i=0;i<3;i++){
-      const item=document.createElement('div');
-      item.className='lp-trashed-item';
-      const r=trashBtn.getBoundingClientRect();
-      const s=Math.random()*8+6;
-      const c=['#ff4d4d','#ffb84d','#4d94ff','#4dff88'][Math.floor(Math.random()*4)];
-      const dx=Math.random()*20-10; const dy=Math.random()*30+20;
-      item.style.width=item.style.height=`${s}px`;
-      item.style.background=c;
-      item.style.left=`${r.left+r.width/2}px`;
-      item.style.top=`${r.top+r.height/2}px`;
-      item.style.setProperty('--dx',`${dx}px`);
-      item.style.setProperty('--dy',`${dy}px`);
-      item.style.setProperty('--scale',`${Math.random()*0.5+0.7}`);
-      document.body.appendChild(item);
-      setTimeout(()=>item.remove(),800);
+    if(navigator.vibrate) navigator.vibrate([100,50,100]);
+    for(let i=0;i<5;i++){
+      const s=document.createElement('div');s.className='lp-trashed-item';
+      const r=trashBtn.getBoundingClientRect(),size=Math.random()*6+4;
+      const dx=Math.random()*40-20, dy=Math.random()*40-10;
+      const colors=['#ff4d4d','#ffb84d','#4d94ff','#4dff88','#ffff4d'];
+      s.style.cssText=`width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};
+        left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy}px;--scale:${Math.random()*0.5+0.5}`;
+      document.body.appendChild(s);setTimeout(()=>s.remove(),800);
     }
   };
 
   const modal=document.getElementById('lpModal');
   const closeModal=document.getElementById('lpCloseModal');
-  const modalContent=document.querySelector('.lp-modal-content');
 
-  // Toggle modal con el botón flotante
-  catBtn.onclick = () => {
-    if (modal.classList.contains('show')) {
-      modal.classList.remove('show');
-      modal.style.pointerEvents='none';
-    } else {
-      modal.classList.add('show');
-      modal.style.pointerEvents='auto';
-    }
-  };
-
-  closeModal.onclick=()=>{modal.classList.remove('show');modal.style.pointerEvents='none';};
-  modal.addEventListener('click',e=>{if(e.target===modal){modal.classList.remove('show');modal.style.pointerEvents='none';}});
+  catBtn.onclick=()=>{modal.classList.toggle('show');};
+  closeModal.onclick=()=>modal.classList.remove('show');
+  modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('show');});
 })();
 </script>
 </body>
