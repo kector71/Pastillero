@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,7 +52,7 @@
         }
         .dark-mode-toggle {
             position: fixed;
-            bottom: 3.5rem; /* Aumentado para evitar superposición con el footer */
+            bottom: 3.5rem;
             right: 1rem;
             width: 36px;
             height: 36px;
@@ -80,19 +81,19 @@
         }
         
         .dark .border-gray-300 {
-            border-color: #333333 !important;
-            background-color: #121212 !important;
-            color: #e0e0e0 !important;
+            border-color: #404040 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
         }
         
         .dark .border-gray-300::placeholder {
-            color: #888888 !important;
+            color: #a0a0a0 !important;
         }
         
         .dark select {
-            background-color: #121212 !important;
-            color: #e0e0e0 !important;
-            border-color: #333333 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+            border-color: #404040 !important;
         }
         
         .result-card {
@@ -129,7 +130,7 @@
             font-size: 12px;
         }
         .dark .field-value {
-            color: #f0f0f0 !important;
+            color: #ffffff !important;
         }
         .dark .field-value.text-blue-600 {
             color: #63b3ed !important;
@@ -143,6 +144,7 @@
         }
         .dark .filter-group {
             background-color: #121212;
+            border: 1px solid #333333;
         }
         .light .filter-group {
             background-color: #f8fafc;
@@ -186,9 +188,9 @@
         
         .dark .form-control input,
         .dark .form-control select {
-            border-color: #333333;
-            background-color: #121212;
-            color: #e0e0e0;
+            border-color: #404040 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
         }
         
         .position-btn {
@@ -213,9 +215,9 @@
         }
         
         .dark .position-btn {
-            border-color: #333333;
-            background-color: #121212;
-            color: #e0e0e0;
+            border-color: #404040;
+            background-color: #1e1e1e;
+            color: #ffffff;
         }
         
         .dark .position-btn.active {
@@ -333,7 +335,7 @@
         /* Botón para subir rápido - MOVIDO A LA IZQUIERDA */
         .scroll-top-btn {
             position: fixed;
-            bottom: 3.5rem; /* Aumentado para evitar superposición con el footer */
+            bottom: 3.5rem;
             left: 1rem;
             width: 32px;
             height: 32px;
@@ -382,7 +384,7 @@
         /* Botón flotante de limpiar filtros */
         .reset-filters-floating-btn {
             position: fixed;
-            bottom: 3.5rem; /* Aumentado para evitar superposición con el footer */
+            bottom: 3.5rem;
             left: 50%;
             transform: translateX(-50%);
             width: 36px;
@@ -433,9 +435,40 @@
         }
         
         .dark .form-control-busqueda-rapida .form-input {
-            border-color: #333333 !important;
-            background-color: #121212 !important;
-            color: #e0e0e0 !important;
+            border-color: #404040 !important;
+            background-color: #1e1e1e !important;
+            color: #ffffff !important;
+        }
+        
+        /* Ajustes adicionales para mejorar legibilidad en modo oscuro */
+        .dark .form-control input::placeholder,
+        .dark .form-control select::placeholder {
+            color: #a0a0a0 !important;
+        }
+        
+        .dark .filter-group {
+            border: 1px solid #333333;
+        }
+        
+        .dark .filter-title {
+            color: #e0e0e0;
+        }
+        
+        .dark .result-card {
+            border-bottom-color: #333333;
+        }
+        
+        .dark .text-gray-500 {
+            color: #a0a0a0 !important;
+        }
+        
+        /* Asegurar que todos los textos en los filtros sean blancos en modo oscuro */
+        .dark .form-control input,
+        .dark .form-control select,
+        .dark .position-btn,
+        .dark .position-icon,
+        .dark .position-badge {
+            color: #ffffff !important;
         }
     </style>
 </head>
@@ -1023,3 +1056,4 @@
     </script>
 </body>
 </html>
+```
