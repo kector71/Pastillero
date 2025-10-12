@@ -1,876 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL PASTILLERO 💊</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-            font-size: 14px;
-            color: #333;
-        }
-        .dark {
-            background-color: #000000 !important;
-            color: #f0f0f0 !important;
-        }
-        .dark .bg-white {
-            background-color: #121212 !important;
-        }
-        .dark .bg-gray-50 {
-            background-color: #0a0a0a !important;
-        }
-        .dark .bg-gray-800 {
-            background-color: #000000 !important;
-        }
-        .dark .border-gray-200 {
-            border-color: #2d2d2d !important;
-        }
-        .dark .text-gray-700 {
-            color: #c0c0c0 !important;
-        }
-        .dark .text-gray-800 {
-            color: #f0f0f0 !important;
-        }
-        .dark .text-gray-400 {
-            color: #a0a0a0 !important;
-        }
-        .dark .divide-gray-200 > tr {
-            border-color: #2d2d2d !important;
-        }
-        .dark .bg-blue-100 {
-            background-color: #0a2463 !important;
-        }
-        .dark .bg-gradient-to-r {
-            background: linear-gradient(to right, #1e40af, #1d4ed8) !important;
-        }
-        .result-card {
-            border-bottom: 1px solid #e2e8f0;
-            padding: 0.75rem;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .dark .result-card {
-            border-bottom-color: #2d2d2d;
-        }
-        .result-card:hover {
-            background-color: #f8fafc;
-        }
-        .dark .result-card:hover {
-            background-color: #1a1a1a;
-        }
-        .result-field {
-            margin-bottom: 0.25rem;
-            display: flex;
-        }
-        .field-label {
-            font-weight: 600;
-            color: #4a5568;
-            display: inline-block;
-            min-width: 80px;
-            font-size: 12px;
-        }
-        .dark .field-label {
-            color: #c0c0c0 !important;
-        }
-        .field-value {
-            color: #2d3748;
-            font-size: 12px;
-        }
-        .dark .field-value {
-            color: #ffffff !important;
-        }
-        .dark .field-value.text-blue-600 {
-            color: #63b3ed !important;
-        }
-        .filter-group {
-            padding: 0.65rem;
-            border-radius: 0.375rem;
-            transition: all 0.2s;
-            background-color: #f9f9f9;
-        }
-        .dark .filter-group {
-            background-color: #121212;
-            border: 1px solid #333333;
-        }
-        .light .filter-group {
-            background-color: #f8fafc;
-        }
-        .filter-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-            display: flex;
-            align-items: center;
-        }
-        .filter-title svg {
-            width: 15px;
-            height: 15px;
-            margin-right: 5px;
-        }
-        .position-selector {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .form-control {
-            height: 2.3rem;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        .form-control input,
-        .form-control select {
-            height: 100%;
-            width: 100%;
-            padding: 0 0.65rem;
-            border-radius: 0.2rem;
-            border: 1px solid #e2e8f0;
-            background-color: white;
-            font-size: 12px;
-            transition: all 0.2s;
-            color: #000 !important;
-        }
-        .form-control input::placeholder,
-        .form-control select::placeholder {
-            color: #000 !important;
-        }
-        .dark .form-control input,
-        .dark .form-control select {
-            border-color: #404040 !important;
-            background-color: #1e1e1e !important;
-            color: #ffffff !important;
-        }
-        .dark .form-control input::placeholder,
-        .dark .form-control select::placeholder {
-            color: #ffffff !important;
-        }
-        .position-btn {
-            height: 2.4rem;
-            padding: 0 0.6rem;
-            border-radius: 0.25rem;
-            border: 1px solid #e2e8f0;
-            background-color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            min-width: 100px;
-            color: #000 !important;
-        }
-        .position-btn.active {
-            border-color: #2563eb;
-            background-color: #dbeafe;
-            color: #1d4ed8;
-        }
-        .dark .position-btn {
-            border-color: #404040;
-            background-color: #1e1e1e;
-            color: #ffffff !important;
-        }
-        .dark .position-btn.active {
-            border-color: #63b3ed;
-            background-color: #0a2463;
-            color: white;
-        }
-        .position-icon {
-            font-size: 0.9rem;
-            line-height: 1;
-        }
-        .position-badge {
-            display: inline-block;
-            padding: 0.05rem 0.25rem;
-            border-radius: 0.4rem;
-            font-size: 0.6rem;
-            font-weight: 500;
-        }
-        .position-delantera {
-            background-color: #dbeafe;
-            color: #1d4ed8;
-        }
-        .position-trasera {
-            background-color: #fef2f2;
-            color: #b91c1c;
-        }
-        .dark .position-delantera {
-            background-color: #0a2463;
-            color: #63b3ed;
-        }
-        .dark .position-trasera {
-            background-color: #5a0a0a;
-            color: #fca5a5;
-        }
-        .favorite-btn {
-            position: absolute;
-            top: 0.25rem;
-            right: 0.25rem;
-            width: 18px;
-            height: 18px;
-            opacity: 0.7;
-            transition: all 0.2s;
-        }
-        .favorite-btn:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .filter-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.4rem;
-            gap: 0.4rem;
-        }
-        .measure-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.2rem;
-        }
-        .measure-field {
-            display: flex;
-            flex-direction: column;
-        }
-        .measure-field label {
-            font-size: 0.6rem;
-            margin-bottom: 0.05rem;
-            color: #000 !important;
-        }
-        .dark .measure-field label {
-            color: #ffffff !important;
-        }
-        /* Ajustes para header más compacto */
-        .header-container {
-            padding: 0.4rem 0;
-        }
-        .header-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.25rem;
-            flex-wrap: wrap;
-        }
-        .header-title h1 {
-            font-size: 1.05rem;
-            margin-bottom: 0;
-        }
-        .header-title p {
-            font-size: 0.7rem;
-            opacity: 0.9;
-            margin-bottom: 0;
-        }
-        /* Ajustes para el placeholder de búsqueda rápida */
-        #busquedaRapida::placeholder {
-            font-size: 11px;
-        }
-        /* Banners en negro para pantallas AMOLED */
-        header {
-            background-color: #000000 !important;
-            color: white !important;
-            position: relative;
-        }
-        footer {
-            background-color: #000000 !important;
-            color: white !important;
-            position: relative;
-        }
-        /* Línea blanca delgada en modo oscuro para el borde inferior del header */
-        .dark header::after {
-            content: '';
-            display: block;
-            height: 1px;
-            background-color: white;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-        /* Línea blanca delgada en modo oscuro para el borde superior del footer */
-        .dark footer::before {
-            content: '';
-            display: block;
-            height: 1px;
-            background-color: white;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        /* Texto de resultados en negro en modo claro y blanco en modo oscuro */
-        .result-count-text {
-            color: #000 !important;
-        }
-        .dark .result-count-text {
-            color: #ffffff !important;
-        }
-        
-        /* BOTONES FLOTANTES FINAL PLUG-AND-PLAY */
-        body{transition:background .35s,color .35s;}
-        body.dark{background:#000;color:#fff;}
-        .fbtn{position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);backdrop-filter:blur(20px) saturate(200%) brightness(1.2);box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s,background .35s;z-index:9999;width:45px;height:45px;overflow:hidden;animation:float 2.5s ease-in-out infinite;}
-        @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-        .fbtn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);mix-blend-mode:screen;filter:blur(6px);transition:transform .2s;}
-        .fbtn::after{content:'';position:absolute;top:50%;left:50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);border-radius:50%;transform:translate(-50%,-50%) scale(0);transition:transform .25s,opacity .25s;opacity:0;pointer-events:none;}
-        .fbtn svg{width:22px;height:22px;stroke:#111;stroke-width:2;fill:none;transition:all .25s;}
-        body.dark .fbtn svg{stroke:#fff;}
-        .fbtn.shake:hover{animation:shake .3s;}
-        @keyframes shake{0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
-        .trashed-item{position:fixed;border-radius:2px;z-index:998;pointer-events:none;animation:fallTrash .8s forwards;}
-        @keyframes fallTrash{0%{transform:translate(0,0) scale(1);opacity:1;}70%{transform:translate(var(--dx,10px),var(--dy,30px)) scale(var(--scale,0.8));opacity:1;}100%{transform:translate(0,50px) scale(0);opacity:0;}}
-        @media(max-width:400px){.fbtn{width:40px;height:40px;}.fbtn svg{width:18px;height:18px;}}
-        @media(max-width:768px) and (min-width:401px){.fbtn{width:42px;height:42px;}.fbtn svg{width:20px;height:20px;}}
-        /* FIN BOTONES FLOTANTES FINAL */
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EL PASTILLERO 💊</title>
+<style>
+body {
+  margin:0;
+  font-family:sans-serif;
+  transition: background .35s, color .35s;
+}
+body.dark { background:#000; color:#fff; }
+
+/* HEADER Y FOOTER CRISTAL LÍQUIDO */
+.am-header, .am-footer {
+  position: relative;
+  text-align: center;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px) saturate(200%) brightness(1.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.25s, background 0.35s;
+}
+.am-header:hover, .am-footer:hover { transform: translateY(-3px); }
+
+.am-header .header-container, .am-footer .footer-container {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0.25rem;
+}
+
+.am-header h1, .am-footer h3 { margin:0; font-weight:bold; color:#111; }
+.am-header p, .am-footer .footer-subtext { margin:0; color:#333; font-size:0.85rem; }
+
+body.dark .am-header, body.dark .am-footer { background: rgba(0,0,0,0.3); }
+body.dark .am-header h1, body.dark .am-footer h3 { color:#fff; }
+body.dark .am-header p, body.dark .am-footer .footer-subtext { color:#ccc; }
+
+/* BOTONES FLOTANTES */
+.fbtn {
+  position:fixed;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(200%) brightness(1.2);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  transition:transform .25s, box-shadow .25s, background .35s;
+  z-index:9999;
+  width:45px;
+  height:45px;
+  overflow:hidden;
+  animation:float 2.5s ease-in-out infinite;
+}
+@keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.fbtn::before {
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);
+  mix-blend-mode:screen;
+  filter:blur(6px);
+  transition:transform .2s;
+}
+.fbtn::after {
+  content:'';
+  position:absolute;
+  top:50%; left:50%;
+  width:200%; height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);
+  border-radius:50%;
+  transform:translate(-50%,-50%) scale(0);
+  transition:transform .25s, opacity .25s;
+  opacity:0;
+  pointer-events:none;
+}
+.fbtn svg { width:22px; height:22px; stroke:#111; stroke-width:2; fill:none; transition:all .25s; }
+body.dark .fbtn svg { stroke:#fff; }
+.fbtn.shake:hover { animation:shake .3s; }
+@keyframes shake {0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
+
+/* TRASH ANIMATION */
+.trashed-item {
+  position:fixed;
+  border-radius:2px;
+  z-index:998;
+  pointer-events:none;
+  animation:fallTrash .8s forwards;
+}
+@keyframes fallTrash {0%{transform:translate(0,0) scale(1);opacity:1;}70%{transform:translate(var(--dx,10px),var(--dy,30px)) scale(var(--scale,0.8));opacity:1;}100%{transform:translate(0,50px) scale(0);opacity:0;}}
+
+/* RESPONSIVE */
+@media(max-width:400px){.fbtn{width:40px;height:40px;}.fbtn svg{width:18px;height:18px;}}
+@media(max-width:768px) and (min-width:401px){.fbtn{width:42px;height:42px;}.fbtn svg{width:20px;height:20px;}}
+</style>
 </head>
-<body class="bg-gray-50">
-    <!-- Header compacto - NEGRO para AMOLED con texto blanco -->
-    <header class="text-white">
-        <div class="container mx-auto px-2 header-container">
-            <div class="header-title">
-                <h1 class="font-bold">EL PASTILLERO 💊</h1>
-                <p class="opacity-90">Catálogo de pastillas de freno</p>
-            </div>
-        </div>
-    </header>
+<body>
 
-    <!-- Search Section -->
-    <section class="container mx-auto px-2 py-2">
-        <div class="bg-white rounded-lg shadow p-2">
-            <!-- Búsqueda rápida - Mismo ancho que otros filtros -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2 mb-2">
-                <div class="lg:col-span-1">
-                    <div class="filter-group bg-gray-50 rounded h-full">
-                        <div class="filter-title text-purple-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                            Búsqueda rápida
-                        </div>
-                        <div class="space-y-2">
-                            <div class="form-control-busqueda-rapida">
-                                <!-- Contenedor ajustado para que tome el ancho completo -->
-                                <div class="search-container">
-                                    <input type="text" id="busquedaRapida" class="form-input form-input-busqueda" placeholder="Buscar...">
-                                    <button id="limpiarBusqueda" class="text-gray-400 hover:text-gray-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="filter-actions">
-                                <!-- Texto de resultados con color ajustado -->
-                                <div class="text-xs result-count-text">
-                                    <span id="resultCount">0</span> resultados
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2">
-                <!-- Filtros principales -->
-                <div class="lg:col-span-2">
-                    <div class="space-y-1.5">
-                        <!-- Grupo de información del vehículo -->
-                        <div class="filter-group bg-gray-50 rounded">
-                            <!-- Icono de vehículo actualizado -->
-                            <div class="filter-title text-blue-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                </svg>
-                                Información del vehículo
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-1">
-                                <div class="form-control">
-                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="Marca">
-                                    <datalist id="marcaList"></datalist>
-                                </div>
-                                
-                                <div class="form-control">
-                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="Modelo">
-                                    <datalist id="modeloList"></datalist>
-                                </div>
-                                
-                                <div class="form-control">
-                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="Año">
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-0.5">Posición</label>
-                                    <div class="position-selector">
-                                        <div class="position-btn" id="positionDelantera">
-                                            <span class="position-icon">►</span>
-                                            <span>Delantera</span>
-                                        </div>
-                                        <div class="position-btn" id="positionTrasera">
-                                            <span class="position-icon">◄</span>
-                                            <span>Trasera</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Grupo de especificaciones y medidas -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-1">
-                            <!-- Especificaciones -->
-                            <div class="filter-group bg-gray-50 rounded">
-                                <div class="filter-title text-green-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    Especificaciones
-                                </div>
-                                <div class="space-y-1">
-                                    <div class="form-control">
-                                        <input type="text" id="referencia" class="form-input" placeholder="Referencia">
-                                    </div>
-                                    
-                                    <div class="form-control">
-                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="Platina FMSI">
-                                    </div>
-                                    
-                                    <div class="form-control">
-                                        <input type="text" id="oem" class="form-input" placeholder="OEM">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Medidas -->
-                            <div class="filter-group bg-gray-50 rounded">
-                                <!-- Icono de medidas actualizado -->
-                                <div class="filter-title text-orange-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                    </svg>
-                                    Medidas (mm)
-                                </div>
-                                <div class="space-y-1">
-                                    <div class="measure-grid">
-                                        <div class="form-control">
-                                            <input type="number" id="medidaLongitud" step="0.1" class="form-input" placeholder="Longitud">
-                                        </div>
-                                        <div class="form-control">
-                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="Ancho">
-                                        </div>
-                                        <div class="form-control">
-                                            <input type="number" id="medidaGrosor" step="0.1" class="form-input" placeholder="Grosor">
-                                        </div>
-                                        <div class="form-control">
-                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="Altura">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-control">
-                                        <input type="number" id="medidaDiametro" step="0.1" class="form-input" placeholder="Diámetro">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<header class="am-header">
+  <div class="header-container">
+    <h1>EL PASTILLERO 💊</h1>
+    <p>Catálogo de pastillas de freno</p>
+  </div>
+</header>
 
-        <!-- Results Section -->
-        <div class="bg-white rounded-lg shadow overflow-hidden mt-2" id="results-container">
-            <div class="p-3 text-center">
-                <div class="bg-blue-50 rounded-full w-7 h-7 flex items-center justify-center mx-auto mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
-                <!-- Texto de resultados con color ajustado -->
-                <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">☹️</h3>
-                <p class="text-gray-500 dark:text-white text-xs max-w-md mx-auto">No hay resultados</p>
-            </div>
-        </div>
-    </section>
+<footer class="am-footer">
+  <div class="footer-container">
+    <h3>EL PASTILLERO 💊</h3>
+    <div class="footer-subtext">© 2026 EL PASTILLERO 💊. Todos los derechos reservados.</div>
+  </div>
+</footer>
 
-    <!-- Footer - NEGRO para AMOLED con texto blanco -->
-    <footer class="text-white mt-2 py-1.5">
-        <div class="container mx-auto px-2">
-            <div class="text-center">
-                <h3 class="text-sm font-bold">EL PASTILLERO 💊</h3>
-                <div class="mt-0.5 text-xs text-gray-400">
-                    © 2026 EL PASTILLERO 💊. Todos los derechos reservados.
-                </div>
-            </div>
-        </div>
-    </footer>
+<script>
+(() => {
+  const createBtn = (cls,pos,html) => {
+    const b = document.createElement('button');
+    b.className = 'fbtn ' + (cls||'');
+    Object.assign(b.style,pos);
+    b.innerHTML = html;
+    document.body.appendChild(b);
+    return b;
+  };
 
-    <!-- BOTONES FLOTANTES FINAL PLUG-AND-PLAY -->
-    <script>
-    (function(){
-      // Crear botones
-      const darkBtn=document.createElement('button');
-      const trashBtn=document.createElement('button');
-      const topBtn=document.createElement('button');
-      [darkBtn,trashBtn,topBtn].forEach(b=>{b.className='fbtn';document.body.appendChild(b);});
-      trashBtn.classList.add('shake');
+  const darkBtn = createBtn('', {bottom:'20px', right:'20px'}, `
+    <svg class="icon-sun" viewBox="0 0 24 24" style="opacity:.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  `);
+  const trashBtn = createBtn('shake', {bottom:'80px', right:'20px'}, `
+    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><line x1="9" y1="6" x2="9" y2="4"/><line x1="15" y1="6" x2="15" y2="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
+  `);
+  const topBtn = createBtn('', {bottom:'140px', right:'20px'}, `<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>`);
 
-      // Posiciones originales
-      darkBtn.style.bottom='20px'; darkBtn.style.right='20px';
-      trashBtn.style.bottom='80px'; trashBtn.style.right='20px';
-      topBtn.style.bottom='140px'; topBtn.style.right='20px';
+  const btns = [darkBtn, trashBtn, topBtn];
 
-      // SVG interno
-      darkBtn.innerHTML=`<svg class="icon-sun" viewBox="0 0 24 24" style="opacity:.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg><svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-      trashBtn.innerHTML=`<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><line x1="9" y1="6" x2="9" y2="4"/><line x1="15" y1="6" x2="15" y2="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>`;
-      topBtn.innerHTML=`<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>`;
+  darkBtn.onclick = () => {
+    document.body.classList.toggle('dark');
+    darkBtn.querySelector('.icon-sun').style.opacity = document.body.classList.contains('dark')?'0':'.9';
+    darkBtn.querySelector('.icon-moon').style.opacity = document.body.classList.contains('dark')?'1':'0';
+  };
 
-      // Eventos
-      darkBtn.onclick=()=>{document.body.classList.toggle('dark');let s=darkBtn.querySelector('.icon-sun');let m=darkBtn.querySelector('.icon-moon');s.style.opacity=document.body.classList.contains('dark')?'0':'0.9';m.style.opacity=document.body.classList.contains('dark')?'1':'0';};
-      topBtn.onclick=()=>{window.scrollTo({top:0,behavior:'smooth'});};
-      window.addEventListener('scroll',()=>{if(window.scrollY>200){topBtn.style.opacity='1';topBtn.style.pointerEvents='auto';}else{topBtn.style.opacity='0';topBtn.style.pointerEvents='none';}});
+  topBtn.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
 
-      [darkBtn,trashBtn,topBtn].forEach(b=>{b.addEventListener('mousemove',e=>{let r=b.getBoundingClientRect();b.style.setProperty('--mx',`${e.clientX-r.left}px`);b.style.setProperty('--my',`${e.clientY-r.top}px`);});});
+  window.addEventListener('scroll', () => {
+    const show = window.scrollY > 200;
+    topBtn.style.opacity = show ? '1' : '0';
+    topBtn.style.pointerEvents = show ? 'auto' : 'none';
+  });
 
-      trashBtn.onclick=()=>{for(let i=0;i<3;i++){let item=document.createElement('div');item.className='trashed-item';let r=trashBtn.getBoundingClientRect();let s=Math.random()*8+6;let c=['#ff4d4d','#ffb84d','#4d94ff','#4dff88'][Math.floor(Math.random()*4)];let dx=Math.random()*20-10;let dy=Math.random()*30+20;item.style.width=item.style.height=`${s}px`;item.style.background=c;item.style.left=`${r.left+r.width/2}px`;item.style.top=`${r.top+r.height/2}px`;item.style.setProperty('--dx',`${dx}px`);item.style.setProperty('--dy',`${dy}px`);item.style.setProperty('--scale',`${Math.random()*0.5+0.7}`);document.body.appendChild(item);setTimeout(()=>item.remove(),800);}};
-    })();
-    </script>
-    <!-- FIN BOTONES FLOTANTES FINAL -->
+  btns.forEach(b => b.addEventListener('mousemove', e => {
+    const r = b.getBoundingClientRect();
+    b.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    b.style.setProperty('--my', `${e.clientY - r.top}px`);
+  }));
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const marcaInput = document.getElementById('marcaInput');
-            const modeloInput = document.getElementById('modeloInput');
-            const anoInput = document.getElementById('ano');
-            const positionDelantera = document.getElementById('positionDelantera');
-            const positionTrasera = document.getElementById('positionTrasera');
-            const referenciaInput = document.getElementById('referencia');
-            const platinaFmsiInput = document.getElementById('platinaFmsi');
-            const oemInput = document.getElementById('oem');
-            const medidaLongitud = document.getElementById('medidaLongitud');
-            const medidaAncho = document.getElementById('medidaAncho');
-            const medidaGrosor = document.getElementById('medidaGrosor');
-            const medidaAltura = document.getElementById('medidaAltura');
-            const medidaDiametro = document.getElementById('medidaDiametro');
-            const busquedaRapidaInput = document.getElementById('busquedaRapida');
-            const limpiarBusquedaBtn = document.getElementById('limpiarBusqueda');
-            const resultsContainer = document.getElementById('results-container');
-            const resultCountElement = document.getElementById('resultCount');
-            
-            // Datos vacíos
-            let brakePadsData = [];
-            
-            // Variable para debounce
-            let searchTimeout;
-            
-            // Render results
-            function renderResults(data) {
-                let html = '<div class="overflow-x-auto">';
-                
-                if (data.length === 0) {
-                    html += `
-                    <div class="p-3 text-center">
-                        <div class="bg-blue-50 rounded-full w-7 h-7 flex items-center justify-center mx-auto mb-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">☹️</h3>
-                        <p class="text-gray-500 dark:text-white text-xs max-w-md mx-auto">No hay resultados</p>
-                    </div>
-                    `;
-                } else {
-                    html += '<div class="divide-y divide-gray-200">';
-                    
-                    data.forEach((item, index) => {
-                        let positionBadge = '';
-                        if (item.posicion.includes('Del') && item.posicion.includes('Tras')) {
-                            positionBadge = '<span class="position-badge position-delantera mr-1">Delantera</span><span class="position-badge position-trasera">Trasera</span>';
-                        } else if (item.posicion.includes('Del')) {
-                            positionBadge = '<span class="position-badge position-delantera">Delantera</span>';
-                        } else {
-                            positionBadge = '<span class="position-badge position-trasera">Trasera</span>';
-                        }
-                        
-                        // Verificar si es favorito
-                        const isFavorite = isItemFavorite(index);
-                        
-                        // Crear HTML para las medidas si existen
-                        let medidasHTML = '';
-                        if (item.medidas) {
-                            medidasHTML = `
-                            <div class="result-field"><span class="field-label">L:</span> <span class="field-value">${item.medidas.longitud}mm</span></div>
-                            <div class="result-field"><span class="field-label">A:</span> <span class="field-value">${item.medidas.ancho}mm</span></div>
-                            <div class="result-field"><span class="field-label">G:</span> <span class="field-value">${item.medidas.grosor}mm</span></div>
-                            <div class="result-field"><span class="field-label">H:</span> <span class="field-value">${item.medidas.altura}mm</span></div>
-                            ${item.medidas.diametro ? `<div class="result-field"><span class="field-label">D:</span> <span class="field-value">${item.medidas.diametro}mm</span></div>` : ''}
-                            `;
-                        }
-                        
-                        html += `
-                        <div class="result-card">
-                            <svg class="favorite-btn" data-id="${index}" xmlns="http://www.w3.org/2000/svg" fill="${isFavorite ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="${isFavorite ? 'none' : 'currentColor'}" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                            </svg>
-                            <div class="result-field"><span class="field-label">M:</span> <span class="field-value">${item.marca}</span></div>
-                            <div class="result-field"><span class="field-label">Mod:</span> <span class="field-value">${item.modelo}</span></div>
-                            <div class="result-field"><span class="field-label">A:</span> <span class="field-value">${item.desde}-${item.hasta}</span></div>
-                            <div class="result-field"><span class="field-label">P:</span> <span class="field-value">${positionBadge}</span></div>
-                            <div class="result-field"><span class="field-label">Ref:</span> <span class="field-value font-medium text-blue-600">${item.refIncolbest}</span></div>
-                            <div class="result-field"><span class="field-label">Plat:</span> <span class="field-value">${item.platinaFmsi}</span></div>
-                            <div class="result-field"><span class="field-label">OEM:</span> <span class="field-value">${item.oemCode}</span></div>
-                            ${medidasHTML}
-                        </div>
-                        `;
-                    });
-                    
-                    html += '</div>';
-                }
-                
-                html += '</div>';
-                resultsContainer.innerHTML = html;
-                resultCountElement.textContent = data.length;
-                
-                // Añadir evento a los botones de favoritos
-                document.querySelectorAll('.favorite-btn').forEach(btn => {
-                    btn.addEventListener('click', toggleFavorite);
-                });
-            }
-            
-            // Check if item is favorite
-            function isItemFavorite(index) {
-                try {
-                    const favorites = JSON.parse(localStorage.getItem('brakePadFavorites') || '[]');
-                    return favorites.includes(index.toString());
-                } catch (e) {
-                    return false;
-                }
-            }
-            
-            // Toggle favorite status
-            function toggleFavorite(e) {
-                const id = e.target.closest('.favorite-btn').dataset.id;
-                const isFavorite = e.target.closest('.favorite-btn').classList.toggle('fill-current');
-                
-                // Update SVG
-                const svg = e.target.closest('.favorite-btn');
-                if (isFavorite) {
-                    svg.setAttribute('fill', 'currentColor');
-                    svg.setAttribute('stroke', 'none');
-                } else {
-                    svg.setAttribute('fill', 'none');
-                    svg.setAttribute('stroke', 'currentColor');
-                }
-                
-                // Save to localStorage
-                try {
-                    let favorites = JSON.parse(localStorage.getItem('brakePadFavorites') || '[]');
-                    if (isFavorite) {
-                        if (!favorites.includes(id)) {
-                            favorites.push(id);
-                        }
-                    } else {
-                        favorites = favorites.filter(favId => favId !== id);
-                    }
-                    localStorage.setItem('brakePadFavorites', JSON.stringify(favorites));
-                } catch (e) {
-                    console.error('Error saving favorites:', e);
-                }
-            }
-            
-            // Handle position selection
-            function setupPositionSelection() {
-                positionDelantera.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    if (this.classList.contains('active') && positionTrasera.classList.contains('active')) {
-                        positionTrasera.classList.remove('active');
-                    }
-                    filterData();
-                });
-                
-                positionTrasera.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    if (this.classList.contains('active') && positionDelantera.classList.contains('active')) {
-                        positionDelantera.classList.remove('active');
-                    }
-                    filterData();
-                });
-            }
-            
-            // Get selected position
-            function getSelectedPosition() {
-                if (positionDelantera.classList.contains('active') && positionTrasera.classList.contains('active')) {
-                    return 'Ambas';
-                } else if (positionDelantera.classList.contains('active')) {
-                    return 'Delantera';
-                } else if (positionTrasera.classList.contains('active')) {
-                    return 'Trasera';
-                }
-                return 'Todas';
-            }
-            
-            // Filter data
-            function filterData() {
-                const marca = marcaInput.value.trim().toUpperCase();
-                const modelo = modeloInput.value.trim().toUpperCase();
-                const ano = anoInput.value ? parseInt(anoInput.value) : null;
-                const categoria = getSelectedPosition();
-                const referencia = referenciaInput.value.trim().toUpperCase();
-                const platinaFmsi = platinaFmsiInput.value.trim().toUpperCase();
-                const oem = oemInput.value.trim().toUpperCase();
-                const longitud = medidaLongitud.value ? parseFloat(medidaLongitud.value) : null;
-                const ancho = medidaAncho.value ? parseFloat(medidaAncho.value) : null;
-                const grosor = medidaGrosor.value ? parseFloat(medidaGrosor.value) : null;
-                const altura = medidaAltura.value ? parseFloat(medidaAltura.value) : null;
-                const diametro = medidaDiametro.value ? parseFloat(medidaDiametro.value) : null;
-                const busquedaRapida = busquedaRapidaInput.value.toLowerCase().trim();
-                
-                let filteredData = brakePadsData.filter(item => {
-                    let matchesMarca = true;
-                    if (marca) {
-                        matchesMarca = item.marca.toUpperCase().includes(marca);
-                    }
-                    
-                    let matchesModelo = true;
-                    if (modelo) {
-                        matchesModelo = item.modelo.toUpperCase().includes(modelo);
-                    }
-                    
-                    // Convertir posición a categoría
-                    let categoriaActual = '';
-                    if (item.posicion.includes('Del')) {
-                        categoriaActual = 'Delantera';
-                    }
-                    if (item.posicion.includes('Tras')) {
-                        categoriaActual = 'Trasera';
-                    }
-                    
-                    let matchesCategoria = categoria === 'Todas' || categoria === '' || 
-                                          categoria === 'Ambas' || 
-                                          categoria === categoriaActual;
-                    
-                    // Si se especifica un año, debe estar dentro del rango desde-hasta
-                    let matchesAno = true;
-                    if (ano) {
-                        matchesAno = ano >= item.desde && ano <= item.hasta;
-                    }
-                    
-                    // Si se especifica una referencia, debe coincidir
-                    let matchesReferencia = true;
-                    if (referencia) {
-                        matchesReferencia = item.refIncolbest.toUpperCase().includes(referencia);
-                    }
-                    
-                    // Si se especifica una Platina FMSI, debe coincidir
-                    let matchesPlatinaFmsi = true;
-                    if (platinaFmsi) {
-                        matchesPlatinaFmsi = item.platinaFmsi.toUpperCase().includes(platinaFmsi);
-                    }
-                    
-                    // Si se especifica un OEM, debe coincidir
-                    let matchesOem = true;
-                    if (oem) {
-                        matchesOem = item.oemCode.toUpperCase().includes(oem);
-                    }
-                    
-                    // Filtrar por medidas
-                    let matchesMedidas = true;
-                    if (item.medidas) {
-                        if (longitud && item.medidas.longitud !== longitud) {
-                            matchesMedidas = false;
-                        }
-                        if (ancho && item.medidas.ancho !== ancho) {
-                            matchesMedidas = false;
-                        }
-                        if (grosor && item.medidas.grosor !== grosor) {
-                            matchesMedidas = false;
-                        }
-                        if (altura && item.medidas.altura !== altura) {
-                            matchesMedidas = false;
-                        }
-                        if (diametro && (!item.medidas.diametro || item.medidas.diametro !== diametro)) {
-                            matchesMedidas = false;
-                        }
-                    } else {
-                        matchesMedidas = false;
-                    }
-                    
-                    // Busqueda rápida
-                    let matchesBusquedaRapida = true;
-                    if (busquedaRapida) {
-                        const searchTerm = busquedaRapida.toLowerCase();
-                        matchesBusquedaRapida = 
-                            item.marca.toLowerCase().includes(searchTerm) ||
-                            item.modelo.toLowerCase().includes(searchTerm) ||
-                            item.refIncolbest.toLowerCase().includes(searchTerm) ||
-                            item.platinaFmsi.toLowerCase().includes(searchTerm) ||
-                            item.oemCode.toLowerCase().includes(searchTerm);
-                    }
-                    
-                    return matchesMarca && matchesModelo && matchesAno && matchesCategoria && 
-                           matchesReferencia && matchesPlatinaFmsi && matchesOem && 
-                           matchesMedidas && matchesBusquedaRapida;
-                });
-                
-                renderResults(filteredData);
-            }
-            
-            // Reset all filters
-            function resetAllFilters() {
-                marcaInput.value = '';
-                modeloInput.value = '';
-                anoInput.value = '';
-                
-                // Reset position buttons
-                positionDelantera.classList.remove('active');
-                positionTrasera.classList.remove('active');
-                
-                referenciaInput.value = '';
-                platinaFmsiInput.value = '';
-                oemInput.value = '';
-                medidaLongitud.value = '';
-                medidaAncho.value = '';
-                medidaGrosor.value = '';
-                medidaAltura.value = '';
-                medidaDiametro.value = '';
-                busquedaRapidaInput.value = '';
-                filterData();
-            }
-            
-            // Add event listeners for filtering with debounce
-            function setupDebounceEvents() {
-                const inputs = [
-                    anoInput, referenciaInput, platinaFmsiInput, 
-                    oemInput, busquedaRapidaInput, modeloInput,
-                    medidaLongitud, medidaAncho, medidaGrosor,
-                    medidaAltura, medidaDiametro
-                ];
-                
-                inputs.forEach(input => {
-                    input.addEventListener('input', () => {
-                        clearTimeout(searchTimeout);
-                        searchTimeout = setTimeout(filterData, 300);
-                    });
-                });
-            }
-            
-            // Clear search button
-            limpiarBusquedaBtn.addEventListener('click', function() {
-                busquedaRapidaInput.value = '';
-                filterData();
-            });
-            
-            // Handle position selection
-            setupPositionSelection();
-            
-            // Initialize debounce
-            setupDebounceEvents();
-            
-            // Initialize with empty state
-            filterData();
-        });
-    </script>
+  trashBtn.onclick = () => {
+    for(let i=0;i<3;i++){
+      const item = document.createElement('div');
+      item.className='trashed-item';
+      const r=trashBtn.getBoundingClientRect();
+      const s=Math.random()*8+6;
+      const c=['#ff4d4d','#ffb84d','#4d94ff','#4dff88'][Math.floor(Math.random()*4)];
+      const dx=Math.random()*20-10;
+      const dy=Math.random()*30+20;
+      item.style.width=item.style.height=`${s}px`;
+      item.style.background=c;
+      item.style.left=`${r.left+r.width/2}px`;
+      item.style.top=`${r.top+r.height/2}px`;
+      item.style.setProperty('--dx',`${dx}px`);
+      item.style.setProperty('--dy',`${dy}px`);
+      item.style.setProperty('--scale',`${Math.random()*0.5+0.7}`);
+      document.body.appendChild(item);
+      setTimeout(()=>item.remove(),800);
+    }
+  };
+})();
+</script>
+
 </body>
 </html>
