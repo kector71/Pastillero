@@ -9,7 +9,6 @@
 body {margin:0;font-family:'Inter','Segoe UI',Roboto,sans-serif;transition:background .35s,color .35s;background:#f5f5f5;color:#111;}
 body.lp-dark {background:#000;color:#fff;}
 
-/* Header y Footer cristal líquido */
 .lp-header,.lp-footer{position:relative;text-align:center;border-radius:1rem;margin:1rem;padding:.5rem 1rem;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);box-shadow:0 8px 20px rgba(0,0,0,0.25);transition:transform .25s,background .35s;}
 .lp-header:hover,.lp-footer:hover{transform:translateY(-3px);}
 .lp-header h1,.lp-footer h3{margin:0;font-weight:bold;color:#111;}
@@ -18,7 +17,6 @@ body.lp-dark .lp-header,body.lp-dark .lp-footer{background:rgba(0,0,0,0.35);}
 body.lp-dark .lp-header h1,body.lp-dark .lp-footer h3{color:#fff;}
 body.lp-dark .lp-header p,body.lp-dark .lp-footer .lp-footer-subtext{color:#ccc;}
 
-/* Botones flotantes */
 .lp-fbtn{position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);backdrop-filter:blur(20px) saturate(200%) brightness(1.2);box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s,background .35s;z-index:9999;width:45px;height:45px;overflow:hidden;animation:lp-float 2.5s ease-in-out infinite;}
 @keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 .lp-fbtn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);mix-blend-mode:screen;filter:blur(6px);transition:transform .2s;}
@@ -35,24 +33,38 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
 /* MODAL */
 .lp-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9998;}
 .lp-modal.show{opacity:1;}
-.lp-modal-content{position:relative;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);padding:2rem 1.5rem;border-radius:1.5rem;max-width:350px;width:90%;text-align:left;max-height:70vh;overflow-y:auto;transform:translateY(-50px);transition:transform .35s,opacity .35s;opacity:0;}
-.lp-modal.show .lp-modal-content{transform:translateY(0);opacity:1;}
+.lp-modal-content{
+  position: relative;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px) saturate(200%) brightness(1.2);
+  padding:2rem 1.5rem;
+  border-radius:1.5rem;
+  width:90%;
+  max-width:550px; /* más ancho en PC */
+  text-align:left;
+  max-height:70vh;
+  overflow-y:auto;
+  transform:translateY(-50px);
+  transition:transform .35s,opacity .35s;
+}
 body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
 
 .lp-modal-content h1{margin-bottom:1rem;font-weight:600;color:#111;text-align:center;}
 body.lp-dark .lp-modal-content h1{color:#fff;}
 
 /* Scroll más corto */
-.lp-modal-content::-webkit-scrollbar{width:3px;}
+.lp-modal-content::-webkit-scrollbar{width:4px;}
 .lp-modal-content::-webkit-scrollbar-track{background:transparent;}
-.lp-modal-content::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.5);border-radius:2px;}
-body.lp-dark .lp-modal-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.5);}
+.lp-modal-content::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.3);border-radius:2px;}
+body.lp-dark .lp-modal-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);}
 
-/* Flechas scroll con transición suave */
-.lp-scroll-indicator{position:absolute;left:50%;transform:translateX(-50%) translateY(0);font-size:1.5rem;color:#4d94ff;opacity:0;pointer-events:none;z-index:10;transition:opacity 0.3s, transform 0.3s;}
+/* Flechas scroll */
+.lp-scroll-indicator{
+  position:absolute; left:50%; transform:translateX(-50%);
+  font-size:1.5rem; color:#4d94ff; opacity:0.7; pointer-events:none; z-index:10; transition:opacity .3s;
+}
 .lp-scroll-indicator.top{top:10px;}
 .lp-scroll-indicator.bottom{bottom:10px;}
-.lp-scroll-indicator.show{opacity:0.7;transform:translateX(-50%) translateY(0);}
 
 /* Categorías */
 .categorias{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
@@ -115,12 +127,7 @@ body.lp-dark footer{color:#ccc;}
 <script>
 (() => {
   const createBtn=(cls,pos,html)=>{
-    const b=document.createElement('button'); 
-    b.className='lp-fbtn '+(cls||''); 
-    Object.assign(b.style,pos); 
-    b.innerHTML=html; 
-    document.body.appendChild(b); 
-    return b;
+    const b=document.createElement('button'); b.className='lp-fbtn '+(cls||''); Object.assign(b.style,pos); b.innerHTML=html; document.body.appendChild(b); return b;
   };
 
   const darkBtn=createBtn('',{bottom:'20px',right:'20px'},`
@@ -183,22 +190,26 @@ body.lp-dark footer{color:#ccc;}
   catBtn.onclick=()=>{modal.classList.add('show'); modal.style.pointerEvents='auto';};
   closeModal.onclick=()=>{modal.classList.remove('show'); modal.style.pointerEvents='none';};
 
-  // Scroll indicadores con transición suave
+  // Cerrar modal al hacer clic fuera del contenido
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal){
+      modal.classList.remove('show');
+      modal.style.pointerEvents='none';
+    }
+  });
+
+  // Scroll indicadores
   const modalContent=document.querySelector('.lp-modal-content');
   const topIndicator=document.querySelector('.lp-scroll-indicator.top');
   const bottomIndicator=document.querySelector('.lp-scroll-indicator.bottom');
 
   modalContent.addEventListener('scroll',()=>{
-    if(modalContent.scrollTop > 5){ topIndicator.classList.add('show'); } 
-    else { topIndicator.classList.remove('show'); }
-    if(modalContent.scrollTop + modalContent.clientHeight < modalContent.scrollHeight){ bottomIndicator.classList.add('show'); } 
-    else { bottomIndicator.classList.remove('show'); }
+    topIndicator.style.opacity=modalContent.scrollTop>5?'1':'0';
+    bottomIndicator.style.opacity=modalContent.scrollTop + modalContent.clientHeight < modalContent.scrollHeight ? '1':'0';
   });
 
-  // Inicializamos flechas
-  topIndicator.classList.remove('show');
-  bottomIndicator.classList.toggle('show', modalContent.scrollHeight > modalContent.clientHeight);
-
+  topIndicator.style.opacity='0';
+  bottomIndicator.style.opacity=modalContent.scrollHeight > modalContent.clientHeight ? '1':'0';
 })();
 </script>
 </body>
