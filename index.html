@@ -6,18 +6,55 @@
 <title>EL PASTILLERO 💊</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {margin:0;font-family:'Inter','Segoe UI',Roboto,sans-serif;transition:background .35s,color .35s;background:#f5f5f5;color:#111;}
-body.lp-dark {background:#000;color:#fff;}
+body {
+  margin:0;
+  font-family:'Inter','Segoe UI',Roboto,sans-serif;
+  transition: background .35s, color .35s;
+  background:#f5f5f5;
+  color:#111;
+}
+body.lp-dark {
+  background:#000;
+  color:#fff;
+}
 
-.lp-header,.lp-footer{position:relative;text-align:center;border-radius:1rem;margin:1rem;padding:.5rem 1rem;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);box-shadow:0 8px 20px rgba(0,0,0,0.25);transition:transform .25s,background .35s;}
-.lp-header:hover,.lp-footer:hover{transform:translateY(-3px);}
-.lp-header h1,.lp-footer h3{margin:0;font-weight:bold;color:#111;}
-.lp-header p,.lp-footer .lp-footer-subtext{margin:0;color:#333;font-size:.85rem;}
-body.lp-dark .lp-header,body.lp-dark .lp-footer{background:rgba(0,0,0,0.35);}
-body.lp-dark .lp-header h1,body.lp-dark .lp-footer h3{color:#fff;}
-body.lp-dark .lp-header p,body.lp-dark .lp-footer .lp-footer-subtext{color:#ccc;}
+/* Header y Footer estilo cristal líquido */
+.lp-header,.lp-footer {
+  position:relative;
+  text-align:center;
+  border-radius:1rem;
+  margin:1rem;
+  padding:.5rem 1rem;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(15px) saturate(200%) brightness(1.2);
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transition: transform .25s, background .35s;
+}
+.lp-header:hover,.lp-footer:hover { transform:translateY(-3px); }
+.lp-header h1,.lp-footer h3 { margin:0; font-weight:bold; color:#111; }
+.lp-header p,.lp-footer .lp-footer-subtext { margin:0; color:#333; font-size:.85rem; }
+body.lp-dark .lp-header, body.lp-dark .lp-footer { background:rgba(0,0,0,0.35); }
+body.lp-dark .lp-header h1, body.lp-dark .lp-footer h3 { color:#fff; }
+body.lp-dark .lp-header p, body.lp-dark .lp-footer .lp-footer-subtext { color:#ccc; }
 
-.lp-fbtn{position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);backdrop-filter:blur(20px) saturate(200%) brightness(1.2);box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s,background .35s;z-index:9999;width:45px;height:45px;overflow:hidden;animation:lp-float 2.5s ease-in-out infinite;}
+/* Botones flotantes */
+.lp-fbtn {
+  position:fixed;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(200%) brightness(1.2);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  transition: transform .25s, box-shadow .25s, background .35s;
+  z-index:9999;
+  width:45px; height:45px;
+  overflow:hidden;
+  animation:lp-float 2.5s ease-in-out infinite;
+}
 @keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 .lp-fbtn::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);mix-blend-mode:screen;filter:blur(6px);transition:transform .2s;}
 .lp-fbtn::after{content:'';position:absolute;top:50%;left:50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);border-radius:50%;transform:translate(-50%,-50%) scale(0);transition:transform .25s,opacity .25s;opacity:0;pointer-events:none;}
@@ -26,72 +63,73 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
 .lp-fbtn.lp-shake:hover{animation:lp-shake .3s;}
 @keyframes lp-shake{0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
 
-/* PAPELERA */
-.lp-trashed-item{position:fixed;border-radius:2px;z-index:998;pointer-events:none;animation:lp-fallTrash .8s forwards;}
-@keyframes lp-fallTrash{0%{transform:translate(0,0) scale(1);opacity:1;}70%{transform:translate(var(--dx,10px),var(--dy,30px)) scale(var(--scale,0.8));opacity:1;}100%{transform:translate(0,50px) scale(0);opacity:0;}}
-
-/* MODAL */
-.lp-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9998;}
-.lp-modal.show{opacity:1;}
-.lp-modal-content{
-  position: relative;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(15px) saturate(200%) brightness(1.2);
-  padding:2rem 1.5rem 3rem 1.5rem; /* espacio extra abajo para flecha */
-  border-radius:1.5rem;
-  width:90%;
-  max-width:550px;
-  text-align:left;
-  max-height:70vh;
-  overflow-y:auto;
-  transform: translateY(-50px) scale(0.95);
-  opacity:0;
-  transition:transform .35s ease-out, opacity .35s ease-out;
-}
-.lp-modal.show .lp-modal-content{
-  transform: translateY(0) scale(1);
-  opacity:1;
-}
-body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
-
-.lp-modal-content h1{margin-bottom:1rem;font-weight:600;color:#111;text-align:center;}
-body.lp-dark .lp-modal-content h1{color:#fff;}
-
-/* Scroll más corto */
-.lp-modal-content::-webkit-scrollbar{width:6px;}
-.lp-modal-content::-webkit-scrollbar-track{background:transparent;}
-.lp-modal-content::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.3);border-radius:2px;}
-body.lp-dark .lp-modal-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);}
-
-/* Flechas scroll */
-.lp-scroll-indicator{
-  position:absolute; left:50%; transform:translateX(-50%);
-  font-size:1.5rem; color:#4d94ff; opacity:0.7; pointer-events:none; z-index:20; transition:opacity .3s;
-}
-.lp-scroll-indicator.top{top:10px;}
-.lp-scroll-indicator.bottom{bottom:15px;} /* separada del texto y borde */
-
 /* Categorías */
 .categorias{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
-.categorias li{background:#f9f9f9;border:1px solid #ddd;border-radius:12px;padding:1.2rem;transition:transform .2s,box-shadow .2s;overflow-wrap: break-word; word-break: break-word;}
+.categorias li{background:#f9f9f9;border:1px solid #ddd;border-radius:12px;padding:1.2rem;transition:transform .2s,box-shadow .2s;}
 .categorias li:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,0.08);}
 .categoria-nombre{display:block;font-weight:600;font-size:1.1rem;margin-bottom:.4rem;}
 .categoria-desc{font-size:.95rem;color:#555;}
 body.lp-dark .categorias li{background:#222;border:1px solid #444;color:#ccc;}
 body.lp-dark .categoria-desc{color:#aaa;}
 
+/* Modal cristal líquido */
+.lp-modal {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition: background .35s ease, opacity .35s ease;
+  z-index:9998;
+}
+.lp-modal.show { opacity:1; background:rgba(0,0,0,0.5); pointer-events:auto; }
+
+.lp-modal-content {
+  position: relative;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px) saturate(200%) brightness(1.2);
+  padding: 2rem 1.5rem;
+  border-radius: 1.5rem;
+  max-width: 350px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+  transform: translateY(-30px) scale(0.95);
+  opacity:0;
+  transition: transform .35s ease, opacity .35s ease;
+}
+.lp-modal.show .lp-modal-content { transform: translateY(0) scale(1); opacity:1; }
+body.lp-dark .lp-modal-content { background:rgba(0,0,0,0.35); color:#fff; }
+
+@media (min-width:1024px){
+  .lp-modal-content{ max-width:600px; padding:2.5rem 2rem; }
+}
+
+/* Flecha scroll superior */
+.lp-scroll-indicator.top{
+  position:absolute; left:50%; transform:translateX(-50%) translateY(-5px);
+  font-size:1.5rem; color:#4d94ff; pointer-events:none; z-index:10;
+  opacity:0; transition:opacity .3s ease, transform .3s ease;
+}
+.lp-scroll-indicator.top.visible{ opacity:1; transform:translateX(-50%) translateY(0); }
+.lp-scroll-indicator.top.hidden{ opacity:0; transform:translateX(-50%) translateY(-5px); }
+
 /* Cerrar modal */
 #lpCloseModal{position:absolute;top:.5rem;right:.7rem;font-size:1.6rem;background:none;border:none;cursor:pointer;transition:transform .2s;color:#111;}
 body.lp-dark #lpCloseModal{color:#fff;}
 #lpCloseModal:hover{transform:scale(1.2);color:#ff4d4d;}
 
-/* Rebote categorías */
+/* Bounce categorías */
 .lp-fbtn.cat-bounce:hover{animation:lp-bounce .4s;}
+.lp-fbtn.cat-bounce.opening{animation:lp-bounce-open 0.4s forwards;}
+.lp-fbtn.cat-bounce.closing{animation:lp-bounce-close 0.4s forwards;}
 @keyframes lp-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-
-/* Footer */
-footer{margin-top:3rem;font-size:.9rem;color:#555;text-align:center;}
-body.lp-dark footer{color:#ccc;}
+@keyframes lp-bounce-open{0%{transform:translateY(0);}50%{transform:translateY(-8px);}100%{transform:translateY(0);}}
+@keyframes lp-bounce-close{0%{transform:translateY(0);}50%{transform:translateY(6px);}100%{transform:translateY(0);}}
 </style>
 </head>
 <body>
@@ -125,23 +163,47 @@ body.lp-dark footer{color:#ccc;}
       <li><span class="categoria-nombre">🔋 Eléctrico / EV</span><p class="categoria-desc">Impulsados 100% por baterías. Silenciosos, ecológicos y con ahorro de combustible.</p></li>
       <li><span class="categoria-nombre">⚡ Híbrido</span><p class="categoria-desc">Motor de combustión + eléctrico. Menor consumo y menor impacto ambiental.</p></li>
     </ul>
-    <span class="lp-scroll-indicator bottom">⬇️</span>
   </div>
 </div>
 
 <script>
 (() => {
   const createBtn=(cls,pos,html)=>{
-    const b=document.createElement('button'); b.className='lp-fbtn '+(cls||''); Object.assign(b.style,pos); b.innerHTML=html; document.body.appendChild(b); return b;
+    const b=document.createElement('button'); 
+    b.className='lp-fbtn '+(cls||''); 
+    Object.assign(b.style,pos); 
+    b.innerHTML=html; 
+    document.body.appendChild(b); 
+    return b;
   };
 
   const darkBtn=createBtn('',{bottom:'20px',right:'20px'},`
-    <svg class="lp-icon-sun" viewBox="0 0 24 24" style="opacity:.9"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
-    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="lp-icon-sun" viewBox="0 0 24 24" style="opacity:.9">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="4"/>
+      <line x1="12" y1="20" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="4" y2="12"/>
+      <line x1="20" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
   `);
 
   const trashBtn=createBtn('lp-shake',{bottom:'80px',right:'20px'},`
-    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><line x1="9" y1="6" x2="9" y2="4"/><line x1="15" y1="6" x2="15" y2="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
+    <svg viewBox="0 0 24 24">
+      <polyline points="3 6 5 6 21 6"/>
+      <path d="M19 6l-1 14H6L5 6"/>
+      <line x1="10" y1="11" x2="10" y2="17"/>
+      <line x1="14" y1="11" x2="14" y2="17"/>
+      <line x1="9" y1="6" x2="9" y2="4"/>
+      <line x1="15" y1="6" x2="15" y2="4"/>
+      <line x1="12" y1="2" x2="12" y2="4"/>
+    </svg>
   `);
 
   const catBtn=createBtn('cat-bounce',{bottom:'140px',right:'20px'},`≡`);
@@ -154,12 +216,14 @@ body.lp-dark footer{color:#ccc;}
 
   const btns=[darkBtn,trashBtn,catBtn,topBtn];
 
+  // Dark mode
   darkBtn.onclick=()=>{
     document.body.classList.toggle('lp-dark');
     darkBtn.querySelector('.lp-icon-sun').style.opacity=document.body.classList.contains('lp-dark')?'0':'.9';
     darkBtn.querySelector('.lp-icon-moon').style.opacity=document.body.classList.contains('lp-dark')?'1':'0';
   };
 
+  // Scroll top
   topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
   window.addEventListener('scroll',()=>{
     const show=window.scrollY>200;
@@ -167,12 +231,14 @@ body.lp-dark footer{color:#ccc;}
     topBtn.style.pointerEvents=show?'auto':'none';
   });
 
+  // Efecto radial mouse
   btns.forEach(b=>b.addEventListener('mousemove',e=>{
     const r=b.getBoundingClientRect();
     b.style.setProperty('--mx',`${e.clientX-r.left}px`);
     b.style.setProperty('--my',`${e.clientY-r.top}px`);
   }));
 
+  // Papelera
   trashBtn.onclick=()=>{for(let i=0;i<3;i++){
     const item=document.createElement('div');item.className='lp-trashed-item';
     const r=trashBtn.getBoundingClientRect();
@@ -190,38 +256,39 @@ body.lp-dark footer{color:#ccc;}
     setTimeout(()=>item.remove(),800);
   }};
 
+  // Modal
   const modal=document.getElementById('lpModal');
   const modalContent=document.querySelector('.lp-modal-content');
   const closeModal=document.getElementById('lpCloseModal');
-  catBtn.onclick=()=>{modal.classList.add('show'); modal.style.pointerEvents='auto';};
-  closeModal.onclick=()=>{modal.classList.remove('show'); modal.style.pointerEvents='none';};
 
-  // Cerrar modal al hacer clic fuera
-  modal.addEventListener('click', (e) => {
-    if (!modalContent.contains(e.target)) {
-      modal.classList.remove('show');
-      modal.style.pointerEvents='none';
-    }
-  });
-
-  // Scroll indicadores dinámicos
-  const topIndicator = document.querySelector('.lp-scroll-indicator.top');
-  const bottomIndicator = document.querySelector('.lp-scroll-indicator.bottom');
-
-  function actualizarIndicadores() {
-    const scrollTop = modalContent.scrollTop;
-    const scrollHeight = modalContent.scrollHeight;
-    const clientHeight = modalContent.clientHeight;
-
-    topIndicator.style.opacity = scrollTop > 5 ? '1' : '0';
-    bottomIndicator.style.opacity = scrollTop + clientHeight < scrollHeight - 5 ? '1' : '0';
+  function abrirModal() {
+    modal.classList.add('show');
+    modal.style.pointerEvents='auto';
+    modalContent.classList.add('opening');
+    catBtn.classList.add('opening');
+    setTimeout(()=>{
+      modalContent.classList.remove('opening');
+      catBtn.classList.remove('opening');
+    },350);
   }
 
-  modalContent.addEventListener('scroll', actualizarIndicadores);
-  modal.addEventListener('transitionend', () => {
-    if(modal.classList.contains('show')) {
-      actualizarIndicadores();
-    }
+  function cerrarModal() {
+    modalContent.classList.add('closing');
+    catBtn.classList.add('closing');
+    setTimeout(()=>{
+      modal.classList.remove('show');
+      modalContent.classList.remove('closing');
+      catBtn.classList.remove('closing');
+      modal.style.pointerEvents='none';
+    },350);
+  }
+
+  catBtn.onclick=abrirModal;
+  closeModal.onclick=cerrarModal;
+
+  // Cerrar modal al clic fuera
+  modal.addEventListener('click',(e)=>{
+    if(!modalContent.contains(e.target)) cerrarModal();
   });
 
 })();
