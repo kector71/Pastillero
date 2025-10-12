@@ -6,26 +6,55 @@
 <title>EL PASTILLERO 💊</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body {margin:0;font-family:'Inter','Segoe UI',Roboto,sans-serif;transition:background .35s,color .35s;background:#f5f5f5;color:#111;}
-body.lp-dark {background:#000;color:#fff;}
-
-.lp-header,.lp-footer{
-  position:relative;text-align:center;border-radius:1rem;margin:1rem;padding:.5rem 1rem;
-  background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);
-  box-shadow:0 8px 20px rgba(0,0,0,0.25);transition:transform .25s,background .35s;
+body {
+  margin:0;
+  font-family:'Inter','Segoe UI',Roboto,sans-serif;
+  transition:background .35s,color .35s;
+  background:#f5f5f5;
+  color:#111;
 }
-.lp-header:hover,.lp-footer:hover{transform:translateY(-3px);}
+body.lp-dark {
+  background:#000;
+  color:#fff;
+}
+
+/* Header y Footer estilo cristal líquido */
+.lp-header,.lp-footer{
+  position:relative;
+  text-align:center;
+  border-radius:1rem;
+  margin:1rem;
+  padding:.5rem 1rem;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(250%) brightness(1.3);
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transition:transform .25s,background .35s;
+}
+.lp-header:hover,.lp-footer:hover{transform:translateY(-3px) scale(1.02);}
 .lp-header h1,.lp-footer h3{margin:0;font-weight:bold;color:#111;}
 .lp-header p,.lp-footer .lp-footer-subtext{margin:0;color:#333;font-size:.85rem;}
 body.lp-dark .lp-header,body.lp-dark .lp-footer{background:rgba(0,0,0,0.35);}
 body.lp-dark .lp-header h1,body.lp-dark .lp-footer h3{color:#fff;}
 body.lp-dark .lp-header p,body.lp-dark .lp-footer .lp-footer-subtext{color:#ccc;}
 
+/* Botones flotantes */
 .lp-fbtn{
-  position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,0.12);backdrop-filter:blur(20px) saturate(200%) brightness(1.2);
-  box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s,box-shadow .25s,background .35s;
-  z-index:9999;width:45px;height:45px;overflow:hidden;animation:lp-float 2.5s ease-in-out infinite;
+  position:fixed;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(250%) brightness(1.3);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  transition:transform .25s,box-shadow .25s,background .35s;
+  z-index:9999;
+  width:45px;
+  height:45px;
+  overflow:hidden;
+  animation:lp-float 2.5s ease-in-out infinite;
 }
 @keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 .lp-fbtn::before{
@@ -49,43 +78,53 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
   position:fixed;
   border-radius:50%;
   pointer-events:none;
-  width:2px;
-  height:6px;
   opacity:0.9;
   filter:blur(1px);
   animation: sparkFall 0.8s forwards, sparkTwinkle 0.15s infinite alternate;
-  background: linear-gradient(to bottom, #ff8c00, #ff4d4d, #ff1a1a);
 }
-body.lp-dark .lp-spark { background: linear-gradient(to bottom, #fff, #ffea00, #ff4d4d); }
+@keyframes sparkFall {0% { transform: translate(0,0) rotate(0deg) scale(1); opacity:1; }100% { transform: translate(var(--dx,60px), var(--dy,140px)) rotate(720deg) scale(0); opacity:0; }}
+@keyframes sparkTwinkle {0% { opacity:0.4; }50% { opacity:1; }100% { opacity:0.4; }}
 
-@keyframes sparkFall {
-  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity:1; }
-  100% { transform: translate(var(--dx,40px), var(--dy,120px)) rotate(720deg) scale(0); opacity:0; }
-}
-@keyframes sparkTwinkle {
-  0% { opacity:0.4; }
-  50% { opacity:1; }
-  100% { opacity:0.4; }
-}
-
+/* Pop-up centrado y dimensiones simétricas */
 .lp-modal{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;z-index:9998;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.5);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .25s; z-index:9998;
 }
-.lp-modal.show{opacity:1;pointer-events:auto;}
+.lp-modal.show{opacity:1; pointer-events:auto;}
 .lp-modal-content{
-  position:relative;background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);
-  padding:2rem 1.5rem;border-radius:1.5rem;max-width:500px;width:90%;text-align:left;max-height:70vh;overflow-y:auto;
-  transform:translateY(-50px);transition:transform .35s,opacity .35s;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px) saturate(250%) brightness(1.3);
+  padding: 2.5rem 2rem;
+  border-radius: 2rem;
+  width: 60%;
+  max-width: 700px;
+  min-width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: transform .35s, opacity .35s;
 }
+.lp-modal-content::-webkit-scrollbar { width:8px; }
+.lp-modal-content::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius:4px; }
+.lp-modal-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius:4px; }
+.lp-modal-content::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+
 body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
 .lp-modal-content h1{margin-bottom:1rem;font-weight:600;color:#111;text-align:center;}
 body.lp-dark .lp-modal-content h1{color:#fff;}
 
+/* Categorías */
 .categorias{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
 .categorias li{background:#f9f9f9;border:1px solid #ddd;border-radius:12px;padding:1.2rem;transition:transform .2s,box-shadow .2s;}
-.categorias li:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,0.08);}
+.categorias li:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 4px 12px rgba(0,0,0,0.08);}
 .categoria-nombre{display:block;font-weight:600;font-size:1.1rem;margin-bottom:.4rem;}
 .categoria-desc{font-size:.95rem;color:#555;}
 body.lp-dark .categorias li{background:#222;border:1px solid #444;color:#ccc;}
@@ -97,6 +136,14 @@ body.lp-dark #lpCloseModal{color:#fff;}
 
 footer{margin-top:3rem;font-size:.9rem;color:#555;text-align:center;}
 body.lp-dark footer{color:#ccc;}
+
+/* Adaptación móvil */
+@media (max-width:900px){
+  .lp-modal-content{width:90%; min-width:auto; height:75%; padding:2rem 1.5rem;}
+}
+@media (max-width:500px){
+  .lp-modal-content{width:95%; height:80%; padding:1.5rem 1rem;}
+}
 </style>
 </head>
 <body>
@@ -111,9 +158,10 @@ body.lp-dark footer{color:#ccc;}
   <div class="lp-footer-subtext">© 2026 EL PASTILLERO 💊. Todos los derechos reservados.</div>
 </footer>
 
+<!-- Pop-up Modal -->
 <div id="lpModal" class="lp-modal">
   <div class="lp-modal-content">
-    <button id="lpCloseModal">×</button>
+    <button id="lpCloseModal" tabindex="0">×</button>
     <h1>Categorías de Autos</h1>
     <ul class="categorias">
       <li><span class="categoria-nombre">🚗 Sedán</span><p class="categoria-desc">Tres compartimientos: motor, cabina y maletero. Ideales para familias y viajes cómodos.</p></li>
@@ -159,19 +207,21 @@ body.lp-dark footer{color:#ccc;}
   btns.forEach(b=>b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.setProperty('--mx',`${e.clientX-r.left}px`);b.style.setProperty('--my',`${e.clientY-r.top}px`);}));
 
   trashBtn.onclick=()=>{
-    for(let i=0;i<12;i++){ // más chispas
-      const s=document.createElement('div');s.className='lp-spark';
-      const r=trashBtn.getBoundingClientRect(),size=Math.random()*4+3;
-      const dx=Math.random()*80-40, dy=Math.random()*100+20;
-      s.style.cssText=`width:${size}px;height:${size*1.5}px;left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy}px;animation-duration:${0.6+Math.random()*0.4}s;`;
+    for(let i=0;i<18;i++){
+      const s=document.createElement('div'); s.className='lp-spark';
+      const r=trashBtn.getBoundingClientRect();
+      const size=Math.random()*8+6;
+      const dx=Math.random()*140-70, dy=Math.random()*180+20;
+      const colors=['rgba(255,140,0,0.9)','rgba(255,69,0,0.9)','rgba(255,0,0,0.9)','rgba(255,215,0,0.9)','rgba(255,255,255,0.9)'];
+      const color=colors[Math.floor(Math.random()*colors.length)];
+      s.style.cssText=`width:${size}px;height:${size*1.5}px;left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy}px;background:${color};filter:blur(${Math.random()*2+1}px);animation-duration:${0.5+Math.random()*0.5}s;`;
       document.body.appendChild(s);
-      setTimeout(()=>s.remove(),1200);
+      setTimeout(()=>s.remove(),1500);
     }
   };
 
   const modal=document.getElementById('lpModal');
   const closeModal=document.getElementById('lpCloseModal');
-
   catBtn.onclick=()=>{modal.classList.toggle('show');};
   closeModal.onclick=()=>modal.classList.remove('show');
   modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('show');});
