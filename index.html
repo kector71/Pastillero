@@ -44,9 +44,13 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
   text-align:left;
   max-height:70vh;
   overflow-y:auto;
-  transform:translateY(-50px);
-  transition:transform .35s,opacity .35s;
-  box-sizing:border-box;
+  transform: translateY(-50px) scale(0.95);
+  opacity:0;
+  transition:transform .35s ease-out, opacity .35s ease-out;
+}
+.lp-modal.show .lp-modal-content{
+  transform: translateY(0) scale(1);
+  opacity:1;
 }
 body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
 
