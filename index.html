@@ -1,172 +1,58 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EL PASTILLERO 💊</title>
 <style>
-body {margin:0;font-family:sans-serif;transition: background .35s, color .35s;background:#f5f5f5;color:#111;}
-body.lp-dark { background:#000; color:#fff; }
-
-.lp-header, .lp-footer {
-  position: relative;text-align: center;border-radius: 1rem;margin: 1rem;
-  padding: 0.5rem 1rem;background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(15px) saturate(200%) brightness(1.2);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);transition: transform 0.25s, background 0.35s;
+/* Ajuste ancho modal */
+.lp-modal-content{
+  max-width:350px; /* menos ancho */
+  width:90%;
+  padding:1.5rem;
+  text-align:left;
+  max-height:60vh; /* menos alto */
+  overflow-y:auto;
+  position:relative;
 }
-.lp-header:hover, .lp-footer:hover { transform: translateY(-3px); }
-.lp-header h1, .lp-footer h3 { margin:0; font-weight:bold; color:#111; }
-.lp-header p, .lp-footer .lp-footer-subtext { margin:0; color:#333; font-size:0.85rem; }
-body.lp-dark .lp-header, body.lp-dark .lp-footer { background: rgba(0,0,0,0.35); }
-body.lp-dark .lp-header h1, body.lp-dark .lp-footer h3 { color:#fff; }
-body.lp-dark .lp-header p, body.lp-dark .lp-footer .lp-footer-subtext { color:#ccc; }
 
-.lp-fbtn {
-  position:fixed;border:none;border-radius:50%;cursor:pointer;display:flex;
-  align-items:center;justify-content:center;background:rgba(255,255,255,0.12);
-  backdrop-filter:blur(20px) saturate(200%) brightness(1.2);
-  box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .25s, box-shadow .25s, background .35s;
-  z-index:9999;width:45px;height:45px;overflow:hidden;animation:lp-float 2.5s ease-in-out infinite;
+/* Scroll más corto */
+.lp-modal-content::-webkit-scrollbar{width:4px;}
+.lp-modal-content::-webkit-scrollbar-track{background:transparent;}
+.lp-modal-content::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.3);border-radius:2px;}
+body.lp-dark .lp-modal-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);}
+
+/* Flechas indicadoras */
+.lp-scroll-indicator{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:1.2rem;
+  color:#888;
+  pointer-events:none;
+  z-index:10;
 }
-@keyframes lp-float {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.lp-fbtn::before { content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;
-  pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);
-  mix-blend-mode:screen;filter:blur(6px);transition:transform .2s;
-}
-.lp-fbtn::after { content:'';position:absolute;top:50%;left:50%;width:200%;height:200%;
-  background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);
-  border-radius:50%;transform:translate(-50%,-50%) scale(0);
-  transition:transform .25s, opacity .25s;opacity:0;pointer-events:none;
-}
-.lp-fbtn svg { width:22px; height:22px; stroke:#111; stroke-width:2; fill:none; transition:all .25s; }
-body.lp-dark .lp-fbtn svg { stroke:#fff; }
-.lp-fbtn.lp-shake:hover { animation:lp-shake .3s; }
-@keyframes lp-shake {0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
-
-/* PAPELERA */
-.lp-trashed-item { position:fixed;border-radius:2px;z-index:998;pointer-events:none;animation:lp-fallTrash .8s forwards; }
-@keyframes lp-fallTrash {0%{transform:translate(0,0) scale(1);opacity:1;}70%{transform:translate(var(--dx,10px),var(--dy,30px)) scale(var(--scale,0.8));opacity:1;}100%{transform:translate(0,50px) scale(0);opacity:0;}}
-
-/* MODAL */
-.lp-modal { position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);
-  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s; z-index:9998; }
-.lp-modal-content { background:rgba(255,255,255,0.12);backdrop-filter:blur(15px) saturate(200%) brightness(1.2);
-  padding:1rem 2rem;border-radius:1rem;max-width:400px;width:90%;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,0.25);overflow-y:auto;max-height:80%; position:relative; }
-.lp-modal-content h2 { margin-bottom:1rem; font-weight:bold; color:#fff; }
-body.lp-dark .lp-modal-content { background: rgba(32,32,32,0.9); } /* GRIS OSCURO */
-body.lp-dark .lp-modal-content h2 { color:#fff; }
-
-/* BOTÓN CERRAR */
-.lp-modal-close { position:absolute;top:10px;right:10px;background:none;border:none;font-size:1.4rem;font-weight:bold;color:#fff;cursor:pointer;transition:color .2s; }
-.lp-modal-close:hover { color:red; }
-
-/* TARJETAS POP-UP */
-.lp-modal-content ul { list-style: none; padding: 0; margin: 2rem 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-.lp-modal-content li { background: #f9f9f9; border: 1px solid #ddd; border-radius: 12px; padding: 1.2rem; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.lp-modal-content li:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.lp-modal-content .categoria-nombre { display: block; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.4rem; }
-.lp-modal-content .categoria-desc { font-size: 0.95rem; color: #555; }
-body.lp-dark .lp-modal-content li { background:#222; color:#fff; border-color:#444; }
-body.lp-dark .lp-modal-content .categoria-desc { color:#ccc; }
-
-/* SCROLLBAR */
-.lp-modal-content::-webkit-scrollbar { width: 8px; border-radius:12px; }
-.lp-modal-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 12px; }
-.lp-modal-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.3); border-radius: 12px; }
-body.lp-dark .lp-modal-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); }
-
-/* RESPONSIVE */
-@media(max-width:400px){.lp-fbtn{width:40px;height:40px;}.lp-fbtn svg{width:18px;height:18px;}}
-@media(max-width:768px) and (min-width:401px){.lp-fbtn{width:42px;height:42px;}.lp-fbtn svg{width:20px;height:20;}}
+.lp-scroll-indicator.top{top:5px;}
+.lp-scroll-indicator.bottom{bottom:5px;}
 </style>
-</head>
-<body>
 
-<header class="lp-header">
-  <h1>EL PASTILLERO 💊</h1>
-  <p>Catálogo de pastillas de freno</p>
-</header>
-
-<footer class="lp-footer">
-  <h3>EL PASTILLERO 💊</h3>
-  <div class="lp-footer-subtext">© 2026 EL PASTILLERO 💊. Todos los derechos reservados.</div>
-</footer>
-
-<!-- POP-UP CATEGORÍAS -->
 <div id="lpModal" class="lp-modal">
   <div class="lp-modal-content">
-    <button class="lp-modal-close" id="lpCloseModal">×</button>
-    <h2>Categorías de Autos</h2>
-    <ul>
-      <li><span class="categoria-nombre">🚗 Sedán</span><p class="categoria-desc">Tres compartimientos: motor, cabina y maletero. Ideales para familias y viajes cómodos.</p></li>
-      <li><span class="categoria-nombre">🚙 SUV</span><p class="categoria-desc">Vehículos utilitarios deportivos, con mayor altura y tracción en las cuatro ruedas. Perfectos para viajes y familia.</p></li>
-      <li><span class="categoria-nombre">🏎️ Coupé</span><p class="categoria-desc">Diseño de dos puertas, líneas deportivas y rendimiento ágil. Enfocados en estilo y velocidad.</p></li>
-      <li><span class="categoria-nombre">🚘 Hatchback</span><p class="categoria-desc">Compactos con puerta trasera abatible. Prácticos, versátiles y fáciles de estacionar en ciudad.</p></li>
-      <li><span class="categoria-nombre">🚐 Minivan / MPV</span><p class="categoria-desc">Vehículos familiares grandes con múltiples filas de asientos. Perfectos para familias numerosas.</p></li>
-      <li><span class="categoria-nombre">🛻 Pickup / Camioneta</span><p class="categoria-desc">Cabina y caja trasera, ideal para cargar objetos y manejar en terrenos difíciles.</p></li>
-      <li><span class="categoria-nombre">🚖 Crossover</span><p class="categoria-desc">Mezcla de SUV y hatchback. Maniobrables y cómodos para ciudad, con espacio extra.</p></li>
-      <li><span class="categoria-nombre">🚙 Station Wagon / Familiar</span><p class="categoria-desc">Autos largos con maletero extendido. Gran capacidad de carga y estabilidad en carretera.</p></li>
-      <li><span class="categoria-nombre">🏁 Roadster</span><p class="categoria-desc">Autos deportivos de 2 plazas con techo abierto. Máxima diversión al volante.</p></li>
-      <li><span class="categoria-nombre">🔋 Eléctrico / EV</span><p class="categoria-desc">Impulsados 100% por baterías. Silenciosos, ecológicos y con ahorro de combustible.</p></li>
-      <li><span class="categoria-nombre">⚡ Híbrido</span><p class="categoria-desc">Motor de combustión + eléctrico. Menor consumo y menor impacto ambiental.</p></li>
+    <span class="lp-scroll-indicator top">⬆️</span>
+    <button id="lpCloseModal">×</button>
+    <h1>Categorías de Autos</h1>
+    <ul class="categorias">
+      <!-- tus categorías aquí -->
     </ul>
+    <span class="lp-scroll-indicator bottom">⬇️</span>
   </div>
 </div>
 
 <script>
-(() => {
-  const createBtn = (cls,pos,html) => {
-    const b = document.createElement('button'); b.className='lp-fbtn '+(cls||''); Object.assign(b.style,pos); b.innerHTML=html; document.body.appendChild(b); return b;
-  };
+const modalContent=document.querySelector('.lp-modal-content');
+modalContent.addEventListener('scroll',()=>{
+  const topIndicator=document.querySelector('.lp-scroll-indicator.top');
+  const bottomIndicator=document.querySelector('.lp-scroll-indicator.bottom');
+  
+  topIndicator.style.opacity=modalContent.scrollTop>5?'1':'0';
+  bottomIndicator.style.opacity=modalContent.scrollTop + modalContent.clientHeight < modalContent.scrollHeight ? '1':'0';
+});
 
-  // BOTONES
-  const darkBtn = createBtn('', {bottom:'20px', right:'20px'}, `
-    <svg class="lp-icon-sun" viewBox="0 0 24 24" style="opacity:.9"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
-    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  `);
-
-  const trashBtn = createBtn('lp-shake', {bottom:'80px', right:'20px'}, `
-    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/><line x1="9" y1="6" x2="9" y2="4"/><line x1="15" y1="6" x2="15" y2="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
-  `);
-
-  const catBtn = createBtn('', {bottom:'140px', right:'20px'}, `
-    <svg viewBox="0 0 24 24" fill="none" stroke="#4d94ff" stroke-width="2">
-      <line x1="4" y1="7" x2="20" y2="7"/>
-      <line x1="4" y1="12" x2="20" y2="12"/>
-      <line x1="4" y1="17" x2="20" y2="17"/>
-    </svg>
-  `);
-
-  const topBtn = createBtn('', {bottom:'20px', left:'20px'}, `<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>`);
-
-  const btns = [darkBtn, trashBtn, catBtn, topBtn];
-
-  // MODO OSCURO
-  darkBtn.onclick = () => {
-    document.body.classList.toggle('lp-dark');
-    darkBtn.querySelector('.lp-icon-sun').style.opacity=document.body.classList.contains('lp-dark')?'0':'.9';
-    darkBtn.querySelector('.lp-icon-moon').style.opacity=document.body.classList.contains('lp-dark')?'1':'0';
-  };
-
-  // SUBIR ARRIBA
-  topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
-  window.addEventListener('scroll',()=>{const show=window.scrollY>200;topBtn.style.opacity=show?'1':'0';topBtn.style.pointerEvents=show?'auto':'none';});
-
-  // EFECTO RATÓN
-  btns.forEach(b=>b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.setProperty('--mx',`${e.clientX-r.left}px`);b.style.setProperty('--my',`${e.clientY-r.top}px`);})); 
-
-  // PAPELERA CON VIBRACIÓN
-  trashBtn.onclick=()=>{
-    if(navigator.vibrate) navigator.vibrate(100);
-    for(let i=0;i<3;i++){const item=document.createElement('div');item.className='lp-trashed-item';const r=trashBtn.getBoundingClientRect();const s=Math.random()*8+6;const c=['#ff4d4d','#ffb84d','#4d94ff','#4dff88'][Math.floor(Math.random()*4)];const dx=Math.random()*20-10;const dy=Math.random()*30+20;item.style.width=item.style.height=`${s}px`;item.style.background=c;item.style.left=`${r.left+r.width/2}px`;item.style.top=`${r.top+r.height/2}px`;item.style.setProperty('--dx',`${dx}px`);item.style.setProperty('--dy',`${dy}px`);item.style.setProperty('--scale',`${Math.random()*0.5+0.7}`);document.body.appendChild(item);setTimeout(()=>item.remove(),800);}
-  };
-
-  // POP-UP
-  const modal=document.getElementById('lpModal');
-  const closeModal=document.getElementById('lpCloseModal');
-  catBtn.onclick=()=>{modal.style.opacity='1';modal.style.pointerEvents='auto';};
-  closeModal.onclick=()=>{modal.style.opacity='0';modal.style.pointerEvents='none';};
-})();
+// Inicialmente solo mostrar flecha abajo si hay scroll
+modalContent.querySelector('.lp-scroll-indicator.top').style.opacity='0';
+modalContent.querySelector('.lp-scroll-indicator.bottom').style.opacity=modalContent.scrollHeight > modalContent.clientHeight ? '1':'0';
 </script>
-</body>
-</html>
