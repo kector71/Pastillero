@@ -37,16 +37,16 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
   position: relative;
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(15px) saturate(200%) brightness(1.2);
-  padding:2rem 2rem;
+  padding:2rem;
   border-radius:1.5rem;
   width:90%;
-  max-width:550px; /* ancho mayor en PC */
+  max-width:550px;
   text-align:left;
   max-height:70vh;
   overflow-y:auto;
   transform:translateY(-50px);
   transition:transform .35s,opacity .35s;
-  box-sizing:border-box; /* evita que contenido se salga */
+  box-sizing:border-box;
 }
 body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
 
@@ -54,7 +54,7 @@ body.lp-dark .lp-modal-content{background:rgba(0,0,0,0.35);color:#fff;}
 body.lp-dark .lp-modal-content h1{color:#fff;}
 
 /* Scroll más corto */
-.lp-modal-content::-webkit-scrollbar{width:4px;}
+.lp-modal-content::-webkit-scrollbar{width:6px;}
 .lp-modal-content::-webkit-scrollbar-track{background:transparent;}
 .lp-modal-content::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.3);border-radius:2px;}
 body.lp-dark .lp-modal-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.3);}
@@ -88,6 +88,12 @@ body.lp-dark #lpCloseModal{color:#fff;}
 /* Footer */
 footer{margin-top:3rem;font-size:.9rem;color:#555;text-align:center;}
 body.lp-dark footer{color:#ccc;}
+
+/* Responsive */
+@media (max-width:768px){
+  .lp-modal-content{max-width:90%;padding:1.5rem;}
+  .categorias li{font-size:.9rem;}
+}
 </style>
 </head>
 <body>
