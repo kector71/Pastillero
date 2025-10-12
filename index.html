@@ -86,7 +86,7 @@
         }
         
         .dark .border-gray-300::placeholder {
-            color: #a0a0a0 !important;
+            color: #ffffff !important; /* Texto guía blanco en modo oscuro */
         }
         
         .dark select {
@@ -183,12 +183,25 @@
             background-color: white;
             font-size: 12px;
             transition: all 0.2s;
+            color: #000 !important; /* Texto negro en modo claro */
+        }
+        
+        /* Texto guía (placeholders) en modo claro - NEGRO */
+        .form-control input::placeholder,
+        .form-control select::placeholder {
+            color: #000 !important;
         }
         
         .dark .form-control input,
         .dark .form-control select {
             border-color: #404040 !important;
             background-color: #1e1e1e !important;
+            color: #ffffff !important; /* Texto blanco en modo oscuro */
+        }
+        
+        /* Texto guía (placeholders) en modo oscuro - BLANCO */
+        .dark .form-control input::placeholder,
+        .dark .form-control select::placeholder {
             color: #ffffff !important;
         }
         
@@ -206,6 +219,7 @@
             font-size: 0.75rem;
             font-weight: 500;
             min-width: 100px;
+            color: #000 !important; /* Texto negro en modo claro */
         }
         
         .position-btn.active {
@@ -217,7 +231,7 @@
         .dark .position-btn {
             border-color: #404040;
             background-color: #1e1e1e;
-            color: #ffffff;
+            color: #ffffff !important; /* Texto blanco en modo oscuro */
         }
         
         .dark .position-btn.active {
@@ -296,11 +310,11 @@
         .measure-field label {
             font-size: 0.6rem;
             margin-bottom: 0.05rem;
-            color: #4a5568;
+            color: #000 !important; /* Texto negro en modo claro */
         }
         
         .dark .measure-field label {
-            color: #b0b0b0;
+            color: #ffffff !important; /* Texto blanco en modo oscuro */
         }
         
         /* Ajustes para header más compacto */
@@ -432,18 +446,29 @@
             background-color: white !important;
             font-size: 12px !important;
             transition: all 0.2s !important;
+            color: #000 !important; /* Texto negro en modo claro */
+        }
+        
+        /* Texto guía (placeholders) en modo claro - NEGRO */
+        .form-control-busqueda-rapida .form-input::placeholder {
+            color: #000 !important;
         }
         
         .dark .form-control-busqueda-rapida .form-input {
             border-color: #404040 !important;
             background-color: #1e1e1e !important;
+            color: #ffffff !important; /* Texto blanco en modo oscuro */
+        }
+        
+        /* Texto guía (placeholders) en modo oscuro - BLANCO */
+        .dark .form-control-busqueda-rapida .form-input::placeholder {
             color: #ffffff !important;
         }
         
         /* Ajustes adicionales para mejorar legibilidad en modo oscuro */
         .dark .form-control input::placeholder,
         .dark .form-control select::placeholder {
-            color: #a0a0a0 !important;
+            color: #ffffff !important;
         }
         
         .dark .filter-group {
