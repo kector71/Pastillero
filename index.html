@@ -35,7 +35,7 @@ body.lp-dark .lp-header p,body.lp-dark .lp-footer .lp-footer-subtext{color:#ccc;
   backdrop-filter:blur(20px) saturate(250%) brightness(1.3);
   box-shadow:0 12px 30px rgba(0,0,0,.25);
   width:45px; height:45px; overflow:hidden; z-index:9999;
-  transition:transform .25s,box-shadow .25s,background .35s;
+  transition:transform .25s,box-shadow .25s,background .35s,bottom .4s ease;
   animation:lp-float 2.5s ease-in-out infinite;
 }
 @keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
@@ -114,14 +114,15 @@ body.lp-dark footer{color:#ccc;}
   /* Modal scrollable en móvil */
   .lp-modal-content{width:95%; height:90%; max-height:90%; overflow-y:auto; padding:2rem 1.5rem;}
 
-  /* Botones flotantes verticales con espacio */
+  /* Botones flotantes verticales animados */
   .lp-fbtn{
-    bottom:auto !important; left:auto !important; transform:none !important;
+    right:20px !important;
+    bottom:-60px !important; /* inicio fuera de pantalla */
   }
-  .lp-fbtn:nth-child(1){right:20px; bottom:20px;}   /* Modo oscuro */
-  .lp-fbtn:nth-child(2){right:20px; bottom:90px;}   /* Papelera */
-  .lp-fbtn:nth-child(3){right:20px; bottom:160px;}  /* Categorías */
-  .lp-fbtn:nth-child(4){right:20px; bottom:230px;}  /* Subir */
+  .lp-fbtn.show-btn:nth-child(1){bottom:20px;}   /* Modo oscuro */
+  .lp-fbtn.show-btn:nth-child(2){bottom:90px;}   /* Papelera */
+  .lp-fbtn.show-btn:nth-child(3){bottom:160px;}  /* Categorías */
+  .lp-fbtn.show-btn:nth-child(4){bottom:230px;}  /* Subir */
 }
 </style>
 </head>
@@ -184,6 +185,11 @@ body.lp-dark footer{color:#ccc;}
   catBtn.onclick=()=>modal.classList.toggle('show');
   closeModal.onclick=()=>modal.classList.remove('show');
   modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('show');});
+
+  // Animación de entrada botones móvil
+  if(window.innerWidth <= 500){
+    setTimeout(()=>btns.forEach(b=>b.classList.add('show-btn')),100);
+  }
 })();
 </script>
 </body>
