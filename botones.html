@@ -63,10 +63,7 @@ button.pulse::after { animation: lp-pulse 0.6s ease-out forwards; }
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
 body.lp-dark #darkBtn { background: rgba(255,255,255,0.12); box-shadow:0 8px 30px rgba(255,255,255,0.25);}
-#darkBtn svg {
-  width: 26px; height:26px; stroke:#111; fill:none; stroke-width:2;
-  position: absolute; transition: opacity 0.4s, transform 0.4s;
-}
+#darkBtn svg { width: 26px; height:26px; stroke:#111; fill:none; stroke-width:2; position: absolute; transition: opacity 0.4s, transform 0.4s; }
 body.lp-dark #darkBtn svg { stroke:#fff; }
 
 /* Botón papelera */
@@ -87,12 +84,17 @@ body.lp-dark #trashBtn svg { stroke:#fff; }
 /* Botón subir arriba */
 #upBtn {
   bottom: 20px; left: 20px;
-  background: rgba(0,0,0,0.15);
+  width: 60px; height:60px;
+  border-radius:50%;
+  background: rgba(0,0,0,0.25);
   backdrop-filter: blur(20px) saturate(180%);
   box-shadow:0 8px 30px rgba(0,0,0,0.25);
 }
 #upBtn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
-body.lp-dark #upBtn { background: rgba(255,255,255,0.12); box-shadow:0 8px 30px rgba(255,255,255,0.25);}
+body.lp-dark #upBtn {
+  background: rgba(255,255,255,0.2);
+  box-shadow:0 8px 30px rgba(255,255,255,0.25);
+}
 body.lp-dark #upBtn:hover { background: rgba(255,255,255,0.25); }
 #upBtn svg { width:28px; height:28px; stroke:#111; fill:none; stroke-width:2.5; transition: all 0.35s ease-in-out; }
 body.lp-dark #upBtn svg { stroke:#fff; }
@@ -149,7 +151,7 @@ body.lp-dark #upBtn svg { stroke:#fff; }
 <!-- Botón subir arriba -->
 <button id="upBtn" title="Subir arriba">
   <svg viewBox="0 0 24 24">
-    <polyline points="6 15 12 9 18 15" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="6 15 12 9 18 15" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
 
@@ -176,7 +178,7 @@ trashBtn.addEventListener('click', () => {
   const isDark = document.body.classList.contains('lp-dark');
   lid.setAttribute('stroke', isDark ? '#ff9999' : '#ff0000');
   bodyCan.setAttribute('stroke', isDark ? '#ff9999' : '#ff0000');
-  setTimeout(updateTrashColor, 400);
+  setTimeout(updateTrashColor,400);
   for(let i=0;i<6;i++){
     const dot=document.createElement('div');
     dot.classList.add('filter-dot');
@@ -186,7 +188,6 @@ trashBtn.addEventListener('click', () => {
     dot.animate([{transform:'translateY(0) scale(1)'},{transform:'translateY(20px) scale(0.5)',opacity:0}],{duration:600,easing:'ease-in'});
     setTimeout(()=>dot.remove(),600);
   }
-  console.log('Filtros borrados');
 });
 
 // Modo oscuro
@@ -219,13 +220,14 @@ function updateUpBtnColor() {
   const isDark = document.body.classList.contains('lp-dark');
   const upSvg = upBtn.querySelector('svg');
   upSvg.setAttribute('stroke', isDark ? '#fff' : '#111');
-  upBtn.style.background = isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.15)';
+  upBtn.style.background = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)';
   upBtn.style.boxShadow = isDark ? '0 8px 30px rgba(255,255,255,0.25)' : '0 8px 30px rgba(0,0,0,0.25)';
 }
+updateUpBtnColor();
 upBtn.addEventListener('click', () => {
   window.scrollTo({ top:0, behavior:'smooth' });
   upBtn.classList.add('pulse');
-  setTimeout(()=>upBtn.classList.remove('pulse'), 600);
+  setTimeout(()=>upBtn.classList.remove('pulse'),600);
 });
 </script>
 </body>
