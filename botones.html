@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modo Oscuro - Efecto Combinado</title>
+<title>Modo Oscuro - Efecto Cristal Líquido</title>
 <style>
 body {
   margin: 0;
@@ -25,14 +25,22 @@ button {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.15); /* contraste claro */
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  transition: transform 0.35s ease-in-out, background 0.4s, box-shadow 0.4s;
+}
+body.lp-dark button {
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+button:active {
+  transform: scale(1.2);
 }
 button svg {
   width: 26px;
@@ -41,20 +49,34 @@ button svg {
   fill: none;
   stroke-width: 2;
   position: absolute;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s, transform 0.4s;
 }
 body.lp-dark svg { stroke: #fff; }
-.lp-pulse {
+
+/* Pulso cristal líquido con pseudo-elemento */
+button::after {
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 60%);
-  animation: lp-pulse 0.6s ease-out;
   pointer-events: none;
+  transform: scale(0);
+  opacity: 0;
+  transition: background 0.4s;
+  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 60%);
+  mix-blend-mode: overlay;
+  filter: blur(6px);
 }
+body.lp-dark button::after {
+  background: radial-gradient(circle, rgba(173,216,230,0.25), transparent 60%);
+}
+button.pulse::after {
+  animation: lp-pulse 0.6s ease-out forwards;
+}
+
 @keyframes lp-pulse {
   0% { opacity: 0.8; transform: scale(0); }
-  100% { opacity: 0; transform: scale(2); }
+  100% { opacity: 0; transform: scale(2.5); }
 }
 </style>
 </head>
@@ -75,14 +97,14 @@ body.lp-dark svg { stroke: #fff; }
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
   </svg>
 </button>
+
 <script>
 const darkBtn = document.getElementById('darkBtn');
 const sunIcon = darkBtn.querySelector('.lp-icon-sun');
 const moonIcon = darkBtn.querySelector('.lp-icon-moon');
 
 darkBtn.addEventListener('click', () => {
-  document.body.classList.toggle('lp-dark');
-  const isDark = document.body.classList.contains('lp-dark');
+  const isDark = document.body.classList.toggle('lp-dark');
 
   // Animación íconos
   sunIcon.animate(
@@ -99,15 +121,9 @@ darkBtn.addEventListener('click', () => {
     { duration: 400, fill: 'forwards' }
   );
 
-  // Pulso
-  let pulse = document.createElement('div');
-  pulse.classList.add('lp-pulse');
-  darkBtn.appendChild(pulse);
-  setTimeout(() => pulse.remove(), 600);
-
-  // Escalado botón
-  darkBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2)' }, { transform: 'scale(1)' }],
-    { duration: 350, easing: 'ease-in-out' });
+  // Activar pulso cristal líquido
+  darkBtn.classList.add('pulse');
+  setTimeout(() => darkBtn.classList.remove('pulse'), 600);
 });
 </script>
 </body>
