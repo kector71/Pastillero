@@ -1,34 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Modo Oscuro - Efecto Combinado</title>
 <style>
-body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;transition:background .4s;}
-body.lp-dark{background:#000;color:#fff;}
-button{width:60px;height:60px;border:none;border-radius:50%;cursor:pointer;background:rgba(255,255,255,0.12);backdrop-filter:blur(20px);box-shadow:0 8px 20px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;position:relative;}
-button svg{width:26px;height:26px;stroke:#111;fill:none;stroke-width:2;position:absolute;transition:opacity .4s;}
-body.lp-dark svg{stroke:#fff;}
-@keyframes lp-pulse{0%{opacity:.8;transform:scale(0);}100%{opacity:0;transform:scale(2);}}
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s, color 0.4s;
+  background: #fff;
+  color: #111;
+}
+body.lp-dark {
+  background: #000;
+  color: #fff;
+}
+button {
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+button svg {
+  width: 26px;
+  height: 26px;
+  stroke: #111;
+  fill: none;
+  stroke-width: 2;
+  position: absolute;
+  transition: opacity 0.4s;
+}
+body.lp-dark svg { stroke: #fff; }
+.lp-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 60%);
+  animation: lp-pulse 0.6s ease-out;
+  pointer-events: none;
+}
+@keyframes lp-pulse {
+  0% { opacity: 0.8; transform: scale(0); }
+  100% { opacity: 0; transform: scale(2); }
+}
 </style>
 </head>
 <body>
 <button id="darkBtn">
-  <svg class="lp-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
-  <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="lp-icon-sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="5"/>
+    <line x1="12" y1="1" x2="12" y2="4"/>
+    <line x1="12" y1="20" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+    <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="4" y2="12"/>
+    <line x1="20" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+    <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+  </svg>
+  <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
 </button>
 <script>
-const darkBtn=document.getElementById('darkBtn');
-darkBtn.onclick=()=>{
+const darkBtn = document.getElementById('darkBtn');
+const sunIcon = darkBtn.querySelector('.lp-icon-sun');
+const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+
+darkBtn.addEventListener('click', () => {
   document.body.classList.toggle('lp-dark');
-  const isDark=document.body.classList.contains('lp-dark');
-  darkBtn.querySelector('.lp-icon-sun').animate([{opacity:1,transform:'rotate(0deg) scale(1)'},{opacity:0,transform:'rotate(180deg) scale(0.5)'}],{duration:400,fill:'forwards'});
-  darkBtn.querySelector('.lp-icon-moon').animate([{opacity:0,transform:'rotate(-180deg) scale(0.5)'},{opacity:1,transform:'rotate(0deg) scale(1)'}],{duration:400,fill:'forwards'});
-  const pulse=document.createElement('div');
-  pulse.style.cssText='position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 60%);animation:lp-pulse .6s ease-out;pointer-events:none;';
+  const isDark = document.body.classList.contains('lp-dark');
+
+  // Animación íconos
+  sunIcon.animate(
+    isDark
+      ? [{ opacity: 1, transform: 'rotate(0deg) scale(1)' }, { opacity: 0, transform: 'rotate(180deg) scale(0.5)' }]
+      : [{ opacity: 0, transform: 'rotate(-180deg) scale(0.5)' }, { opacity: 1, transform: 'rotate(0deg) scale(1)' }],
+    { duration: 400, fill: 'forwards' }
+  );
+
+  moonIcon.animate(
+    isDark
+      ? [{ opacity: 0, transform: 'rotate(-180deg) scale(0.5)' }, { opacity: 1, transform: 'rotate(0deg) scale(1)' }]
+      : [{ opacity: 1, transform: 'rotate(0deg) scale(1)' }, { opacity: 0, transform: 'rotate(180deg) scale(0.5)' }],
+    { duration: 400, fill: 'forwards' }
+  );
+
+  // Pulso
+  let pulse = document.createElement('div');
+  pulse.classList.add('lp-pulse');
   darkBtn.appendChild(pulse);
-  setTimeout(()=>pulse.remove(),600);
-  darkBtn.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:350,easing:'ease-in-out'});
-};
+  setTimeout(() => pulse.remove(), 600);
+
+  // Escalado botón
+  darkBtn.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.2)' }, { transform: 'scale(1)' }],
+    { duration: 350, easing: 'ease-in-out' });
+});
 </script>
 </body>
 </html>
