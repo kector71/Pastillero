@@ -92,7 +92,6 @@ body.lp-dark .lp-modal-content h1{color:#fff;}
 }
 body.lp-dark #lpCloseModal{color:#fff;}
 #lpCloseModal:hover{transform:scale(1.2);color:#ff4d4d;}
-body.lp-dark #lpCloseModal:hover{color:#ff4d4d;}
 
 /* Categories */
 .categorias{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
@@ -114,10 +113,10 @@ body.lp-dark footer{color:#ccc;}
   /* Modal scrollable en móvil */
   .lp-modal-content{width:95%; height:90%; max-height:90%; overflow-y:auto; padding:2rem 1.5rem;}
 
-  /* Botones flotantes verticales animados */
+  /* Botones flotantes verticales siempre visibles */
   .lp-fbtn{
     right:20px !important;
-    bottom:-60px !important; /* inicio fuera de pantalla */
+    bottom:-60px !important;
   }
   .lp-fbtn.show-btn:nth-child(1){bottom:20px;}   /* Modo oscuro */
   .lp-fbtn.show-btn:nth-child(2){bottom:90px;}   /* Papelera */
@@ -164,14 +163,25 @@ body.lp-dark footer{color:#ccc;}
 
   const btns=[darkBtn,trashBtn,catBtn,topBtn];
 
-  darkBtn.onclick=()=>{document.body.classList.toggle('lp-dark');
+  // Dark Mode Toggle
+  darkBtn.onclick=()=>{
+    document.body.classList.toggle('lp-dark');
     darkBtn.querySelector('.lp-icon-sun').style.opacity=document.body.classList.contains('lp-dark')?'0':'.9';
-    darkBtn.querySelector('.lp-icon-moon').style.opacity=document.body.classList.contains('lp-dark')?'1':'0';};
+    darkBtn.querySelector('.lp-icon-moon').style.opacity=document.body.classList.contains('lp-dark')?'1':'0';
+  };
 
+  // Scroll to top
   topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
   window.addEventListener('scroll',()=>{const show=window.scrollY>200;topBtn.style.opacity=show?'1':'0';topBtn.style.pointerEvents=show?'auto':'none';});
-  btns.forEach(b=>b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.setProperty('--mx',`${e.clientX-r.left}px`);b.style.setProperty('--my',`${e.clientY-r.top}px`);}));  
 
+  // Mouse move effect
+  btns.forEach(b=>b.addEventListener('mousemove',e=>{
+    const r=b.getBoundingClientRect();
+    b.style.setProperty('--mx',`${e.clientX-r.left}px`);
+    b.style.setProperty('--my',`${e.clientY-r.top}px`);
+  }));
+
+  // Trash sparks
   trashBtn.onclick=()=>{for(let i=0;i<18;i++){
     const s=document.createElement('div'); s.className='lp-spark';
     const r=trashBtn.getBoundingClientRect(); const size=Math.random()*12+8;
@@ -181,15 +191,21 @@ body.lp-dark footer{color:#ccc;}
     document.body.appendChild(s); setTimeout(()=>s.remove(),1500);
   }};
 
+  // Modal toggle
   const modal=document.getElementById('lpModal'), closeModal=document.getElementById('lpCloseModal');
   catBtn.onclick=()=>modal.classList.toggle('show');
   closeModal.onclick=()=>modal.classList.remove('show');
   modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('show');});
 
-  // Animación de entrada botones móvil
+  // Móvil: mostrar botones con animación
   if(window.innerWidth <= 500){
     setTimeout(()=>btns.forEach(b=>b.classList.add('show-btn')),100);
   }
+  window.addEventListener('orientationchange', ()=>{
+    if(window.innerWidth <= 500){
+      btns.forEach(b=>b.classList.add('show-btn'));
+    }
+  });
 })();
 </script>
 </body>
