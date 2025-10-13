@@ -3,150 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brake X</title>
+<title>Brake X - Efecto Combinado</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <style>
 body {
-  margin: 0;
-  font-family: 'Inter','Segoe UI',Roboto,sans-serif;
-  transition: background .35s, color .35s;
-  background: #f5f5f5;
-  color: #111;
+  margin:0;
+  font-family:'Inter','Segoe UI',Roboto,sans-serif;
+  transition: background .35s,color .35s;
+  background:#f5f5f5;
+  color:#111;
 }
 body.lp-dark {
-  background: #000;
-  color: #fff;
+  background:#000;
+  color:#fff;
 }
 
 /* Header & Footer */
-.lp-header, .lp-footer {
-  position: relative;
-  text-align: center;
-  border-radius: 1rem;
-  margin: 1rem;
-  padding: .5rem 1rem;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px) saturate(250%) brightness(1.3);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  transition: transform .25s, background .35s;
+.lp-header,.lp-footer{
+  position:relative;
+  text-align:center;
+  border-radius:1rem;
+  margin:1rem;
+  padding:.5rem 1rem;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(250%) brightness(1.3);
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+  transition:transform .25s,background .35s;
 }
-.lp-header:hover, .lp-footer:hover {
-  transform: translateY(-3px) scale(1.02);
-}
-.lp-header h1, .lp-footer h3 {
-  margin: 0;
-  font-weight: 700;
-  color: #111;
-  letter-spacing: 1px;
-}
-body.lp-dark .lp-header h1,
-body.lp-dark .lp-footer h3 {
-  color: #fff;
-}
-.lp-header p, .lp-footer .lp-footer-subtext {
-  margin: 0;
-  color: #333;
-  font-size: .85rem;
-}
-body.lp-dark .lp-header p,
-body.lp-dark .lp-footer .lp-footer-subtext {
-  color: #ccc;
-}
+.lp-header:hover,.lp-footer:hover{transform:translateY(-3px) scale(1.02);}
+.lp-header h1,.lp-footer h3{margin:0;font-weight:700;color:#111;letter-spacing:1px;}
+body.lp-dark .lp-header h1,body.lp-dark .lp-footer h3{color:#fff;}
+.lp-header p,.lp-footer .lp-footer-subtext{margin:0;color:#333;font-size:.85rem;}
+body.lp-dark .lp-header p,body.lp-dark .lp-footer .lp-footer-subtext{color:#ccc;}
 
 /* Floating Buttons */
-.lp-fbtn {
-  position: fixed;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px) saturate(250%) brightness(1.3);
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  width: 45px;
-  height: 45px;
-  overflow: hidden;
-  z-index: 9999;
-  transition: transform .25s, box-shadow .25s, background .35s, bottom .4s ease;
-  animation: lp-float 2.5s ease-in-out infinite;
+.lp-fbtn{
+  position:fixed;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(250%) brightness(1.3);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+  width:45px;
+  height:45px;
+  overflow:hidden;
+  z-index:9999;
+  transition: transform .25s, box-shadow .25s, background .35s,bottom .4s ease;
+  animation:lp-float 2.5s ease-in-out infinite;
 }
-@keyframes lp-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+.lp-fbtn::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);
+  mix-blend-mode:screen;
+  filter:blur(6px);
+  transition:transform .2s;
 }
-.lp-fbtn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,0.2),transparent 70%);
-  mix-blend-mode: screen;
-  filter: blur(6px);
-  transition: transform .2s;
-}
-.lp-fbtn svg {
-  width: 22px;
-  height: 22px;
-  stroke: #111;
-  stroke-width: 2;
-  fill: none;
-  transition: all .25s;
-}
-body.lp-dark .lp-fbtn svg {
-  stroke: #fff;
-}
+.lp-fbtn svg{width:22px;height:22px;stroke:#111;stroke-width:2;fill:none;transition:all .25s;}
+body.lp-dark .lp-fbtn svg{stroke:#fff;}
 
 /* Shake & Bounce */
-.lp-fbtn.lp-shake:hover {
-  animation: lp-shake .3s;
-}
-@keyframes lp-shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-2px); }
-  40% { transform: translateX(2px); }
-  60% { transform: translateX(-2px); }
-  80% { transform: translateX(2px); }
-  100% { transform: translateX(0); }
-}
-.lp-fbtn.cat-bounce:hover {
-  animation: lp-bounce .4s;
-}
-@keyframes lp-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+.lp-fbtn.lp-shake:hover{animation:lp-shake .3s;}
+@keyframes lp-shake{0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
+.lp-fbtn.cat-bounce:hover{animation:lp-bounce .4s;}
+@keyframes lp-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 
-/* Sparks */
-.lp-spark {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0.9;
-  filter: blur(1px);
-  animation: sparkFall 0.8s forwards, sparkTwinkle 0.15s infinite alternate;
-}
-@keyframes sparkFall {
-  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
-  100% { transform: translate(var(--dx,60px), var(--dy,140px)) rotate(720deg) scale(0); opacity: 0; }
-}
-@keyframes sparkTwinkle {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
-  100% { opacity: 0.4; }
-}
+@keyframes lp-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes lp-pulse{0%{opacity:.8;transform:scale(0);}100%{opacity:0;transform:scale(2);}}
 
-/* Responsive */
-@media (max-width:500px){
-  .lp-fbtn {
-    right: 20px !important;
-  }
+.lp-spark{
+  position:fixed;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:.9;
+  filter:blur(1px);
+  animation:sparkFall 0.8s forwards, sparkTwinkle 0.15s infinite alternate;
 }
+@keyframes sparkFall{0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1;}100%{transform:translate(var(--dx,60px),var(--dy,140px)) rotate(720deg) scale(0);opacity:0;}}
+@keyframes sparkTwinkle{0%{opacity:.4;}50%{opacity:1;}100%{opacity:.4;}}
+
+@media (max-width:500px){.lp-fbtn{right:20px !important;}}
 </style>
 </head>
 <body>
@@ -162,76 +105,97 @@ body.lp-dark .lp-fbtn svg {
 
 <script>
 (() => {
-  const createBtn = (cls, pos, html) => {
-    const b = document.createElement('button');
-    b.className = 'lp-fbtn ' + (cls || '');
-    Object.assign(b.style, pos);
-    b.innerHTML = html;
+  const createBtn = (cls,pos,html) => {
+    const b=document.createElement('button');
+    b.className='lp-fbtn '+(cls||'');
+    Object.assign(b.style,pos);
+    b.innerHTML=html;
     document.body.appendChild(b);
     return b;
   };
 
   // 🌙 Botón modo oscuro
-  const darkBtn = createBtn('', {bottom:'20px', right:'20px'},
+  const darkBtn=createBtn('',{bottom:'20px',right:'20px'},
     `<svg class="lp-icon-sun" viewBox="0 0 24 24" style="opacity:.9"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
      <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
   );
 
-  // 🧹 Botón limpiar filtros (con chispas)
-  const trashBtn = createBtn('lp-shake', {bottom:'80px', right:'20px'},
+  // 🧹 Papelera con tapa
+  const trashBtn=createBtn('lp-shake',{bottom:'80px',right:'20px'},
     `<svg viewBox="0 0 24 24">
-      <polyline points="3 6 5 6 21 6"/>
-      <path d="M19 6l-1 14H6L5 6"/>
-      <line x1="10" y1="11" x2="10" y2="17"/>
-      <line x1="14" y1="11" x2="14" y2="17"/>
-      <line x1="9" y1="6" x2="9" y2="4"/>
-      <line x1="15" y1="6" x2="15" y2="4"/>
-      <line x1="12" y1="2" x2="12" y2="4"/>
+      <g class="trash-lid"><rect x="6" y="3" width="12" height="2" rx="1"/></g>
+      <rect x="5" y="5" width="14" height="16" rx="2"/>
+      <line x1="10" y1="9" x2="10" y2="17"/>
+      <line x1="14" y1="9" x2="14" y2="17"/>
     </svg>`
   );
 
-  // ⬆️ Botón subir rápido
-  const topBtn = createBtn('', {bottom:'20px', left:'20px'},
+  // ⬆️ Subir rápido
+  const topBtn=createBtn('',{bottom:'20px',left:'20px'},
     `<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>`
   );
 
-  const btns = [darkBtn, trashBtn, topBtn];
+  // ✅ Nuevo botón: Información
+  const infoBtn=createBtn('cat-bounce',{bottom:'140px',right:'20px'},
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1"/></svg>`
+  );
 
-  // Función modo oscuro
-  darkBtn.onclick = () => {
+  // ⚙️ Nuevo botón: Configuración
+  const settingsBtn=createBtn('',{bottom:'200px',right:'20px'},
+    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`
+  );
+
+  const btns=[darkBtn,trashBtn,topBtn,infoBtn,settingsBtn];
+
+  // Modo oscuro con animaciones
+  darkBtn.onclick=()=>{
     document.body.classList.toggle('lp-dark');
-    darkBtn.querySelector('.lp-icon-sun').style.opacity = document.body.classList.contains('lp-dark') ? '0' : '.9';
-    darkBtn.querySelector('.lp-icon-moon').style.opacity = document.body.classList.contains('lp-dark') ? '1' : '0';
+    const isDark=document.body.classList.contains('lp-dark');
+
+    darkBtn.querySelector('.lp-icon-sun').animate([
+      {opacity:1,transform:'rotate(0deg) scale(1)'},
+      {opacity:0,transform:'rotate(180deg) scale(0.5)'}
+    ],{duration:400,fill:'forwards'});
+    darkBtn.querySelector('.lp-icon-moon').animate([
+      {opacity:0,transform:'rotate(-180deg) scale(0.5)'},
+      {opacity:1,transform:'rotate(0deg) scale(1)'}
+    ],{duration:400,fill:'forwards'});
+
+    const pulse=document.createElement('div');
+    pulse.style.cssText='position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 60%);animation:lp-pulse .6s ease-out;pointer-events:none;';
+    darkBtn.appendChild(pulse);
+    setTimeout(()=>pulse.remove(),600);
+
+    darkBtn.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:350,easing:'ease-in-out'});
   };
 
   // Subir rápido
-  topBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-  window.addEventListener('scroll', () => {
-    const show = window.scrollY > 200;
-    topBtn.style.opacity = show ? '1' : '0';
-    topBtn.style.pointerEvents = show ? 'auto' : 'none';
-  });
+  topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+  window.addEventListener('scroll',()=>{const show=window.scrollY>200;topBtn.style.opacity=show?'1':'0';topBtn.style.pointerEvents=show?'auto':'none';});
 
-  // Efecto de luz en movimiento
-  btns.forEach(b => b.addEventListener('mousemove', e => {
-    const r = b.getBoundingClientRect();
-    b.style.setProperty('--mx', `${e.clientX - r.left}px`);
-    b.style.setProperty('--my', `${e.clientY - r.top}px`);
+  // Luz en movimiento
+  btns.forEach(b=>b.addEventListener('mousemove',e=>{
+    const r=b.getBoundingClientRect();
+    b.style.setProperty('--mx',`${e.clientX-r.left}px`);
+    b.style.setProperty('--my',`${e.clientY-r.top}px`);
   }));
 
-  // 💥 Efecto chispas del botón limpiar
-  trashBtn.onclick = () => {
-    for (let i = 0; i < 18; i++) {
-      const s = document.createElement('div');
-      s.className = 'lp-spark';
-      const r = trashBtn.getBoundingClientRect();
-      const size = Math.random() * 12 + 8;
-      const dx = Math.random() * 140 - 70, dy = Math.random() * 180 + 20;
-      const colors = ['rgba(255,140,0,0.9)', 'rgba(255,69,0,0.9)', 'rgba(255,0,0,0.9)', 'rgba(255,215,0,0.9)', 'rgba(255,255,255,0.9)'];
-      s.style.cssText = `width:${size}px;height:${size*1.5}px;left:${r.left + r.width/2}px;top:${r.top + r.height/2}px;--dx:${dx}px;--dy:${dy}px;background:${colors[Math.floor(Math.random()*colors.length)]};filter:blur(${Math.random()*2+1}px);animation-duration:${0.5 + Math.random()*0.5}s;`;
+  // Papelera con chispas y tapa
+  trashBtn.onclick=()=>{
+    for(let i=0;i<18;i++){
+      const s=document.createElement('div');
+      s.className='lp-spark';
+      const r=trashBtn.getBoundingClientRect();
+      const size=Math.random()*12+8;
+      const dx=Math.random()*140-70,dy=Math.random()*180+20;
+      const colors=['rgba(255,140,0,0.9)','rgba(255,69,0,0.9)','rgba(255,0,0,0.9)','rgba(255,215,0,0.9)','rgba(255,255,255,0.9)'];
+      s.style.cssText=`width:${size}px;height:${size*1.5}px;left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy}px;background:${colors[Math.floor(Math.random()*colors.length)]};filter:blur(${Math.random()*2+1}px);animation-duration:${0.5+Math.random()*0.5}s;`;
       document.body.appendChild(s);
-      setTimeout(() => s.remove(), 1500);
+      setTimeout(()=>s.remove(),1500);
     }
+
+    const lid=trashBtn.querySelector('.trash-lid');
+    lid.animate([{transform:'rotate(0deg)'},{transform:'rotate(-25deg)'},{transform:'rotate(0deg)'}],{duration:500,easing:'ease-in-out'});
   };
 })();
 </script>
