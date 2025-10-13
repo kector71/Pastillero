@@ -124,9 +124,9 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
     </svg>`
   );
 
-  // 🌙 Botón modo oscuro NUEVO diseño debajo de la papelera
+  // 🌙 Botón modo oscuro (nuevo diseño) debajo de la papelera
   const darkBtn=createBtn('',{bottom:'20px',right:'20px'},
-    `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>`
+`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>`
   );
 
   // ⬆️ Subir rápido
@@ -136,7 +136,7 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
 
   const btns=[darkBtn,trashBtn,topBtn];
 
-  // Modo oscuro con efectos
+  // Modo oscuro con efecto
   darkBtn.onclick=()=>{
     document.body.classList.toggle('lp-dark');
     const pulse=document.createElement('div');
@@ -166,10 +166,12 @@ body.lp-dark .lp-fbtn svg{stroke:#fff;}
       const size=Math.random()*12+8;
       const dx=Math.random()*140-70,dy=Math.random()*180+20;
       const colors=['rgba(255,140,0,0.9)','rgba(255,69,0,0.9)','rgba(255,0,0,0.9)','rgba(255,215,0,0.9)','rgba(255,255,255,0.9)'];
-      s.style.cssText=`width:${size}px;height:${size*1.5}px;left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy};background:${colors[Math.floor(Math.random()*colors.length)]};filter:blur(${Math.random()*2+1}px);animation-duration:${0.5+Math.random()*0.5}s;`;
+      s.style.cssText=`width:${size}px;height:${size*1.5}px;left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${dx}px;--dy:${dy}px;background:${colors[Math.floor(Math.random()*colors.length)]};filter:blur(${Math.random()*2+1}px);animation-duration:${0.5+Math.random()*0.5}s;`;
       document.body.appendChild(s);
       setTimeout(()=>s.remove(),1500);
     }
+
+    // Tapa animada
     const lid=trashBtn.querySelector('.trash-lid');
     lid.animate([{transform:'rotate(0deg)'},{transform:'rotate(-25deg)'},{transform:'rotate(0deg)'}],{duration:500,easing:'ease-in-out'});
   };
