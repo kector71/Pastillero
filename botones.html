@@ -1,31 +1,26 @@
-modo oscuro 
+modo oscuro
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botón Cristal Líquido iOS 26 AMOLED</title>
+<title>Botón Cristal Líquido iOS 26 - Más Opaco</title>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html, body { height: 100dvh; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body { height:100vh; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 30px;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb, #a6c0fe, #48c6ef);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1); /* modo claro */
   transition: background 0.5s ease;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+body.lp-dark {
+  background: #000; /* modo oscuro AMOLED */
 }
 
 .liquid-glass {
@@ -33,60 +28,39 @@ body {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background-color: rgba(255,255,255,0.15);
-  backdrop-filter: blur(25px) saturate(180%);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15), inset 0 0 12px rgba(255,255,255,0.25);
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%); /* más opaco en claro */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  isolation: isolate;
   overflow: hidden;
   transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
 }
 
-.liquid-glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
-  filter: blur(6px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-  animation: shine 3s infinite alternate;
-}
-
-.liquid-glass::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2), transparent 70%);
-  filter: blur(8px);
-  animation: shine2 4s infinite alternate-reverse;
-  pointer-events: none;
-}
-
-@keyframes shine {
-  0% { transform: translateY(-10%) rotate(-15deg) translateX(-5%); opacity: 0.4; }
-  100% { transform: translateY(-10%) rotate(-15deg) translateX(5%); opacity: 0.6; }
-}
-
-@keyframes shine2 {
-  0% { transform: translateY(5%) translateX(-3%); opacity: 0.25; }
-  100% { transform: translateY(5%) translateX(3%); opacity: 0.5; }
+body.lp-dark .liquid-glass {
+  background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.1);
 }
 
 .liquid-glass svg {
   width: 30px;
   height: 30px;
-  stroke: #fff;
   fill: none;
   stroke-width: 2;
   position: absolute;
-  transition: opacity 0.4s, transform 0.4s;
+  transition: opacity 0.4s, transform 0.4s, stroke 0.4s;
 }
+
+/* Sol amarillo en modo claro */
+body:not(.lp-dark) .lp-icon-sun { stroke: #FFD700; }
+
+/* Sol blanco en modo oscuro */
+body.lp-dark .lp-icon-sun { stroke: #fff; }
+
+/* Luna siempre blanca */
+.lp-icon-moon { stroke: #fff; }
 
 .lp-pulse {
   position: absolute;
@@ -107,11 +81,6 @@ body {
   50% { transform: scale(0.95); }
   70% { transform: scale(1.1); }
   100% { transform: scale(1); }
-}
-
-/* Modo oscuro AMOLED */
-body.lp-dark {
-  background: #000; /* negro puro para AMOLED */
 }
 </style>
 </head>
@@ -139,36 +108,37 @@ const darkBtn = document.getElementById('darkBtn');
 const sunIcon = darkBtn.querySelector('.lp-icon-sun');
 const moonIcon = darkBtn.querySelector('.lp-icon-moon');
 
-function animateButton(btn) {
+function animateButton(btn){
   let pulse = document.createElement('div');
   pulse.classList.add('lp-pulse');
-  pulse.style.background = 'radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)';
+  pulse.style.background='radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)';
   btn.appendChild(pulse);
-  setTimeout(() => pulse.remove(), 600);
-  btn.style.animation = 'bounce 0.5s ease';
-  setTimeout(() => btn.style.animation = '', 500);
+  setTimeout(()=>pulse.remove(),600);
+  btn.style.animation='bounce 0.5s ease';
+  setTimeout(()=>btn.style.animation='',500);
 }
 
-darkBtn.addEventListener('click', () => {
+darkBtn.addEventListener('click', ()=>{
   document.body.classList.toggle('lp-dark');
-  const isDark = document.body.classList.contains('lp-dark');
+  const isDark=document.body.classList.contains('lp-dark');
 
   sunIcon.animate(
     isDark
-      ? [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.6)' }]
-      : [{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1)' }],
-    { duration: 400, fill: 'forwards' }
+      ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
+      : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
+    {duration:400, fill:'forwards'}
   );
 
   moonIcon.animate(
     isDark
-      ? [{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1)' }]
-      : [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.6)' }],
-    { duration: 400, fill: 'forwards' }
+      ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
+      : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
+    {duration:400, fill:'forwards'}
   );
 
   animateButton(darkBtn);
 });
 </script>
+
 </body>
 </html>
