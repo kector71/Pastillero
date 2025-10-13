@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modo Oscuro - Efecto Combinado</title>
+<title>Botones Flotantes Completos</title>
 <style>
 body {
   margin: 0;
@@ -17,6 +17,8 @@ body.lp-dark {
   background: #000;
   color: #fff;
 }
+
+/* Botones flotantes */
 button {
   width: 60px;
   height: 60px;
@@ -47,17 +49,36 @@ body.lp-dark svg {
   0% {opacity:.8; transform:scale(0);}
   100% {opacity:0; transform:scale(2);}
 }
+
+/* Posiciones de botones */
+#trashBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+#darkBtn {
+  position: fixed;
+  bottom: 90px; /* debajo de la papelera */
+  right: 20px;
+}
+#upBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
 </style>
 </head>
 <body>
 
 <!-- Botón Papelera -->
 <button id="trashBtn">
-  <!-- SVG papelera aquí -->
+  <svg viewBox="0 0 24 24">
+    <path d="M3 6h18M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6M10 11v6M14 11v6"/>
+  </svg>
 </button>
 
 <!-- Botón Modo Oscuro -->
-<button id="darkBtn" style="margin-top:10px;">
+<button id="darkBtn">
   <svg class="lp-icon-sun" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="5"/>
     <line x1="12" y1="1" x2="12" y2="4"/>
@@ -75,11 +96,14 @@ body.lp-dark svg {
 </button>
 
 <!-- Botón Subir Rápido -->
-<button id="upBtn" style="position: fixed; bottom: 20px; left: 20px;">
-  <!-- SVG subir rápido aquí -->
+<button id="upBtn">
+  <svg viewBox="0 0 24 24">
+    <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+  </svg>
 </button>
 
 <script>
+// Modo Oscuro
 const darkBtn = document.getElementById('darkBtn');
 darkBtn.onclick = () => {
   document.body.classList.toggle('lp-dark');
@@ -87,7 +111,6 @@ darkBtn.onclick = () => {
   const sun = darkBtn.querySelector('.lp-icon-sun');
   const moon = darkBtn.querySelector('.lp-icon-moon');
 
-  // Animación sol/luna con scale(1) fijo
   sun.animate(
     [{opacity: isDark ? 1 : 0, transform:'rotate(0deg) scale(1)'},
      {opacity: isDark ? 0 : 1, transform:'rotate(180deg) scale(1)'}],
@@ -109,6 +132,10 @@ darkBtn.onclick = () => {
     {duration:350, easing:'ease-in-out'}
   );
 };
+
+// Subir rápido
+const upBtn = document.getElementById('upBtn');
+upBtn.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
 </script>
 
 </body>
