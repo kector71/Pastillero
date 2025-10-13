@@ -1,137 +1,123 @@
+modo oscuro 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botones Flotantes - Modo Oscuro, Papelera y Subir</title>
+<title>Botón Cristal Líquido iOS 26 AMOLED</title>
 <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100dvh; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+
 body {
-  margin: 0;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.4s, color 0.4s;
-  background: #fff;
-  color: #111;
-  font-family: sans-serif;
+  gap: 30px;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb, #a6c0fe, #48c6ef);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+  transition: background 0.5s ease;
 }
-body.lp-dark { background: #000; color: #fff; }
 
-/* Botón común */
-button {
-  width: 60px;
-  height: 60px;
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.liquid-glass {
+  position: relative;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  border: none;
-  cursor: pointer;
+  background-color: rgba(255,255,255,0.15);
+  backdrop-filter: blur(25px) saturate(180%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15), inset 0 0 12px rgba(255,255,255,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  cursor: pointer;
+  isolation: isolate;
   overflow: hidden;
-  transition: transform 0.35s ease-in-out, background 0.4s, box-shadow 0.4s;
+  transition: all 0.3s ease;
 }
-button:active { transform: scale(1.2); }
 
-/* Pulso cristal líquido */
-button::after {
+.liquid-glass::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  pointer-events: none;
-  transform: scale(0);
-  opacity: 0;
-  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 60%);
-  mix-blend-mode: overlay;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
   filter: blur(6px);
-  transition: background 0.4s;
-}
-button.pulse::after { animation: lp-pulse 0.6s ease-out forwards; }
-@keyframes lp-pulse {
-  0% { opacity: 0.8; transform: scale(0); }
-  100% { opacity: 0; transform: scale(2.5); }
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: shine 3s infinite alternate;
 }
 
-/* Botón modo oscuro */
-#darkBtn {
-  bottom: 20px;
-  right: 20px;
-  background: rgba(0,0,0,0.15);
-  backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-}
-body.lp-dark #darkBtn { background: rgba(255,255,255,0.12); box-shadow:0 8px 30px rgba(255,255,255,0.25);}
-#darkBtn svg { width: 26px; height:26px; stroke:#111; fill:none; stroke-width:2; position: absolute; transition: opacity 0.4s, transform 0.4s; }
-body.lp-dark #darkBtn svg { stroke:#fff; }
-
-/* Botón papelera */
-#trashBtn {
-  bottom: 100px; right: 20px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-}
-#trashBtn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
-#trashBtn svg { width:32px; height:32px; stroke:#111; fill:none; stroke-width:3; transition: all 0.35s ease-in-out; }
-body.lp-dark #trashBtn {
-  background: rgba(0,0,0,0.25);
-  box-shadow:0 8px 20px rgba(255,255,255,0.25);
-}
-body.lp-dark #trashBtn svg { stroke:#fff; }
-
-/* Botón subir arriba */
-#upBtn {
-  bottom: 20px; left: 20px;
-  width: 60px; height:60px;
-  border-radius:50%;
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(20px) saturate(180%);
-  box-shadow:0 8px 30px rgba(0,0,0,0.25);
-}
-#upBtn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
-body.lp-dark #upBtn {
-  background: rgba(255,255,255,0.2);
-  box-shadow:0 8px 30px rgba(255,255,255,0.25);
-}
-body.lp-dark #upBtn:hover { background: rgba(255,255,255,0.25); }
-#upBtn svg { width:28px; height:28px; stroke:#111; fill:none; stroke-width:2.5; transition: all 0.35s ease-in-out; }
-body.lp-dark #upBtn svg { stroke:#fff; }
-
-/* Filtros cayendo */
-.filter-dot {
+.liquid-glass::after {
+  content: '';
   position: absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:red;
-  pointer-events:none;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2), transparent 70%);
+  filter: blur(8px);
+  animation: shine2 4s infinite alternate-reverse;
+  pointer-events: none;
 }
 
-/* Responsive mobile */
-@media(max-width:600px){
-  button { width:50px; height:50px; }
-  #trashBtn svg { width:28px; height:28px; }
-  #darkBtn svg { width:22px; height:22px; }
-  #upBtn svg { width:24px; height:24px; }
+@keyframes shine {
+  0% { transform: translateY(-10%) rotate(-15deg) translateX(-5%); opacity: 0.4; }
+  100% { transform: translateY(-10%) rotate(-15deg) translateX(5%); opacity: 0.6; }
+}
+
+@keyframes shine2 {
+  0% { transform: translateY(5%) translateX(-3%); opacity: 0.25; }
+  100% { transform: translateY(5%) translateX(3%); opacity: 0.5; }
+}
+
+.liquid-glass svg {
+  width: 30px;
+  height: 30px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+  position: absolute;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.lp-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: lp-pulse 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes lp-pulse {
+  0% { opacity: 0.6; transform: scale(0); }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+@keyframes bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.15); }
+  50% { transform: scale(0.95); }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Modo oscuro AMOLED */
+body.lp-dark {
+  background: #000; /* negro puro para AMOLED */
 }
 </style>
 </head>
 <body>
 
-<!-- Botón papelera -->
-<button id="trashBtn" title="Borrar filtros">
-  <svg viewBox="0 0 64 64">
-    <rect id="lid" x="16" y="8" width="32" height="6" rx="2" ry="2" fill="none" stroke="#111" stroke-width="3"/>
-    <rect id="body" x="18" y="14" width="28" height="38" rx="4" ry="4" fill="none" stroke="#111" stroke-width="3"/>
-    <line x1="18" y1="18" x2="14" y2="18" stroke="#111" stroke-width="3"/>
-    <line x1="46" y1="18" x2="50" y2="18" stroke="#111" stroke-width="3"/>
-  </svg>
-</button>
-
-<!-- Botón modo oscuro -->
-<button id="darkBtn" title="Modo oscuro">
+<button class="liquid-glass" id="darkBtn">
   <svg class="lp-icon-sun" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="5"/>
     <line x1="12" y1="1" x2="12" y2="4"/>
@@ -148,86 +134,40 @@ body.lp-dark #upBtn svg { stroke:#fff; }
   </svg>
 </button>
 
-<!-- Botón subir arriba -->
-<button id="upBtn" title="Subir arriba">
-  <svg viewBox="0 0 24 24">
-    <polyline points="6 15 12 9 18 15" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</button>
-
 <script>
-// Papelera
-const trashBtn = document.getElementById('trashBtn');
-const lid = document.getElementById('lid');
-const bodyCan = document.getElementById('body');
-function updateTrashColor() {
-  const isDark = document.body.classList.contains('lp-dark');
-  lid.setAttribute('stroke', isDark ? '#fff' : '#111');
-  bodyCan.setAttribute('stroke', isDark ? '#fff' : '#111');
-  trashBtn.style.background = isDark ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.12)';
-}
-updateTrashColor();
-trashBtn.addEventListener('click', () => {
-  trashBtn.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:350,easing:'ease-in-out'});
-  const pulse = document.createElement('div');
-  pulse.style.cssText='position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,0,0,0.5),transparent 60%);animation:lp-pulse .6s ease-out;pointer-events:none;';
-  trashBtn.appendChild(pulse);
-  setTimeout(()=>pulse.remove(),600);
-  lid.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:400,easing:'ease-in-out'});
-  bodyCan.animate([{transform:'translateY(0)'},{transform:'translateY(2px)'},{transform:'translateY(0)'}],{duration:400,easing:'ease-in-out'});
-  const isDark = document.body.classList.contains('lp-dark');
-  lid.setAttribute('stroke', isDark ? '#ff9999' : '#ff0000');
-  bodyCan.setAttribute('stroke', isDark ? '#ff9999' : '#ff0000');
-  setTimeout(updateTrashColor,400);
-  for(let i=0;i<6;i++){
-    const dot=document.createElement('div');
-    dot.classList.add('filter-dot');
-    dot.style.left=(Math.random()*40+12)+'px';
-    dot.style.top=(Math.random()*10+14)+'px';
-    trashBtn.appendChild(dot);
-    dot.animate([{transform:'translateY(0) scale(1)'},{transform:'translateY(20px) scale(0.5)',opacity:0}],{duration:600,easing:'ease-in'});
-    setTimeout(()=>dot.remove(),600);
-  }
-});
+const darkBtn = document.getElementById('darkBtn');
+const sunIcon = darkBtn.querySelector('.lp-icon-sun');
+const moonIcon = darkBtn.querySelector('.lp-icon-moon');
 
-// Modo oscuro
-const darkBtnScript = document.getElementById('darkBtn');
-const sunIcon = darkBtnScript.querySelector('.lp-icon-sun');
-const moonIcon = darkBtnScript.querySelector('.lp-icon-moon');
-darkBtnScript.addEventListener('click', () => {
-  const isDark = document.body.classList.toggle('lp-dark');
+function animateButton(btn) {
+  let pulse = document.createElement('div');
+  pulse.classList.add('lp-pulse');
+  pulse.style.background = 'radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)';
+  btn.appendChild(pulse);
+  setTimeout(() => pulse.remove(), 600);
+  btn.style.animation = 'bounce 0.5s ease';
+  setTimeout(() => btn.style.animation = '', 500);
+}
+
+darkBtn.addEventListener('click', () => {
+  document.body.classList.toggle('lp-dark');
+  const isDark = document.body.classList.contains('lp-dark');
+
   sunIcon.animate(
     isDark
-      ? [{ opacity: 1, transform: 'rotate(0deg) scale(1)' }, { opacity: 0, transform: 'rotate(180deg) scale(0.5)' }]
-      : [{ opacity: 0, transform: 'rotate(-180deg) scale(0.5)' }, { opacity: 1, transform: 'rotate(0deg) scale(1)' }],
+      ? [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.6)' }]
+      : [{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1)' }],
     { duration: 400, fill: 'forwards' }
   );
+
   moonIcon.animate(
     isDark
-      ? [{ opacity: 0, transform: 'rotate(-180deg) scale(0.5)' }, { opacity: 1, transform: 'rotate(0deg) scale(1)' }]
-      : [{ opacity: 1, transform: 'rotate(0deg) scale(1)' }, { opacity: 0, transform: 'rotate(180deg) scale(0.5)' }],
+      ? [{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1)' }]
+      : [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.6)' }],
     { duration: 400, fill: 'forwards' }
   );
-  darkBtnScript.classList.add('pulse');
-  setTimeout(() => darkBtnScript.classList.remove('pulse'), 600);
-  setTimeout(updateTrashColor, 400);
-  setTimeout(updateUpBtnColor, 400);
-});
 
-// Subir arriba
-const upBtn = document.getElementById('upBtn');
-function updateUpBtnColor() {
-  const isDark = document.body.classList.contains('lp-dark');
-  const upSvg = upBtn.querySelector('svg');
-  upSvg.setAttribute('stroke', isDark ? '#fff' : '#111');
-  upBtn.style.background = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)';
-  upBtn.style.boxShadow = isDark ? '0 8px 30px rgba(255,255,255,0.25)' : '0 8px 30px rgba(0,0,0,0.25)';
-}
-updateUpBtnColor();
-upBtn.addEventListener('click', () => {
-  window.scrollTo({ top:0, behavior:'smooth' });
-  upBtn.classList.add('pulse');
-  setTimeout(()=>upBtn.classList.remove('pulse'),600);
+  animateButton(darkBtn);
 });
 </script>
 </body>
