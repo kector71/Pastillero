@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modo Oscuro - Efecto Cristal Líquido</title>
+<title>Botones Flotantes - Modo Oscuro y Papelera</title>
 <style>
 body {
   margin: 0;
@@ -19,41 +19,25 @@ body.lp-dark {
   background: #000;
   color: #fff;
 }
+
+/* Botón común */
 button {
   width: 60px;
   height: 60px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  background: rgba(0,0,0,0.15); /* contraste claro */
-  backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  position: fixed;
+  right: 20px;
   overflow: hidden;
   transition: transform 0.35s ease-in-out, background 0.4s, box-shadow 0.4s;
 }
-body.lp-dark button {
-  background: rgba(255,255,255,0.12);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-}
-button:active {
-  transform: scale(1.2);
-}
-button svg {
-  width: 26px;
-  height: 26px;
-  stroke: #111;
-  fill: none;
-  stroke-width: 2;
-  position: absolute;
-  transition: opacity 0.4s, transform 0.4s;
-}
-body.lp-dark svg { stroke: #fff; }
+button:active { transform: scale(1.2); }
 
-/* Pulso cristal líquido con pseudo-elemento */
+/* Pulso cristal líquido */
 button::after {
   content: '';
   position: absolute;
@@ -62,25 +46,79 @@ button::after {
   pointer-events: none;
   transform: scale(0);
   opacity: 0;
-  transition: background 0.4s;
   background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 60%);
   mix-blend-mode: overlay;
   filter: blur(6px);
+  transition: background 0.4s;
 }
-body.lp-dark button::after {
-  background: radial-gradient(circle, rgba(173,216,230,0.25), transparent 60%);
-}
-button.pulse::after {
-  animation: lp-pulse 0.6s ease-out forwards;
-}
+button.pulse::after { animation: lp-pulse 0.6s ease-out forwards; }
 
 @keyframes lp-pulse {
   0% { opacity: 0.8; transform: scale(0); }
   100% { opacity: 0; transform: scale(2.5); }
 }
+
+/* Botón modo oscuro */
+#darkBtn {
+  bottom: 20px;
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+body.lp-dark #darkBtn {
+  background: rgba(255,255,255,0.12);
+}
+#darkBtn svg {
+  width: 26px;
+  height: 26px;
+  stroke: #111;
+  fill: none;
+  stroke-width: 2;
+  position: absolute;
+  transition: opacity 0.4s, transform 0.4s;
+}
+body.lp-dark #darkBtn svg { stroke: #fff; }
+
+/* Botón papelera */
+#trashBtn {
+  bottom: 100px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: background 0.35s, transform 0.35s;
+}
+#trashBtn:hover { transform: scale(1.1); background: rgba(255,255,255,0.2); }
+#trashBtn svg { width:32px; height:32px; stroke:#111; fill:none; stroke-width:3; transition: all 0.35s ease-in-out; }
+body.lp-dark #trashBtn {
+  background: rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.25);
+}
+body.lp-dark #trashBtn svg { stroke: #fff; }
+
+/* Filtros cayendo */
+.filter-dot {
+  position: absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:red;
+  pointer-events:none;
+}
 </style>
 </head>
 <body>
+
+<!-- Botón papelera -->
+<button id="trashBtn" title="Borrar filtros">
+  <svg viewBox="0 0 64 64">
+    <rect id="lid" x="16" y="8" width="32" height="6" rx="2" ry="2" fill="none" stroke="#111" stroke-width="3"/>
+    <rect id="body" x="18" y="14" width="28" height="38" rx="4" ry="4" fill="none" stroke="#111" stroke-width="3"/>
+    <line x1="18" y1="18" x2="14" y2="18" stroke="#111" stroke-width="3"/>
+    <line x1="46" y1="18" x2="50" y2="18" stroke="#111" stroke-width="3"/>
+  </svg>
+</button>
+
+<!-- Botón modo oscuro -->
 <button id="darkBtn">
   <svg class="lp-icon-sun" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="5"/>
@@ -99,14 +137,62 @@ button.pulse::after {
 </button>
 
 <script>
-const darkBtn = document.getElementById('darkBtn');
-const sunIcon = darkBtn.querySelector('.lp-icon-sun');
-const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+// Función para actualizar color del botón papelera
+const trashBtn = document.getElementById('trashBtn');
+const lid = document.getElementById('lid');
+const bodyCan = document.getElementById('body');
 
-darkBtn.addEventListener('click', () => {
+function updateTrashColor() {
+  const isDark = document.body.classList.contains('lp-dark');
+  lid.setAttribute('stroke', isDark ? '#fff' : '#111');
+  bodyCan.setAttribute('stroke', isDark ? '#fff' : '#111');
+  trashBtn.style.background = isDark ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.12)';
+}
+
+updateTrashColor();
+
+// Animación botón papelera
+trashBtn.addEventListener('click', () => {
+  trashBtn.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:350,easing:'ease-in-out'});
+
+  // Pulso rojo
+  const pulse = document.createElement('div');
+  pulse.style.cssText='position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,0,0,0.5),transparent 60%);animation:lp-pulse .6s ease-out;pointer-events:none;';
+  trashBtn.appendChild(pulse);
+  setTimeout(()=>pulse.remove(),600);
+
+  // Animación tapa y cuerpo
+  lid.animate([{transform:'translateY(0)'},{transform:'translateY(-4px)'},{transform:'translateY(0)'}],{duration:400,easing:'ease-in-out'});
+  bodyCan.animate([{transform:'translateY(0)'},{transform:'translateY(2px)'},{transform:'translateY(0)'}],{duration:400,easing:'ease-in-out'});
+
+  // Stroke rojo temporal
+  const isDark = document.body.classList.contains('lp-dark');
+  lid.setAttribute('stroke', isDark ? '#ff9999' : '#ff0000');
+  bodyCan.setAttribute('stroke', isDark ? '#ff9999' : '#ff0000');
+  setTimeout(updateTrashColor, 400);
+
+  // Filtros cayendo
+  for(let i=0;i<6;i++){
+    const dot=document.createElement('div');
+    dot.classList.add('filter-dot');
+    dot.style.left=(Math.random()*40+12)+'px';
+    dot.style.top=(Math.random()*10+14)+'px';
+    trashBtn.appendChild(dot);
+    dot.animate([{transform:'translateY(0) scale(1)'},{transform:'translateY(20px) scale(0.5)',opacity:0}],{duration:600,easing:'ease-in'});
+    setTimeout(()=>dot.remove(),600);
+  }
+
+  console.log('Filtros borrados');
+});
+
+// Botón modo oscuro
+const darkBtnScript = document.getElementById('darkBtn');
+const sunIcon = darkBtnScript.querySelector('.lp-icon-sun');
+const moonIcon = darkBtnScript.querySelector('.lp-icon-moon');
+
+darkBtnScript.addEventListener('click', () => {
   const isDark = document.body.classList.toggle('lp-dark');
 
-  // Animación íconos
   sunIcon.animate(
     isDark
       ? [{ opacity: 1, transform: 'rotate(0deg) scale(1)' }, { opacity: 0, transform: 'rotate(180deg) scale(0.5)' }]
@@ -121,9 +207,11 @@ darkBtn.addEventListener('click', () => {
     { duration: 400, fill: 'forwards' }
   );
 
-  // Activar pulso cristal líquido
-  darkBtn.classList.add('pulse');
-  setTimeout(() => darkBtn.classList.remove('pulse'), 600);
+  darkBtnScript.classList.add('pulse');
+  setTimeout(() => darkBtnScript.classList.remove('pulse'), 600);
+
+  // Actualizar color papelera
+  setTimeout(updateTrashColor, 400);
 });
 </script>
 </body>
