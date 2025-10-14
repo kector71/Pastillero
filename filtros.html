@@ -1,509 +1,231 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL PASTILLERO 💊</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-            font-size: 14px;
-            color: #333;
-        }
-        .dark {
-            background-color: #000 !important;
-            color: #f0f0f0 !important;
-        }
-        .dark .bg-gray-50, .dark .filter-group {
-            background-color: #121212 !important;
-            border-color: #333 !important;
-        }
-        .dark .text-gray-700, .dark .text-gray-800, .dark .text-gray-400 {
-            color: #c0c0c0 !important;
-        }
-        .dark .border-gray-200, .dark .divide-gray-200 > tr {
-            border-color: #2d2d2d !important;
-        }
-        .result-card {
-            border-bottom: 1px solid #e2e8f0;
-            padding: 0.75rem;
-            position: relative;
-        }
-        .dark .result-card {
-            border-bottom-color: #2d2d2d;
-        }
-        .result-field {
-            margin-bottom: 0.25rem;
-            display: flex;
-        }
-        .field-label {
-            font-weight: 600;
-            color: #4a5568;
-            min-width: 80px;
-            font-size: 12px;
-        }
-        .dark .field-label {
-            color: #c0c0c0 !important;
-        }
-        .field-value {
-            color: #2d3748;
-            font-size: 12px;
-        }
-        .dark .field-value {
-            color: #fff !important;
-        }
-        .filter-group {
-            padding: 0.65rem;
-            border-radius: 0.375rem;
-            background-color: #f9f9f9;
-        }
-        .filter-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.4rem;
-            display: flex;
-            align-items: center;
-        }
-        .filter-title svg {
-            width: 15px;
-            height: 15px;
-            margin-right: 5px;
-        }
-        .position-selector {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .form-control {
-            height: 2.3rem;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        .form-control input {
-            height: 100%;
-            width: 100%;
-            padding: 0 0.65rem;
-            border-radius: 0.2rem;
-            border: 1px solid #e2e8f0;
-            background-color: white;
-            font-size: 12px;
-            color: #000 !important;
-        }
-        .dark .form-control input {
-            border-color: #404040 !important;
-            background-color: #1e1e1e !important;
-            color: #fff !important;
-        }
-        .position-btn {
-            height: 2.4rem;
-            padding: 0 0.6rem;
-            border-radius: 0.25rem;
-            border: 1px solid #e2e8f0;
-            background-color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.75rem;
-            min-width: 100px;
-            color: #000 !important;
-        }
-        .position-btn.active {
-            border-color: #2563eb;
-            background-color: #dbeafe;
-            color: #1d4ed8;
-        }
-        .dark .position-btn {
-            border-color: #404040;
-            background-color: #1e1e1e;
-            color: #fff !important;
-        }
-        .dark .position-btn.active {
-            border-color: #63b3ed;
-            background-color: #0a2463;
-            color: white;
-        }
-        .position-badge {
-            display: inline-block;
-            padding: 0.05rem 0.25rem;
-            border-radius: 0.4rem;
-            font-size: 0.6rem;
-            font-weight: 500;
-        }
-        .position-delantera {
-            background-color: #dbeafe;
-            color: #1d4ed8;
-        }
-        .position-trasera {
-            background-color: #fef2f2;
-            color: #b91c1c;
-        }
-        .dark .position-delantera {
-            background-color: #0a2463;
-            color: #63b3ed;
-        }
-        .dark .position-trasera {
-            background-color: #5a0a0a;
-            color: #fca5a5;
-        }
-        .favorite-btn {
-            position: absolute;
-            top: 0.25rem;
-            right: 0.25rem;
-            width: 18px;
-            height: 18px;
-            opacity: 0.7;
-        }
-        .favorite-btn:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .filter-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.4rem;
-        }
-        .measure-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.2rem;
-        }
-        .search-container {
-            width: 100%;
-            position: relative;
-        }
-        .search-container input {
-            width: 100% !important;
-        }
-        .search-container button {
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .result-count-text {
-            color: #000 !important;
-        }
-        .dark .result-count-text {
-            color: #fff !important;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brake X Liquid Glass</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+body { background:#f0f0f0; transition: background 0.5s ease, color 0.5s ease; color:#000; }
+body.lp-dark { background:#000; color:#fff; }
+
+/* ==== Banner Liquid Glass ==== */
+header {
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 0 0 12px 12px; /* solo redondeado inferior */
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 0 15px rgba(255,255,255,0.2);
+  transition: background 0.5s ease, color 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+body.lp-dark header {
+  background: rgba(0,0,0,0.35);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1);
+}
+
+header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeDown 1s ease 0.3s forwards;
+}
+
+header p {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  color: inherit;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.6s forwards;
+}
+
+/* ==== Brillo inferior lento ==== */
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.25) 100%);
+  transform: translateX(-100%);
+  animation: shine 30s linear infinite;
+}
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ==== Animaciones ==== */
+@keyframes fadeUp { 0% { opacity:0; transform:translateY(8px); } 100% { opacity:1; transform:translateY(0); } }
+@keyframes fadeDown { 0% { opacity:0; transform:translateY(-8px); } 100% { opacity:1; transform:translateY(0); } }
+@keyframes bounceHeader { 0% { transform: scale(1); } 30% { transform: scale(1.15); } 50% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+/* ==== SVG “X” ==== */
+header .header-x {
+  height: 1.1em;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.6s ease;
+}
+header .header-x path { transition: fill 0.5s ease; }
+body.lp-dark header .header-x path { fill: #FFFFFF; }
+body:not(.lp-dark) header .header-x path { fill: #000000; }
+
+/* ==== Botones flotantes ==== */
+.floating-buttons {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+@media (max-width: 768px) {
+  .floating-buttons { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
+}
+
+.liquid-glass {
+  position: relative;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.25), inset 0 0 18px rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55);
+  backdrop-filter: blur(8px);
+  border:none; outline:none;
+}
+body.lp-dark .liquid-glass {
+  background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
+}
+
+.liquid-glass svg {
+  width: 20px; height: 20px;
+  fill:none; stroke-width:2;
+  position:absolute;
+  transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
+}
+
+body:not(.lp-dark) .lp-icon-sun { stroke:#000; } /* sol negro en modo claro */
+body.lp-dark .lp-icon-sun { stroke:#000; } /* sol negro en modo oscuro */
+.lp-icon-moon { stroke:#fff; }
+.lp-icon-arrow { stroke:#007AFF; animation: arrow-glow 1.5s ease-in-out infinite alternate; }
+body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-in-out infinite alternate; }
+
+@keyframes arrow-glow { 0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } }
+@keyframes arrow-glow-dark { 0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } }
+
+@keyframes bounce { 0% { transform:scale(1); } 30% { transform:scale(1.15); } 50% { transform:scale(0.95); } 70% { transform:scale(1.1); } 100% { transform:scale(1); } }
+@keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
+
+.liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
+#upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+#upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
+
+@media (max-width: 480px) {
+  header h1 { font-size: 1rem; }
+  header p { font-size: 0.7rem; }
+}
+</style>
 </head>
-<body class="bg-gray-50">
-    <section class="container mx-auto px-2 py-2">
-        <div class="bg-white rounded-lg shadow p-2">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2 mb-2">
-                <div class="lg:col-span-1">
-                    <div class="filter-group bg-gray-50 rounded h-full">
-                        <div class="filter-title text-purple-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                            Búsqueda rápida
-                        </div>
-                        <div class="space-y-2">
-                            <div class="form-control-busqueda-rapida">
-                                <div class="search-container">
-                                    <input type="text" id="busquedaRapida" class="form-input form-input-busqueda" placeholder="Buscar...">
-                                    <button id="limpiarBusqueda" class="text-gray-400 hover:text-gray-600">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="filter-actions">
-                                <div class="text-xs result-count-text">
-                                    <span id="resultCount">0</span> resultados
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-2">
-                <div class="lg:col-span-2">
-                    <div class="space-y-1.5">
-                        <div class="filter-group bg-gray-50 rounded">
-                            <div class="filter-title text-blue-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                </svg>
-                                Información del vehículo
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-1">
-                                <div class="form-control">
-                                    <input type="text" id="marcaInput" list="marcaList" class="form-input" placeholder="Marca">
-                                    <datalist id="marcaList"></datalist>
-                                </div>
-                                <div class="form-control">
-                                    <input type="text" id="modeloInput" list="modeloList" class="form-input" placeholder="Modelo">
-                                    <datalist id="modeloList"></datalist>
-                                </div>
-                                <div class="form-control">
-                                    <input type="number" id="ano" min="1900" max="2024" class="form-input" placeholder="Año">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-0.5">Posición</label>
-                                    <div class="position-selector">
-                                        <div class="position-btn" id="positionDelantera">
-                                            Delantera
-                                        </div>
-                                        <div class="position-btn" id="positionTrasera">
-                                            Trasera
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-1">
-                            <div class="filter-group bg-gray-50 rounded">
-                                <div class="filter-title text-green-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    Especificaciones
-                                </div>
-                                <div class="space-y-1">
-                                    <div class="form-control">
-                                        <input type="text" id="referencia" class="form-input" placeholder="Referencia">
-                                    </div>
-                                    <div class="form-control">
-                                        <input type="text" id="platinaFmsi" class="form-input" placeholder="Platina FMSI">
-                                    </div>
-                                    <div class="form-control">
-                                        <input type="text" id="oem" class="form-input" placeholder="OEM">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="filter-group bg-gray-50 rounded">
-                                <div class="filter-title text-orange-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                    </svg>
-                                    Medidas (mm)
-                                </div>
-                                <div class="space-y-1">
-                                    <div class="measure-grid">
-                                        <div class="form-control">
-                                            <input type="number" id="medidaAncho" step="0.1" class="form-input" placeholder="Ancho">
-                                        </div>
-                                        <div class="form-control">
-                                            <input type="number" id="medidaAltura" step="0.1" class="form-input" placeholder="Altura">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body>
 
-        <div class="bg-white rounded-lg shadow overflow-hidden mt-2" id="results-container">
-            <div class="p-3 text-center">
-                <div class="bg-blue-50 rounded-full w-7 h-7 flex items-center justify-center mx-auto mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
-                <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">☹️</h3>
-                <p class="text-gray-500 dark:text-white text-xs max-w-md mx-auto">No hay resultados</p>
-            </div>
-        </div>
-    </section>
+<header>
+  <h1>
+    Brake
+    <svg class="header-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
+      <path d="M8.98885921,23.8523026 C8.8942483,23.9435442 8.76801031,24 8.62933774,24 L2.03198365,24 C1.73814918,24 1.5,23.7482301 1.5,23.4380086 C1.5,23.2831829 1.55946972,23.1428989 1.65570253,23.0416777 L13.2166154,12.4291351 C13.3325814,12.3262031 13.4061076,12.1719477 13.4061076,11.999444 C13.4061076,11.8363496 13.3401502,11.6897927 13.2352673,11.587431 L1.68841087,0.990000249 C1.57298556,0.88706828 1.5,0.733668282 1.5,0.561734827 C1.5,0.251798399 1.73814918,2.85130108e-05 2.03198365,2.85130108e-05 L8.62933774,2.85130108e-05 C8.76855094,2.85130108e-05 8.89532956,0.0561991444 8.98994048,0.148296169 L21.4358709,11.5757407 C21.548593,11.6783875 21.6196864,11.8297916 21.6196864,11.999444 C21.6196864,12.1693815 21.5483227,12.3219261 21.4350599,12.4251432 L8.98885921,23.8523026 Z M26.5774333,23.8384453 L20.1765996,17.9616286 C20.060093,17.8578413 19.9865669,17.703871 19.9865669,17.5310822 C19.9865669,17.3859509 20.0390083,17.2536506 20.1246988,17.153855 L23.4190508,14.1291948 C23.5163648,14.0165684 23.6569296,13.945571 23.8131728,13.945571 C23.9602252,13.945571 24.0929508,14.0082997 24.1894539,14.1092357 L33.861933,22.9913237 C33.9892522,23.0939706 34.0714286,23.2559245 34.0714286,23.4381226 C34.0714286,23.748059 33.8332794,23.9998289 33.5394449,23.9998289 L26.9504707,23.9998289 C26.8053105,23.9998289 26.6733958,23.9382408 26.5774333,23.8384453 Z M26.5774333,0.161098511 C26.6733958,0.0615881034 26.8053105,0 26.9504707,0 L33.5394449,0 C33.8332794,0 34.0714286,0.251769886 34.0714286,0.561706314 C34.0714286,0.743904453 33.9892522,0.905573224 33.861933,1.00822006 L24.1894539,9.89030807 C24.0929508,9.99152926 23.9602252,10.0542579 23.8131728,10.0542579 C23.6569296,10.0542579 23.5163648,9.98354562 23.4190508,9.87063409 L20.1246988,6.8459739 C20.0390083,6.74617837 19.9865669,6.613878 19.9865669,6.46874677 C19.9865669,6.29624305 20.060093,6.14198767 20.1765996,6.03848544 L26.5774333,0.161098511 Z" fill="#000000"/>
+    </svg>
+  </h1>
+  <p>Consulta rápida. Frenado seguro.</p>
+</header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const els = {
-                marca: document.getElementById('marcaInput'),
-                modelo: document.getElementById('modeloInput'),
-                ano: document.getElementById('ano'),
-                posDel: document.getElementById('positionDelantera'),
-                posTras: document.getElementById('positionTrasera'),
-                ref: document.getElementById('referencia'),
-                platina: document.getElementById('platinaFmsi'),
-                oem: document.getElementById('oem'),
-                ancho: document.getElementById('medidaAncho'),
-                altura: document.getElementById('medidaAltura'),
-                busqueda: document.getElementById('busquedaRapida'),
-                limpiar: document.getElementById('limpiarBusqueda'),
-                results: document.getElementById('results-container'),
-                count: document.getElementById('resultCount')
-            };
-            
-            let brakePadsData = [];
-            let searchTimeout;
-            
-            const renderResults = data => {
-                if (data.length === 0) {
-                    els.results.innerHTML = `
-                        <div class="p-3 text-center">
-                            <div class="bg-blue-50 rounded-full w-7 h-7 flex items-center justify-center mx-auto mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-1">☹️</h3>
-                            <p class="text-gray-500 dark:text-white text-xs max-w-md mx-auto">No hay resultados</p>
-                        </div>
-                    `;
-                } else {
-                    els.results.innerHTML = `
-                        <div class="divide-y divide-gray-200 overflow-x-auto">
-                            ${data.map((item, index) => {
-                                const posBadge = item.posicion.includes('Del') && item.posicion.includes('Tras') ? 
-                                    '<span class="position-badge position-delantera mr-1">Delantera</span><span class="position-badge position-trasera">Trasera</span>' :
-                                    item.posicion.includes('Del') ? 
-                                        '<span class="position-badge position-delantera">Delantera</span>' :
-                                        '<span class="position-badge position-trasera">Trasera</span>';
-                                
-                                const medidasHTML = item.medidas ? `
-                                    <div class="result-field"><span class="field-label">A:</span> <span class="field-value">${item.medidas.ancho}mm</span></div>
-                                    <div class="result-field"><span class="field-label">H:</span> <span class="field-value">${item.medidas.altura}mm</span></div>
-                                ` : '';
-                                
-                                return `
-                                <div class="result-card">
-                                    <svg class="favorite-btn" data-id="${index}" xmlns="http://www.w3.org/2000/svg" fill="${isFavorite(index) ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="${isFavorite(index) ? 'none' : 'currentColor'}" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                                    </svg>
-                                    <div class="result-field"><span class="field-label">M:</span> <span class="field-value">${item.marca}</span></div>
-                                    <div class="result-field"><span class="field-label">Mod:</span> <span class="field-value">${item.modelo}</span></div>
-                                    <div class="result-field"><span class="field-label">A:</span> <span class="field-value">${item.desde}-${item.hasta}</span></div>
-                                    <div class="result-field"><span class="field-label">P:</span> <span class="field-value">${posBadge}</span></div>
-                                    <div class="result-field"><span class="field-label">Ref:</span> <span class="field-value font-medium text-blue-600">${item.refIncolbest}</span></div>
-                                    <div class="result-field"><span class="field-label">Plat:</span> <span class="field-value">${item.platinaFmsi}</span></div>
-                                    <div class="result-field"><span class="field-label">OEM:</span> <span class="field-value">${item.oemCode}</span></div>
-                                    ${medidasHTML}
-                                </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    `;
-                }
-                els.count.textContent = data.length;
-                document.querySelectorAll('.favorite-btn').forEach(btn => 
-                    btn.addEventListener('click', toggleFavorite)
-                );
-            };
-            
-            const isFavorite = index => {
-                try {
-                    return JSON.parse(localStorage.getItem('brakePadFavorites') || '[]').includes(index.toString());
-                } catch {
-                    return false;
-                }
-            };
-            
-            const toggleFavorite = e => {
-                const id = e.target.closest('.favorite-btn').dataset.id;
-                const isFav = e.target.closest('.favorite-btn').classList.toggle('fill-current');
-                const svg = e.target.closest('.favorite-btn');
-                svg.setAttribute('fill', isFav ? 'currentColor' : 'none');
-                svg.setAttribute('stroke', isFav ? 'none' : 'currentColor');
-                
-                try {
-                    let favs = JSON.parse(localStorage.getItem('brakePadFavorites') || '[]');
-                    isFav ? !favs.includes(id) && favs.push(id) : favs = favs.filter(f => f !== id);
-                    localStorage.setItem('brakePadFavorites', JSON.stringify(favs));
-                } catch (e) {
-                    console.error('Error:', e);
-                }
-            };
-            
-            const setupPosition = () => {
-                [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
-                    btn.classList.toggle('active');
-                    if (els.posDel.classList.contains('active') && els.posTras.classList.contains('active')) {
-                        els.posTras.classList.remove('active');
-                    }
-                    filterData();
-                }));
-            };
-            
-            const getPos = () => 
-                els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
-                els.posDel.classList.contains('active') ? 'Delantera' :
-                els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
-            
-            const filterData = () => {
-                const filters = {
-                    marca: els.marca.value.trim().toUpperCase(),
-                    modelo: els.modelo.value.trim().toUpperCase(),
-                    ano: els.ano.value ? parseInt(els.ano.value) : null,
-                    pos: getPos(),
-                    ref: els.ref.value.trim().toUpperCase(),
-                    platina: els.platina.value.trim().toUpperCase(),
-                    oem: els.oem.value.trim().toUpperCase(),
-                    ancho: els.ancho.value ? parseFloat(els.ancho.value) : null,
-                    altura: els.altura.value ? parseFloat(els.altura.value) : null,
-                    busqueda: els.busqueda.value.toLowerCase().trim()
-                };
-                
-                renderResults(brakePadsData.filter(item => {
-                    const matches = {
-                        marca: !filters.marca || item.marca.toUpperCase().includes(filters.marca),
-                        modelo: !filters.modelo || item.modelo.toUpperCase().includes(filters.modelo),
-                        ano: !filters.ano || (filters.ano >= item.desde && filters.ano <= item.hasta),
-                        pos: filters.pos === 'Todas' || 
-                             filters.pos === 'Ambas' || 
-                             (filters.pos === 'Delantera' && item.posicion.includes('Del')) ||
-                             (filters.pos === 'Trasera' && item.posicion.includes('Tras')),
-                        ref: !filters.ref || item.refIncolbest.toUpperCase().includes(filters.ref),
-                        platina: !filters.platina || item.platinaFmsi.toUpperCase().includes(filters.platina),
-                        oem: !filters.oem || item.oemCode.toUpperCase().includes(filters.oem),
-                        medidas: item.medidas && (
-                            (!filters.ancho || item.medidas.ancho === filters.ancho) &&
-                            (!filters.altura || item.medidas.altura === filters.altura)
-                        ),
-                        busqueda: !filters.busqueda || 
-                            item.marca.toLowerCase().includes(filters.busqueda) ||
-                            item.modelo.toLowerCase().includes(filters.busqueda) ||
-                            item.refIncolbest.toLowerCase().includes(filters.busqueda) ||
-                            item.platinaFmsi.toLowerCase().includes(filters.busqueda) ||
-                            item.oemCode.toLowerCase().includes(filters.busqueda)
-                    };
-                    
-                    return Object.values(matches).every(Boolean);
-                }));
-            };
-            
-            const resetFilters = () => {
-                [els.marca, els.modelo, els.ano, els.ref, els.platina, els.oem, 
-                 els.ancho, els.altura, els.busqueda].forEach(i => i.value = '');
-                [els.posDel, els.posTras].forEach(btn => btn.classList.remove('active'));
-                filterData();
-            };
-            
-            const setupEvents = () => {
-                [els.ano, els.ref, els.platina, els.oem, els.busqueda, els.modelo,
-                 els.ancho, els.altura].forEach(input => {
-                    input.addEventListener('input', () => {
-                        clearTimeout(searchTimeout);
-                        searchTimeout = setTimeout(filterData, 300);
-                    });
-                });
-                
-                els.limpiar.addEventListener('click', () => {
-                    els.busqueda.value = '';
-                    filterData();
-                });
-            };
-            
-            setupPosition();
-            setupEvents();
-            filterData();
-        });
-    </script>
+<div class="floating-buttons">
+
+  <!-- Botón Modo Oscuro -->
+  <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false">
+    <svg class="lp-icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="4"/>
+      <line x1="12" y1="20" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="4" y2="12"/>
+      <line x1="20" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <!-- Botón Subir -->
+  <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página">
+    <svg class="lp-icon-arrow" viewBox="0 0 24 24">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <polyline points="5,12 12,5 19,12"/>
+    </svg>
+  </button>
+
+</div>
+
+<script>
+const darkBtn = document.getElementById('darkBtn');
+const sunIcon = darkBtn.querySelector('.lp-icon-sun');
+const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+const upBtn = document.getElementById('upBtn');
+const headerX = document.querySelector('.header-x path');
+
+// Modo oscuro
+darkBtn.addEventListener('click', ()=> {
+  const isDark = document.body.classList.toggle('lp-dark');
+  darkBtn.setAttribute('aria-pressed', isDark);
+
+  sunIcon.animate(
+    isDark ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
+           : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
+    {duration:800, fill:'forwards', easing:'ease-in-out'} // animación más lenta
+  );
+
+  moonIcon.animate(
+    isDark ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
+           : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
+    {duration:800, fill:'forwards', easing:'ease-in-out'} // animación más lenta
+  );
+
+  // Rebotar la X
+  headerX.parentElement.style.animation='bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+  setTimeout(()=>headerX.parentElement.style.animation='',600);
+
+  // Cambiar color de la X
+  headerX.setAttribute('fill', isDark ? '#FFFFFF' : '#000000');
+});
+
+// Subir página
+upBtn.addEventListener('click', ()=>{ window.scrollTo({ top:0, behavior:'smooth' }); });
+window.addEventListener('scroll', ()=>{ upBtn.classList.toggle('show', window.scrollY > 150); });
+</script>
+
 </body>
 </html>
