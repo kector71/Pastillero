@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botones Cristal Líquido iOS 26 Vertical</title>
+<title>Botones Cristal Líquido iOS 26 Vertical Mejorado</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 html, body { height:100vh; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -13,8 +13,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px; /* separación vertical */
-  background: #f0f0f0; /* color plano en modo claro */
+  gap: 30px;
+  background: #f0f0f0;
   transition: background 0.5s ease;
 }
 
@@ -47,7 +47,7 @@ body.lp-dark .liquid-glass {
   fill: none;
   stroke-width: 2;
   position: absolute;
-  transition: opacity 0.4s, transform 0.4s, stroke 0.4s;
+  transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
 }
 
 /* Iconos */
@@ -57,21 +57,19 @@ body.lp-dark .lp-icon-sun { stroke: #fff; }
 
 /* Flecha azul/blanca con brillo animado */
 .lp-icon-arrow {
-  stroke: #007AFF; /* azul modo claro */
-  filter: drop-shadow(0 0 4px rgba(0,122,255,0.7));
+  stroke: #007AFF;
   animation: arrow-glow 1.5s ease-in-out infinite alternate;
+}
+
+body.lp-dark .lp-icon-arrow {
+  stroke: #fff;
+  animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes arrow-glow {
   0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
   50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); }
   100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
-}
-
-body.lp-dark .lp-icon-arrow {
-  stroke: #fff;
-  filter: drop-shadow(0 0 4px rgba(255,255,255,0.7));
-  animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes arrow-glow-dark {
@@ -156,20 +154,22 @@ darkBtn.addEventListener('click', ()=>{
     {duration:400, fill:'forwards'}
   );
 
-  animateButton(darkBtn);
+  animateButton(darkBtn, isDark);
 });
 
 // Subir al top con pulso y rebote
 upBtn.addEventListener('click', ()=>{
   window.scrollTo({ top:0, behavior:'smooth' });
-  animateButton(upBtn);
+  animateButton(upBtn, document.body.classList.contains('lp-dark'));
 });
 
-// Función animación pulso y rebote
-function animateButton(btn){
+// Función animación pulso y rebote con color adaptativo
+function animateButton(btn, isDark=false){
   let pulse = document.createElement('div');
   pulse.classList.add('lp-pulse');
-  pulse.style.background='radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)';
+  pulse.style.background = isDark
+    ? 'radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)'
+    : 'radial-gradient(circle, rgba(0,122,255,0.25), transparent 60%)';
   btn.appendChild(pulse);
   setTimeout(()=>pulse.remove(),600);
   btn.style.animation='bounce 0.5s ease';
