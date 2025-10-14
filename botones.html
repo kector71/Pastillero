@@ -99,12 +99,18 @@ body.lp-dark .lp-icon-arrow {
   70% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+/* Foco visible para accesibilidad */
+.liquid-glass:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,122,255,0.5);
+}
 </style>
 </head>
 <body>
 
 <!-- Botón Modo Oscuro -->
-<button class="liquid-glass" id="darkBtn">
+<button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro">
   <svg class="lp-icon-sun" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="5"/>
     <line x1="12" y1="1" x2="12" y2="4"/>
@@ -122,7 +128,7 @@ body.lp-dark .lp-icon-arrow {
 </button>
 
 <!-- Botón Subir Rápido -->
-<button class="liquid-glass" id="upBtn">
+<button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página">
   <svg class="lp-icon-arrow" viewBox="0 0 24 24">
     <line x1="12" y1="5" x2="12" y2="19"/>
     <polyline points="5,12 12,5 19,12"/>
