@@ -3,162 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botones Flotantes</title>
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: #fff;
-  color: #111;
-  transition: background 0.4s, color 0.4s;
-}
+<title>Brake X - Botones Flotantes</title>
 
-/* --- Botón de modo oscuro --- */
-#darkBtn {
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+<!-- Fuente Orbitron -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+body { background:#f0f0f0; transition: background 0.5s ease; }
+body.lp-dark { background:#000; }
+
+/* Banner superior cristal líquido */
+.liquid-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75) 60%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  z-index: 9998;
+  color: #000; /* letra negra modo claro */
+  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform: translateY(-80px);
+  opacity: 0;
+  animation: banner-slide 0.6s ease forwards 0.2s;
+}
+
+.liquid-banner span strong {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+body.lp-dark .liquid-banner {
+  background: linear-gradient(145deg, rgba(50,50,50,0.95), rgba(30,30,30,0.85) 60%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 0 10px rgba(255,255,255,0.1);
+  color: #fff; /* letra blanca modo oscuro */
+}
+
+@keyframes banner-slide {
+  0% { transform: translateY(-80px); opacity:0; }
+  60% { transform: translateY(10px); opacity:1; }
+  100% { transform: translateY(0); opacity:1; }
+}
+
+/* Contenedor flotante vertical */
+.floating-buttons {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  overflow: hidden;
-  z-index: 1000;
-  transition: transform 0.35s ease-in-out, background 0.4s, box-shadow 0.4s;
-}
-body.lp-dark #darkBtn {
-  background: rgba(255,255,255,0.12);
-}
-#darkBtn:active { transform: scale(1.2); }
-#darkBtn svg { width:26px;height:26px;stroke:#111;fill:none;stroke-width:2;position:absolute;transition:opacity 0.4s, transform 0.4s;}
-body.lp-dark #darkBtn svg { stroke:#fff; }
-#darkBtn::after {
-  content:'';
-  position:absolute; inset:0;
-  border-radius:50%;
-  pointer-events:none;
-  transform:scale(0);
-  opacity:0;
-  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 60%);
-  mix-blend-mode: overlay;
-  filter: blur(6px);
-}
-body.lp-dark #darkBtn::after {
-  background: radial-gradient(circle, rgba(173,216,230,0.25), transparent 60%);
-}
-#darkBtn.pulse::after { animation: lp-pulse 0.6s ease-out forwards; }
-
-/* --- Botón papelera (arriba del modo oscuro) --- */
-#trashBtn {
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  right: 20px;
-  bottom: 90px; /* arriba del botón modo oscuro */
-  overflow: hidden;
-  z-index: 1000;
-  transition: transform 0.35s ease-in-out, background 0.4s, box-shadow 0.4s;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 9999;
 }
-body.lp-dark #trashBtn {
-  background: rgba(255,255,255,0.12);
+@media (max-width: 768px) {
+  .floating-buttons {
+    bottom: calc(env(safe-area-inset-bottom, 10px) + 10px);
+  }
 }
-#trashBtn:active { transform: scale(1.2); }
-#trashBtn svg { width:26px;height:26px;stroke:#111;fill:none;stroke-width:2;transition:stroke 0.4s;}
-body.lp-dark #trashBtn svg { stroke:#fff; }
-#trashBtn::after {
-  content:'';
-  position:absolute; inset:0;
-  border-radius:50%;
-  pointer-events:none;
-  transform:scale(0);
-  opacity:0;
-  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 60%);
-  mix-blend-mode: overlay;
-  filter: blur(6px);
-}
-body.lp-dark #trashBtn::after {
-  background: radial-gradient(circle, rgba(173,216,230,0.25), transparent 60%);
-}
-#trashBtn.pulse::after { animation: lp-pulse 0.6s ease-out forwards; }
 
-@keyframes lp-pulse {
-  0% { opacity:0.8; transform:scale(0); }
-  100% { opacity:0; transform:scale(2.5); }
+/* Botones cristal líquido */
+.liquid-glass {
+  position: relative;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  backdrop-filter: blur(8px);
+  border:none; outline:none;
+}
+body.lp-dark .liquid-glass {
+  background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.1);
+}
+
+.liquid-glass svg {
+  width: 28px; height: 28px;
+  fill:none; stroke-width:2;
+  position:absolute;
+  transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
+}
+
+/* Iconos */
+body:not(.lp-dark) .lp-icon-sun { stroke:#FFD700; }
+body.lp-dark .lp-icon-sun { stroke:#fff; }
+.lp-icon-moon { stroke:#fff; }
+.lp-icon-arrow {
+  stroke:#007AFF;
+  animation: arrow-glow 1.5s ease-in-out infinite alternate;
+}
+body.lp-dark .lp-icon-arrow {
+  stroke:#fff;
+  animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes arrow-glow {
+  0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
+  50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); }
+  100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
+}
+@keyframes arrow-glow-dark {
+  0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
+  50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
+  100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
+}
+
+/* Rebote */
+@keyframes bounce {
+  0% { transform:scale(1); }
+  30% { transform:scale(1.15); }
+  50% { transform:scale(0.95); }
+  70% { transform:scale(1.1); }
+  100% { transform:scale(1); }
+}
+
+/* Rebote al aparecer */
+@keyframes slide-bounce {
+  0% { transform: translateY(40px) scale(0.8); opacity:0; }
+  60% { transform: translateY(-5px) scale(1.05); opacity:1; }
+  100% { transform: translateY(0) scale(1); opacity:1; }
+}
+
+/* Foco accesible */
+.liquid-glass:focus {
+  outline:none;
+  box-shadow:0 0 0 3px rgba(0,122,255,0.5);
+}
+
+/* Botón subir: transición deslizante */
+#upBtn {
+  opacity: 0;
+  transform: translateY(40px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#upBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: slide-bounce 0.5s ease forwards;
 }
 </style>
 </head>
 <body>
 
-<!-- Botón papelera -->
-<button id="trashBtn">
-  <svg viewBox="0 0 24 24">
-    <path d="M3 6h18M9 6v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V6M10 6V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2"/>
-  </svg>
-</button>
+<!-- Banner Superior -->
+<div class="liquid-banner" role="banner" aria-label="Banner Brake X">
+  <span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 10px;">
+      <rect x="3" y="7" width="18" height="10" rx="2" ry="2"/>
+      <line x1="7" y1="7" x2="7" y2="17"/>
+      <line x1="17" y1="7" x2="17" y2="17"/>
+    </svg>
+    <strong>Brake X</strong>
+  </span>
+</div>
 
-<!-- Botón modo oscuro -->
-<button id="darkBtn">
-  <svg class="lp-icon-sun" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="5"/>
-    <line x1="12" y1="1" x2="12" y2="4"/>
-    <line x1="12" y1="20" x2="12" y2="23"/>
-    <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
-    <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-    <line x1="1" y1="12" x2="4" y2="12"/>
-    <line x1="20" y1="12" x2="23" y2="12"/>
-    <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
-    <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
-  </svg>
-  <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-  </svg>
-</button>
+<!-- Botones Flotantes -->
+<div class="floating-buttons">
+
+  <!-- Botón Modo Oscuro -->
+  <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false" role="button" tabindex="0">
+    <svg class="lp-icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="4"/>
+      <line x1="12" y1="20" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="4" y2="12"/>
+      <line x1="20" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <!-- Botón Subir Rápido -->
+  <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página" tabindex="0" role="button">
+    <svg class="lp-icon-arrow" viewBox="0 0 24 24">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <polyline points="5,12 12,5 19,12"/>
+    </svg>
+  </button>
+
+</div>
 
 <script>
 const darkBtn = document.getElementById('darkBtn');
 const sunIcon = darkBtn.querySelector('.lp-icon-sun');
 const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+const upBtn = document.getElementById('upBtn');
 
-darkBtn.addEventListener('click', () => {
+// Modo oscuro
+darkBtn.addEventListener('click', ()=>{
   const isDark = document.body.classList.toggle('lp-dark');
+  darkBtn.setAttribute('aria-pressed', isDark);
+
   sunIcon.animate(
     isDark
-      ? [{ opacity:1, transform:'rotate(0deg) scale(1)'},{opacity:0, transform:'rotate(180deg) scale(0.5)'}]
-      : [{ opacity:0, transform:'rotate(-180deg) scale(0.5)'},{opacity:1, transform:'rotate(0deg) scale(1)'}],
-    { duration:400, fill:'forwards' }
+      ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
+      : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
+    {duration:400, fill:'forwards', easing:'ease-in-out'}
   );
+
   moonIcon.animate(
     isDark
-      ? [{ opacity:0, transform:'rotate(-180deg) scale(0.5)'},{opacity:1, transform:'rotate(0deg) scale(1)'}]
-      : [{ opacity:1, transform:'rotate(0deg) scale(1)'},{opacity:0, transform:'rotate(180deg) scale(0.5)'}],
-    { duration:400, fill:'forwards' }
+      ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
+      : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
+    {duration:400, fill:'forwards', easing:'ease-in-out'}
   );
-  darkBtn.classList.add('pulse');
-  setTimeout(()=>darkBtn.classList.remove('pulse'),600);
+
+  // Rebote
+  darkBtn.style.animation='bounce 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+  setTimeout(()=>darkBtn.style.animation='',600);
 });
 
-const trashBtn = document.getElementById('trashBtn');
-trashBtn.addEventListener('click', () => {
-  trashBtn.classList.add('pulse');
-  setTimeout(()=>trashBtn.classList.remove('pulse'),600);
-  console.log('Filtros borrados'); // reemplaza con tu lógica
+// Subir página
+upBtn.addEventListener('click', ()=>{
+  window.scrollTo({ top:0, behavior:'smooth' });
+  upBtn.style.animation='bounce 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+  setTimeout(()=>upBtn.style.animation='',600);
+});
+
+// Mostrar botón subir solo al hacer scroll
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY > 150){
+    upBtn.classList.add('show');
+  } else {
+    upBtn.classList.remove('show');
+  }
 });
 </script>
+
 </body>
 </html>
