@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botones Flotantes Cristal Líquido iOS 26 Responsive</title>
+<title>Botones Flotantes Cristal Líquido iOS 26 Optimizado</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
@@ -19,10 +19,9 @@ body.lp-dark { background:#000; }
   flex-direction: column;
   gap: 15px;
   z-index: 9999;
-  transition: bottom 0.3s ease;
 }
 
-/* Ajuste automático para móviles con notch o barras inferiores */
+/* Ajuste para móviles con notch o barras inferiores */
 @media (max-width: 768px) {
   .floating-buttons {
     bottom: calc(env(safe-area-inset-bottom, 10px) + 10px);
@@ -38,8 +37,10 @@ body.lp-dark { background:#000; }
   box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   backdrop-filter: blur(8px);
+  border:none; /* elimina borde negro */
+  outline:none; /* elimina outline negro */
 }
 body.lp-dark .liquid-glass {
   background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
@@ -77,16 +78,7 @@ body.lp-dark .lp-icon-arrow {
   100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
 }
 
-/* Pulso y rebote */
-.lp-pulse {
-  position:absolute; inset:0; border-radius:50%;
-  animation: lp-pulse 0.6s ease-out;
-  pointer-events:none;
-}
-@keyframes lp-pulse {
-  0% { opacity:0.6; transform:scale(0); }
-  100% { opacity:0; transform:scale(2); }
-}
+/* Rebote */
 @keyframes bounce {
   0% { transform:scale(1); }
   30% { transform:scale(1.15); }
@@ -95,20 +87,39 @@ body.lp-dark .lp-icon-arrow {
   100% { transform:scale(1); }
 }
 
+/* Rebote al aparecer */
+@keyframes slide-bounce {
+  0% { transform: translateY(40px) scale(0.8); opacity:0; }
+  60% { transform: translateY(-5px) scale(1.05); opacity:1; }
+  100% { transform: translateY(0) scale(1); opacity:1; }
+}
+
 /* Foco accesible */
 .liquid-glass:focus {
   outline:none;
   box-shadow:0 0 0 3px rgba(0,122,255,0.5);
 }
+
+/* Botón subir: transición deslizante */
+#upBtn {
+  opacity: 0;
+  transform: translateY(40px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#upBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: slide-bounce 0.5s ease forwards;
+}
 </style>
 </head>
 <body>
 
-<!-- Contenedor botones flotantes -->
 <div class="floating-buttons">
 
   <!-- Botón Modo Oscuro -->
-  <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" tabindex="0">
+  <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false" role="button" tabindex="0">
     <svg class="lp-icon-sun" viewBox="0 0 24 24">
       <circle cx="12" cy="12" r="5"/>
       <line x1="12" y1="1" x2="12" y2="4"/>
@@ -126,7 +137,7 @@ body.lp-dark .lp-icon-arrow {
   </button>
 
   <!-- Botón Subir Rápido -->
-  <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página" tabindex="0">
+  <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página" tabindex="0" role="button">
     <svg class="lp-icon-arrow" viewBox="0 0 24 24">
       <line x1="12" y1="5" x2="12" y2="19"/>
       <polyline points="5,12 12,5 19,12"/>
@@ -141,43 +152,47 @@ const sunIcon = darkBtn.querySelector('.lp-icon-sun');
 const moonIcon = darkBtn.querySelector('.lp-icon-moon');
 const upBtn = document.getElementById('upBtn');
 
+// Modo oscuro
 darkBtn.addEventListener('click', ()=>{
-  document.body.classList.toggle('lp-dark');
-  const isDark = document.body.classList.contains('lp-dark');
+  const isDark = document.body.classList.toggle('lp-dark');
+  darkBtn.setAttribute('aria-pressed', isDark);
 
   sunIcon.animate(
     isDark
       ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
       : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
-    {duration:400, fill:'forwards'}
+    {duration:400, fill:'forwards', easing:'ease-in-out'}
   );
 
   moonIcon.animate(
     isDark
       ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
       : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
-    {duration:400, fill:'forwards'}
+    {duration:400, fill:'forwards', easing:'ease-in-out'}
   );
 
-  animateButton(darkBtn, isDark);
+  // Rebote
+  darkBtn.style.animation='bounce 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+  setTimeout(()=>darkBtn.style.animation='',600);
 });
 
+// Subir página
 upBtn.addEventListener('click', ()=>{
   window.scrollTo({ top:0, behavior:'smooth' });
-  animateButton(upBtn, document.body.classList.contains('lp-dark'));
+
+  // Rebote
+  upBtn.style.animation='bounce 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+  setTimeout(()=>upBtn.style.animation='',600);
 });
 
-function animateButton(btn, isDark=false){
-  const pulse = document.createElement('div');
-  pulse.classList.add('lp-pulse');
-  pulse.style.background = isDark
-    ? 'radial-gradient(circle, rgba(255,255,255,0.5), transparent 60%)'
-    : 'radial-gradient(circle, rgba(0,122,255,0.25), transparent 60%)';
-  btn.appendChild(pulse);
-  setTimeout(()=>pulse.remove(),600);
-  btn.style.animation='bounce 0.5s ease';
-  setTimeout(()=>btn.style.animation='',500);
-}
+// Mostrar botón subir solo al hacer scroll
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY > 150){
+    upBtn.classList.add('show');
+  } else {
+    upBtn.classList.remove('show');
+  }
+});
 </script>
 
 </body>
