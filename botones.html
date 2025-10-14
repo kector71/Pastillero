@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botones Flotantes Cristal Líquido iOS 26 Vertical</title>
+<title>Botones Flotantes Cristal Líquido iOS 26 Responsive</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
@@ -13,12 +13,20 @@ body.lp-dark { background:#000; }
 /* Contenedor flotante vertical */
 .floating-buttons {
   position: fixed;
-  bottom: 20px;
   right: 20px;
+  bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   z-index: 9999;
+  transition: bottom 0.3s ease;
+}
+
+/* Ajuste automático para móviles con notch o barras inferiores */
+@media (max-width: 768px) {
+  .floating-buttons {
+    bottom: calc(env(safe-area-inset-bottom, 10px) + 10px);
+  }
 }
 
 /* Botones cristal líquido */
