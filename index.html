@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brake X Liquid Glass</title>
+<title>Brake X Liquid Glass Mejorado</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
@@ -11,7 +11,7 @@ html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI
 body { background:#f0f0f0; transition: background 0.5s ease, color 0.5s ease; color:#000; }
 body.lp-dark { background:#000; color:#fff; }
 
-/* ==== Banner Liquid Glass ==== */
+/* ==== Banner Liquid Glass Mejorado ==== */
 header {
   width: 100%;
   text-align: center;
@@ -20,20 +20,42 @@ header {
   border-top-right-radius: 0;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.25);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2), inset 0 0 15px rgba(255,255,255,0.2);
-  transition: background 0.5s ease, color 0.5s ease;
+  backdrop-filter: blur(14px) saturate(1.2);
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25), inset 0 0 15px rgba(255,255,255,0.2);
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
-}
-body.lp-dark header {
-  background: rgba(0,0,0,0.35);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1);
+  transition: background 0.5s ease, color 0.5s ease;
+  overflow: hidden;
 }
 
+body.lp-dark header {
+  background: rgba(30,30,30,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 0 18px rgba(255,255,255,0.1);
+}
+
+/* ==== Brillo inferior ==== */
+header::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.1), rgba(255,255,255,0.4));
+  pointer-events: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  opacity: 0.6;
+}
+
+body.lp-dark header::after {
+  background: linear-gradient(to right, rgba(255,255,255,0.6), rgba(255,255,255,0.2), rgba(255,255,255,0.6));
+}
+
+/* ==== Texto y Animaciones ==== */
 header h1 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.1rem;
@@ -56,7 +78,6 @@ header p {
   animation: fadeUp 1.2s ease 0.6s forwards;
 }
 
-/* ==== Animaciones ==== */
 @keyframes fadeUp { 0% { opacity:0; transform:translateY(8px); } 100% { opacity:1; transform:translateY(0); } }
 @keyframes fadeDown { 0% { opacity:0; transform:translateY(-8px); } 100% { opacity:1; transform:translateY(0); } }
 @keyframes bounceHeader { 0% { transform: scale(1); } 30% { transform: scale(1.15); } 50% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
@@ -69,9 +90,7 @@ header .header-x {
   vertical-align: middle;
   transition: transform 0.6s ease;
 }
-header .header-x path {
-  transition: fill 0.5s ease;
-}
+header .header-x path { transition: fill 0.5s ease; }
 body.lp-dark header .header-x path { fill: #FFFFFF; }
 body:not(.lp-dark) header .header-x path { fill: #000000; }
 
