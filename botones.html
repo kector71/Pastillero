@@ -5,7 +5,7 @@ modo oscuro
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botón Cristal Líquido iOS 26 - Más Opaco</title>
+<title>Botón Cristal Líquido iOS 26 - Sol Reactivo</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 html, body { height:100vh; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -15,12 +15,12 @@ body {
   align-items: center;
   justify-content: center;
   gap: 30px;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1); /* modo claro */
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1);
   transition: background 0.5s ease;
 }
 
 body.lp-dark {
-  background: #000; /* modo oscuro AMOLED */
+  background: #000;
 }
 
 .liquid-glass {
@@ -28,7 +28,7 @@ body.lp-dark {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%); /* más opaco en claro */
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
   box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
   display: flex;
   align-items: center;
@@ -53,13 +53,8 @@ body.lp-dark .liquid-glass {
   transition: opacity 0.4s, transform 0.4s, stroke 0.4s;
 }
 
-/* Sol amarillo en modo claro */
 body:not(.lp-dark) .lp-icon-sun { stroke: #FFD700; }
-
-/* Sol blanco en modo oscuro */
 body.lp-dark .lp-icon-sun { stroke: #fff; }
-
-/* Luna siempre blanca */
 .lp-icon-moon { stroke: #fff; }
 
 .lp-pulse {
@@ -138,6 +133,25 @@ darkBtn.addEventListener('click', ()=>{
 
   animateButton(darkBtn);
 });
+
+// Ajuste de rayos según luz ambiental
+if ('AmbientLightSensor' in window) {
+  try {
+    const sensor = new AmbientLightSensor();
+    sensor.addEventListener('reading', () => {
+      const lux = sensor.illuminance;
+      const scale = Math.min(Math.max(lux / 300, 0.8), 1.5);
+      sunIcon.querySelectorAll('line').forEach(line => {
+        line.setAttribute('transform', `scale(${scale})`);
+      });
+    });
+    sensor.start();
+  } catch(e) {
+    console.log('Sensor de luz no disponible:', e);
+  }
+} else {
+  console.log('AmbientLightSensor no soportado en este navegador');
+}
 </script>
 
 </body>
