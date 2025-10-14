@@ -11,64 +11,63 @@ html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI
 body { background:#f0f0f0; transition: background 0.5s ease, color 0.5s ease; color:#000; }
 body.lp-dark { background:#000; color:#fff; }
 
-/* ==== Banner ==== */
+/* ==== Banner ultra compacto ==== */
 header {
   width: 100%;
   text-align: center;
-  padding: 60px 20px 40px;
-  backdrop-filter: blur(12px);
+  padding: 10px 8px; /* Más bajito */
+  backdrop-filter: blur(10px);
   background: rgba(255,255,255,0.15);
   transition: background 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 body.lp-dark header {
   background: rgba(0,0,0,0.25);
 }
 header h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 3rem;
+  font-size: 1.1rem; /* Texto más pequeño */
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   color: inherit;
   animation: fadeDown 1.2s ease forwards;
+  display: inline; /* Una línea */
 }
 header p {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  margin-top: 10px;
+  font-size: 0.8rem; /* Texto más pequeño */
+  margin-left: 6px;
   color: inherit;
   opacity: 0;
   animation: fadeUp 1.2s ease 0.6s forwards;
+  display: inline; /* Una línea */
 }
 
 /* Animaciones */
-@keyframes fadeDown {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeDown { 0% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
 
-/* ==== Botones flotantes ==== */
+/* ==== Botones flotantes compactos ==== */
 .floating-buttons {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  right: 18px;
+  bottom: 18px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px; /* Más compacto */
   z-index: 9999;
 }
 @media (max-width: 768px) {
-  .floating-buttons { bottom: calc(env(safe-area-inset-bottom, 10px) + 10px); }
+  .floating-buttons { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
 }
 .liquid-glass {
   position: relative;
-  width: 60px; height: 60px;
+  width: 50px; height: 50px; /* Más pequeño */
   border-radius: 50%;
   background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.25), inset 0 0 18px rgba(255,255,255,0.3);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; overflow: hidden;
   transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -77,10 +76,10 @@ header p {
 }
 body.lp-dark .liquid-glass {
   background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.1);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
 }
 .liquid-glass svg {
-  width: 28px; height: 28px;
+  width: 20px; height: 20px; /* Ajustado al botón más pequeño */
   fill:none; stroke-width:2;
   position:absolute;
   transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
@@ -106,30 +105,11 @@ body.lp-dark .lp-icon-arrow {
   50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
   100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
 }
-@keyframes bounce {
-  0% { transform:scale(1); }
-  30% { transform:scale(1.15); }
-  50% { transform:scale(0.95); }
-  70% { transform:scale(1.1); }
-  100% { transform:scale(1); }
-}
-@keyframes slide-bounce {
-  0% { transform: translateY(40px) scale(0.8); opacity:0; }
-  60% { transform: translateY(-5px) scale(1.05); opacity:1; }
-  100% { transform: translateY(0) scale(1); opacity:1; }
-}
+@keyframes bounce { 0% { transform:scale(1); } 30% { transform:scale(1.15); } 50% { transform:scale(0.95); } 70% { transform:scale(1.1); } 100% { transform:scale(1); } }
+@keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
 .liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
-#upBtn {
-  opacity: 0;
-  transform: translateY(40px);
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-#upBtn.show {
-  opacity: 1;
-  pointer-events: auto;
-  animation: slide-bounce 0.5s ease forwards;
-}
+#upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+#upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
 </style>
 </head>
 <body>
@@ -159,7 +139,7 @@ body.lp-dark .lp-icon-arrow {
     </svg>
   </button>
 
-  <!-- Botón Subir Rápido -->
+  <!-- Botón Subir -->
   <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página" tabindex="0" role="button">
     <svg class="lp-icon-arrow" viewBox="0 0 24 24">
       <line x1="12" y1="5" x2="12" y2="19"/>
