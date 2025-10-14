@@ -16,10 +16,13 @@ header {
   width: 100%;
   text-align: center;
   padding: 10px 12px;
-  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.15);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 0 15px rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2), inset 0 0 15px rgba(255,255,255,0.2);
   transition: background 0.5s ease, color 0.5s ease;
   display: flex;
   justify-content: center;
@@ -27,8 +30,8 @@ header {
   gap: 6px;
 }
 body.lp-dark header {
-  background: rgba(0,0,0,0.25);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.35);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1);
 }
 
 header h1 {
