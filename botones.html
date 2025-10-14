@@ -1,27 +1,24 @@
-modo oscuro
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Botón Cristal Líquido iOS 26 - Sol Reactivo</title>
+<title>Botones Cristal Líquido iOS 26 Vertical</title>
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 html, body { height:100vh; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
 body {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 30px;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1);
+  gap: 30px; /* separación vertical */
+  background: #f0f0f0; /* color plano en modo claro */
   transition: background 0.5s ease;
 }
 
-body.lp-dark {
-  background: #000;
-}
+body.lp-dark { background: #000; }
 
 .liquid-glass {
   position: relative;
@@ -53,10 +50,37 @@ body.lp-dark .liquid-glass {
   transition: opacity 0.4s, transform 0.4s, stroke 0.4s;
 }
 
+/* Iconos */
 body:not(.lp-dark) .lp-icon-sun { stroke: #FFD700; }
 body.lp-dark .lp-icon-sun { stroke: #fff; }
 .lp-icon-moon { stroke: #fff; }
 
+/* Flecha azul/blanca con brillo animado */
+.lp-icon-arrow {
+  stroke: #007AFF; /* azul modo claro */
+  filter: drop-shadow(0 0 4px rgba(0,122,255,0.7));
+  animation: arrow-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes arrow-glow {
+  0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
+  50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); }
+  100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
+}
+
+body.lp-dark .lp-icon-arrow {
+  stroke: #fff;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.7));
+  animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes arrow-glow-dark {
+  0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
+  50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
+  100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
+}
+
+/* Pulso y rebote */
 .lp-pulse {
   position: absolute;
   inset: 0;
@@ -81,6 +105,7 @@ body.lp-dark .lp-icon-sun { stroke: #fff; }
 </head>
 <body>
 
+<!-- Botón Modo Oscuro -->
 <button class="liquid-glass" id="darkBtn">
   <svg class="lp-icon-sun" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="5"/>
@@ -98,24 +123,24 @@ body.lp-dark .lp-icon-sun { stroke: #fff; }
   </svg>
 </button>
 
+<!-- Botón Subir Rápido -->
+<button class="liquid-glass" id="upBtn">
+  <svg class="lp-icon-arrow" viewBox="0 0 24 24">
+    <line x1="12" y1="5" x2="12" y2="19"/>
+    <polyline points="5,12 12,5 19,12"/>
+  </svg>
+</button>
+
 <script>
 const darkBtn = document.getElementById('darkBtn');
 const sunIcon = darkBtn.querySelector('.lp-icon-sun');
 const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+const upBtn = document.getElementById('upBtn');
 
-function animateButton(btn){
-  let pulse = document.createElement('div');
-  pulse.classList.add('lp-pulse');
-  pulse.style.background='radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)';
-  btn.appendChild(pulse);
-  setTimeout(()=>pulse.remove(),600);
-  btn.style.animation='bounce 0.5s ease';
-  setTimeout(()=>btn.style.animation='',500);
-}
-
+// Animación botón oscuro
 darkBtn.addEventListener('click', ()=>{
   document.body.classList.toggle('lp-dark');
-  const isDark=document.body.classList.contains('lp-dark');
+  const isDark = document.body.classList.contains('lp-dark');
 
   sunIcon.animate(
     isDark
@@ -134,23 +159,21 @@ darkBtn.addEventListener('click', ()=>{
   animateButton(darkBtn);
 });
 
-// Ajuste de rayos según luz ambiental
-if ('AmbientLightSensor' in window) {
-  try {
-    const sensor = new AmbientLightSensor();
-    sensor.addEventListener('reading', () => {
-      const lux = sensor.illuminance;
-      const scale = Math.min(Math.max(lux / 300, 0.8), 1.5);
-      sunIcon.querySelectorAll('line').forEach(line => {
-        line.setAttribute('transform', `scale(${scale})`);
-      });
-    });
-    sensor.start();
-  } catch(e) {
-    console.log('Sensor de luz no disponible:', e);
-  }
-} else {
-  console.log('AmbientLightSensor no soportado en este navegador');
+// Subir al top con pulso y rebote
+upBtn.addEventListener('click', ()=>{
+  window.scrollTo({ top:0, behavior:'smooth' });
+  animateButton(upBtn);
+});
+
+// Función animación pulso y rebote
+function animateButton(btn){
+  let pulse = document.createElement('div');
+  pulse.classList.add('lp-pulse');
+  pulse.style.background='radial-gradient(circle, rgba(255,255,255,0.35), transparent 60%)';
+  btn.appendChild(pulse);
+  setTimeout(()=>pulse.remove(),600);
+  btn.style.animation='bounce 0.5s ease';
+  setTimeout(()=>btn.style.animation='',500);
 }
 </script>
 
