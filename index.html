@@ -3,59 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brake X - Botones Flotantes</title>
-
-<!-- Fuente Orbitron -->
+<title>Brake X</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
 <style>
 * { box-sizing: border-box; margin:0; padding:0; }
 html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
-body { background:#f0f0f0; transition: background 0.5s ease; }
-body.lp-dark { background:#000; }
+body { background:#f0f0f0; transition: background 0.5s ease, color 0.5s ease; color:#000; }
+body.lp-dark { background:#000; color:#fff; }
 
-/* Banner superior cristal líquido */
-.liquid-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
+/* ==== Banner ==== */
+header {
   width: 100%;
-  height: 70px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75) 60%);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 10px rgba(255,255,255,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  z-index: 9998;
-  color: #000; /* letra negra modo claro */
-  transition: all 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  transform: translateY(-80px);
-  opacity: 0;
-  animation: banner-slide 0.6s ease forwards 0.2s;
+  text-align: center;
+  padding: 60px 20px 40px;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.15);
+  transition: background 0.5s ease;
 }
-
-.liquid-banner span strong {
+body.lp-dark header {
+  background: rgba(0,0,0,0.25);
+}
+header h1 {
   font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
+  color: inherit;
+  animation: fadeDown 1.2s ease forwards;
+}
+header p {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: inherit;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.6s forwards;
 }
 
-body.lp-dark .liquid-banner {
-  background: linear-gradient(145deg, rgba(50,50,50,0.95), rgba(30,30,30,0.85) 60%);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 0 10px rgba(255,255,255,0.1);
-  color: #fff; /* letra blanca modo oscuro */
+/* Animaciones */
+@keyframes fadeDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes banner-slide {
-  0% { transform: translateY(-80px); opacity:0; }
-  60% { transform: translateY(10px); opacity:1; }
-  100% { transform: translateY(0); opacity:1; }
-}
-
-/* Contenedor flotante vertical */
+/* ==== Botones flotantes ==== */
 .floating-buttons {
   position: fixed;
   right: 20px;
@@ -66,12 +61,8 @@ body.lp-dark .liquid-banner {
   z-index: 9999;
 }
 @media (max-width: 768px) {
-  .floating-buttons {
-    bottom: calc(env(safe-area-inset-bottom, 10px) + 10px);
-  }
+  .floating-buttons { bottom: calc(env(safe-area-inset-bottom, 10px) + 10px); }
 }
-
-/* Botones cristal líquido */
 .liquid-glass {
   position: relative;
   width: 60px; height: 60px;
@@ -88,15 +79,12 @@ body.lp-dark .liquid-glass {
   background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
   box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.1);
 }
-
 .liquid-glass svg {
   width: 28px; height: 28px;
   fill:none; stroke-width:2;
   position:absolute;
   transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
 }
-
-/* Iconos */
 body:not(.lp-dark) .lp-icon-sun { stroke:#FFD700; }
 body.lp-dark .lp-icon-sun { stroke:#fff; }
 .lp-icon-moon { stroke:#fff; }
@@ -108,7 +96,6 @@ body.lp-dark .lp-icon-arrow {
   stroke:#fff;
   animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
 }
-
 @keyframes arrow-glow {
   0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); }
   50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); }
@@ -119,8 +106,6 @@ body.lp-dark .lp-icon-arrow {
   50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); }
   100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
 }
-
-/* Rebote */
 @keyframes bounce {
   0% { transform:scale(1); }
   30% { transform:scale(1.15); }
@@ -128,21 +113,12 @@ body.lp-dark .lp-icon-arrow {
   70% { transform:scale(1.1); }
   100% { transform:scale(1); }
 }
-
-/* Rebote al aparecer */
 @keyframes slide-bounce {
   0% { transform: translateY(40px) scale(0.8); opacity:0; }
   60% { transform: translateY(-5px) scale(1.05); opacity:1; }
   100% { transform: translateY(0) scale(1); opacity:1; }
 }
-
-/* Foco accesible */
-.liquid-glass:focus {
-  outline:none;
-  box-shadow:0 0 0 3px rgba(0,122,255,0.5);
-}
-
-/* Botón subir: transición deslizante */
+.liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
 #upBtn {
   opacity: 0;
   transform: translateY(40px);
@@ -158,19 +134,11 @@ body.lp-dark .lp-icon-arrow {
 </head>
 <body>
 
-<!-- Banner Superior -->
-<div class="liquid-banner" role="banner" aria-label="Banner Brake X">
-  <span>
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 10px;">
-      <rect x="3" y="7" width="18" height="10" rx="2" ry="2"/>
-      <line x1="7" y1="7" x2="7" y2="17"/>
-      <line x1="17" y1="7" x2="17" y2="17"/>
-    </svg>
-    <strong>Brake X</strong>
-  </span>
-</div>
+<header>
+  <h1>Brake X</h1>
+  <p>Consulta rápida. Frenado seguro.</p>
+</header>
 
-<!-- Botones Flotantes -->
 <div class="floating-buttons">
 
   <!-- Botón Modo Oscuro -->
@@ -213,20 +181,17 @@ darkBtn.addEventListener('click', ()=>{
   darkBtn.setAttribute('aria-pressed', isDark);
 
   sunIcon.animate(
-    isDark
-      ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
-      : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
+    isDark ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
+           : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
     {duration:400, fill:'forwards', easing:'ease-in-out'}
   );
 
   moonIcon.animate(
-    isDark
-      ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
-      : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
+    isDark ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
+           : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
     {duration:400, fill:'forwards', easing:'ease-in-out'}
   );
 
-  // Rebote
   darkBtn.style.animation='bounce 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
   setTimeout(()=>darkBtn.style.animation='',600);
 });
