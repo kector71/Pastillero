@@ -18,7 +18,7 @@ header {
   padding: 10px 12px;
   border-radius: 0 0 12px 12px; /* solo esquinas inferiores redondeadas */
   backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.25);
+  background: rgba(240,240,240,0.25); /* gris muy leve en modo claro */
   box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 0 15px rgba(255,255,255,0.2);
   transition: background 0.5s ease, color 0.5s ease;
   display: flex;
@@ -29,7 +29,7 @@ header {
 }
 
 body.lp-dark header {
-  background: rgba(0,0,0,0.35);
+  background: rgba(50,50,50,0.35); /* gris leve en modo oscuro */
   box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1);
   backdrop-filter: blur(18px); /* blur aumentado en modo oscuro */
 }
@@ -55,9 +55,6 @@ header p {
   opacity: 0;
   animation: fadeUp 1.2s ease 0.6s forwards;
 }
-
-/* ==== Brillo eliminado ==== */
-/* header::after eliminado para quitar brillo completamente */
 
 /* ==== Animaciones ==== */
 @keyframes fadeUp { 0% { opacity:0; transform:translateY(8px); } 100% { opacity:1; transform:translateY(0); } }
@@ -130,7 +127,7 @@ body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-
 #upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
 #upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
 
-/* ==== Brillo único y reactivo ==== */
+/* Brillo único de botones */
 .liquid-glass::before {
   content: '';
   position: absolute;
@@ -149,18 +146,9 @@ body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-
 #darkBtn::before { animation: shine-dark 12s linear infinite; }
 #upBtn::before { animation: shine-up 10s linear infinite; }
 
-@keyframes shine-dark {
-  0% { transform: rotate(45deg) translateX(-100%); }
-  50% { transform: rotate(45deg) translateX(100%); }
-  100% { transform: rotate(45deg) translateX(-100%); }
-}
-@keyframes shine-up {
-  0% { transform: rotate(-45deg) translateX(-120%); }
-  50% { transform: rotate(-45deg) translateX(120%); }
-  100% { transform: rotate(-45deg) translateX(-120%); }
-}
+@keyframes shine-dark { 0% { transform: rotate(45deg) translateX(-100%); } 50% { transform: rotate(45deg) translateX(100%); } 100% { transform: rotate(45deg) translateX(-100%); } }
+@keyframes shine-up { 0% { transform: rotate(-45deg) translateX(-120%); } 50% { transform: rotate(-45deg) translateX(120%); } 100% { transform: rotate(-45deg) translateX(-120%); } }
 
-/* Hover reactivo */
 .liquid-glass:hover::before { transform: rotate(45deg) translateX(50%) scale(1.2); opacity:1; }
 #upBtn:hover::before { transform: rotate(-45deg) translateX(50%) scale(1.2); opacity:1; }
 
@@ -197,31 +185,41 @@ body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-
       <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
     </svg>
     <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;">
-      <path d="M21 12.79A9 9 0 0111.21 3 7 7 0 0021 12.79z"/>
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
   </button>
 
   <!-- Botón Subir -->
-  <button class="liquid-glass" id="upBtn" aria-label="Subir arriba">
+  <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio">
     <svg class="lp-icon-arrow" viewBox="0 0 24 24">
-      <polyline points="6 15 12 9 18 15"/>
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <polyline points="5,12 12,5 19,12"/>
     </svg>
   </button>
 </div>
 
 <script>
 const darkBtn = document.getElementById('darkBtn');
-darkBtn.addEventListener('click', ()=>{
-  document.body.classList.toggle('lp-dark');
-  darkBtn.setAttribute('aria-pressed', document.body.classList.contains('lp-dark'));
+const sunIcon = darkBtn.querySelector('.lp-icon-sun');
+const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+const upBtn = document.getElementById('upBtn');
+
+// Modo oscuro
+darkBtn.addEventListener('click', ()=> {
+  const isDark = document.body.classList.toggle('lp-dark');
+  darkBtn.setAttribute('aria-pressed', isDark);
+  sunIcon.style.opacity = isDark? 0 : 1;
+  moonIcon.style.opacity = isDark? 1 : 0;
 });
 
-const upBtn = document.getElementById('upBtn');
-window.addEventListener('scroll', ()=>{
-  if(window.scrollY > 100){ upBtn.classList.add('show'); }
-  else{ upBtn.classList.remove('show'); }
+// Mostrar botón subir
+window.addEventListener('scroll', ()=> {
+  if(window.scrollY > 180) upBtn.classList.add('show');
+  else upBtn.classList.remove('show');
 });
-upBtn.addEventListener('click', ()=>{ window.scrollTo({top:0, behavior:'smooth'}); });
+
+// Subir al inicio
+upBtn.addEventListener('click', ()=> window.scrollTo({ top:0, behavior:'smooth' }));
 </script>
 
 </body>
