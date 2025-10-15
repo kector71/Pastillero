@@ -9,7 +9,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin:0; padding:2rem;
   background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
-  min-height:100vh; transition: background 0.5s ease, color 0.5s ease;
+  min-height:100vh;
+  transition: background 0.5s ease, color 0.5s ease;
   color:#000;
 }
 body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
@@ -17,85 +18,84 @@ body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
 .glass {
   background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
   border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
-  padding:1.5rem; max-width:600px; margin:0 auto 2rem auto;
-  display:flex; flex-direction:column; gap:0.75rem;
+  padding:1.5rem; max-width:600px; margin:0 auto;
+  display:flex; flex-direction:column; gap:1rem;
 }
 body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
 
 .filter-title { font-weight:600; font-size:1rem; }
 body.dark .filter-title { color:#fff; }
 
+/* Inputs */
 .form-input {
-  width: 100%; max-width: 100%; padding:0.35rem 0.75rem; 
-  border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
-  background-color: rgba(255,255,255,0.25); color: #000;
-  font-size: 0.85rem; transition: all 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box; margin-bottom:0.5rem; overflow:hidden;
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0,0,0,0.15);
+  background-color: rgba(255,255,255,0.25);
+  color: #000;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
 }
-.form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); box-shadow: 0 0 8px rgba(37,99,235,0.5); }
+.form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
 body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
 
-.position-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
+/* Posición */
+.position-container {
+  display:flex; gap:0.5rem; flex-wrap:wrap;
+}
 .position-btn {
-  flex:1; min-width:120px; padding:0.6rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
-  cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  flex:1; min-width:120px; padding:1rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
+  cursor:pointer; font-size:1rem; text-align:center; transition: all 0.3s ease;
   background-color: rgba(255,255,255,0.25); color: #000;
 }
-#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
+#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
 body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
-body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; box-shadow: 0 4px 10px rgba(255,255,255,0.15); }
-body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; box-shadow: 0 4px 10px rgba(255,255,255,0.15); }
+body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; }
+body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
 
-/* Efecto al presionar botón */
-.position-btn:active { transform: translateY(1px); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-body.dark .position-btn:active { box-shadow: 0 2px 6px rgba(255,255,255,0.1); }
-
-.results-wrapper {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap:0.5rem;
-  max-width:600px;
-  margin:0 auto;
-}
+/* Resultados */
+.results-wrapper { display:flex; flex-direction:column; gap:0.75rem; }
 .result-card {
-  display:flex; flex-direction:column; gap:0.25rem; padding:0.75rem; border-radius:1rem;
-  background-color: rgba(255,255,255,0.25); backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.3); position:relative; cursor:pointer; transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
+  border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
+  display:flex; flex-direction:column; gap:0.25rem; position:relative;
 }
 body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
-
-/* Efecto hover */
-.result-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-body.dark .result-card:hover { box-shadow: 0 8px 20px rgba(255,255,255,0.15); }
-
-.result-field{ font-size:0.85rem; }
+.result-field{ font-size:0.9rem; }
 body.dark .result-field{ color:#fff; }
 
-.position-badge{ display:inline-block; padding:0.25rem 0.4rem; border-radius:0.4rem; font-size:0.7rem; font-weight:500; margin-right:0.25rem; text-align:center; }
+.position-badge{ display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; margin-right:0.25rem; text-align:center; }
 .position-delantera{ background-color:#dbeafe; color:#1d4ed8; }
 .position-trasera{ background-color:#fef2f2; color:#b91c1c; }
 body.dark .position-delantera{ background-color:#0a2463; color:#63b3ed; }
 body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 
-.favorite-btn{ position:absolute; top:0.2rem; right:0.2rem; width:18px; height:18px; cursor:pointer; opacity:0.7; transition: all 0.2s ease;}
+.favorite-btn{ position:absolute; top:0.3rem; right:0.3rem; width:20px; height:20px; cursor:pointer; opacity:0.7; transition: all 0.2s ease;}
 .favorite-btn:hover{ opacity:1; transform: scale(1.2); }
 
 .toggle-dark{ position:fixed; top:1rem; right:1rem; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; background-color:#2563eb; color:#fff; border:none; transition: background 0.3s ease;}
 .toggle-dark:hover{ background-color:#1e40af; }
 
+/* Responsive */
 @media(max-width:600px){
   .position-container{ flex-direction:column; }
-  .form-input{ font-size:0.9rem; padding:0.5rem; }
-  .position-btn{ font-size:1rem; padding:0.8rem; min-width:auto; }
-  .result-field{ font-size:0.9rem; }
+  .form-input{ font-size:1.1rem; padding:1.2rem; }
+  .position-btn{ font-size:1.1rem; padding:1.2rem; min-width:auto; }
+  .result-field{ font-size:1rem; }
 }
 </style>
 </head>
 <body>
 
 <button class="toggle-dark">Modo Oscuro</button>
-
 <div class="glass">
+
   <div class="filter-title">Búsqueda rápida</div>
   <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref..." class="form-input">
 
@@ -109,13 +109,6 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
   <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
   <datalist id="anios"></datalist>
 
-  <div class="filter-title">Especificaciones Técnicas</div>
-  <input list="especificaciones" id="filtroEspecificacion" class="form-input" placeholder="OEM o Platina FMSI">
-  <datalist id="especificaciones">
-    <option value="OEM">
-    <option value="Platina FMSI">
-  </datalist>
-
   <div class="filter-title">Medidas</div>
   <input type="number" id="medidaAncho" placeholder="Ancho (mm)" step="0.1" class="form-input">
   <input type="number" id="medidaAltura" placeholder="Altura (mm)" step="0.1" class="form-input">
@@ -125,65 +118,96 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
     <div class="position-btn" id="positionDelantera">Delantera</div>
     <div class="position-btn" id="positionTras">Trasera</div>
   </div>
-</div>
 
-<div class="results-wrapper" id="results-container"></div>
-<div style="text-align:center; margin-top:0.5rem; font-size:0.85rem;">
-  <span id="resultCount">0</span> resultados
+  <div class="results-wrapper" id="results-container"></div>
+  <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const els={
-    busqueda:document.getElementById('busquedaRapida'),
-    marca:document.getElementById('filtroMarca'),
-    modelo:document.getElementById('filtroModelo'),
-    anio:document.getElementById('filtroAnio'),
-    especificacion:document.getElementById('filtroEspecificacion'),
-    ancho:document.getElementById('medidaAncho'),
-    altura:document.getElementById('medidaAltura'),
-    posDel:document.getElementById('positionDelantera'),
-    posTras:document.getElementById('positionTras'),
-    results:document.getElementById('results-container'),
-    count:document.getElementById('resultCount'),
-    datalistMarca:document.getElementById('marcas'),
-    datalistModelo:document.getElementById('modelos'),
-    datalistAnio:document.getElementById('anios')
+document.addEventListener('DOMContentLoaded', ()=>{
+  const els = {
+    busqueda: document.getElementById('busquedaRapida'),
+    marca: document.getElementById('filtroMarca'),
+    modelo: document.getElementById('filtroModelo'),
+    anio: document.getElementById('filtroAnio'),
+    datalistMarca: document.getElementById('marcas'),
+    datalistModelo: document.getElementById('modelos'),
+    datalistAnio: document.getElementById('anios'),
+    ancho: document.getElementById('medidaAncho'),
+    altura: document.getElementById('medidaAltura'),
+    posDel: document.getElementById('positionDelantera'),
+    posTras: document.getElementById('positionTras'),
+    results: document.getElementById('results-container'),
+    count: document.getElementById('resultCount')
   };
 
-  let brakePadsData=[
-    {id:0, marca:'A', modelo:'X', anio:2020, ref:'123', especificacion:'OEM', medidas:{ancho:100, altura:50}, posicion:'Delantera'},
-    {id:1, marca:'B', modelo:'Y', anio:2021, ref:'456', especificacion:'Platina FMSI', medidas:{ancho:120, altura:60}, posicion:'Trasera'},
-    {id:2, marca:'C', modelo:'Z', anio:2022, ref:'789', especificacion:'OEM', medidas:{ancho:100, altura:50}, posicion:'Delantera/Trasera'}
+  let brakePadsData = [
+    {id:1, marca:'Toyota', modelo:'Corolla', anio:2020, ref:'123', medidas:{ancho:100, altura:50}, posicion:'Delantera'},
+    {id:2, marca:'Toyota', modelo:'Camry', anio:2021, ref:'789', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera'},
+    {id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'456', medidas:{ancho:120, altura:60}, posicion:'Trasera'},
+    {id:4, marca:'Honda', modelo:'Accord', anio:2020, ref:'321', medidas:{ancho:110, altura:55}, posicion:'Delantera'}
   ];
 
-  const isFavorite=id=>JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(id);
+  const fillDatalist=(datalist,values)=>{ datalist.innerHTML=''; values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`) }
+  const updateDatalists=(filteredData)=>{
+    let marcas=[...new Set(filteredData.map(d=>d.marca))].sort();
+    let modelos=[...new Set(filteredData.map(d=>d.modelo))].sort();
+    let anios=[...new Set(filteredData.map(d=>d.anio))].sort((a,b)=>a-b);
+    fillDatalist(els.datalistMarca,marcas);
+    fillDatalist(els.datalistModelo,modelos);
+    fillDatalist(els.datalistAnio,anios);
+  }
+
+  const getFavorites=()=> JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
+  const isFavorite=id=>getFavorites().includes(id);
   const toggleFavorite=e=>{
-    const id=Number(e.target.closest('.favorite-btn').dataset.id);
-    let favs=JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
-    if(favs.includes(id)) favs=favs.filter(f=>f!==id); else favs.push(id);
+    const id=parseInt(e.target.closest('.favorite-btn').dataset.id);
+    let favs=getFavorites();
+    if(favs.includes(id)) favs=favs.filter(f=>f!=id);
+    else favs.push(id);
     localStorage.setItem('brakePadFavorites',JSON.stringify(favs));
     filterData();
-  };
+  }
 
   const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
-                   els.posDel.classList.contains('active') ? 'Delantera' :
-                   els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
+                     els.posDel.classList.contains('active') ? 'Delantera' :
+                     els.posTras.classList.contains('active') ? 'Trasera':'Todas';
 
-  const fillDatalist=(datalist,items)=>datalist.innerHTML=items.map(i=>`<option value="${i}">`).join('');
-  const updateDatalists=()=>{
-    fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
-    fillDatalist(els.datalistModelo,[...new Set(brakePadsData.map(d=>d.modelo))].sort());
-    fillDatalist(els.datalistAnio,[...new Set(brakePadsData.map(d=>d.anio))].sort((a,b)=>a-b));
-  };
+  const filterData=()=>{
+    const fbusq=(val)=>val.toLowerCase().trim();
+    const filters={
+      busqueda: fbusq(els.busqueda.value),
+      marca: els.marca.value,
+      modelo: els.modelo.value,
+      anio: els.anio.value ? parseInt(els.anio.value):null,
+      ancho: els.ancho.value ? parseFloat(els.ancho.value):null,
+      altura: els.altura.value ? parseFloat(els.altura.value):null,
+      pos: getPos()
+    };
 
-  const renderResults=filtered=>{
+    const filtered=brakePadsData.filter(item=>{
+      const busqMatch=!filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) ||
+                      item.modelo.toLowerCase().includes(filters.busqueda) ||
+                      item.ref.toLowerCase().includes(filters.busqueda);
+      const marcaMatch=!filters.marca || item.marca===filters.marca;
+      const modeloMatch=!filters.modelo || item.modelo===filters.modelo;
+      const anioMatch=!filters.anio || item.anio===filters.anio;
+      const medidasMatch=(!filters.ancho || item.medidas.ancho===filters.ancho) &&
+                         (!filters.altura || item.medidas.altura===filters.altura);
+      const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' ||
+                     (filters.pos==='Delantera' && item.posicion.includes('Del')) ||
+                     (filters.pos==='Trasera' && item.posicion.includes('Tras'));
+      return busqMatch && marcaMatch && modeloMatch && anioMatch && medidasMatch && posMatch;
+    });
+
+    updateDatalists(filtered);
+
     els.count.textContent=filtered.length;
     els.results.innerHTML=filtered.map(item=>{
       const posBadge=item.posicion.includes('Del')?'<span class="position-badge position-delantera">Delantera</span>':'';
       const posBadge2=item.posicion.includes('Tras')?'<span class="position-badge position-trasera">Trasera</span>':'';
       const fav=isFavorite(item.id);
-      return `<div class="result-card" data-id="${item.id}">
+      return `<div class="result-card">
         <svg class="favorite-btn" data-id="${item.id}" xmlns="http://www.w3.org/2000/svg" fill="${fav?'currentColor':'none'}" stroke="${fav?'none':'currentColor'}" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
         </svg>
@@ -191,43 +215,16 @@ document.addEventListener('DOMContentLoaded',()=>{
         <div class="result-field"><strong>Modelo:</strong> ${item.modelo}</div>
         <div class="result-field"><strong>Año:</strong> ${item.anio}</div>
         <div class="result-field"><strong>Ref:</strong> ${item.ref}</div>
-        <div class="result-field"><strong>Especificación:</strong> ${item.especificacion}</div>
         <div class="result-field"><strong>Ancho:</strong> ${item.medidas.ancho} mm</div>
         <div class="result-field"><strong>Altura:</strong> ${item.medidas.altura} mm</div>
         <div class="result-field">${posBadge}${posBadge2}</div>
       </div>`;
     }).join('');
     document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
-  };
+  }
 
-  const filterData=()=>{
-    updateDatalists();
-    const filters={
-      busqueda:els.busqueda.value.toLowerCase().trim(),
-      marca:els.marca.value,
-      modelo:els.modelo.value,
-      anio:els.anio.value?parseInt(els.anio.value):null,
-      especificacion:els.especificacion.value,
-      ancho:els.ancho.value?parseFloat(els.ancho.value):null,
-      altura:els.altura.value?parseFloat(els.altura.value):null,
-      pos:getPos()
-    };
-    const filtered=brakePadsData.filter(item=>{
-      const busqMatch=!filters.busqueda||item.marca.toLowerCase().includes(filters.busqueda)||item.modelo.toLowerCase().includes(filters.busqueda)||item.ref.toLowerCase().includes(filters.busqueda);
-      const marcaMatch=!filters.marca||item.marca===filters.marca;
-      const modeloMatch=!filters.modelo||item.modelo===filters.modelo;
-      const anioMatch=!filters.anio||item.anio===filters.anio;
-      const especMatch=!filters.especificacion||item.especificacion.toLowerCase()===filters.especificacion.toLowerCase();
-      const medidasMatch=(!filters.ancho||item.medidas.ancho===filters.ancho)&&(!filters.altura||item.medidas.altura===filters.altura);
-      const posMatch=filters.pos==='Todas'||filters.pos==='Ambas'||(filters.pos==='Delantera'&&item.posicion.includes('Del'))||(filters.pos==='Trasera'&&item.posicion.includes('Tras'));
-      return busqMatch && marcaMatch && modeloMatch && anioMatch && especMatch && medidasMatch && posMatch;
-    });
-    renderResults(filtered);
-  };
-
-  [els.busqueda,els.marca,els.modelo,els.anio,els.especificacion,els.ancho,els.altura].forEach(i=>i.addEventListener('input',filterData));
-  [els.posDel,els.posTras].forEach(btn=>btn.addEventListener('click',()=>{btn.classList.toggle('active'); filterData();}));
-
+  [els.busqueda, els.marca, els.modelo, els.anio, els.ancho, els.altura].forEach(i=>i.addEventListener('input',filterData));
+  [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
   document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
 
   filterData();
