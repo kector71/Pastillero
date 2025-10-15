@@ -110,8 +110,11 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
   <datalist id="anios"></datalist>
 
   <div class="filter-title">Especificaciones Técnicas</div>
-  <input list="especificaciones" id="filtroEspecificacion" class="form-input" placeholder="Especificación">
-  <datalist id="especificaciones"></datalist>
+  <input list="especificaciones" id="filtroEspecificacion" class="form-input" placeholder="OEM o Platina FMSI">
+  <datalist id="especificaciones">
+    <option value="OEM">
+    <option value="Platina FMSI">
+  </datalist>
 
   <div class="filter-title">Medidas</div>
   <input type="number" id="medidaAncho" placeholder="Ancho (mm)" step="0.1" class="form-input">
@@ -125,63 +128,61 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 </div>
 
 <div class="results-wrapper" id="results-container"></div>
-<div style="max-width:600px; margin:0 auto; font-size:0.75rem; color:#4b5563;">
+<div style="text-align:center; margin-top:0.5rem; font-size:0.85rem;">
   <span id="resultCount">0</span> resultados
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', ()=>{
-  const els = {
-    busqueda: document.getElementById('busquedaRapida'),
-    marca: document.getElementById('filtroMarca'),
-    modelo: document.getElementById('filtroModelo'),
-    anio: document.getElementById('filtroAnio'),
-    especificacion: document.getElementById('filtroEspecificacion'),
-    ancho: document.getElementById('medidaAncho'),
-    altura: document.getElementById('medidaAltura'),
-    posDel: document.getElementById('positionDelantera'),
-    posTras: document.getElementById('positionTras'),
-    results: document.getElementById('results-container'),
-    count: document.getElementById('resultCount'),
-    datalistMarca: document.getElementById('marcas'),
-    datalistModelo: document.getElementById('modelos'),
-    datalistAnio: document.getElementById('anios'),
-    datalistEspecificacion: document.getElementById('especificaciones')
+document.addEventListener('DOMContentLoaded',()=>{
+  const els={
+    busqueda:document.getElementById('busquedaRapida'),
+    marca:document.getElementById('filtroMarca'),
+    modelo:document.getElementById('filtroModelo'),
+    anio:document.getElementById('filtroAnio'),
+    especificacion:document.getElementById('filtroEspecificacion'),
+    ancho:document.getElementById('medidaAncho'),
+    altura:document.getElementById('medidaAltura'),
+    posDel:document.getElementById('positionDelantera'),
+    posTras:document.getElementById('positionTras'),
+    results:document.getElementById('results-container'),
+    count:document.getElementById('resultCount'),
+    datalistMarca:document.getElementById('marcas'),
+    datalistModelo:document.getElementById('modelos'),
+    datalistAnio:document.getElementById('anios')
   };
 
-  let brakePadsData = [
-    {id:0, marca:'A', modelo:'X', anio:2020, ref:'123', especificacion:'STD', medidas:{ancho:100, altura:50}, posicion:'Delantera'},
-    {id:1, marca:'B', modelo:'Y', anio:2021, ref:'456', especificacion:'XL', medidas:{ancho:120, altura:60}, posicion:'Trasera'},
-    {id:2, marca:'C', modelo:'Z', anio:2022, ref:'789', especificacion:'STD', medidas:{ancho:100, altura:50}, posicion:'Delantera/Trasera'}
+  let brakePadsData=[
+    {id:0, marca:'A', modelo:'X', anio:2020, ref:'123', especificacion:'OEM', medidas:{ancho:100, altura:50}, posicion:'Delantera'},
+    {id:1, marca:'B', modelo:'Y', anio:2021, ref:'456', especificacion:'Platina FMSI', medidas:{ancho:120, altura:60}, posicion:'Trasera'},
+    {id:2, marca:'C', modelo:'Z', anio:2022, ref:'789', especificacion:'OEM', medidas:{ancho:100, altura:50}, posicion:'Delantera/Trasera'}
   ];
 
-  const isFavorite = id => JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(id);
-  const toggleFavorite = e => {
-    const id = Number(e.target.closest('.favorite-btn').dataset.id);
-    let favs = JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
-    if(favs.includes(id)) favs = favs.filter(f=>f!==id); else favs.push(id);
-    localStorage.setItem('brakePadFavorites', JSON.stringify(favs));
+  const isFavorite=id=>JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(id);
+  const toggleFavorite=e=>{
+    const id=Number(e.target.closest('.favorite-btn').dataset.id);
+    let favs=JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
+    if(favs.includes(id)) favs=favs.filter(f=>f!==id); else favs.push(id);
+    localStorage.setItem('brakePadFavorites',JSON.stringify(favs));
     filterData();
   };
 
-  const getPos = ()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
-    els.posDel.classList.contains('active') ? 'Delantera' :
-    els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
+  const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
+                   els.posDel.classList.contains('active') ? 'Delantera' :
+                   els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
 
-  const fillDatalist = (datalist, items)=> datalist.innerHTML = items.map(i=>`<option value="${i}">`).join('');
-  const updateDatalists = ()=>{
+  const fillDatalist=(datalist,items)=>datalist.innerHTML=items.map(i=>`<option value="${i}">`).join('');
+  const updateDatalists=()=>{
     fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
     fillDatalist(els.datalistModelo,[...new Set(brakePadsData.map(d=>d.modelo))].sort());
     fillDatalist(els.datalistAnio,[...new Set(brakePadsData.map(d=>d.anio))].sort((a,b)=>a-b));
-    fillDatalist(els.datalistEspecificacion,[...new Set(brakePadsData.map(d=>d.especificacion))].sort());
   };
 
-  const renderResults = filtered=>{
-    els.count.textContent = filtered.length;
-    els.results.innerHTML = filtered.map(item=>{
-      const posBadge = item.posicion.includes('Del')?'<span class="position-badge position-delantera">Delantera</span>':'';
-      const posBadge2 = item.posicion.includes('Tras')?'<span class="position-badge position-trasera">Trasera</span>':'';
-      const fav = isFavorite(item.id);
+  const renderResults=filtered=>{
+    els.count.textContent=filtered.length;
+    els.results.innerHTML=filtered.map(item=>{
+      const posBadge=item.posicion.includes('Del')?'<span class="position-badge position-delantera">Delantera</span>':'';
+      const posBadge2=item.posicion.includes('Tras')?'<span class="position-badge position-trasera">Trasera</span>':'';
+      const fav=isFavorite(item.id);
       return `<div class="result-card" data-id="${item.id}">
         <svg class="favorite-btn" data-id="${item.id}" xmlns="http://www.w3.org/2000/svg" fill="${fav?'currentColor':'none'}" stroke="${fav?'none':'currentColor'}" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
@@ -199,33 +200,33 @@ document.addEventListener('DOMContentLoaded', ()=>{
     document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
   };
 
-  const filterData = ()=>{
+  const filterData=()=>{
     updateDatalists();
-    const filters = {
-      busqueda: els.busqueda.value.toLowerCase().trim(),
-      marca: els.marca.value,
-      modelo: els.modelo.value,
-      anio: els.anio.value?parseInt(els.anio.value):null,
-      especificacion: els.especificacion.value,
-      ancho: els.ancho.value?parseFloat(els.ancho.value):null,
-      altura: els.altura.value?parseFloat(els.altura.value):null,
-      pos: getPos()
+    const filters={
+      busqueda:els.busqueda.value.toLowerCase().trim(),
+      marca:els.marca.value,
+      modelo:els.modelo.value,
+      anio:els.anio.value?parseInt(els.anio.value):null,
+      especificacion:els.especificacion.value,
+      ancho:els.ancho.value?parseFloat(els.ancho.value):null,
+      altura:els.altura.value?parseFloat(els.altura.value):null,
+      pos:getPos()
     };
-    const filtered = brakePadsData.filter(item=>{
-      const busqMatch = !filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) || item.modelo.toLowerCase().includes(filters.busqueda) || item.ref.toLowerCase().includes(filters.busqueda);
-      const marcaMatch = !filters.marca || item.marca===filters.marca;
-      const modeloMatch = !filters.modelo || item.modelo===filters.modelo;
-      const anioMatch = !filters.anio || item.anio===filters.anio;
-      const especMatch = !filters.especificacion || item.especificacion===filters.especificacion;
-      const medidasMatch = (!filters.ancho || item.medidas.ancho===filters.ancho) && (!filters.altura || item.medidas.altura===filters.altura);
-      const posMatch = filters.pos==='Todas'||filters.pos==='Ambas'||(filters.pos==='Delantera' && item.posicion.includes('Del'))||(filters.pos==='Trasera' && item.posicion.includes('Tras'));
+    const filtered=brakePadsData.filter(item=>{
+      const busqMatch=!filters.busqueda||item.marca.toLowerCase().includes(filters.busqueda)||item.modelo.toLowerCase().includes(filters.busqueda)||item.ref.toLowerCase().includes(filters.busqueda);
+      const marcaMatch=!filters.marca||item.marca===filters.marca;
+      const modeloMatch=!filters.modelo||item.modelo===filters.modelo;
+      const anioMatch=!filters.anio||item.anio===filters.anio;
+      const especMatch=!filters.especificacion||item.especificacion.toLowerCase()===filters.especificacion.toLowerCase();
+      const medidasMatch=(!filters.ancho||item.medidas.ancho===filters.ancho)&&(!filters.altura||item.medidas.altura===filters.altura);
+      const posMatch=filters.pos==='Todas'||filters.pos==='Ambas'||(filters.pos==='Delantera'&&item.posicion.includes('Del'))||(filters.pos==='Trasera'&&item.posicion.includes('Tras'));
       return busqMatch && marcaMatch && modeloMatch && anioMatch && especMatch && medidasMatch && posMatch;
     });
     renderResults(filtered);
   };
 
-  [els.busqueda, els.marca, els.modelo, els.anio, els.especificacion, els.ancho, els.altura].forEach(i=>i.addEventListener('input',filterData));
-  [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
+  [els.busqueda,els.marca,els.modelo,els.anio,els.especificacion,els.ancho,els.altura].forEach(i=>i.addEventListener('input',filterData));
+  [els.posDel,els.posTras].forEach(btn=>btn.addEventListener('click',()=>{btn.classList.toggle('active'); filterData();}));
 
   document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
 
