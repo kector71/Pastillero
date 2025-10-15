@@ -17,7 +17,7 @@ body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
 .glass {
   background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
   border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
-  padding:1.5rem; max-width:600px; margin:0 auto;
+  padding:1.5rem; max-width:600px; margin:0 auto 2rem auto;
   display:flex; flex-direction:column; gap:0.75rem;
 }
 body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
@@ -26,7 +26,7 @@ body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,25
 body.dark .filter-title { color:#fff; }
 
 .form-input {
-  width: 100%; max-width: 100%; padding:0.4rem 0.75rem; 
+  width: 100%; max-width: 100%; padding:0.35rem 0.75rem; 
   border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
   background-color: rgba(255,255,255,0.25); color: #000;
   font-size: 0.85rem; transition: all 0.3s ease; box-sizing: border-box; margin-bottom:0.5rem; overflow:hidden;
@@ -46,15 +46,29 @@ body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) 
 body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; }
 body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
 
-.results-wrapper { display:flex; flex-direction:column; gap:0.5rem; }
-.result-card {
-  background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
-  border-radius:1rem; padding:0.75rem; border:1px solid rgba(255,255,255,0.3);
-  display:flex; flex-direction:column; gap:0.25rem; position:relative;
-  cursor:pointer; transition: all 0.3s ease;
+.results-wrapper {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:0.5rem;
+  max-width:600px;
+  margin:0 auto;
 }
-.result-card:hover { transform: scale(1.02); }
+.result-card {
+  display:flex; flex-direction:column; gap:0.25rem; padding:0.75rem; border-radius:1rem;
+  background-color: rgba(255,255,255,0.25); backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.3); position:relative; cursor:pointer; transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
 body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
+
+/* Efecto hover */
+.result-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+body.dark .result-card:hover {
+  box-shadow: 0 8px 20px rgba(255,255,255,0.15);
+}
+
 .result-field{ font-size:0.85rem; }
 body.dark .result-field{ color:#fff; }
 
@@ -70,19 +84,9 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 .toggle-dark{ position:fixed; top:1rem; right:1rem; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; background-color:#2563eb; color:#fff; border:none; transition: background 0.3s ease;}
 .toggle-dark:hover{ background-color:#1e40af; }
 
-.detail-card {
-  position:fixed; top:50%; left:50%; transform:translate(-50%, -50%) scale(0);
-  width:90%; max-width:500px; background-color:rgba(255,255,255,0.95);
-  backdrop-filter:blur(12px); border-radius:1rem; padding:1rem; z-index:1000;
-  transition: transform 0.3s ease;
-}
-body.dark .detail-card { background-color:rgba(0,0,0,0.9); color:#fff; }
-.detail-card.show { transform:translate(-50%, -50%) scale(1); }
-.detail-close { position:absolute; top:0.5rem; right:0.5rem; cursor:pointer; font-weight:bold; font-size:1.2rem; }
-
 @media(max-width:600px){
   .position-container{ flex-direction:column; }
-  .form-input{ font-size:0.9rem; padding:0.6rem; }
+  .form-input{ font-size:0.9rem; padding:0.5rem; }
   .position-btn{ font-size:1rem; padding:0.8rem; min-width:auto; }
   .result-field{ font-size:0.9rem; }
 }
@@ -91,8 +95,8 @@ body.dark .detail-card { background-color:rgba(0,0,0,0.9); color:#fff; }
 <body>
 
 <button class="toggle-dark">Modo Oscuro</button>
-<div class="glass">
 
+<div class="glass">
   <div class="filter-title">Búsqueda rápida</div>
   <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref..." class="form-input">
 
@@ -119,14 +123,12 @@ body.dark .detail-card { background-color:rgba(0,0,0,0.9); color:#fff; }
     <div class="position-btn" id="positionDelantera">Delantera</div>
     <div class="position-btn" id="positionTras">Trasera</div>
   </div>
-
-  <div class="results-wrapper" id="results-container"></div>
-  <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
 </div>
 
-<div class="detail-card" id="detailCard">
-  <div class="detail-close" id="detailClose">×</div>
-  <div id="detailContent"></div>
+<!-- Resultados fuera del glass -->
+<div class="results-wrapper" id="results-container"></div>
+<div style="max-width:600px; margin:0 auto; font-size:0.75rem; color:#4b5563;">
+  <span id="resultCount">0</span> resultados
 </div>
 
 <script>
@@ -150,17 +152,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
   };
 
   let brakePadsData = [
-    {id:1, marca:'Toyota', modelo:'Corolla', anio:2021, ref:'124', medidas:{ancho:100, altura:50}, posicion:'Trasera', especificacion:'Semi-Metal'},
-    {id:2, marca:'Honda', modelo:'Civic', anio:2019, ref:'125', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera', especificacion:'Cerámica'},
-    {id:3, marca:'Ford', modelo:'Focus', anio:2020, ref:'126', medidas:{ancho:102, altura:52}, posicion:'Delantera', especificacion:'Cerámica'}
+    {id:0, marca:'A', modelo:'X', anio:2020, ref:'123', especificacion:'STD', medidas:{ancho:100, altura:50}, posicion:'Delantera'},
+    {id:1, marca:'B', modelo:'Y', anio:2021, ref:'456', especificacion:'XL', medidas:{ancho:120, altura:60}, posicion:'Trasera'},
+    {id:2, marca:'C', modelo:'Z', anio:2022, ref:'789', especificacion:'STD', medidas:{ancho:100, altura:50}, posicion:'Delantera/Trasera'}
   ];
 
   const isFavorite = id => JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(id);
   const toggleFavorite = e => {
-    const id = parseInt(e.target.closest('.favorite-btn').dataset.id);
+    const id = Number(e.target.closest('.favorite-btn').dataset.id);
     let favs = JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
-    if(favs.includes(id)) favs=favs.filter(f=>f!==id);
-    else favs.push(id);
+    if(favs.includes(id)) favs = favs.filter(f=>f!==id); else favs.push(id);
     localStorage.setItem('brakePadFavorites', JSON.stringify(favs));
     filterData();
   };
@@ -170,16 +171,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
 
   const fillDatalist = (datalist, items)=> datalist.innerHTML = items.map(i=>`<option value="${i}">`).join('');
-
   const updateDatalists = ()=>{
-    let filtered = brakePadsData;
-    if(els.marca.value) filtered = filtered.filter(d=>d.marca===els.marca.value);
-    if(els.modelo.value) filtered = filtered.filter(d=>d.modelo===els.modelo.value);
-    if(els.anio.value) filtered = filtered.filter(d=>d.anio===parseInt(els.anio.value));
     fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
-    fillDatalist(els.datalistModelo,[...new Set(filtered.map(d=>d.modelo))].sort());
-    fillDatalist(els.datalistAnio,[...new Set(filtered.map(d=>d.anio))].sort((a,b)=>a-b));
-    fillDatalist(els.datalistEspecificacion,[...new Set(filtered.map(d=>d.especificacion))].sort());
+    fillDatalist(els.datalistModelo,[...new Set(brakePadsData.map(d=>d.modelo))].sort());
+    fillDatalist(els.datalistAnio,[...new Set(brakePadsData.map(d=>d.anio))].sort((a,b)=>a-b));
+    fillDatalist(els.datalistEspecificacion,[...new Set(brakePadsData.map(d=>d.especificacion))].sort());
   };
 
   const renderResults = filtered=>{
@@ -203,22 +199,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
       </div>`;
     }).join('');
     document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
-    document.querySelectorAll('.result-card').forEach(card=>{
-      card.addEventListener('click', ()=>{
-        const id = parseInt(card.dataset.id);
-        const item = brakePadsData.find(d=>d.id===id);
-        const detail = document.getElementById('detailContent');
-        detail.innerHTML = `
-          <h3>${item.marca} ${item.modelo} (${item.anio})</h3>
-          <p><strong>Referencia:</strong> ${item.ref}</p>
-          <p><strong>Especificación:</strong> ${item.especificacion}</p>
-          <p><strong>Ancho:</strong> ${item.medidas.ancho} mm</p>
-          <p><strong>Altura:</strong> ${item.medidas.altura} mm</p>
-          <p><strong>Posición:</strong> ${item.posicion}</p>
-        `;
-        document.getElementById('detailCard').classList.add('show');
-      });
-    });
   };
 
   const filterData = ()=>{
@@ -250,10 +230,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
   [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
 
   document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
-  document.getElementById('detailClose').addEventListener('click',()=>document.getElementById('detailCard').classList.remove('show'));
 
   filterData();
 });
 </script>
+
 </body>
 </html>
