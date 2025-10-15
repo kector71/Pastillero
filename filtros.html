@@ -26,18 +26,10 @@ body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,25
 body.dark .filter-title { color:#fff; }
 
 .form-input {
-  width: 100%;
-  max-width: 100%;
-  padding: 0.4rem 0.75rem; 
-  border-radius: 1rem;
-  border: 1px solid rgba(0,0,0,0.15);
-  background-color: rgba(255,255,255,0.25);
-  color: #000;
-  font-size: 0.85rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-  margin-bottom: 0.5rem;
-  overflow: hidden;
+  width: 100%; max-width: 100%; padding:0.4rem 0.75rem; 
+  border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
+  background-color: rgba(255,255,255,0.25); color: #000;
+  font-size: 0.85rem; transition: all 0.3s ease; box-sizing: border-box; margin-bottom:0.5rem; overflow:hidden;
 }
 .form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
 body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
@@ -59,7 +51,9 @@ body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444;
   background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
   border-radius:1rem; padding:0.75rem; border:1px solid rgba(255,255,255,0.3);
   display:flex; flex-direction:column; gap:0.25rem; position:relative;
+  cursor:pointer; transition: all 0.3s ease;
 }
+.result-card:hover { transform: scale(1.02); }
 body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
 .result-field{ font-size:0.85rem; }
 body.dark .result-field{ color:#fff; }
@@ -75,6 +69,16 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 
 .toggle-dark{ position:fixed; top:1rem; right:1rem; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; background-color:#2563eb; color:#fff; border:none; transition: background 0.3s ease;}
 .toggle-dark:hover{ background-color:#1e40af; }
+
+.detail-card {
+  position:fixed; top:50%; left:50%; transform:translate(-50%, -50%) scale(0);
+  width:90%; max-width:500px; background-color:rgba(255,255,255,0.95);
+  backdrop-filter:blur(12px); border-radius:1rem; padding:1rem; z-index:1000;
+  transition: transform 0.3s ease;
+}
+body.dark .detail-card { background-color:rgba(0,0,0,0.9); color:#fff; }
+.detail-card.show { transform:translate(-50%, -50%) scale(1); }
+.detail-close { position:absolute; top:0.5rem; right:0.5rem; cursor:pointer; font-weight:bold; font-size:1.2rem; }
 
 @media(max-width:600px){
   .position-container{ flex-direction:column; }
@@ -120,6 +124,11 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
   <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
 </div>
 
+<div class="detail-card" id="detailCard">
+  <div class="detail-close" id="detailClose">×</div>
+  <div id="detailContent"></div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
   const els = {
@@ -128,22 +137,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
     modelo: document.getElementById('filtroModelo'),
     anio: document.getElementById('filtroAnio'),
     especificacion: document.getElementById('filtroEspecificacion'),
-    datalistMarca: document.getElementById('marcas'),
-    datalistModelo: document.getElementById('modelos'),
-    datalistAnio: document.getElementById('anios'),
-    datalistEspecificacion: document.getElementById('especificaciones'),
     ancho: document.getElementById('medidaAncho'),
     altura: document.getElementById('medidaAltura'),
     posDel: document.getElementById('positionDelantera'),
     posTras: document.getElementById('positionTras'),
     results: document.getElementById('results-container'),
-    count: document.getElementById('resultCount')
+    count: document.getElementById('resultCount'),
+    datalistMarca: document.getElementById('marcas'),
+    datalistModelo: document.getElementById('modelos'),
+    datalistAnio: document.getElementById('anios'),
+    datalistEspecificacion: document.getElementById('especificaciones')
   };
 
   let brakePadsData = [
-    {id:1, marca:'Toyota', modelo:'Corolla', anio:2020, ref:'123', medidas:{ancho:100, altura:50}, posicion:'Delantera', especificacion:'Cerámica'},
-    {id:2, marca:'Toyota', modelo:'Corolla', anio:2021, ref:'124', medidas:{ancho:100, altura:50}, posicion:'Trasera', especificacion:'Semi-Metal'},
-    {id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'125', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera', especificacion:'Cerámica'}
+    {id:1, marca:'Toyota', modelo:'Corolla', anio:2021, ref:'124', medidas:{ancho:100, altura:50}, posicion:'Trasera', especificacion:'Semi-Metal'},
+    {id:2, marca:'Honda', modelo:'Civic', anio:2019, ref:'125', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera', especificacion:'Cerámica'},
+    {id:3, marca:'Ford', modelo:'Focus', anio:2020, ref:'126', medidas:{ancho:102, altura:52}, posicion:'Delantera', especificacion:'Cerámica'}
   ];
 
   const isFavorite = id => JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(id);
@@ -152,7 +161,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     let favs = JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
     if(favs.includes(id)) favs=favs.filter(f=>f!==id);
     else favs.push(id);
-    localStorage.setItem('brakePadFavorites',JSON.stringify(favs));
+    localStorage.setItem('brakePadFavorites', JSON.stringify(favs));
     filterData();
   };
 
@@ -160,16 +169,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
     els.posDel.classList.contains('active') ? 'Delantera' :
     els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
 
-  const fillDatalist = (datalist, items)=>{
-    datalist.innerHTML = items.map(i=>`<option value="${i}">`).join('');
-  };
+  const fillDatalist = (datalist, items)=> datalist.innerHTML = items.map(i=>`<option value="${i}">`).join('');
 
   const updateDatalists = ()=>{
     let filtered = brakePadsData;
     if(els.marca.value) filtered = filtered.filter(d=>d.marca===els.marca.value);
     if(els.modelo.value) filtered = filtered.filter(d=>d.modelo===els.modelo.value);
     if(els.anio.value) filtered = filtered.filter(d=>d.anio===parseInt(els.anio.value));
-
     fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
     fillDatalist(els.datalistModelo,[...new Set(filtered.map(d=>d.modelo))].sort());
     fillDatalist(els.datalistAnio,[...new Set(filtered.map(d=>d.anio))].sort((a,b)=>a-b));
@@ -182,7 +188,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const posBadge = item.posicion.includes('Del')?'<span class="position-badge position-delantera">Delantera</span>':'';
       const posBadge2 = item.posicion.includes('Tras')?'<span class="position-badge position-trasera">Trasera</span>':'';
       const fav = isFavorite(item.id);
-      return `<div class="result-card">
+      return `<div class="result-card" data-id="${item.id}">
         <svg class="favorite-btn" data-id="${item.id}" xmlns="http://www.w3.org/2000/svg" fill="${fav?'currentColor':'none'}" stroke="${fav?'none':'currentColor'}" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
         </svg>
@@ -197,6 +203,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
       </div>`;
     }).join('');
     document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
+    document.querySelectorAll('.result-card').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const id = parseInt(card.dataset.id);
+        const item = brakePadsData.find(d=>d.id===id);
+        const detail = document.getElementById('detailContent');
+        detail.innerHTML = `
+          <h3>${item.marca} ${item.modelo} (${item.anio})</h3>
+          <p><strong>Referencia:</strong> ${item.ref}</p>
+          <p><strong>Especificación:</strong> ${item.especificacion}</p>
+          <p><strong>Ancho:</strong> ${item.medidas.ancho} mm</p>
+          <p><strong>Altura:</strong> ${item.medidas.altura} mm</p>
+          <p><strong>Posición:</strong> ${item.posicion}</p>
+        `;
+        document.getElementById('detailCard').classList.add('show');
+      });
+    });
   };
 
   const filterData = ()=>{
@@ -226,11 +248,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   [els.busqueda, els.marca, els.modelo, els.anio, els.especificacion, els.ancho, els.altura].forEach(i=>i.addEventListener('input',filterData));
   [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
+
   document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
-  
+  document.getElementById('detailClose').addEventListener('click',()=>document.getElementById('detailCard').classList.remove('show'));
+
   filterData();
 });
 </script>
-
 </body>
 </html>
