@@ -5,41 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filtro Vehículos Responsive</title>
 <style>
+:root {
+  --bg-light: rgba(255,255,255,0.25);
+  --bg-dark: rgba(0,0,0,0.25);
+  --border-light: rgba(255,255,255,0.3);
+  --border-dark: rgba(255,255,255,0.2);
+  --text-light: #000;
+  --text-dark: #fff;
+  --delantera-color: #60a5fa;
+  --trasera-color: #f87171;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin:0; padding:2rem;
   background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
   min-height:100vh;
   transition: background 0.5s ease, color 0.5s ease;
-  color:#000;
+  color: var(--text-light);
 }
-body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
+body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color: var(--text-dark); }
 
 .glass {
-  background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
-  border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
+  background-color: var(--bg-light); backdrop-filter: blur(12px);
+  border:1px solid var(--border-light); border-radius:1rem;
   padding:1.5rem; max-width:700px; margin:0 auto;
   display:flex; flex-direction:column; gap:1rem;
 }
-body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
+body.dark .glass { background-color: var(--bg-dark); border-color: var(--border-dark); }
 
 .filter-title { font-weight:600; font-size:1rem; }
-body.dark .filter-title { color:#fff; }
+body.dark .filter-title { color: var(--text-dark); }
 
 .form-input {
   width: 100%;
   padding: 1rem;
   border-radius: 1rem;
   border: 1px solid rgba(0,0,0,0.15);
-  background-color: rgba(255,255,255,0.25);
-  color: #000;
+  background-color: var(--bg-light);
+  color: var(--text-light);
   font-size: 1rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
   margin-bottom: 0.5rem;
 }
 .form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
-body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
+body.dark .form-input { background-color: var(--bg-dark); color: var(--text-dark); border-color: var(--border-dark); }
 
 .position-container {
   display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;
@@ -47,36 +58,34 @@ body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-c
 .position-btn {
   flex:1; min-width:140px; max-width:180px; padding:1rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
   cursor:pointer; font-size:1rem; text-align:center; transition: all 0.3s ease;
-  background-color: rgba(255,255,255,0.25); color: #000;
+  background-color: var(--bg-light); color: var(--text-light);
 }
-#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
-#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
-body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
-body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; }
-body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
+#positionDelantera.active { background-color: var(--delantera-color); border-color:#3b82f6; color:#fff; }
+#positionTras.active { background-color: var(--trasera-color); border-color:#ef4444; color:#fff; }
+body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) { background-color: var(--bg-dark); color: var(--text-dark); border-color: var(--border-dark); }
 
 .results-wrapper { 
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap:0.75rem;
   max-width:1200px;
   margin:0 auto;
 }
 .result-card {
-  background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
-  border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
+  background-color: var(--bg-light); backdrop-filter: blur(10px);
+  border-radius:1rem; padding:1rem; border:1px solid var(--border-light);
   display:flex; flex-direction:column; gap:0.25rem; position:relative;
   opacity:0; transform: translateY(10px);
   animation: fadeInUp 0.3s forwards;
 }
-body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
+body.dark .result-card { background-color: var(--bg-dark); border-color: var(--border-dark); }
 
 @keyframes fadeInUp {
   to { opacity:1; transform: translateY(0); }
 }
 
 .result-field{ font-size:0.9rem; }
-body.dark .result-field{ color:#fff; }
+body.dark .result-field{ color:var(--text-dark); }
 
 .result-image{
   width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem;
@@ -120,17 +129,18 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
   <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
   <datalist id="anios"></datalist>
 
+  <div class="filter-title">Medidas</div>
+  <div class="medidas-container">
+    <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input" style="flex:1">
+    <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input" style="flex:1">
+  </div>
+
+  <div class="filter-title">Referencias y códigos</div>
   <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM">
   <datalist id="oemList"></datalist>
 
   <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI">
   <datalist id="fmsiList"></datalist>
-
-  <div class="filter-title">Medidas</div>
-  <div class="medidas-container">
-    <input type="text" id="medidasAncho" placeholder="Ancho (mm)" class="form-input" style="flex:1">
-    <input type="text" id="medidasAlto" placeholder="Alto (mm)" class="form-input" style="flex:1">
-  </div>
 
   <div class="filter-title">Posición</div>
   <div class="position-container">
@@ -169,21 +179,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   fetch('pastillas.json')
     .then(res=>res.json())
-    .then(data=>{ brakePadsData = data; filterData(); });
+    .then(data=>{ 
+      brakePadsData = data; 
+      updateDatalists();
+      filterData(); 
+    });
 
-  const fillDatalist=(datalist,values)=>{ datalist.innerHTML=''; values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`) }
+  const fillDatalist=(datalist,values)=>{
+    datalist.innerHTML='';
+    values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`)
+  }
 
   const updateDatalists=()=>{
-    const marcas=[...new Set(brakePadsData.map(d=>d.marca))].sort();
-    const modelos=[...new Set(brakePadsData.map(d=>d.modelo))].sort();
-    const anios=[...new Set(brakePadsData.map(d=>d.año))].sort();
-    const oems=[...new Set(brakePadsData.map(d=>d.oem))].sort();
-    const fmsis=[...new Set(brakePadsData.map(d=>d.fmsi))].sort();
-    fillDatalist(els.datalistMarca,marcas);
-    fillDatalist(els.datalistModelo,modelos);
-    fillDatalist(els.datalistAnio,anios);
-    fillDatalist(els.datalistOem,oems);
-    fillDatalist(els.datalistFmsi,fmsis);
+    fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
+    fillDatalist(els.datalistModelo,[...new Set(brakePadsData.map(d=>d.modelo))].sort());
+    fillDatalist(els.datalistAnio,[...new Set(brakePadsData.map(d=>d.año))].sort());
+    fillDatalist(els.datalistOem,[...new Set(brakePadsData.map(d=>d.oem))].sort());
+    fillDatalist(els.datalistFmsi,[...new Set(brakePadsData.map(d=>d.fmsi))].sort());
   }
 
   const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
@@ -215,8 +227,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const fmsiMatch=!filters.fmsi || item.fmsi===filters.fmsi;
 
       let anchoMatch = true, altoMatch = true;
-      if(filters.ancho) anchoMatch = item.medidas.split('x')[0]?.trim().includes(filters.ancho);
-      if(filters.alto) altoMatch = item.medidas.split('x')[1]?.trim().includes(filters.alto);
+      if(filters.ancho || filters.alto){
+        const partes = item.medidas.split('x').map(s=>s.trim());
+        anchoMatch = !filters.ancho || (partes[0] && partes[0].includes(filters.ancho));
+        altoMatch = !filters.alto || (partes[1] && partes[1].includes(filters.alto));
+      }
 
       const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' ||
                      (filters.pos==='Delantera' && item.posición.includes('Del')) ||
@@ -224,15 +239,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && anchoMatch && altoMatch && posMatch;
     });
 
-    updateDatalists();
-
     els.count.textContent=filtered.length;
     els.results.innerHTML=filtered.map(item=>{
       const posBadge = [];
       if(item.posición.includes('Del')) posBadge.push('<span class="position-badge position-delantera">Delantera</span>');
       if(item.posición.includes('Tras')) posBadge.push('<span class="position-badge position-trasera">Trasera</span>');
       return `<div class="result-card">
-        <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image">
+        <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
         <div class="result-field"><strong>${item.marca} ${item.modelo}</strong></div>
         <div class="result-field">Año: ${item.año}</div>
         <div class="result-field">OEM: ${item.oem}</div>
