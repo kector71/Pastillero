@@ -1,257 +1,328 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Filtro Vehículos Responsive</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Filtro Vehículos - OEM & FMSI</title>
 <style>
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin:0; padding:2rem;
-  background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
-  min-height:100vh;
-  color:#000;
-}
+  * { box-sizing: border-box; }
+  html,body { height:100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin:0; padding:18px;
+    background: linear-gradient(135deg,#f0f0f0,#d9d9d9);
+    color:#000;
+    transition: background .35s ease, color .35s ease;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  body.dark {
+    background: linear-gradient(135deg,#121212,#0f1724);
+    color:#fff;
+  }
 
-.glass {
-  background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
-  border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
-  padding:1.5rem; max-width:700px; margin:0 auto;
-  display:flex; flex-direction:column; gap:1rem;
-}
+  /* --- Glass card for filters --- */
+  .glass{
+    max-width:720px;
+    margin:0 auto;
+    padding:16px;
+    border-radius:14px;
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(12px);
+    border:1px solid rgba(255,255,255,0.18);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    position:relative;
+  }
+  body.dark .glass{ background: rgba(0,0,0,0.22); border-color: rgba(255,255,255,0.06); }
 
-.filter-title { font-weight:600; font-size:1rem; }
+  .filter-title{ font-weight:600; font-size:1rem; margin-bottom:6px; }
+  body.dark .filter-title{ color: #fff; }
 
-.form-input {
-  width: 100%;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(0,0,0,0.15);
-  background-color: rgba(255,255,255,0.25);
-  color: #000;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-  margin-bottom: 0.5rem;
-}
-.form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
+  .form-input{
+    width:100%;
+    padding:9px 12px;
+    border-radius:12px;
+    border:1px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.25);
+    color:inherit;
+    font-size:0.92rem;
+    transition: all .28s ease, box-shadow .28s ease;
+  }
+  .form-input::placeholder{ color: rgba(0,0,0,0.45); }
+  .form-input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 10px rgba(37,99,235,0.14);
+    background: rgba(255,255,255,0.32);
+  }
+  body.dark .form-input{ background: rgba(0,0,0,0.26); border-color: rgba(255,255,255,0.06); }
+  body.dark .form-input::placeholder{ color: rgba(255,255,255,0.45); }
 
-.position-container {
-  display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;
-}
-.position-btn {
-  flex:1; min-width:140px; max-width:180px; padding:1rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
-  cursor:pointer; font-size:1rem; text-align:center; transition: all 0.3s ease;
-  background-color: rgba(255,255,255,0.25); color: #000;
-}
-#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
-#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
+  /* Position buttons */
+  .position-container{ display:flex; gap:10px; flex-wrap:wrap; }
+  .position-btn{
+    flex:1; min-width:140px;
+    padding:10px 12px; border-radius:12px;
+    border:1px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.24);
+    text-align:center; cursor:pointer; transition: all .28s ease, transform .18s ease;
+    user-select:none; font-weight:600;
+  }
+  .position-btn:active{ transform: translateY(1px); }
+  #positionDelantera.active{
+    background:#9ec9fb; border-color:#3b82f6; color:#052a5f; transform:translateY(-2px); box-shadow:0 6px 18px rgba(59,130,246,0.10);
+  }
+  #positionTras.active{
+    background:#f9b3b3; border-color:#ef4444; color:#5a1414; transform:translateY(-2px); box-shadow:0 6px 18px rgba(239,68,68,0.10);
+  }
+  body.dark .position-btn{ background: rgba(0,0,0,0.26); color: #fff; border-color: rgba(255,255,255,0.06); }
+  body.dark #positionDelantera.active{ box-shadow:0 6px 18px rgba(99,179,237,0.06); }
+  body.dark #positionTras.active{ box-shadow:0 6px 18px rgba(255,128,128,0.05); }
 
-.results-wrapper { 
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap:0.75rem;
-  max-width:1200px;
-  margin:0 auto;
-}
-.result-card {
-  background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
-  border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
-  display:flex; flex-direction:column; gap:0.25rem; position:relative;
-  opacity:0; transform: translateY(10px);
-  animation: fadeInUp 0.3s forwards;
-}
-@keyframes fadeInUp {
-  to { opacity:1; transform: translateY(0); }
-}
+  /* Autocomplete list */
+  .autocomplete-list{
+    position:relative;
+    width:100%;
+    margin-top:8px;
+    border-radius:10px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.14);
+    max-height:140px; overflow-y:auto; z-index:40; display:none;
+  }
+  body.dark .autocomplete-list{ background: rgba(0,0,0,0.20); border-color: rgba(255,255,255,0.06); }
+  .autocomplete-item{ padding:8px 10px; cursor:pointer; font-size:0.92rem; transition: background .12s ease; }
+  .autocomplete-item:hover{ background: rgba(37,99,235,0.08); }
+  body.dark .autocomplete-item:hover{ background: rgba(37,99,235,0.14); }
 
-.result-field{ font-size:0.9rem; }
-.result-image{
-  width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem;
-}
+  /* Results */
+  .results-wrapper{
+    max-width:1100px; margin:0 auto;
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap:12px;
+  }
+  .result-card{
+    padding:12px; border-radius:12px;
+    background: rgba(255,255,255,0.16);
+    backdrop-filter: blur(8px);
+    border:1px solid rgba(255,255,255,0.18);
+    transition: transform .2s ease, box-shadow .2s ease;
+    position:relative;
+  }
+  body.dark .result-card{ background: rgba(0,0,0,0.26); border-color: rgba(255,255,255,0.06); }
+  .result-card:hover{ transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.14); }
+  body.dark .result-card:hover{ box-shadow: 0 12px 28px rgba(255,255,255,0.04); }
 
-.position-badge{ display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; margin-right:0.25rem; text-align:center; }
-.position-delantera{ background-color:#dbeafe; color:#1d4ed8; }
-.position-trasera{ background-color:#fef2f2; color:#b91c1c; }
+  .result-field{ margin-bottom:6px; font-size:0.92rem; }
+  .position-badge{ display:inline-block; padding:6px 8px; border-radius:8px; font-weight:700; margin-right:8px; font-size:0.78rem; }
+  .position-delantera{ background:#dbeafe; color:#1d4ed8; }
+  .position-trasera{ background:#fef2f2; color:#b91c1c; }
+  body.dark .position-delantera{ background:#0a2463; color:#63b3ed; }
+  body.dark .position-trasera{ background:#5a0a0a; color:#fca5a5; }
 
-.medidas-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .favorite-btn{ position:absolute; right:12px; top:12px; width:20px; height:20px; cursor:pointer; opacity:.9; transition: transform .12s ease; }
+  .favorite-btn:hover{ transform: scale(1.12); }
 
-@media(max-width:600px){
-  .position-container{ flex-direction:column; }
-  .form-input{ font-size:1.1rem; padding:1.2rem; }
-  .position-btn{ font-size:1.1rem; padding:1.2rem; min-width:auto; max-width:none; }
-  .result-field{ font-size:1rem; }
-  .medidas-container{ flex-direction:column; }
-}
+  .toggle-dark{ position:fixed; right:14px; top:14px; background:#2563eb;color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700; }
+  .count-info{ text-align:center; color:#374151; margin-top:10px; font-size:0.9rem; }
+  body.dark .count-info{ color:#cbd5e1; }
+
+  @media (max-width:720px){
+    body{ padding:12px; }
+    .glass{ padding:12px; }
+  }
+
+  /* --- PAPELERA ANIMADA --- */
+  .trash-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    position: relative;
+    cursor: pointer;
+    margin-top:12px;
+    align-self:flex-end;
+  }
+
+  .lp-fbtn {
+    width: 64px;
+    height: 64px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px) saturate(250%) brightness(1.3);
+    box-shadow: 0 12px 30px rgba(0,0,0,.25), inset 0 0 6px rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s, background .35s;
+    position: relative;
+  }
+
+  .lp-fbtn::before {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    border-radius:50%;
+    pointer-events:none;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 70%);
+    mix-blend-mode: screen;
+    filter: blur(6px);
+    animation: glowMove 3s ease-in-out infinite;
+  }
+  @keyframes glowMove {
+    0%,100% { transform: scale(1) translate(0,0); }
+    50% { transform: scale(1.1) translate(3px,3px); }
+  }
+
+  .lp-fbtn:hover { animation: lp-bounce .4s; }
+  @keyframes lp-bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .lp-fbtn:active { animation: lp-shake .3s; }
+  @keyframes lp-shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-2px); }
+    40% { transform: translateX(2px); }
+    60% { transform: translateX(-2px); }
+    80% { transform: translateX(2px); }
+    100% { transform: translateX(0); }
+  }
+
+  @keyframes lidOpen {
+    0% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(-25deg) translateY(-2px); }
+    70% { transform: rotate(-18deg) translateY(-1px); }
+    100% { transform: rotate(0deg) translateY(0); }
+  }
 </style>
 </head>
 <body>
 
+<button class="toggle-dark" onclick="document.body.classList.toggle('dark')">Modo oscuro</button>
+
 <div class="glass">
+  <div class="filter-title">Marca</div>
+  <input type="text" class="form-input" id="marca" placeholder="Ej: Toyota">
 
-  <div class="filter-title">Búsqueda rápida</div>
-  <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref..." class="form-input">
-  <button id="limpiarFiltros" style="margin-top:0.5rem; padding:0.5rem 1rem; border-radius:1rem; border:none; background-color:#2563eb; color:#fff; cursor:pointer;">Limpiar filtros</button>
+  <div class="filter-title">Modelo</div>
+  <input type="text" class="form-input" id="modelo" placeholder="Ej: Corolla">
 
-  <div class="filter-title">Detalles del vehículo</div>
-  <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca">
-  <datalist id="marcas"></datalist>
-
-  <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo">
-  <datalist id="modelos"></datalist>
-
-  <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
-  <datalist id="anios"></datalist>
-
-  <div class="filter-title">Medidas</div>
-  <div class="medidas-container">
-    <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input" style="flex:1">
-    <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input" style="flex:1">
-  </div>
-
-  <div class="filter-title">Referencias y códigos</div>
-  <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM">
-  <datalist id="oemList"></datalist>
-
-  <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI">
-  <datalist id="fmsiList"></datalist>
+  <div class="filter-title">Año</div>
+  <input type="text" class="form-input" id="anio" placeholder="Ej: 2022">
 
   <div class="filter-title">Posición</div>
   <div class="position-container">
-    <div class="position-btn" id="positionDelantera">Delantera</div>
-    <div class="position-btn" id="positionTras">Trasera</div>
+    <div id="positionDelantera" class="position-btn">Delantera</div>
+    <div id="positionTras" class="position-btn">Trasera</div>
   </div>
 
-  <div class="results-wrapper" id="results-container"></div>
-  <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
+  <!-- PAPELERA ANIMADA -->
+  <div class="trash-container">
+    <button id="trashBtn" class="lp-fbtn" title="Limpiar filtros">
+      <svg viewBox="0 0 64 64" width="32" height="32">
+        <defs>
+          <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#777"/>
+            <stop offset="100%" stop-color="#444"/>
+          </linearGradient>
+        </defs>
+        <rect x="20" y="22" width="24" height="28" rx="4" ry="4" fill="url(#grad1)" stroke="#222" stroke-width="1"/>
+        <rect id="lid" x="18" y="18" width="28" height="5" rx="3" ry="3" fill="#555"/>
+        <rect x="18" y="18" width="28" height="2" rx="3" ry="3" fill="rgba(255,255,255,0.2)"/>
+        <line x1="26" y1="26" x2="26" y2="46" stroke="#333" stroke-width="2"/>
+        <line x1="32" y1="26" x2="32" y2="46" stroke="#333" stroke-width="2"/>
+        <line x1="38" y1="26" x2="38" y2="46" stroke="#333" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', ()=>{
+<div class="results-wrapper" id="results">
+  <!-- Resultados se renderizan aquí -->
+</div>
 
+<div class="count-info" id="countInfo">Resultados: 0</div>
+
+<script>
+  // Elementos
   const els = {
-    busqueda: document.getElementById('busquedaRapida'),
-    marca: document.getElementById('filtroMarca'),
-    modelo: document.getElementById('filtroModelo'),
-    anio: document.getElementById('filtroAnio'),
-    oem: document.getElementById('filtroOem'),
-    fmsi: document.getElementById('filtroFmsi'),
-    medidasAncho: document.getElementById('medidasAncho'),
-    medidasAlto: document.getElementById('medidasAlto'),
-    datalistMarca: document.getElementById('marcas'),
-    datalistModelo: document.getElementById('modelos'),
-    datalistAnio: document.getElementById('anios'),
-    datalistOem: document.getElementById('oemList'),
-    datalistFmsi: document.getElementById('fmsiList'),
+    marca: document.getElementById('marca'),
+    modelo: document.getElementById('modelo'),
+    anio: document.getElementById('anio'),
     posDel: document.getElementById('positionDelantera'),
     posTras: document.getElementById('positionTras'),
-    results: document.getElementById('results-container'),
-    count: document.getElementById('resultCount'),
-    limpiarBtn: document.getElementById('limpiarFiltros')
+    results: document.getElementById('results')
   };
 
-  let brakePadsData = []; 
+  const lid = document.getElementById('lid');
+  const trashBtn = document.getElementById('trashBtn');
 
-  fetch('pastillas.json')
-    .then(res=>res.json())
-    .then(data=>{ 
-      brakePadsData = data; 
-      updateDatalists();
-      filterData(); 
-    });
+  // Toggle posiciones
+  els.posDel.addEventListener('click',()=>els.posDel.classList.toggle('active'));
+  els.posTras.addEventListener('click',()=>els.posTras.classList.toggle('active'));
 
-  const fillDatalist=(datalist,values)=>{
-    datalist.innerHTML='';
-    values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`)
-  }
-
-  const updateDatalists=()=>{
-    fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
-    fillDatalist(els.datalistModelo,[...new Set(brakePadsData.map(d=>d.modelo))].sort());
-    fillDatalist(els.datalistAnio,[...new Set(brakePadsData.map(d=>d.año))].sort());
-    fillDatalist(els.datalistOem,[...new Set(brakePadsData.map(d=>d.oem))].sort());
-    fillDatalist(els.datalistFmsi,[...new Set(brakePadsData.map(d=>d.fmsi))].sort());
-  }
-
-  const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
-                     els.posDel.classList.contains('active') ? 'Delantera' :
-                     els.posTras.classList.contains('active') ? 'Trasera':'Todas';
-
-  const filterData=()=>{
-    const fbusq=(val)=>val.toLowerCase().trim();
-    const filters={
-      busqueda: fbusq(els.busqueda.value),
-      marca: els.marca.value,
-      modelo: els.modelo.value,
-      anio: els.anio.value,
-      oem: els.oem.value,
-      fmsi: els.fmsi.value,
-      ancho: els.medidasAncho.value.trim(),
-      alto: els.medidasAlto.value.trim(),
-      pos: getPos()
-    };
-
-    const filtered=brakePadsData.filter(item=>{
-      const busqMatch=!filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) ||
-                      item.modelo.toLowerCase().includes(filters.busqueda) ||
-                      item.ref?.toLowerCase().includes(filters.busqueda);
-      const marcaMatch=!filters.marca || item.marca===filters.marca;
-      const modeloMatch=!filters.modelo || item.modelo===filters.modelo;
-      const anioMatch=!filters.anio || item.año===filters.anio;
-      const oemMatch=!filters.oem || item.oem===filters.oem;
-      const fmsiMatch=!filters.fmsi || item.fmsi===filters.fmsi;
-
-      let anchoMatch = true, altoMatch = true;
-      if(filters.ancho || filters.alto){
-        const partes = item.medidas.split('x').map(s=>s.trim());
-        anchoMatch = !filters.ancho || (partes[0] && partes[0].includes(filters.ancho));
-        altoMatch = !filters.alto || (partes[1] && partes[1].includes(filters.alto));
-      }
-
-      const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' ||
-                     (filters.pos==='Delantera' && item.posición.includes('Del')) ||
-                     (filters.pos==='Trasera' && item.posición.includes('Tras'));
-      return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && anchoMatch && altoMatch && posMatch;
-    });
-
-    els.count.textContent=filtered.length;
-    els.results.innerHTML=filtered.map(item=>{
-      const posBadge = [];
-      if(item.posición.includes('Del')) posBadge.push('<span class="position-badge position-delantera">Delantera</span>');
-      if(item.posición.includes('Tras')) posBadge.push('<span class="position-badge position-trasera">Trasera</span>');
-      return `<div class="result-card">
-        <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
-        <div class="result-field"><strong>${item.marca} ${item.modelo}</strong></div>
-        <div class="result-field">Año: ${item.año}</div>
-        <div class="result-field">OEM: ${item.oem}</div>
-        <div class="result-field">FMSI: ${item.fmsi}</div>
-        <div class="result-field">${posBadge.join(' ')}</div>
-        <div class="result-field">Medidas: ${item.medidas}</div>
-      </div>`;
-    }).join('');
-  }
-
-  // Inputs y posiciones
-  [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto]
-    .forEach(i=>i.addEventListener('input', filterData));
-  [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
-
-  // Botón limpiar filtros
-  els.limpiarBtn.addEventListener('click', ()=>{
-    els.busqueda.value='';
-    els.marca.value='';
-    els.modelo.value='';
-    els.anio.value='';
-    els.oem.value='';
-    els.fmsi.value='';
-    els.medidasAncho.value='';
-    els.medidasAlto.value='';
-    els.posDel.classList.remove('active');
-    els.posTras.classList.remove('active');
-    filterData();
+  // Movimiento luz papelera
+  trashBtn.addEventListener('mousemove', e => {
+    const r = trashBtn.getBoundingClientRect();
+    trashBtn.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    trashBtn.style.setProperty('--my', `${e.clientY - r.top}px`);
   });
 
-});
+  // Limpiar filtros
+  trashBtn.addEventListener('click', ()=>{
+    lid.style.animation = 'lidOpen 0.35s ease';
+    lid.addEventListener('animationend',()=>lid.style.animation='',{once:true});
+    els.marca.value=''; els.modelo.value=''; els.anio.value='';
+    els.posDel.classList.remove('active'); els.posTras.classList.remove('active');
+    filterAndRender();
+  });
+
+  // Función de ejemplo para renderizar resultados
+  const data = [
+    {marca:'Toyota', modelo:'Corolla', anio:'2022', posicion:'Delantera'},
+    {marca:'Honda', modelo:'Civic', anio:'2021', posicion:'Trasera'},
+  ];
+
+  function filterAndRender(){
+    const marcaF=els.marca.value.toLowerCase();
+    const modeloF=els.modelo.value.toLowerCase();
+    const anioF=els.anio.value;
+    const posF=[];
+    if(els.posDel.classList.contains('active')) posF.push('Delantera');
+    if(els.posTras.classList.contains('active')) posF.push('Trasera');
+
+    const filtered = data.filter(d=>{
+      const matchMarca = !marcaF || d.marca.toLowerCase().includes(marcaF);
+      const matchModelo = !modeloF || d.modelo.toLowerCase().includes(modeloF);
+      const matchAnio = !anioF || d.anio.includes(anioF);
+      const matchPos = posF.length===0 || posF.includes(d.posicion);
+      return matchMarca && matchModelo && matchAnio && matchPos;
+    });
+
+    els.results.innerHTML='';
+    filtered.forEach(d=>{
+      const div = document.createElement('div'); div.className='result-card';
+      div.innerHTML=`<div class="result-field"><strong>Marca:</strong> ${d.marca}</div>
+        <div class="result-field"><strong>Modelo:</strong> ${d.modelo}</div>
+        <div class="result-field"><strong>Año:</strong> ${d.anio}</div>
+        <div class="position-badge ${d.posicion==='Delantera'?'position-delantera':'position-trasera'}">${d.posicion}</div>`;
+      els.results.appendChild(div);
+    });
+    document.getElementById('countInfo').innerText='Resultados: '+filtered.length;
+  }
+
+  // Filtrar al cambiar
+  [els.marca,els.modelo,els.anio].forEach(inp=>inp.addEventListener('input',filterAndRender));
+  filterAndRender();
 </script>
+
 </body>
 </html>
