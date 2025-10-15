@@ -19,23 +19,23 @@ body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
   background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
   border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
   padding:1.5rem; max-width:600px; margin:0 auto;
-  display:flex; flex-direction:column; gap:1rem;
+  display:flex; flex-direction:column; gap:0.75rem;
 }
 body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
 
 .filter-title { font-weight:600; font-size:1rem; }
 body.dark .filter-title { color:#fff; }
 
-/* Inputs */
+/* Inputs más compactos */
 .form-input {
   width: 100%;
   max-width: 100%;
-  padding: 1rem;
+  padding: 0.4rem 0.75rem; /* altura más compacta */
   border-radius: 1rem;
   border: 1px solid rgba(0,0,0,0.15);
   background-color: rgba(255,255,255,0.25);
   color: #000;
-  font-size: 1rem;
+  font-size: 0.85rem; /* tamaño de texto menor */
   transition: all 0.3s ease;
   box-sizing: border-box;
   margin-bottom: 0.5rem;
@@ -49,8 +49,8 @@ body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-c
   display:flex; gap:0.5rem; flex-wrap:wrap;
 }
 .position-btn {
-  flex:1; min-width:120px; padding:1rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
-  cursor:pointer; font-size:1rem; text-align:center; transition: all 0.3s ease;
+  flex:1; min-width:120px; padding:0.6rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
+  cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
   background-color: rgba(255,255,255,0.25); color: #000;
 }
 #positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
@@ -60,23 +60,23 @@ body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b
 body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
 
 /* Resultados */
-.results-wrapper { display:flex; flex-direction:column; gap:0.75rem; }
+.results-wrapper { display:flex; flex-direction:column; gap:0.5rem; }
 .result-card {
   background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
-  border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
+  border-radius:1rem; padding:0.75rem; border:1px solid rgba(255,255,255,0.3);
   display:flex; flex-direction:column; gap:0.25rem; position:relative;
 }
 body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
-.result-field{ font-size:0.9rem; }
+.result-field{ font-size:0.85rem; }
 body.dark .result-field{ color:#fff; }
 
-.position-badge{ display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; margin-right:0.25rem; text-align:center; }
+.position-badge{ display:inline-block; padding:0.25rem 0.4rem; border-radius:0.4rem; font-size:0.7rem; font-weight:500; margin-right:0.25rem; text-align:center; }
 .position-delantera{ background-color:#dbeafe; color:#1d4ed8; }
 .position-trasera{ background-color:#fef2f2; color:#b91c1c; }
 body.dark .position-delantera{ background-color:#0a2463; color:#63b3ed; }
 body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 
-.favorite-btn{ position:absolute; top:0.3rem; right:0.3rem; width:20px; height:20px; cursor:pointer; opacity:0.7; transition: all 0.2s ease;}
+.favorite-btn{ position:absolute; top:0.2rem; right:0.2rem; width:18px; height:18px; cursor:pointer; opacity:0.7; transition: all 0.2s ease;}
 .favorite-btn:hover{ opacity:1; transform: scale(1.2); }
 
 .toggle-dark{ position:fixed; top:1rem; right:1rem; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; background-color:#2563eb; color:#fff; border:none; transition: background 0.3s ease;}
@@ -85,9 +85,9 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 /* Responsive */
 @media(max-width:600px){
   .position-container{ flex-direction:column; }
-  .form-input{ font-size:1.1rem; padding:1.2rem; }
-  .position-btn{ font-size:1.1rem; padding:1.2rem; min-width:auto; }
-  .result-field{ font-size:1rem; }
+  .form-input{ font-size:0.9rem; padding:0.6rem; }
+  .position-btn{ font-size:1rem; padding:0.8rem; min-width:auto; }
+  .result-field{ font-size:0.9rem; }
 }
 </style>
 </head>
