@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brake X Liquid Glass</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+body { background:#f0f0f0; transition: background 0.5s ease, color 0.5s ease; color:#000; }
+body.lp-dark { background:#000; color:#fff; }
+
+/* ==== Banner Liquid Glass ==== */
+header {
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 0 0 12px 12px; /* solo redondeado inferior */
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 0 15px rgba(255,255,255,0.2);
+  transition: background 0.5s ease, color 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+body.lp-dark header {
+  background: rgba(50,50,50,0.2); /* gris suave */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1);
+}
+
+header h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeDown 1s ease 0.3s forwards;
+}
+
+header p {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  color: inherit;
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.6s forwards;
+}
+
+/* ==== Animaciones ==== */
+@keyframes fadeUp { 0% { opacity:0; transform:translateY(8px); } 100% { opacity:1; transform:translateY(0); } }
+@keyframes fadeDown { 0% { opacity:0; transform:translateY(-8px); } 100% { opacity:1; transform:translateY(0); } }
+@keyframes bounceHeader { 0% { transform: scale(1); } 30% { transform: scale(1.15); } 50% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+/* ==== SVG “X” ==== */
+header .header-x {
+  height: 1.1em;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.6s ease;
+}
+header .header-x path { transition: fill 0.5s ease; }
+body.lp-dark header .header-x path { fill: #FFFFFF; }
+body:not(.lp-dark) header .header-x path { fill: #000000; }
+
+/* ==== Botones flotantes ==== */
+.floating-buttons {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+@media (max-width: 768px) {
+  .floating-buttons { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
+}
+
+.liquid-glass {
+  position: relative;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.25), inset 0 0 18px rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55);
+  backdrop-filter: blur(8px);
+  border:none; outline:none;
+}
+body.lp-dark .liquid-glass {
+  background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
+}
+
+.liquid-glass svg {
+  width: 20px; height: 20px;
+  fill:none; stroke-width:2;
+  position:absolute;
+  transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
+}
+
+body:not(.lp-dark) .lp-icon-sun { stroke:#000; } 
+body.lp-dark .lp-icon-sun { stroke:#000; } 
+.lp-icon-moon { stroke:#fff; }
+.lp-icon-arrow { stroke:#007AFF; animation: arrow-glow 1.5s ease-in-out infinite alternate; }
+body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-in-out infinite alternate; }
+
+@keyframes arrow-glow { 0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } }
+@keyframes arrow-glow-dark { 0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } }
+
+@keyframes bounce { 0% { transform:scale(1); } 30% { transform:scale(1.15); } 50% { transform:scale(0.95); } 70% { transform:scale(1.1); } 100% { transform:scale(1); } }
+@keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
+
+.liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
+#upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+#upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
+
+@media (max-width: 480px) {
+  header h1 { font-size: 1rem; }
+  header p { font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>
+    Brake
+    <svg class="header-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
+      <path d="M8.98885921,23.8523026 C8.8942483,23.9435442 8.76801031,24 8.62933774,24 L2.03198365,24 C1.73814918,24 1.5,23.7482301 1.5,23.4380086 C1.5,23.2831829 1.55946972,23.1428989 1.65570253,23.0416777 L13.2166154,12.4291351 C13.3325814,12.3262031 13.4061076,12.1719477 13.4061076,11.999444 C13.4061076,11.8363496 13.3401502,11.6897927 13.2352673,11.587431 L1.68841087,0.990000249 C1.57298556,0.88706828 1.5,0.733668282 1.5,0.561734827 C1.5,0.251798399 1.73814918,2.85130108e-05 2.03198365,2.85130108e-05 L8.62933774,2.85130108e-05 C8.76855094,2.85130108e-05 8.89532956,0.0561991444 8.98994048,0.148296169 L21.4358709,11.5757407 C21.548593,11.6783875 21.6196864,11.8297916 21.6196864,11.999444 C21.6196864,12.1693815 21.5483227,12.3219261 21.4350599,12.4251432 L8.98885921,23.8523026 Z M26.5774333,23.8384453 L20.1765996,17.9616286 C20.060093,17.8578413 19.9865669,17.703871 19.9865669,17.5310822 C19.9865669,17.3859509 20.0390083,17.2536506 20.1246988,17.153855 L23.4190508,14.1291948 C23.5163648,14.0165684 23.6569296,13.945571 23.8131728,13.945571 C23.9602252,13.945571 24.0929508,14.0082997 24.1894539,14.1092357 L33.861933,22.9913237 C33.9892522,23.0939706 34.0714286,23.2559245 34.0714286,23.4381226 C34.0714286,23.748059 33.8332794,23.9998289 33.5394449,23.9998289 L26.9504707,23.9998289 C26.8053105,23.9998289 26.6733958,23.9382408 26.5774333,23.8384453 Z M26.5774333,0.161098511 C26.6733958,0.0615881034 26.8053105,0 26.9504707,0 L33.5394449,0 C33.8332794,0 34.0714286,0.251769886 34.0714286,0.561706314 C34.0714286,0.743904453 33.9892522,0.905573224 33.861933,1.00822006 L24.1894539,9.89030807 C24.0929508,9.99152926 23.9602252,10.0542579 23.8131728,10.0542579 C23.6569296,10.0542579 23.5163648,9.98354562 23.4190508,9.87063409 L20.1246988,6.8459739 C20.0390083,6.74617837 19.9865669,6.613878 19.9865669,6.46874677 C19.9865669,6.29624305 20.060093,6.14198767 20.1765996,6.03848544 L26.5774333,0.161098511 Z" fill="#000000"/>
+    </svg>
+  </h1>
+  <p>Consulta rápida. Frenado seguro.</p>
+</header>
+
+<div class="floating-buttons">
+
+  <!-- Botón Modo Oscuro -->
+  <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false">
+    <svg class="lp-icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="4"/>
+      <line x1="12" y1="20" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="4" y2="12"/>
+      <line x1="20" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
+  <!-- Botón Subir -->
+  <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página">
+    <svg class="lp-icon-arrow" viewBox="0 0 24 24">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <polyline points="5,12 12,5 19,12"/>
+    </svg>
+  </button>
+
+</div>
+
+<script>
+const darkBtn = document.getElementById('darkBtn');
+const sunIcon = darkBtn.querySelector('.lp-icon-sun');
+const moonIcon = darkBtn.querySelector('.lp-icon-moon');
+const upBtn = document.getElementById('upBtn');
+const headerX = document.querySelector('.header-x path');
+
+// Modo oscuro
+darkBtn.addEventListener('click', ()=> {
+  const isDark = document.body.classList.toggle('lp-dark');
+  darkBtn.setAttribute('aria-pressed', isDark);
+
+  sunIcon.animate(
+    isDark ? [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}]
+           : [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}],
+    {duration:800, fill:'forwards', easing:'ease-in-out'}
+  );
+
+  moonIcon.animate(
+    isDark ? [{opacity:0, transform:'scale(0.6)'},{opacity:1, transform:'scale(1)'}]
+           : [{opacity:1, transform:'scale(1)'},{opacity:0, transform:'scale(0.6)'}],
+    {duration:800, fill:'forwards', easing:'ease-in-out'}
+  );
+
+  // Rebotar la X
+  headerX.parentElement.style.animation='bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+  setTimeout(()=>headerX.parentElement.style.animation='',600);
+
+  // Cambiar color de la X
+  headerX.setAttribute('fill', isDark ? '#FFFFFF' : '#000000');
+});
+
+// Subir página
+upBtn.addEventListener('click', ()=>{ window.scrollTo({ top:0, behavior:'smooth' }); });
+window.addEventListener('scroll', ()=>{ upBtn.classList.toggle('show', window.scrollY > 150); });
+</script>
+
+</body>
+</html>
