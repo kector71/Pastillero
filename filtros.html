@@ -1,174 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Filtro Vehículos Responsive — Pastillas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtro Vehículos Responsive</title>
 <style>
-/* ====== Base (preserva tu diseño) ====== */
-:root{--glass-bg: rgba(255,255,255,0.15);--glass-border: rgba(255,255,255,0.3);--ui-blue:#2563eb}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin:0; padding:2rem;
   background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
   min-height:100vh;
-  transition: background .3s ease,color .3s ease;
+  transition: background 0.5s ease, color 0.5s ease;
   color:#000;
 }
-body.dark{ background: linear-gradient(135deg,#111,#0b0b0b); color:#fff; --glass-bg: rgba(0,0,0,0.25); --glass-border: rgba(255,255,255,0.12); }
+body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
 
-/* contenedor principal */
-.glass{
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border:1px solid var(--glass-border);
+.glass {
+  background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
+  border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
+  padding:1.5rem; max-width:700px; margin:0 auto;
+  display:flex; flex-direction:column; gap:1rem;
+}
+body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
+
+.filter-title { font-weight:600; font-size:1rem; }
+body.dark .filter-title { color:#fff; }
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
   border-radius: 1rem;
-  padding:1.5rem;
-  max-width:760px;
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-}
-
-/* headings y inputs */
-.filter-title{ font-weight:600; font-size:1rem; }
-.form-input{
-  width:100%;
-  padding:1rem;
-  border-radius:1rem;
-  border:1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.15);
   background-color: rgba(255,255,255,0.25);
-  box-sizing:border-box;
-  font-size:1rem;
-  transition: all .16s ease;
+  color: #000;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
 }
-body.dark .form-input{ background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.08); }
-.form-input:focus{ outline: none; border-color: var(--ui-blue); background-color: rgba(255,255,255,0.35); }
+.form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
+body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
 
-/* posición */
-.position-container{ display:flex; gap:.5rem; flex-wrap:wrap; }
-.position-btn{ flex:1; min-width:120px; padding:1rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.12); text-align:center; cursor:pointer; }
-#positionDelantera.active{ background:#60a5fa; color:#fff; border-color:#3b82f6 }
-#positionTras.active{ background:#f87171; color:#fff; border-color:#ef4444 }
+.position-container {
+  display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;
+}
+.position-btn {
+  flex:1; min-width:140px; max-width:180px; padding:1rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
+  cursor:pointer; font-size:1rem; text-align:center; transition: all 0.3s ease;
+  background-color: rgba(255,255,255,0.25); color: #000;
+}
+#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
+#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
+body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
+body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; }
+body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
 
-/* resultados: grid de tarjetas */
-.results-wrapper{
+.results-wrapper { 
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap:1rem;
-  margin-top:.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap:0.75rem;
+  max-width:1200px;
+  margin:0 auto;
 }
-.card{
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(8px);
-  border-radius:1rem;
-  border:1px solid rgba(255,255,255,0.18);
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+.result-card {
+  background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
+  border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
+  display:flex; flex-direction:column; gap:0.25rem; position:relative;
+  opacity:0; transform: translateY(10px);
+  animation: fadeInUp 0.3s forwards;
 }
-body.dark .card{ background: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.06); box-shadow:none; }
-.card:hover{ transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
 
-/* imagen arriba (tarjeta vertical) */
-.card-img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  display:block;
-  background:linear-gradient(180deg, #e6e6e6, #dcdcdc);
+@keyframes fadeInUp {
+  to { opacity:1; transform: translateY(0); }
 }
-.card-body{ padding: .8rem; display:flex; flex-direction:column; gap: .35rem; }
-.card-title{ font-weight:700; font-size:0.95rem; display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
-.card-meta{ font-size:0.87rem; color:#0f172a; opacity:0.9; }
-body.dark .card-meta{ color:#e6eefc; opacity:0.95; }
 
-/* badge posición */
-.position-badge{ display:inline-block; padding:0.25rem .5rem; border-radius:0.45rem; font-size:0.72rem; font-weight:600; }
-.position-delantera{ background:#dbeafe; color:#1d4ed8; }
-.position-trasera{ background:#fef2f2; color:#b91c1c; }
-body.dark .position-delantera{ background:#0a2463; color:#63b3ed; }
-body.dark .position-trasera{ background:#5a0a0a; color:#fca5a5; }
+.result-field{ font-size:0.9rem; }
+body.dark .result-field{ color:#fff; }
 
-/* botón pequeño "ver" o icono */
-.card-cta{ margin-top:.4rem; font-size:0.85rem; padding:.45rem .6rem; border-radius:.6rem; text-align:center; border:1px solid rgba(0,0,0,0.06); background:transparent; cursor:pointer; width:fit-content; }
-
-/* contador */
-.result-count { font-size:0.8rem; color:#374151; }
-
-/* sugerencias tipo iOS (menu emergente) */
-.suggestions{
-  position:absolute;
-  left:0; right:0;
-  margin-top: .45rem;
-  z-index:60;
-  background: rgba(255,255,255,0.72);
-  backdrop-filter: blur(8px);
-  border-radius: .9rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  max-height: 220px;
-  overflow:auto;
-  border:1px solid rgba(0,0,0,0.06);
-  transform-origin: top center;
-  animation: pop .12s ease;
+.result-image{
+  width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem;
 }
-body.dark .suggestions{ background: rgba(10,10,10,0.45); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 10px 30px rgba(0,0,0,0.45); }
-@keyframes pop{ from{opacity:0; transform: scale(.995)} to{opacity:1; transform:scale(1)} }
-.suggestion-item{ padding:.6rem .85rem; cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:0.95rem; }
-.suggestion-item:hover, .suggestion-item.active{ background: rgba(37,99,235,0.06); color:#09306b; }
-body.dark .suggestion-item:hover, body.dark .suggestion-item.active{ background: rgba(96,165,250,0.12); color:#e7f2ff; }
 
-/* responsive */
+.position-badge{ display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; margin-right:0.25rem; text-align:center; }
+.position-delantera{ background-color:#dbeafe; color:#1d4ed8; }
+.position-trasera{ background-color:#fef2f2; color:#b91c1c; }
+body.dark .position-delantera{ background-color:#0a2463; color:#63b3ed; }
+body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
+
+.toggle-dark{ position:fixed; top:1rem; right:1rem; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; background-color:#2563eb; color:#fff; border:none; transition: background 0.3s ease;}
+.toggle-dark:hover{ background-color:#1e40af; }
+
+.medidas-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
+
 @media(max-width:600px){
-  .results-wrapper{ grid-template-columns: repeat(1, 1fr); }
-  .card-img{ height:180px; }
-  .form-input{ font-size:1.02rem; padding:1rem; }
+  .position-container{ flex-direction:column; }
+  .form-input{ font-size:1.1rem; padding:1.2rem; }
+  .position-btn{ font-size:1.1rem; padding:1.2rem; min-width:auto; max-width:none; }
+  .result-field{ font-size:1rem; }
+  .medidas-container{ flex-direction:column; }
 }
 </style>
 </head>
 <body>
 
-<button class="toggle-dark" style="position:fixed;top:1rem;right:1rem;padding:.5rem 1rem;border-radius:.6rem;background:var(--ui-blue);color:#fff;border:none;cursor:pointer;z-index:80">Modo Oscuro</button>
-
+<button class="toggle-dark">Modo Oscuro</button>
 <div class="glass">
 
   <div class="filter-title">Búsqueda rápida</div>
-  <input id="busquedaRapida" class="form-input" placeholder="Marca, Modelo, Ref..." autocomplete="off">
+  <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref..." class="form-input">
 
   <div class="filter-title">Detalles del vehículo</div>
-  <input id="filtroMarca" class="form-input" placeholder="Marca" autocomplete="off">
-  <input id="filtroModelo" class="form-input" placeholder="Modelo" autocomplete="off">
-  <input id="filtroAnio" class="form-input" placeholder="Año" autocomplete="off">
+  <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca">
+  <datalist id="marcas"></datalist>
 
-  <div class="filter-title">Información adicional</div>
-  <input id="filtroOem" class="form-input" placeholder="OEM" autocomplete="off">
-  <input id="filtroFmsi" class="form-input" placeholder="Platina FMSI" autocomplete="off">
+  <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo">
+  <datalist id="modelos"></datalist>
+
+  <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
+  <datalist id="anios"></datalist>
+
+  <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM">
+  <datalist id="oemList"></datalist>
+
+  <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI">
+  <datalist id="fmsiList"></datalist>
 
   <div class="filter-title">Medidas</div>
-  <input id="medidaAncho" class="form-input" type="number" placeholder="Ancho (mm)" step="0.1">
-  <input id="medidaAltura" class="form-input" type="number" placeholder="Altura (mm)" step="0.1">
+  <div class="medidas-container">
+    <input type="text" id="medidasAncho" placeholder="Ancho (mm)" class="form-input" style="flex:1">
+    <input type="text" id="medidasAlto" placeholder="Alto (mm)" class="form-input" style="flex:1">
+  </div>
 
   <div class="filter-title">Posición</div>
   <div class="position-container">
-    <div id="positionDelantera" class="position-btn">Delantera</div>
-    <div id="positionTras" class="position-btn">Trasera</div>
+    <div class="position-btn" id="positionDelantera">Delantera</div>
+    <div class="position-btn" id="positionTras">Trasera</div>
   </div>
 
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-    <div class="result-count"><span id="resultCount">0</span> resultados</div>
-    <div style="font-size:0.82rem;color:#6b7280">Tarjetas verticales con imagen 📸</div>
-  </div>
-
-  <div class="results-wrapper" id="results-container" style="margin-top:.6rem;"></div>
+  <div class="results-wrapper" id="results-container"></div>
+  <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
 </div>
 
 <script>
-/* ====== JS ====== */
 document.addEventListener('DOMContentLoaded', ()=>{
 
-  /* elementos */
   const els = {
     busqueda: document.getElementById('busquedaRapida'),
     marca: document.getElementById('filtroMarca'),
@@ -176,322 +152,102 @@ document.addEventListener('DOMContentLoaded', ()=>{
     anio: document.getElementById('filtroAnio'),
     oem: document.getElementById('filtroOem'),
     fmsi: document.getElementById('filtroFmsi'),
-    ancho: document.getElementById('medidaAncho'),
-    altura: document.getElementById('medidaAltura'),
+    medidasAncho: document.getElementById('medidasAncho'),
+    medidasAlto: document.getElementById('medidasAlto'),
+    datalistMarca: document.getElementById('marcas'),
+    datalistModelo: document.getElementById('modelos'),
+    datalistAnio: document.getElementById('anios'),
+    datalistOem: document.getElementById('oemList'),
+    datalistFmsi: document.getElementById('fmsiList'),
     posDel: document.getElementById('positionDelantera'),
     posTras: document.getElementById('positionTras'),
     results: document.getElementById('results-container'),
-    count: document.getElementById('resultCount'),
-    toggleDark: document.querySelector('.toggle-dark')
+    count: document.getElementById('resultCount')
   };
 
-  let data = []; // datos cargados desde pastillas.json
+  let brakePadsData = []; 
 
-  /* placeholder image (data URI SVG) */
-  const placeholderSVG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
-      <rect width="100%" height="100%" fill="#f3f4f6"/>
-      <g fill="#9ca3af" font-family="Arial, Helvetica, sans-serif" font-size="24">
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">Imagen</text>
-      </g>
-    </svg>`
-  );
+  fetch('pastillas.json')
+    .then(res=>res.json())
+    .then(data=>{ brakePadsData = data; filterData(); });
 
-  /* fetch pastillas.json en la misma carpeta (fallback a datos ejemplo si falla) */
-  fetch('pastillas.json').then(r=>{
-    if(!r.ok) throw new Error('no json');
-    return r.json();
-  }).then(j=>{
-    data = normalize(j);
-    init();
-  }).catch(err=>{
-    console.warn('No se encontró pastillas.json — usando datos de ejemplo.', err);
-    data = normalize([
-      {"marca":"Toyota","modelo":"Corolla","anio":2020,"oem":"OEM-TY123","fmsi":"D1234","ref":"123","medidas":{"ancho":100,"altura":50},"posicion":"Delantera","imagen":""},
-      {"marca":"Toyota","modelo":"Camry","anio":2021,"oem":"OEM-TY789","fmsi":"D5678","ref":"789","medidas":{"ancho":105,"altura":55},"posicion":"Delantera/Trasera","imagen":""},
-      {"marca":"Honda","modelo":"Civic","anio":2019,"oem":"OEM-HO456","fmsi":"D9876","ref":"456","medidas":{"ancho":120,"altura":60},"posicion":"Trasera","imagen":""},
-      {"marca":"Honda","modelo":"Accord","anio":2020,"oem":"OEM-HO321","fmsi":"D6543","ref":"321","medidas":{"ancho":110,"altura":55},"posicion":"Delantera","imagen":""}
-    ]);
-    init();
-  });
+  const fillDatalist=(datalist,values)=>{ datalist.innerHTML=''; values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`) }
 
-  /* normaliza campos (soporta año/anio/year y nombres ligeramente distintos) */
-  function normalize(arr){
-    return arr.map((it,i)=> {
-      const anio = it.anio ?? it["año"] ?? it.year ?? null;
-      return {
-        id: it.id ?? (i+1),
-        marca: (it.marca ?? '').toString(),
-        modelo: (it.modelo ?? '').toString(),
-        anio: anio ? parseInt(anio) : null,
-        oem: (it.oem ?? it.OEM ?? '').toString(),
-        fmsi: (it.fmsi ?? it.FMSI ?? it.platinaFMSI ?? '').toString(),
-        ref: (it.ref ?? it.reference ?? '').toString(),
-        medidas: it.medidas ?? (it.medida ?? {ancho:null,altura:null}),
-        posicion: (it.posicion ?? it.posicion ?? it.position ?? '').toString(),
-        imagen: (it.imagen ?? it.image ?? '').toString()
-      };
+  const updateDatalists=()=>{
+    const marcas=[...new Set(brakePadsData.map(d=>d.marca))].sort();
+    const modelos=[...new Set(brakePadsData.map(d=>d.modelo))].sort();
+    const anios=[...new Set(brakePadsData.map(d=>d.año))].sort();
+    const oems=[...new Set(brakePadsData.map(d=>d.oem))].sort();
+    const fmsis=[...new Set(brakePadsData.map(d=>d.fmsi))].sort();
+    fillDatalist(els.datalistMarca,marcas);
+    fillDatalist(els.datalistModelo,modelos);
+    fillDatalist(els.datalistAnio,anios);
+    fillDatalist(els.datalistOem,oems);
+    fillDatalist(els.datalistFmsi,fmsis);
+  }
+
+  const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
+                     els.posDel.classList.contains('active') ? 'Delantera' :
+                     els.posTras.classList.contains('active') ? 'Trasera':'Todas';
+
+  const filterData=()=>{
+    const fbusq=(val)=>val.toLowerCase().trim();
+    const filters={
+      busqueda: fbusq(els.busqueda.value),
+      marca: els.marca.value,
+      modelo: els.modelo.value,
+      anio: els.anio.value,
+      oem: els.oem.value,
+      fmsi: els.fmsi.value,
+      ancho: els.medidasAncho.value.trim(),
+      alto: els.medidasAlto.value.trim(),
+      pos: getPos()
+    };
+
+    const filtered=brakePadsData.filter(item=>{
+      const busqMatch=!filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) ||
+                      item.modelo.toLowerCase().includes(filters.busqueda) ||
+                      item.ref?.toLowerCase().includes(filters.busqueda);
+      const marcaMatch=!filters.marca || item.marca===filters.marca;
+      const modeloMatch=!filters.modelo || item.modelo===filters.modelo;
+      const anioMatch=!filters.anio || item.año===filters.anio;
+      const oemMatch=!filters.oem || item.oem===filters.oem;
+      const fmsiMatch=!filters.fmsi || item.fmsi===filters.fmsi;
+
+      let anchoMatch = true, altoMatch = true;
+      if(filters.ancho) anchoMatch = item.medidas.split('x')[0]?.trim().includes(filters.ancho);
+      if(filters.alto) altoMatch = item.medidas.split('x')[1]?.trim().includes(filters.alto);
+
+      const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' ||
+                     (filters.pos==='Delantera' && item.posición.includes('Del')) ||
+                     (filters.pos==='Trasera' && item.posición.includes('Tras'));
+      return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && anchoMatch && altoMatch && posMatch;
     });
-  }
 
-  /* favoritos localStorage */
-  const getFavs = ()=> JSON.parse(localStorage.getItem('brakePadFavorites') || '[]');
-  const isFav = id => getFavs().includes(id);
-  const toggleFav = (id)=>{
-    let favs = getFavs();
-    if(favs.includes(id)) favs = favs.filter(x=>x!==id);
-    else favs.push(id);
-    localStorage.setItem('brakePadFavorites', JSON.stringify(favs));
-    renderResults();
-  };
+    updateDatalists();
 
-  /* estado */
-  const state = { busqueda:'', marca:'', modelo:'', anio:null, oem:'', fmsi:'', ancho:null, altura:null, pos:'Todas' };
-
-  /* util: valores únicos respetando un filtro opcional */
-  function uniqueValues(field, filterFn = ()=>true){
-    const s = new Set();
-    data.filter(filterFn).forEach(it=>{
-      let val = (field === 'anio') ? it.anio : (it[field] ?? '');
-      if(val !== null && val !== undefined && String(val) !== '') s.add(val);
-    });
-    return Array.from(s).sort((a,b)=>{
-      if(field==='anio') return (a||0)-(b||0);
-      return String(a).localeCompare(String(b), 'es', {sensitivity:'base'});
-    });
-  }
-
-  /* crear caja de sugerencias: envuelve input en wrapper si no existe */
-  function ensureWrapper(input){
-    if(input.parentElement && input.parentElement.classList && input.parentElement.classList.contains('suggestion-wrapper')) return input.parentElement;
-    const wrapper = document.createElement('div');
-    wrapper.className = 'suggestion-wrapper';
-    wrapper.style.position = 'relative';
-    input.parentNode.insertBefore(wrapper, input);
-    wrapper.appendChild(input);
-    return wrapper;
-  }
-
-  function createSuggestionBox(input){
-    const wrapper = ensureWrapper(input);
-    let box = wrapper.querySelector('.suggestions');
-    if(!box){
-      box = document.createElement('div');
-      box.className = 'suggestions';
-      box.style.display = 'none';
-      wrapper.appendChild(box);
-    }
-    return box;
-  }
-
-  /* mostrar sugerencias (items: array de strings) */
-  function showSuggestions(input, items, onChoose, highlight=''){
-    const box = createSuggestionBox(input);
-    box.innerHTML = '';
-    if(!items || items.length===0){ box.style.display='none'; return; }
-    items.slice(0,200).forEach(it=>{
-      const d = document.createElement('div');
-      d.className = 'suggestion-item';
-      if(highlight){
-        const re = new RegExp(escapeRegex(highlight), 'ig');
-        d.innerHTML = String(it).replace(re, m=>`<strong>${m}</strong>`);
-      } else d.textContent = it;
-      d.addEventListener('mousedown', (ev)=>{ ev.preventDefault(); onChoose(it); box.style.display='none'; });
-      box.appendChild(d);
-    });
-    box.style.display = 'block';
-  }
-  function escapeRegex(s){ return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
-
-  /* cerrar sugerencias al click fuera */
-  document.addEventListener('click', (ev)=>{
-    if(!ev.target.closest('.suggestions') && !ev.target.classList.contains('form-input')){
-      document.querySelectorAll('.suggestions').forEach(x=> x.style.display='none');
-    }
-  });
-
-  /* filtrado principal */
-  function filterData(){
-    const f = state;
-    return data.filter(item=>{
-      const q = (f.busqueda||'').toString().trim().toLowerCase();
-      const busq = !q || item.marca.toLowerCase().includes(q) || item.modelo.toLowerCase().includes(q) || (item.ref||'').toLowerCase().includes(q);
-      const marca = !f.marca || item.marca === f.marca;
-      const modelo = !f.modelo || item.modelo === f.modelo;
-      const anio = !f.anio || item.anio === f.anio;
-      const oem = !f.oem || (item.oem||'').toLowerCase().includes(String(f.oem).toLowerCase());
-      const fmsi = !f.fmsi || (item.fmsi||'').toLowerCase().includes(String(f.fmsi).toLowerCase());
-      const medidas = (!f.ancho || parseFloat(item.medidas?.ancho) === parseFloat(f.ancho)) && (!f.altura || parseFloat(item.medidas?.altura) === parseFloat(f.altura));
-      const pos = f.pos === 'Todas' || f.pos === 'Ambas' ||
-                  (f.pos === 'Delantera' && (item.posicion||'').includes('Del')) ||
-                  (f.pos === 'Trasera' && (item.posicion||'').includes('Tras'));
-      return busq && marca && modelo && anio && oem && fmsi && medidas && pos;
-    });
-  }
-
-  /* render tarjetas verticales */
-  function renderResults(){
-    const items = filterData();
-    els.count.textContent = items.length;
-    els.results.innerHTML = items.map(it=>{
-      const posBadge1 = (it.posicion||'').includes('Del') ? `<span class="position-badge position-delantera">Delantera</span>` : '';
-      const posBadge2 = (it.posicion||'').includes('Tras') ? `<span class="position-badge position-trasera">Trasera</span>` : '';
-      const fav = isFav(it.id) ? 'currentColor' : 'none';
-      const imgSrc = it.imagen && it.imagen.trim() ? escapeHtml(it.imagen) : placeholderSVG;
-      return `
-        <div class="card" data-id="${it.id}">
-          <img class="card-img" loading="lazy" src="${imgSrc}" alt="${escapeHtml(it.marca + ' ' + it.modelo)}" onerror="this.onerror=null;this.src='${placeholderSVG}'">
-          <div class="card-body">
-            <div class="card-title">
-              <div style="display:flex;flex-direction:column;">
-                <div style="font-weight:700">${escapeHtml(it.marca)} ${escapeHtml(it.modelo)}</div>
-                <div style="font-size:0.82rem;color:rgba(15,23,42,0.7)">${it.anio ?? ''}</div>
-              </div>
-              <svg class="favorite-btn" data-id="${it.id}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${fav}" stroke="${fav==='none' ? 'currentColor' : 'none'}" stroke-width="1.6" style="cursor:pointer;">
-                <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
-              </svg>
-            </div>
-
-            <div class="card-meta"><strong>Ref:</strong> ${escapeHtml(it.ref)}</div>
-            <div class="card-meta"><strong>OEM:</strong> ${escapeHtml(it.oem)}</div>
-            <div class="card-meta"><strong>FMSI:</strong> ${escapeHtml(it.fmsi)}</div>
-            <div class="card-meta">${posBadge1} ${posBadge2}</div>
-
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem;">
-              <button class="card-cta" data-id="${it.id}">Ver detalle 🔍</button>
-              <div style="font-size:0.78rem;color:#6b7280">${it.medidas?.ancho ?? ''} x ${it.medidas?.altura ?? ''} mm</div>
-            </div>
-          </div>
-        </div>`;
+    els.count.textContent=filtered.length;
+    els.results.innerHTML=filtered.map(item=>{
+      const posBadge = [];
+      if(item.posición.includes('Del')) posBadge.push('<span class="position-badge position-delantera">Delantera</span>');
+      if(item.posición.includes('Tras')) posBadge.push('<span class="position-badge position-trasera">Trasera</span>');
+      return `<div class="result-card">
+        <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image">
+        <div class="result-field"><strong>${item.marca} ${item.modelo}</strong></div>
+        <div class="result-field">Año: ${item.año}</div>
+        <div class="result-field">OEM: ${item.oem}</div>
+        <div class="result-field">FMSI: ${item.fmsi}</div>
+        <div class="result-field">${posBadge.join(' ')}</div>
+        <div class="result-field">Medidas: ${item.medidas}</div>
+      </div>`;
     }).join('');
-
-    // bind favorite toggles y CTA
-    document.querySelectorAll('.favorite-btn').forEach(svg=>{
-      svg.addEventListener('click', (ev)=>{
-        const id = parseInt(ev.currentTarget.dataset.id);
-        toggleFav(id);
-      });
-    });
-    document.querySelectorAll('.card-cta').forEach(btn=>{
-      btn.addEventListener('click', (ev)=>{
-        const id = parseInt(ev.currentTarget.dataset.id);
-        const it = data.find(x=>x.id===id);
-        if(it) {
-          // acción mínima: mostrar alert con datos (puedes cambiar por modal)
-          alert(`${it.marca} ${it.modelo} — Ref: ${it.ref}\nOEM: ${it.oem}\nFMSI: ${it.fmsi}\nAño: ${it.anio}`);
-        }
-      });
-    });
   }
 
-  /* escape html */
-  function escapeHtml(s){ if(s===null||s===undefined) return ''; return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[c]); }
-
-  /* === Autocomplete setup (marca, modelo dependiente, año, oem, fmsi) === */
-  function setupAutocomplete(inputEl, field, options = {}) {
-    const dependsOn = options.dependsOn ?? null;
-    let active = -1;
-
-    inputEl.addEventListener('input', (e)=>{
-      const term = e.target.value.trim();
-      state[field] = (field==='anio' && term) ? parseInt(term) : term;
-      const filterFn = item => {
-        if(dependsOn && (dependsOn.value || state.marca)) {
-          const marcaVal = dependsOn.value || state.marca;
-          return item.marca === marcaVal;
-        }
-        return true;
-      };
-      let items = uniqueValues(field, filterFn).map(v=>String(v));
-      if(term) items = items.filter(i=> i.toLowerCase().includes(term.toLowerCase()));
-      showSuggestions(inputEl, items, choice => {
-        inputEl.value = choice;
-        state[field] = (field==='anio') ? parseInt(choice) : choice;
-        if(field==='marca'){
-          // limpiar modelo si no corresponde
-          const modelos = uniqueValues('modelo', item=>item.marca===choice).map(v=>String(v));
-          if(!modelos.includes(els.modelo.value)){
-            els.modelo.value = ''; state.modelo = '';
-          }
-        }
-        renderResults();
-      }, term);
-      active = -1;
-      renderResults();
-    });
-
-    inputEl.addEventListener('focus', ()=>{
-      const filterFn = item => {
-        if(dependsOn && (dependsOn.value || state.marca)) {
-          const marcaVal = dependsOn.value || state.marca;
-          return item.marca === marcaVal;
-        }
-        return true;
-      };
-      const items = uniqueValues(field, filterFn).map(v=>String(v));
-      showSuggestions(inputEl, items, choice=>{
-        inputEl.value = choice;
-        state[field] = (field==='anio') ? parseInt(choice) : choice;
-        if(field==='marca'){
-          const modelos = uniqueValues('modelo', item=>item.marca===choice).map(v=>String(v));
-          if(!modelos.includes(els.modelo.value)){
-            els.modelo.value=''; state.modelo='';
-          }
-        }
-        renderResults();
-      }, inputEl.value.trim());
-    });
-
-    // keyboard nav
-    inputEl.addEventListener('keydown', (ev)=>{
-      const wrapper = inputEl.parentElement;
-      const box = wrapper ? wrapper.querySelector('.suggestions') : null;
-      if(!box || box.style.display==='none') return;
-      const items = Array.from(box.querySelectorAll('.suggestion-item'));
-      if(ev.key==='ArrowDown'){ ev.preventDefault(); active = Math.min(active+1, items.length-1); items.forEach((it,i)=> it.classList.toggle('active', i===active)); items[active]?.scrollIntoView({block:'nearest'}); }
-      else if(ev.key==='ArrowUp'){ ev.preventDefault(); active = Math.max(active-1, 0); items.forEach((it,i)=> it.classList.toggle('active', i===active)); items[active]?.scrollIntoView({block:'nearest'}); }
-      else if(ev.key==='Enter'){ if(active>=0 && items[active]){ ev.preventDefault(); const choice = items[active].textContent; inputEl.value = choice; state[field] = (field==='anio')?parseInt(choice):choice; if(field==='marca'){ const modelos = uniqueValues('modelo', item=>item.marca===choice).map(v=>String(v)); if(!modelos.includes(els.modelo.value)){ els.modelo.value=''; state.modelo=''; } } closeAllSuggestions(); renderResults(); } }
-      else if(ev.key==='Escape'){ closeAllSuggestions(); }
-    });
-
-    inputEl.addEventListener('blur', ()=> setTimeout(()=> { const box = inputEl.parentElement?.querySelector('.suggestions'); if(box) box.style.display='none'; }, 140));
-  }
-
-  function closeAllSuggestions(){ document.querySelectorAll('.suggestions').forEach(x=> x.style.display='none'); }
-
-  /* inicialización */
-  function init(){
-    // listeners simples
-    els.busqueda.addEventListener('input', e=>{ state.busqueda = e.target.value; renderResults(); });
-    els.ancho.addEventListener('input', e=>{ state.ancho = e.target.value?parseFloat(e.target.value):null; renderResults(); });
-    els.altura.addEventListener('input', e=>{ state.altura = e.target.value?parseFloat(e.target.value):null; renderResults(); });
-
-    // posición botones
-    [els.posDel, els.posTras].forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        btn.classList.toggle('active');
-        state.pos = (els.posDel.classList.contains('active') && els.posTras.classList.contains('active')) ? 'Ambas' :
-                    (els.posDel.classList.contains('active') ? 'Delantera' :
-                     (els.posTras.classList.contains('active') ? 'Trasera' : 'Todas'));
-        renderResults();
-      });
-    });
-
-    // toggle dark
-    els.toggleDark.addEventListener('click', ()=> document.body.classList.toggle('dark'));
-
-    // autocompletes (modelo depende de marca)
-    setupAutocomplete(els.marca, 'marca');
-    setupAutocomplete(els.modelo, 'modelo', {dependsOn: els.marca});
-    setupAutocomplete(els.anio, 'anio');
-    setupAutocomplete(els.oem, 'oem');
-    setupAutocomplete(els.fmsi, 'fmsi');
-
-    // inicial render
-    renderResults();
-  }
-
-}); // end DOMContentLoaded
+  [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto]
+    .forEach(i=>i.addEventListener('input', filterData));
+  [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
+  document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
+});
 </script>
 </body>
 </html>
