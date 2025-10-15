@@ -9,8 +9,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin:0; padding:2rem;
   background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
-  min-height:100vh;
-  transition: background 0.5s ease, color 0.5s ease;
+  min-height:100vh; transition: background 0.5s ease, color 0.5s ease;
   color:#000;
 }
 body.dark { background: linear-gradient(135deg,#1a1a1a,#121212); color:#fff; }
@@ -143,68 +142,46 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   let brakePadsData = [
     {id:1, marca:'Toyota', modelo:'Corolla', anio:2020, ref:'123', medidas:{ancho:100, altura:50}, posicion:'Delantera', especificacion:'Cerámica'},
-    {id:2, marca:'Toyota', modelo:'Camry', anio:2021, ref:'789', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera', especificacion:'Semi-Metal'},
-    {id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'456', medidas:{ancho:120, altura:60}, posicion:'Trasera', especificacion:'Cerámica'},
-    {id:4, marca:'Honda', modelo:'Accord', anio:2020, ref:'321', medidas:{ancho:110, altura:55}, posicion:'Delantera', especificacion:'Orgánica'}
+    {id:2, marca:'Toyota', modelo:'Corolla', anio:2021, ref:'124', medidas:{ancho:100, altura:50}, posicion:'Trasera', especificacion:'Semi-Metal'},
+    {id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'125', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera', especificacion:'Cerámica'}
   ];
 
-  const fillDatalist=(datalist,values)=>{ datalist.innerHTML=''; values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`) }
-
-  const updateDatalists=(filteredData)=>{
-    let marcas=[...new Set(filteredData.map(d=>d.marca))].sort();
-    let modelos=[...new Set(filteredData.map(d=>d.modelo))].sort();
-    let anios=[...new Set(filteredData.map(d=>d.anio))].sort((a,b)=>a-b);
-    let especificaciones=[...new Set(filteredData.map(d=>d.especificacion))].sort();
-
-    fillDatalist(els.datalistMarca, marcas.filter(m=>m.toLowerCase().includes(els.marca.value.toLowerCase())));
-    fillDatalist(els.datalistModelo, modelos.filter(m=>m.toLowerCase().includes(els.modelo.value.toLowerCase())));
-    fillDatalist(els.datalistAnio, anios.filter(a=>a.toString().includes(els.anio.value)));
-    fillDatalist(els.datalistEspecificacion, especificaciones.filter(e=>e.toLowerCase().includes(els.especificacion.value.toLowerCase())));
-  }
-
-  const isFavorite=index=>JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(index);
-  const toggleFavorite=e=>{
-    const index=parseInt(e.target.closest('.favorite-btn').dataset.id);
-    let favs=JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
-    if(favs.includes(index)) favs=favs.filter(f=>f!==index); else favs.push(index);
+  const isFavorite = id => JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(id);
+  const toggleFavorite = e => {
+    const id = parseInt(e.target.closest('.favorite-btn').dataset.id);
+    let favs = JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
+    if(favs.includes(id)) favs=favs.filter(f=>f!==id);
+    else favs.push(id);
     localStorage.setItem('brakePadFavorites',JSON.stringify(favs));
     filterData();
   };
 
-  const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
-                      els.posDel.classList.contains('active') ? 'Delantera' :
-                      els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
+  const getPos = ()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
+    els.posDel.classList.contains('active') ? 'Delantera' :
+    els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
 
-  const filterData=()=>{
-    const filters={
-      busqueda: els.busqueda.value.toLowerCase().trim(),
-      marca: els.marca.value,
-      modelo: els.modelo.value,
-      anio: els.anio.value ? parseInt(els.anio.value):null,
-      especificacion: els.especificacion.value,
-      ancho: els.ancho.value ? parseFloat(els.ancho.value):null,
-      altura: els.altura.value ? parseFloat(els.altura.value):null,
-      pos: getPos()
-    };
+  const fillDatalist = (datalist, items)=>{
+    datalist.innerHTML = items.map(i=>`<option value="${i}">`).join('');
+  };
 
-    const filtered=brakePadsData.filter(item=>{
-      const busqMatch=!filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) || item.modelo.toLowerCase().includes(filters.busqueda) || item.ref.toLowerCase().includes(filters.busqueda);
-      const marcaMatch=!filters.marca || item.marca===filters.marca;
-      const modeloMatch=!filters.modelo || item.modelo===filters.modelo;
-      const anioMatch=!filters.anio || item.anio===filters.anio;
-      const especificacionMatch=!filters.especificacion || item.especificacion===filters.especificacion;
-      const medidasMatch=(!filters.ancho || item.medidas.ancho===filters.ancho) && (!filters.altura || item.medidas.altura===filters.altura);
-      const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' || (filters.pos==='Delantera' && item.posicion.includes('Del')) || (filters.pos==='Trasera' && item.posicion.includes('Tras'));
-      return busqMatch && marcaMatch && modeloMatch && anioMatch && especificacionMatch && medidasMatch && posMatch;
-    });
+  const updateDatalists = ()=>{
+    let filtered = brakePadsData;
+    if(els.marca.value) filtered = filtered.filter(d=>d.marca===els.marca.value);
+    if(els.modelo.value) filtered = filtered.filter(d=>d.modelo===els.modelo.value);
+    if(els.anio.value) filtered = filtered.filter(d=>d.anio===parseInt(els.anio.value));
 
-    updateDatalists(filtered);
+    fillDatalist(els.datalistMarca,[...new Set(brakePadsData.map(d=>d.marca))].sort());
+    fillDatalist(els.datalistModelo,[...new Set(filtered.map(d=>d.modelo))].sort());
+    fillDatalist(els.datalistAnio,[...new Set(filtered.map(d=>d.anio))].sort((a,b)=>a-b));
+    fillDatalist(els.datalistEspecificacion,[...new Set(filtered.map(d=>d.especificacion))].sort());
+  };
 
-    els.count.textContent=filtered.length;
-    els.results.innerHTML=filtered.map(item=>{
-      const posBadge=item.posicion.includes('Del')?'<span class="position-badge position-delantera">Delantera</span>':'';
-      const posBadge2=item.posicion.includes('Tras')?'<span class="position-badge position-trasera">Trasera</span>':'';
-      const fav=isFavorite(item.id);
+  const renderResults = filtered=>{
+    els.count.textContent = filtered.length;
+    els.results.innerHTML = filtered.map(item=>{
+      const posBadge = item.posicion.includes('Del')?'<span class="position-badge position-delantera">Delantera</span>':'';
+      const posBadge2 = item.posicion.includes('Tras')?'<span class="position-badge position-trasera">Trasera</span>':'';
+      const fav = isFavorite(item.id);
       return `<div class="result-card">
         <svg class="favorite-btn" data-id="${item.id}" xmlns="http://www.w3.org/2000/svg" fill="${fav?'currentColor':'none'}" stroke="${fav?'none':'currentColor'}" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"/>
@@ -219,15 +196,41 @@ document.addEventListener('DOMContentLoaded', ()=>{
         <div class="result-field">${posBadge}${posBadge2}</div>
       </div>`;
     }).join('');
-
     document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
+  };
+
+  const filterData = ()=>{
+    updateDatalists();
+    const filters = {
+      busqueda: els.busqueda.value.toLowerCase().trim(),
+      marca: els.marca.value,
+      modelo: els.modelo.value,
+      anio: els.anio.value?parseInt(els.anio.value):null,
+      especificacion: els.especificacion.value,
+      ancho: els.ancho.value?parseFloat(els.ancho.value):null,
+      altura: els.altura.value?parseFloat(els.altura.value):null,
+      pos: getPos()
+    };
+    const filtered = brakePadsData.filter(item=>{
+      const busqMatch = !filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) || item.modelo.toLowerCase().includes(filters.busqueda) || item.ref.toLowerCase().includes(filters.busqueda);
+      const marcaMatch = !filters.marca || item.marca===filters.marca;
+      const modeloMatch = !filters.modelo || item.modelo===filters.modelo;
+      const anioMatch = !filters.anio || item.anio===filters.anio;
+      const especMatch = !filters.especificacion || item.especificacion===filters.especificacion;
+      const medidasMatch = (!filters.ancho || item.medidas.ancho===filters.ancho) && (!filters.altura || item.medidas.altura===filters.altura);
+      const posMatch = filters.pos==='Todas'||filters.pos==='Ambas'||(filters.pos==='Delantera' && item.posicion.includes('Del'))||(filters.pos==='Trasera' && item.posicion.includes('Tras'));
+      return busqMatch && marcaMatch && modeloMatch && anioMatch && especMatch && medidasMatch && posMatch;
+    });
+    renderResults(filtered);
   };
 
   [els.busqueda, els.marca, els.modelo, els.anio, els.especificacion, els.ancho, els.altura].forEach(i=>i.addEventListener('input',filterData));
   [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
   document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
+  
   filterData();
 });
 </script>
+
 </body>
 </html>
