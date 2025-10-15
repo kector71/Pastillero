@@ -10,12 +10,11 @@ body {
   margin:0; padding:2rem;
   background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
   min-height:100vh;
-  color: #000;
+  color:#000;
 }
 
 .glass {
-  background-color: rgba(255,255,255,0.25); 
-  backdrop-filter: blur(12px);
+  background-color: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
   border:1px solid rgba(255,255,255,0.3); border-radius:1rem;
   padding:1.5rem; max-width:700px; margin:0 auto;
   display:flex; flex-direction:column; gap:1rem;
@@ -45,31 +44,31 @@ body {
   cursor:pointer; font-size:1rem; text-align:center; transition: all 0.3s ease;
   background-color: rgba(255,255,255,0.25); color: #000;
 }
-#positionDelantera.active { background-color: #60a5fa; border-color:#3b82f6; color:#fff; }
-#positionTras.active { background-color: #f87171; border-color:#ef4444; color:#fff; }
+#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
+#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
 
 .results-wrapper { 
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap:0.75rem;
   max-width:1200px;
   margin:0 auto;
 }
 .result-card {
-  background-color: rgba(255,255,255,0.25); 
-  backdrop-filter: blur(10px);
+  background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
   border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
   display:flex; flex-direction:column; gap:0.25rem; position:relative;
   opacity:0; transform: translateY(10px);
   animation: fadeInUp 0.3s forwards;
 }
-
 @keyframes fadeInUp {
   to { opacity:1; transform: translateY(0); }
 }
 
 .result-field{ font-size:0.9rem; }
-.result-image{ width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem; }
+.result-image{
+  width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem;
+}
 
 .position-badge{ display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; margin-right:0.25rem; text-align:center; }
 .position-delantera{ background-color:#dbeafe; color:#1d4ed8; }
@@ -92,6 +91,7 @@ body {
 
   <div class="filter-title">Búsqueda rápida</div>
   <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref..." class="form-input">
+  <button id="limpiarFiltros" style="margin-top:0.5rem; padding:0.5rem 1rem; border-radius:1rem; border:none; background-color:#2563eb; color:#fff; cursor:pointer;">Limpiar filtros</button>
 
   <div class="filter-title">Detalles del vehículo</div>
   <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca">
@@ -146,7 +146,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     posDel: document.getElementById('positionDelantera'),
     posTras: document.getElementById('positionTras'),
     results: document.getElementById('results-container'),
-    count: document.getElementById('resultCount')
+    count: document.getElementById('resultCount'),
+    limpiarBtn: document.getElementById('limpiarFiltros')
   };
 
   let brakePadsData = []; 
@@ -230,9 +231,25 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }).join('');
   }
 
+  // Inputs y posiciones
   [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto]
     .forEach(i=>i.addEventListener('input', filterData));
   [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
+
+  // Botón limpiar filtros
+  els.limpiarBtn.addEventListener('click', ()=>{
+    els.busqueda.value='';
+    els.marca.value='';
+    els.modelo.value='';
+    els.anio.value='';
+    els.oem.value='';
+    els.fmsi.value='';
+    els.medidasAncho.value='';
+    els.medidasAlto.value='';
+    els.posDel.classList.remove('active');
+    els.posTras.classList.remove('active');
+    filterData();
+  });
 
 });
 </script>
