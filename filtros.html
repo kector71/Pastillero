@@ -29,22 +29,26 @@ body.dark .filter-title { color:#fff; }
   width: 100%; max-width: 100%; padding:0.35rem 0.75rem; 
   border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
   background-color: rgba(255,255,255,0.25); color: #000;
-  font-size: 0.85rem; transition: all 0.3s ease; box-sizing: border-box; margin-bottom:0.5rem; overflow:hidden;
+  font-size: 0.85rem; transition: all 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box; margin-bottom:0.5rem; overflow:hidden;
 }
-.form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
+.form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); box-shadow: 0 0 8px rgba(37,99,235,0.5); }
 body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
 
 .position-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
 .position-btn {
   flex:1; min-width:120px; padding:0.6rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
-  cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
+  cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   background-color: rgba(255,255,255,0.25); color: #000;
 }
-#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
-#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
+#positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+#positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
-body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; }
-body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
+body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; box-shadow: 0 4px 10px rgba(255,255,255,0.15); }
+body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; box-shadow: 0 4px 10px rgba(255,255,255,0.15); }
+
+/* Efecto al presionar botón */
+.position-btn:active { transform: translateY(1px); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+body.dark .position-btn:active { box-shadow: 0 2px 6px rgba(255,255,255,0.1); }
 
 .results-wrapper {
   display:grid;
@@ -61,13 +65,8 @@ body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444;
 body.dark .result-card { background-color: rgba(0,0,0,0.25); border-color: rgba(255,255,255,0.2); }
 
 /* Efecto hover */
-.result-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-body.dark .result-card:hover {
-  box-shadow: 0 8px 20px rgba(255,255,255,0.15);
-}
+.result-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+body.dark .result-card:hover { box-shadow: 0 8px 20px rgba(255,255,255,0.15); }
 
 .result-field{ font-size:0.85rem; }
 body.dark .result-field{ color:#fff; }
@@ -125,7 +124,6 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
   </div>
 </div>
 
-<!-- Resultados fuera del glass -->
 <div class="results-wrapper" id="results-container"></div>
 <div style="max-width:600px; margin:0 auto; font-size:0.75rem; color:#4b5563;">
   <span id="resultCount">0</span> resultados
