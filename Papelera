@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papelera Brake X en Contenedor</title>
+<style>
+body {
+  margin: 0;
+  background: #f5f5f5;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor de la papelera */
+.trash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+/* Papelera */
+.lp-fbtn {
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px) saturate(250%) brightness(1.3);
+  box-shadow: 0 12px 30px rgba(0,0,0,.25), inset 0 0 6px rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s, background .35s;
+  position: relative;
+}
+
+/* Brillo dinámico animado */
+.lp-fbtn::before {
+  content: '';
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border-radius:50%;
+  pointer-events:none;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(6px);
+  animation: glowMove 3s ease-in-out infinite;
+}
+@keyframes glowMove {
+  0%,100% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.1) translate(3px,3px); }
+}
+
+/* Hover y click */
+.lp-fbtn:hover { animation: lp-bounce .4s; }
+@keyframes lp-bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.lp-fbtn:active { animation: lp-shake .3s; }
+@keyframes lp-shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+/* Animación de la tapa */
+@keyframes lidOpen {
+  0% { transform: rotate(0deg) translateY(0); }
+  50% { transform: rotate(-25deg) translateY(-2px); }
+  70% { transform: rotate(-18deg) translateY(-1px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="trash-container">
+  <button id="trashBtn" class="lp-fbtn">
+    <svg viewBox="0 0 64 64" width="32" height="32">
+      <defs>
+        <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#777"/>
+          <stop offset="100%" stop-color="#444"/>
+        </linearGradient>
+      </defs>
+      <rect x="20" y="22" width="24" height="28" rx="4" ry="4" fill="url(#grad1)" stroke="#222" stroke-width="1"/>
+      <rect id="lid" x="18" y="18" width="28" height="5" rx="3" ry="3" fill="#555"/>
+      <rect x="18" y="18" width="28" height="2" rx="3" ry="3" fill="rgba(255,255,255,0.2)"/>
+      <line x1="26" y1="26" x2="26" y2="46" stroke="#333" stroke-width="2"/>
+      <line x1="32" y1="26" x2="32" y2="46" stroke="#333" stroke-width="2"/>
+      <line x1="38" y1="26" x2="38" y2="46" stroke="#333" stroke-width="2"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+const trashBtn = document.getElementById('trashBtn');
+const lid = document.getElementById('lid');
+
+trashBtn.addEventListener('mousemove', e => {
+  const r = trashBtn.getBoundingClientRect();
+  trashBtn.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  trashBtn.style.setProperty('--my', `${e.clientY - r.top}px`);
+});
+
+trashBtn.addEventListener('click', () => {
+  lid.style.animation = 'lidOpen 0.35s ease';
+  lid.addEventListener('animationend', () => {
+    lid.style.animation = '';
+  }, {once: true});
+});
+</script>
+
+</body>
+</html>
