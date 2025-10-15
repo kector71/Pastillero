@@ -3,27 +3,16 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Filtro Vehículos - OEM & FMSI</title>
+<title>Filtro Vehículos - OEM & FMSI con Papelera</title>
 <style>
   * { box-sizing: border-box; }
-  html,body { height:100%; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin:0; padding:18px;
-    background: linear-gradient(135deg,#f0f0f0,#d9d9d9);
-    color:#000;
-    transition: background .35s ease, color .35s ease;
-    display:flex; flex-direction:column; gap:16px;
-  }
-  body.dark {
-    background: linear-gradient(135deg,#121212,#0f1724);
-    color:#fff;
-  }
+  html,body { height:100%; margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background:#f5f5f5; }
+  body.dark{ background:#121212; color:#fff; }
 
-  /* --- Glass card for filters --- */
+  /* Glass card for filters */
   .glass{
     max-width:720px;
-    margin:0 auto;
+    margin:20px auto;
     padding:16px;
     border-radius:14px;
     background: rgba(255,255,255,0.14);
@@ -32,12 +21,10 @@
     display:flex;
     flex-direction:column;
     gap:12px;
-    position:relative;
   }
   body.dark .glass{ background: rgba(0,0,0,0.22); border-color: rgba(255,255,255,0.06); }
 
   .filter-title{ font-weight:600; font-size:1rem; margin-bottom:6px; }
-  body.dark .filter-title{ color: #fff; }
 
   .form-input{
     width:100%;
@@ -59,7 +46,6 @@
   body.dark .form-input{ background: rgba(0,0,0,0.26); border-color: rgba(255,255,255,0.06); }
   body.dark .form-input::placeholder{ color: rgba(255,255,255,0.45); }
 
-  /* Position buttons */
   .position-container{ display:flex; gap:10px; flex-wrap:wrap; }
   .position-btn{
     flex:1; min-width:140px;
@@ -70,35 +56,15 @@
     user-select:none; font-weight:600;
   }
   .position-btn:active{ transform: translateY(1px); }
-  #positionDelantera.active{
-    background:#9ec9fb; border-color:#3b82f6; color:#052a5f; transform:translateY(-2px); box-shadow:0 6px 18px rgba(59,130,246,0.10);
-  }
-  #positionTras.active{
-    background:#f9b3b3; border-color:#ef4444; color:#5a1414; transform:translateY(-2px); box-shadow:0 6px 18px rgba(239,68,68,0.10);
-  }
+  #positionDelantera.active{ background:#9ec9fb; border-color:#3b82f6; color:#052a5f; transform:translateY(-2px); box-shadow:0 6px 18px rgba(59,130,246,0.10);}
+  #positionTras.active{ background:#f9b3b3; border-color:#ef4444; color:#5a1414; transform:translateY(-2px); box-shadow:0 6px 18px rgba(239,68,68,0.10);}
   body.dark .position-btn{ background: rgba(0,0,0,0.26); color: #fff; border-color: rgba(255,255,255,0.06); }
   body.dark #positionDelantera.active{ box-shadow:0 6px 18px rgba(99,179,237,0.06); }
   body.dark #positionTras.active{ box-shadow:0 6px 18px rgba(255,128,128,0.05); }
 
-  /* Autocomplete list */
-  .autocomplete-list{
-    position:relative;
-    width:100%;
-    margin-top:8px;
-    border-radius:10px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(10px);
-    border:1px solid rgba(255,255,255,0.14);
-    max-height:140px; overflow-y:auto; z-index:40; display:none;
-  }
-  body.dark .autocomplete-list{ background: rgba(0,0,0,0.20); border-color: rgba(255,255,255,0.06); }
-  .autocomplete-item{ padding:8px 10px; cursor:pointer; font-size:0.92rem; transition: background .12s ease; }
-  .autocomplete-item:hover{ background: rgba(37,99,235,0.08); }
-  body.dark .autocomplete-item:hover{ background: rgba(37,99,235,0.14); }
-
-  /* Results */
+  /* Results area */
   .results-wrapper{
-    max-width:1100px; margin:0 auto;
+    max-width:1100px; margin:20px auto;
     display:grid;
     grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
     gap:12px;
@@ -122,53 +88,27 @@
   body.dark .position-delantera{ background:#0a2463; color:#63b3ed; }
   body.dark .position-trasera{ background:#5a0a0a; color:#fca5a5; }
 
-  .favorite-btn{ position:absolute; right:12px; top:12px; width:20px; height:20px; cursor:pointer; opacity:.9; transition: transform .12s ease; }
-  .favorite-btn:hover{ transform: scale(1.12); }
-
-  .toggle-dark{ position:fixed; right:14px; top:14px; background:#2563eb;color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700; }
-  .count-info{ text-align:center; color:#374151; margin-top:10px; font-size:0.9rem; }
-  body.dark .count-info{ color:#cbd5e1; }
-
-  @media (max-width:720px){
-    body{ padding:12px; }
-    .glass{ padding:12px; }
-  }
-
-  /* --- PAPELERA ANIMADA --- */
-  .trash-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 64px;
-    height: 64px;
-    position: relative;
-    cursor: pointer;
+  /* Papelera centrada en filtros */
+  .trash-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
     margin-top:12px;
-    align-self:flex-end;
   }
-
-  .lp-fbtn {
-    width: 64px;
-    height: 64px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
+  .lp-fbtn{
+    width:64px; height:64px;
+    border:none; border-radius:50%;
+    cursor:pointer;
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(20px) saturate(250%) brightness(1.3);
-    box-shadow: 0 12px 30px rgba(0,0,0,.25), inset 0 0 6px rgba(255,255,255,0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: transform .25s, box-shadow .25s, background .35s;
-    position: relative;
+    box-shadow:0 12px 30px rgba(0,0,0,.25), inset 0 0 6px rgba(255,255,255,0.1);
+    display:flex; justify-content:center; align-items:center;
+    overflow:hidden; transition: transform .25s, box-shadow .25s, background .35s;
+    position:relative;
   }
-
-  .lp-fbtn::before {
-    content: '';
-    position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
+  .lp-fbtn::before{
+    content:'';
+    position:absolute; top:0; left:0; width:100%; height:100%;
     border-radius:50%;
     pointer-events:none;
     background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 70%);
@@ -176,55 +116,65 @@
     filter: blur(6px);
     animation: glowMove 3s ease-in-out infinite;
   }
-  @keyframes glowMove {
-    0%,100% { transform: scale(1) translate(0,0); }
-    50% { transform: scale(1.1) translate(3px,3px); }
-  }
+  @keyframes glowMove{0%,100%{transform:scale(1) translate(0,0);}50%{transform:scale(1.1) translate(3px,3px);}}
+  .lp-fbtn:hover{ animation: lp-bounce .4s; }
+  @keyframes lp-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .lp-fbtn:active{ animation: lp-shake .3s; }
+  @keyframes lp-shake{0%{transform:translateX(0);}20%{transform:translateX(-2px);}40%{transform:translateX(2px);}60%{transform:translateX(-2px);}80%{transform:translateX(2px);}100%{transform:translateX(0);}}
+  @keyframes lidOpen{0%{transform:rotate(0deg) translateY(0);}50%{transform:rotate(-25deg) translateY(-2px);}70%{transform:rotate(-18deg) translateY(-1px);}100%{transform:rotate(0deg) translateY(0);}}
 
-  .lp-fbtn:hover { animation: lp-bounce .4s; }
-  @keyframes lp-bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-  .lp-fbtn:active { animation: lp-shake .3s; }
-  @keyframes lp-shake {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-2px); }
-    40% { transform: translateX(2px); }
-    60% { transform: translateX(-2px); }
-    80% { transform: translateX(2px); }
-    100% { transform: translateX(0); }
-  }
+  .count-info{ text-align:center; color:#374151; margin-top:10px; font-size:0.9rem; }
+  body.dark .count-info{ color:#cbd5e1; }
 
-  @keyframes lidOpen {
-    0% { transform: rotate(0deg) translateY(0); }
-    50% { transform: rotate(-25deg) translateY(-2px); }
-    70% { transform: rotate(-18deg) translateY(-1px); }
-    100% { transform: rotate(0deg) translateY(0); }
-  }
+  @media (max-width:720px){ body{padding:12px;} .glass{padding:12px;} }
 </style>
 </head>
 <body>
 
-<button class="toggle-dark" onclick="document.body.classList.toggle('dark')">Modo oscuro</button>
-
-<div class="glass">
-  <div class="filter-title">Marca</div>
-  <input type="text" class="form-input" id="marca" placeholder="Ej: Toyota">
-
-  <div class="filter-title">Modelo</div>
-  <input type="text" class="form-input" id="modelo" placeholder="Ej: Corolla">
-
-  <div class="filter-title">Año</div>
-  <input type="text" class="form-input" id="anio" placeholder="Ej: 2022">
-
-  <div class="filter-title">Posición</div>
-  <div class="position-container">
-    <div id="positionDelantera" class="position-btn">Delantera</div>
-    <div id="positionTras" class="position-btn">Trasera</div>
+<!-- Filters glass -->
+<section class="glass" aria-label="Filtros de vehículo">
+  <div>
+    <div class="filter-title">Búsqueda rápida</div>
+    <input id="busquedaRapida" class="form-input" placeholder="Marca, Modelo, Ref..." autocomplete="off" />
   </div>
 
-  <!-- PAPELERA ANIMADA -->
+  <div>
+    <div class="filter-title">Detalles del vehículo</div>
+    <input id="filtroMarca" list="marcas" class="form-input" placeholder="Marca" autocomplete="off" />
+    <datalist id="marcas"></datalist>
+    <input id="filtroModelo" list="modelos" class="form-input" placeholder="Modelo" autocomplete="off" />
+    <datalist id="modelos"></datalist>
+    <input id="filtroAnio" list="anios" class="form-input" placeholder="Año" autocomplete="off" inputmode="numeric" />
+    <datalist id="anios"></datalist>
+  </div>
+
+  <div style="position:relative;">
+    <div class="filter-title">Especificaciones técnicas</div>
+    <div style="margin-bottom:8px;">
+      <input id="filtroOEM" class="form-input" placeholder="OEM (escribe o selecciona...)" autocomplete="off" />
+      <div id="oemList" class="autocomplete-list" role="listbox" aria-label="Sugerencias OEM"></div>
+    </div>
+    <div>
+      <input id="filtroFMSI" class="form-input" placeholder="FMSI (escribe o selecciona...)" autocomplete="off" />
+      <div id="fmsiList" class="autocomplete-list" role="listbox" aria-label="Sugerencias FMSI"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="filter-title">Medidas</div>
+    <input id="medidaAncho" type="number" step="0.1" class="form-input" placeholder="Ancho (mm)" />
+    <input id="medidaAltura" type="number" step="0.1" class="form-input" placeholder="Altura (mm)" />
+  </div>
+
+  <div>
+    <div class="filter-title">Posición</div>
+    <div class="position-container" role="toolbar" aria-label="Posición del vehículo">
+      <div id="positionDelantera" class="position-btn" role="button" tabindex="0">Delantera</div>
+      <div id="positionTras" class="position-btn" role="button" tabindex="0">Trasera</div>
+    </div>
+  </div>
+
+  <!-- Papelera centrada -->
   <div class="trash-container">
     <button id="trashBtn" class="lp-fbtn" title="Limpiar filtros">
       <svg viewBox="0 0 64 64" width="32" height="32">
@@ -243,86 +193,123 @@
       </svg>
     </button>
   </div>
-</div>
+</section>
 
-<div class="results-wrapper" id="results">
-  <!-- Resultados se renderizan aquí -->
-</div>
-
-<div class="count-info" id="countInfo">Resultados: 0</div>
+<!-- Results separate -->
+<main>
+  <div id="results" class="results-wrapper" aria-live="polite"></div>
+  <div class="count-info"><span id="resultCount">0</span> resultados</div>
+</main>
 
 <script>
-  // Elementos
+document.addEventListener('DOMContentLoaded', () => {
   const els = {
-    marca: document.getElementById('marca'),
-    modelo: document.getElementById('modelo'),
-    anio: document.getElementById('anio'),
+    busqueda: document.getElementById('busquedaRapida'),
+    marca: document.getElementById('filtroMarca'),
+    modelo: document.getElementById('filtroModelo'),
+    anio: document.getElementById('filtroAnio'),
+    oem: document.getElementById('filtroOEM'),
+    fmsi: document.getElementById('filtroFMSI'),
+    oemList: document.getElementById('oemList'),
+    fmsiList: document.getElementById('fmsiList'),
+    ancho: document.getElementById('medidaAncho'),
+    altura: document.getElementById('medidaAltura'),
     posDel: document.getElementById('positionDelantera'),
     posTras: document.getElementById('positionTras'),
-    results: document.getElementById('results')
+    results: document.getElementById('results'),
+    count: document.getElementById('resultCount'),
+    datalistMarca: document.getElementById('marcas'),
+    datalistModelo: document.getElementById('modelos'),
+    datalistAnio: document.getElementById('anios'),
+    trashBtn: document.getElementById('trashBtn'),
+    lid: document.getElementById('lid')
   };
 
-  const lid = document.getElementById('lid');
-  const trashBtn = document.getElementById('trashBtn');
-
-  // Toggle posiciones
-  els.posDel.addEventListener('click',()=>els.posDel.classList.toggle('active'));
-  els.posTras.addEventListener('click',()=>els.posTras.classList.toggle('active'));
-
-  // Movimiento luz papelera
-  trashBtn.addEventListener('mousemove', e => {
-    const r = trashBtn.getBoundingClientRect();
-    trashBtn.style.setProperty('--mx', `${e.clientX - r.left}px`);
-    trashBtn.style.setProperty('--my', `${e.clientY - r.top}px`);
-  });
-
-  // Limpiar filtros
-  trashBtn.addEventListener('click', ()=>{
-    lid.style.animation = 'lidOpen 0.35s ease';
-    lid.addEventListener('animationend',()=>lid.style.animation='',{once:true});
-    els.marca.value=''; els.modelo.value=''; els.anio.value='';
-    els.posDel.classList.remove('active'); els.posTras.classList.remove('active');
-    filterAndRender();
-  });
-
-  // Función de ejemplo para renderizar resultados
-  const data = [
-    {marca:'Toyota', modelo:'Corolla', anio:'2022', posicion:'Delantera'},
-    {marca:'Honda', modelo:'Civic', anio:'2021', posicion:'Trasera'},
+  let data = [
+    { id:1, marca:'Toyota', modelo:'Corolla', anio:2020, ref:'A123', oem:'OEM-A1', fmsi:'FMSI-100', medidas:{ancho:100, altura:50}, posicion:'Delantera' },
+    { id:2, marca:'Toyota', modelo:'Camry', anio:2021, ref:'A124', oem:'OEM-A2', fmsi:'FMSI-101', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera' },
+    { id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'H456', oem:'OEM-H1', fmsi:'FMSI-200', medidas:{ancho:102, altura:52}, posicion:'Trasera' },
+    { id:4, marca:'Honda', modelo:'Accord', anio:2022, ref:'H457', oem:'OEM-H2', fmsi:'FMSI-201', medidas:{ancho:107, altura:57}, posicion:'Delantera' }
   ];
 
-  function filterAndRender(){
-    const marcaF=els.marca.value.toLowerCase();
-    const modeloF=els.modelo.value.toLowerCase();
-    const anioF=els.anio.value;
-    const posF=[];
-    if(els.posDel.classList.contains('active')) posF.push('Delantera');
-    if(els.posTras.classList.contains('active')) posF.push('Trasera');
+  const fillDatalist = (idList, field) => {
+    const unique = [...new Set(data.map(d=>d[field]))];
+    idList.innerHTML = unique.map(i=>`<option value="${i}"></option>`).join('');
+  }
+  fillDatalist(els.datalistMarca,'marca');
+  fillDatalist(els.datalistModelo,'modelo');
+  fillDatalist(els.datalistAnio,'anio');
 
-    const filtered = data.filter(d=>{
-      const matchMarca = !marcaF || d.marca.toLowerCase().includes(marcaF);
-      const matchModelo = !modeloF || d.modelo.toLowerCase().includes(modeloF);
-      const matchAnio = !anioF || d.anio.includes(anioF);
-      const matchPos = posF.length===0 || posF.includes(d.posicion);
-      return matchMarca && matchModelo && matchAnio && matchPos;
-    });
-
-    els.results.innerHTML='';
-    filtered.forEach(d=>{
-      const div = document.createElement('div'); div.className='result-card';
-      div.innerHTML=`<div class="result-field"><strong>Marca:</strong> ${d.marca}</div>
+  const renderResults = (filtered) => {
+    els.results.innerHTML = filtered.map(d=>`
+      <div class="result-card">
+        <div class="result-field"><strong>Marca:</strong> ${d.marca}</div>
         <div class="result-field"><strong>Modelo:</strong> ${d.modelo}</div>
         <div class="result-field"><strong>Año:</strong> ${d.anio}</div>
-        <div class="position-badge ${d.posicion==='Delantera'?'position-delantera':'position-trasera'}">${d.posicion}</div>`;
-      els.results.appendChild(div);
-    });
-    document.getElementById('countInfo').innerText='Resultados: '+filtered.length;
+        <div class="result-field"><strong>Ref:</strong> ${d.ref}</div>
+        <div class="result-field"><strong>OEM:</strong> ${d.oem}</div>
+        <div class="result-field"><strong>FMSI:</strong> ${d.fmsi}</div>
+        <div class="result-field"><strong>Medidas:</strong> ${d.medidas.ancho} x ${d.medidas.altura}</div>
+        <div class="result-field">
+          <span class="position-badge ${d.posicion.includes('Delantera')?'position-delantera':''}">Delantera</span>
+          <span class="position-badge ${d.posicion.includes('Trasera')?'position-trasera':''}">Trasera</span>
+        </div>
+      </div>`).join('');
+    els.count.textContent = filtered.length;
   }
 
-  // Filtrar al cambiar
-  [els.marca,els.modelo,els.anio].forEach(inp=>inp.addEventListener('input',filterAndRender));
-  filterAndRender();
-</script>
+  const filterData = () => {
+    const query = els.busqueda.value.toLowerCase();
+    const marca = els.marca.value.toLowerCase();
+    const modelo = els.modelo.value.toLowerCase();
+    const anio = els.anio.value;
+    const oem = els.oem.value.toLowerCase();
+    const fmsi = els.fmsi.value.toLowerCase();
+    const ancho = els.ancho.value;
+    const altura = els.altura.value;
+    const posDel = els.posDel.classList.contains('active');
+    const posTras = els.posTras.classList.contains('active');
 
+    const filtered = data.filter(d=>{
+      if(query && !(`${d.marca} ${d.modelo} ${d.ref}`.toLowerCase().includes(query))) return false;
+      if(marca && d.marca.toLowerCase()!=marca) return false;
+      if(modelo && d.modelo.toLowerCase()!=modelo) return false;
+      if(anio && d.anio!=parseInt(anio)) return false;
+      if(oem && d.oem.toLowerCase()!=oem) return false;
+      if(fmsi && d.fmsi.toLowerCase()!=fmsi) return false;
+      if(ancho && d.medidas.ancho!=parseFloat(ancho)) return false;
+      if(altura && d.medidas.altura!=parseFloat(altura)) return false;
+      if(posDel && !d.posicion.includes('Delantera')) return false;
+      if(posTras && !d.posicion.includes('Trasera')) return false;
+      return true;
+    });
+    renderResults(filtered);
+  }
+
+  [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.ancho, els.altura].forEach(inp=>{
+    inp.addEventListener('input', filterData);
+  });
+
+  [els.posDel, els.posTras].forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      btn.classList.toggle('active'); filterData();
+    });
+  });
+
+  // Trash button animation
+  els.trashBtn.addEventListener('click', ()=>{
+    els.lid.style.animation='lidOpen .3s forwards';
+    setTimeout(()=>{
+      els.lid.style.animation='';
+    },300);
+    // Clear inputs
+    [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.ancho, els.altura].forEach(i=>i.value='');
+    [els.posDel, els.posTras].forEach(b=>b.classList.remove('active'));
+    filterData();
+  });
+
+  renderResults(data);
+});
+</script>
 </body>
 </html>
