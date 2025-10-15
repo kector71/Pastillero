@@ -26,16 +26,15 @@ body.dark .glass { background-color: rgba(0,0,0,0.25); border-color: rgba(255,25
 .filter-title { font-weight:600; font-size:1rem; }
 body.dark .filter-title { color:#fff; }
 
-/* Inputs más compactos */
 .form-input {
   width: 100%;
   max-width: 100%;
-  padding: 0.4rem 0.75rem; /* altura más compacta */
+  padding: 0.4rem 0.75rem; 
   border-radius: 1rem;
   border: 1px solid rgba(0,0,0,0.15);
   background-color: rgba(255,255,255,0.25);
   color: #000;
-  font-size: 0.85rem; /* tamaño de texto menor */
+  font-size: 0.85rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
   margin-bottom: 0.5rem;
@@ -44,10 +43,7 @@ body.dark .filter-title { color:#fff; }
 .form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
 body.dark .form-input { background-color: rgba(0,0,0,0.25); color:#fff; border-color: rgba(255,255,255,0.2); }
 
-/* Posición */
-.position-container {
-  display:flex; gap:0.5rem; flex-wrap:wrap;
-}
+.position-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
 .position-btn {
   flex:1; min-width:120px; padding:0.6rem; border-radius:1rem; border:1px solid rgba(0,0,0,0.15);
   cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
@@ -59,7 +55,6 @@ body.dark #positionDelantera:not(.active), body.dark #positionTras:not(.active) 
 body.dark #positionDelantera.active { background-color:#60a5fa; border-color:#3b82f6; color:#fff; }
 body.dark #positionTras.active { background-color:#f87171; border-color:#ef4444; color:#fff; }
 
-/* Resultados */
 .results-wrapper { display:flex; flex-direction:column; gap:0.5rem; }
 .result-card {
   background-color: rgba(255,255,255,0.25); backdrop-filter: blur(10px);
@@ -82,7 +77,6 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
 .toggle-dark{ position:fixed; top:1rem; right:1rem; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer; background-color:#2563eb; color:#fff; border:none; transition: background 0.3s ease;}
 .toggle-dark:hover{ background-color:#1e40af; }
 
-/* Responsive */
 @media(max-width:600px){
   .position-container{ flex-direction:column; }
   .form-input{ font-size:0.9rem; padding:0.6rem; }
@@ -109,6 +103,10 @@ body.dark .position-trasera{ background-color:#5a0a0a; color:#fca5a5; }
   <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
   <datalist id="anios"></datalist>
 
+  <div class="filter-title">Especificaciones Técnicas</div>
+  <input list="especificaciones" id="filtroEspecificacion" class="form-input" placeholder="Especificación">
+  <datalist id="especificaciones"></datalist>
+
   <div class="filter-title">Medidas</div>
   <input type="number" id="medidaAncho" placeholder="Ancho (mm)" step="0.1" class="form-input">
   <input type="number" id="medidaAltura" placeholder="Altura (mm)" step="0.1" class="form-input">
@@ -130,9 +128,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
     marca: document.getElementById('filtroMarca'),
     modelo: document.getElementById('filtroModelo'),
     anio: document.getElementById('filtroAnio'),
+    especificacion: document.getElementById('filtroEspecificacion'),
     datalistMarca: document.getElementById('marcas'),
     datalistModelo: document.getElementById('modelos'),
     datalistAnio: document.getElementById('anios'),
+    datalistEspecificacion: document.getElementById('especificaciones'),
     ancho: document.getElementById('medidaAncho'),
     altura: document.getElementById('medidaAltura'),
     posDel: document.getElementById('positionDelantera'),
@@ -142,62 +142,60 @@ document.addEventListener('DOMContentLoaded', ()=>{
   };
 
   let brakePadsData = [
-    {id:1, marca:'Toyota', modelo:'Corolla', anio:2020, ref:'123', medidas:{ancho:100, altura:50}, posicion:'Delantera'},
-    {id:2, marca:'Toyota', modelo:'Camry', anio:2021, ref:'789', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera'},
-    {id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'456', medidas:{ancho:120, altura:60}, posicion:'Trasera'},
-    {id:4, marca:'Honda', modelo:'Accord', anio:2020, ref:'321', medidas:{ancho:110, altura:55}, posicion:'Delantera'}
+    {id:1, marca:'Toyota', modelo:'Corolla', anio:2020, ref:'123', medidas:{ancho:100, altura:50}, posicion:'Delantera', especificacion:'Cerámica'},
+    {id:2, marca:'Toyota', modelo:'Camry', anio:2021, ref:'789', medidas:{ancho:105, altura:55}, posicion:'Delantera/Trasera', especificacion:'Semi-Metal'},
+    {id:3, marca:'Honda', modelo:'Civic', anio:2019, ref:'456', medidas:{ancho:120, altura:60}, posicion:'Trasera', especificacion:'Cerámica'},
+    {id:4, marca:'Honda', modelo:'Accord', anio:2020, ref:'321', medidas:{ancho:110, altura:55}, posicion:'Delantera', especificacion:'Orgánica'}
   ];
 
   const fillDatalist=(datalist,values)=>{ datalist.innerHTML=''; values.forEach(v=>datalist.innerHTML+=`<option value="${v}">`) }
+
   const updateDatalists=(filteredData)=>{
     let marcas=[...new Set(filteredData.map(d=>d.marca))].sort();
     let modelos=[...new Set(filteredData.map(d=>d.modelo))].sort();
     let anios=[...new Set(filteredData.map(d=>d.anio))].sort((a,b)=>a-b);
-    fillDatalist(els.datalistMarca,marcas);
-    fillDatalist(els.datalistModelo,modelos);
-    fillDatalist(els.datalistAnio,anios);
+    let especificaciones=[...new Set(filteredData.map(d=>d.especificacion))].sort();
+
+    fillDatalist(els.datalistMarca, marcas.filter(m=>m.toLowerCase().includes(els.marca.value.toLowerCase())));
+    fillDatalist(els.datalistModelo, modelos.filter(m=>m.toLowerCase().includes(els.modelo.value.toLowerCase())));
+    fillDatalist(els.datalistAnio, anios.filter(a=>a.toString().includes(els.anio.value)));
+    fillDatalist(els.datalistEspecificacion, especificaciones.filter(e=>e.toLowerCase().includes(els.especificacion.value.toLowerCase())));
   }
 
-  const getFavorites=()=> JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
-  const isFavorite=id=>getFavorites().includes(id);
+  const isFavorite=index=>JSON.parse(localStorage.getItem('brakePadFavorites')||'[]').includes(index);
   const toggleFavorite=e=>{
-    const id=parseInt(e.target.closest('.favorite-btn').dataset.id);
-    let favs=getFavorites();
-    if(favs.includes(id)) favs=favs.filter(f=>f!=id);
-    else favs.push(id);
+    const index=parseInt(e.target.closest('.favorite-btn').dataset.id);
+    let favs=JSON.parse(localStorage.getItem('brakePadFavorites')||'[]');
+    if(favs.includes(index)) favs=favs.filter(f=>f!==index); else favs.push(index);
     localStorage.setItem('brakePadFavorites',JSON.stringify(favs));
     filterData();
-  }
+  };
 
   const getPos=()=> els.posDel.classList.contains('active') && els.posTras.classList.contains('active') ? 'Ambas' :
-                     els.posDel.classList.contains('active') ? 'Delantera' :
-                     els.posTras.classList.contains('active') ? 'Trasera':'Todas';
+                      els.posDel.classList.contains('active') ? 'Delantera' :
+                      els.posTras.classList.contains('active') ? 'Trasera' : 'Todas';
 
   const filterData=()=>{
-    const fbusq=(val)=>val.toLowerCase().trim();
     const filters={
-      busqueda: fbusq(els.busqueda.value),
+      busqueda: els.busqueda.value.toLowerCase().trim(),
       marca: els.marca.value,
       modelo: els.modelo.value,
       anio: els.anio.value ? parseInt(els.anio.value):null,
+      especificacion: els.especificacion.value,
       ancho: els.ancho.value ? parseFloat(els.ancho.value):null,
       altura: els.altura.value ? parseFloat(els.altura.value):null,
       pos: getPos()
     };
 
     const filtered=brakePadsData.filter(item=>{
-      const busqMatch=!filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) ||
-                      item.modelo.toLowerCase().includes(filters.busqueda) ||
-                      item.ref.toLowerCase().includes(filters.busqueda);
+      const busqMatch=!filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) || item.modelo.toLowerCase().includes(filters.busqueda) || item.ref.toLowerCase().includes(filters.busqueda);
       const marcaMatch=!filters.marca || item.marca===filters.marca;
       const modeloMatch=!filters.modelo || item.modelo===filters.modelo;
       const anioMatch=!filters.anio || item.anio===filters.anio;
-      const medidasMatch=(!filters.ancho || item.medidas.ancho===filters.ancho) &&
-                         (!filters.altura || item.medidas.altura===filters.altura);
-      const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' ||
-                     (filters.pos==='Delantera' && item.posicion.includes('Del')) ||
-                     (filters.pos==='Trasera' && item.posicion.includes('Tras'));
-      return busqMatch && marcaMatch && modeloMatch && anioMatch && medidasMatch && posMatch;
+      const especificacionMatch=!filters.especificacion || item.especificacion===filters.especificacion;
+      const medidasMatch=(!filters.ancho || item.medidas.ancho===filters.ancho) && (!filters.altura || item.medidas.altura===filters.altura);
+      const posMatch=filters.pos==='Todas' || filters.pos==='Ambas' || (filters.pos==='Delantera' && item.posicion.includes('Del')) || (filters.pos==='Trasera' && item.posicion.includes('Tras'));
+      return busqMatch && marcaMatch && modeloMatch && anioMatch && especificacionMatch && medidasMatch && posMatch;
     });
 
     updateDatalists(filtered);
@@ -215,21 +213,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
         <div class="result-field"><strong>Modelo:</strong> ${item.modelo}</div>
         <div class="result-field"><strong>Año:</strong> ${item.anio}</div>
         <div class="result-field"><strong>Ref:</strong> ${item.ref}</div>
+        <div class="result-field"><strong>Especificación:</strong> ${item.especificacion}</div>
         <div class="result-field"><strong>Ancho:</strong> ${item.medidas.ancho} mm</div>
         <div class="result-field"><strong>Altura:</strong> ${item.medidas.altura} mm</div>
         <div class="result-field">${posBadge}${posBadge2}</div>
       </div>`;
     }).join('');
-    document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
-  }
 
-  [els.busqueda, els.marca, els.modelo, els.anio, els.ancho, els.altura].forEach(i=>i.addEventListener('input',filterData));
+    document.querySelectorAll('.favorite-btn').forEach(btn=>btn.addEventListener('click',toggleFavorite));
+  };
+
+  [els.busqueda, els.marca, els.modelo, els.anio, els.especificacion, els.ancho, els.altura].forEach(i=>i.addEventListener('input',filterData));
   [els.posDel, els.posTras].forEach(btn=>btn.addEventListener('click',()=>{ btn.classList.toggle('active'); filterData(); }));
   document.querySelector('.toggle-dark').addEventListener('click',()=>document.body.classList.toggle('dark'));
-
   filterData();
 });
 </script>
-
 </body>
 </html>
