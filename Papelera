@@ -3,30 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Papelera Brake X en Contenedor</title>
+<title>Papelera Animada Libre con Animaciones</title>
 <style>
 body {
   margin: 0;
-  background: #f5f5f5;
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-}
-
-/* Contenedor de la papelera */
-.trash-container {
+  background: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
-  position: relative;
+  font-family: Arial, sans-serif;
 }
 
-/* Papelera */
+/* Botón papelera redondo libre */
 .lp-fbtn {
+  position: relative; /* clave para animaciones relativas */
   width: 64px;
   height: 64px;
   border: none;
@@ -40,10 +31,10 @@ body {
   align-items: center;
   overflow: hidden;
   transition: transform .25s, box-shadow .25s, background .35s;
-  position: relative;
+  animation: lp-float 2s ease-in-out infinite;
 }
 
-/* Brillo dinámico animado */
+/* Brillo dinámico */
 .lp-fbtn::before {
   content: '';
   position: absolute;
@@ -61,7 +52,13 @@ body {
   50% { transform: scale(1.1) translate(3px,3px); }
 }
 
-/* Hover y click */
+/* Flotar */
+@keyframes lp-float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Bounce y shake */
 .lp-fbtn:hover { animation: lp-bounce .4s; }
 @keyframes lp-bounce {
   0%,100% { transform: translateY(0); }
@@ -77,18 +74,42 @@ body {
   100% { transform: translateX(0); }
 }
 
-/* Animación de la tapa */
+/* Chispas relativas al botón */
+.lp-spark {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.9;
+  filter: blur(1px);
+  animation: sparkFall 0.8s forwards, sparkTwinkle 0.2s infinite alternate;
+}
+@keyframes sparkFall {
+  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx,60px), var(--dy,140px)) rotate(720deg) scale(0); opacity: 0; }
+}
+@keyframes sparkTwinkle {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* Tapa con rebote más natural */
+#lid {
+  transform-origin: center top;
+}
 @keyframes lidOpen {
   0% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(-25deg) translateY(-2px); }
-  70% { transform: rotate(-18deg) translateY(-1px); }
+  30% { transform: rotate(-25deg) translateY(-3px); }
+  60% { transform: rotate(-18deg) translateY(-1px); }
+  80% { transform: rotate(-22deg) translateY(-2px); }
   100% { transform: rotate(0deg) translateY(0); }
 }
 </style>
 </head>
 <body>
 
-<div class="trash-container">
+<!-- Puedes mover este contenedor donde quieras -->
+<div id="trashContainer">
   <button id="trashBtn" class="lp-fbtn">
     <svg viewBox="0 0 64 64" width="32" height="32">
       <defs>
@@ -107,21 +128,67 @@ body {
   </button>
 </div>
 
+<audio id="trashSound">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4d1ff00b47.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 const trashBtn = document.getElementById('trashBtn');
 const lid = document.getElementById('lid');
+const trashSound = document.getElementById('trashSound');
 
+// Brillo sigue al mouse
 trashBtn.addEventListener('mousemove', e => {
   const r = trashBtn.getBoundingClientRect();
-  trashBtn.style.setProperty('--mx', `${e.clientX - r.left}px`);
-  trashBtn.style.setProperty('--my', `${e.clientY - r.top}px`);
+  const x = e.clientX - r.left;
+  const y = e.clientY - r.top;
+  trashBtn.style.setProperty('--mx', `${x}px`);
+  trashBtn.style.setProperty('--my', `${y}px`);
 });
 
+// Animar elemento
+const animateElement = (el, animationName, duration='0.35s') => {
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = `${animationName} ${duration} ease`;
+};
+
 trashBtn.addEventListener('click', () => {
-  lid.style.animation = 'lidOpen 0.35s ease';
-  lid.addEventListener('animationend', () => {
-    lid.style.animation = '';
-  }, {once: true});
+  if (!trashSound.paused) trashSound.currentTime = 0;
+  trashSound.play();
+
+  // Chispas relativas al botón
+  for (let i = 0; i < 20; i++) {
+    const s = document.createElement('div');
+    s.className = 'lp-spark';
+    const size = Math.random() * 10 + 6;
+    const dx = (Math.random() - 0.5) * 200;
+    const dy = Math.random() * 180 + 20;
+    const colors = [
+      'rgba(255,140,0,0.9)',
+      'rgba(255,69,0,0.9)',
+      'rgba(255,0,0,0.9)',
+      'rgba(255,215,0,0.9)',
+      'rgba(255,255,255,0.9)'
+    ];
+    const sparkDuration = 0.6 + Math.random()*0.8;
+    s.style.cssText = `
+      width:${size}px;
+      height:${size*1.4}px;
+      left:50%;
+      top:50%;
+      transform: translate(-50%, -50%);
+      --dx:${dx}px;
+      --dy:${dy}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      filter:blur(${Math.random()*2+0.5}px);
+      animation-duration:${sparkDuration}s;
+    `;
+    trashBtn.appendChild(s); // importante: append dentro del botón
+    setTimeout(() => s.remove(), sparkDuration*1000);
+  }
+
+  animateElement(lid, 'lidOpen', '0.5s');
 });
 </script>
 
