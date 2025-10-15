@@ -1,18 +1,10 @@
-[
-  {
-    "marca": "Toyota",
-    "modelo": "Corolla",
-    "año": "2020",
-    "oem": "12345",
-    "fmsi": "D1234",
-    "posicion": "Delantera"
-  },
-  {
-    "marca": "Mazda",
-    "modelo": "CX-5",
-    "año": "2019",
-    "oem": "99887",
-    "fmsi": "D5678",
-    "posicion": "Trasera"
-  }
-]
+{
+  "marca": "Chevrolet",
+  "modelo": "Monza",
+  "año": "1985/1991",
+  "oem": "Por verificar",
+  "fmsi": "D001",
+  "posición": "Delantera",
+  "medidas": "104,4mm x 56,3" 
+  "imagen": link en la nube 
+}
