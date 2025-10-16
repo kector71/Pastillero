@@ -9,7 +9,7 @@
     <style>
         /* ================== VARIABLES DE TEMA ================== */
         :root {
-            --bg-color: #f0f0f0;
+            --bg-color: #f8f9fa; 
             --text-color: #000;
             --header-border-color: rgba(0,0,0,0.2);
             --header-x-fill: #000;
@@ -27,18 +27,13 @@
             --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #007AFF;
             --arrow-glow-animation: arrow-glow 1.5s ease-in-out infinite alternate;
-            --pos-btn-bg-light: #f0f0f0;
-            --pos-btn-shadow-light: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.7);
-            --pos-btn-active-shadow-light: inset 2px 2px 5px rgba(0,0,0,0.2), inset -3px -3px 7px rgba(255,255,255,0.9);
-            --pos-btn-active-del-bg-light: linear-gradient(145deg, #4f8af9, #2d6be9);
-            --pos-btn-active-tras-bg-light: linear-gradient(145deg, #f96d6d, #e94b4b);
-            --pos-btn-color-light: #333;
             --filter-box-shadow-light: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px rgba(255,255,255,0.8);
             --filter-input-border-light: rgba(0,0,0,0.25);
+            --btn-google-border: #747775;
+            --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
         }
 
         body.lp-dark {
-            /* CORRECCIÓN: Fondo negro puro para modo Amoled */
             --bg-color: #000000;
             --text-color: #fff;
             --header-border-color: rgba(255,255,255,0.2);
@@ -55,14 +50,10 @@
             --liquid-glass-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
             --icon-sun-stroke: #fff;
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
-            --pos-btn-bg-dark: #2a2a2a;
-            --pos-btn-shadow-dark: inset 2px 2px 5px rgba(0,0,0,0.4), inset -3px -3px 7px rgba(60,60,60,0.4);
-            --pos-btn-active-shadow-dark: inset 2px 2px 5px rgba(0,0,0,0.6), inset -3px -3px 7px rgba(80,80,80,0.6);
-            --pos-btn-active-del-bg-dark: linear-gradient(145deg, #3f7ad8, #2a5bb0);
-            --pos-btn-active-tras-bg-dark: linear-gradient(145deg, #d84a4a, #b02a2a);
-            --pos-btn-color-dark: #eee;
             --filter-box-shadow-dark: 5px 5px 10px rgba(0,0,0,0.4), -5px -5px 10px rgba(30,30,30,0.8);
             --filter-input-border-dark: rgba(255,255,255,0.25);
+            --btn-google-border: #8e918f;
+            --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -106,24 +97,36 @@
         .form-input:focus { border-color: var(--input-focus-border); outline:none; background-color: var(--input-focus-bg); }
         .filter-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.8rem; }
         .filter-group:last-child { margin-bottom: 0; }
-        .position-container { display:flex; gap: 0.4rem; }
+        .position-container { display:flex; gap: 0.5rem; }
 
-        /* -- ESTILO PARA LOS BOTONES DE POSICIÓN -- */
+        /* -- NUEVO ESTILO GOOGLE MATERIAL DESIGN PARA BOTONES -- */
         .position-btn {
-            flex: 1; min-width: 100px; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
-            font-weight: 500; text-align: center; transition: all 0.2s ease-out; border: none;
-            color: var(--pos-btn-color-light); background-color: var(--pos-btn-bg-light); box-shadow: var(--pos-btn-shadow-light);
-            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            flex: 1;
+            padding: 8px 16px;
+            border-radius: 100px; /* Pill shape */
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            border: 1px solid var(--btn-google-border);
+            background-color: transparent;
+            color: var(--text-color);
         }
-        body.lp-dark .position-btn { color: var(--pos-btn-color-dark); background-color: var(--pos-btn-bg-dark); box-shadow: var(--pos-btn-shadow-dark); }
-        .position-btn:hover { transform: translateY(-1px); box-shadow: inset 2px 2px 5px rgba(0,0,0,0.15), inset -3px -3px 7px rgba(255,255,255,0.8); }
-        body.lp-dark .position-btn:hover { box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -3px -3px 7px rgba(80,80,80,0.5); }
-        .position-btn.active { color: #fff; font-weight: 600; box-shadow: var(--pos-btn-active-shadow-light); }
-        body.lp-dark .position-btn.active { box-shadow: var(--pos-btn-active-shadow-dark); }
-        #positionDelantera.active { background: var(--pos-btn-active-del-bg-light); }
-        body.lp-dark #positionDelantera.active { background: var(--pos-btn-active-del-bg-dark); }
-        #positionTrasera.active { background: var(--pos-btn-active-tras-bg-light); }
-        body.lp-dark #positionTrasera.active { background: var(--pos-btn-active-tras-bg-dark); }
+        .position-btn:hover {
+            background-color: var(--btn-google-hover-bg);
+        }
+        #positionDelantera.active {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+            color: #fff;
+        }
+        #positionTrasera.active {
+            background-color: #ef4444;
+            border-color: #ef4444;
+            color: #fff;
+        }
+        /* -- FIN ESTILO GOOGLE -- */
         
         .input-group-horizontal { display:flex; gap: 0.4rem; }
         .input-group-horizontal .form-input { flex:1; }
@@ -200,7 +203,12 @@
 
         /* ================== AJUSTES RESPONSIVE ================== */
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
-        @media (max-width: 768px) { .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); } .header-subtitle { display: none; } }
+        @media (max-width: 768px) {
+            /* CAMBIO: Permitir que el título principal se ajuste en móviles */
+            header h1 { white-space: normal; }
+            .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
+            .header-subtitle { display: none; }
+        }
         @media (max-width: 600px) {
             body { padding: 0.5rem; } .glass { padding: 1rem; } .position-container{ flex-direction: row; }
             .form-input, .position-btn { font-size: 1rem; padding: 1rem; } .result-field{ font-size:0.9rem; }
