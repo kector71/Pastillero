@@ -19,8 +19,6 @@
             --input-border: rgba(0,0,0,0.15);
             --input-focus-border: #2563eb;
             --input-focus-bg: rgba(255,255,255,0.35);
-            --btn-bg: rgba(255,255,255,0.25);
-            --btn-border: rgba(0,0,0,0.15);
             --card-bg: rgba(255,255,255,0.25);
             --card-border: rgba(255,255,255,0.3);
             --liquid-glass-bg: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
@@ -29,18 +27,12 @@
             --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #007AFF;
             --arrow-glow-animation: arrow-glow 1.5s ease-in-out infinite alternate;
-
-            /* Nuevas variables para los botones de posición */
             --pos-btn-bg-light: #f0f0f0;
-            /* Mejor contraste de sombra para modo claro */
             --pos-btn-shadow-light: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.7);
             --pos-btn-active-shadow-light: inset 2px 2px 5px rgba(0,0,0,0.2), inset -3px -3px 7px rgba(255,255,255,0.9);
-            /* Colores activos más saturados */
-            --pos-btn-active-del-bg-light: linear-gradient(145deg, #4f8af9, #2d6be9); /* Azul más vívido */
-            --pos-btn-active-tras-bg-light: linear-gradient(145deg, #f96d6d, #e94b4b); /* Rojo más vívido */
-            --pos-btn-color-light: #333; /* Color de texto más oscuro para mejor contraste */
-
-            /* Variables para los cuadros de filtro en modo claro */
+            --pos-btn-active-del-bg-light: linear-gradient(145deg, #4f8af9, #2d6be9);
+            --pos-btn-active-tras-bg-light: linear-gradient(145deg, #f96d6d, #e94b4b);
+            --pos-btn-color-light: #333;
             --filter-box-shadow-light: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px rgba(255,255,255,0.8);
             --filter-input-border-light: rgba(0,0,0,0.25);
         }
@@ -56,25 +48,18 @@
             --input-border: rgba(255,255,255,0.15);
             --input-focus-border: #60a5fa;
             --input-focus-bg: rgba(0,0,0,0.3);
-            --btn-bg: rgba(0,0,0,0.2);
-            --btn-border: rgba(255,255,255,0.15);
             --card-bg: rgba(50,50,50,0.2);
             --card-border: rgba(255,255,255,0.1);
             --liquid-glass-bg: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
             --liquid-glass-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
             --icon-sun-stroke: #fff;
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
-
-            /* Variables de modo oscuro para los botones de posición */
             --pos-btn-bg-dark: #2a2a2a;
             --pos-btn-shadow-dark: inset 2px 2px 5px rgba(0,0,0,0.4), inset -3px -3px 7px rgba(60,60,60,0.4);
             --pos-btn-active-shadow-dark: inset 2px 2px 5px rgba(0,0,0,0.6), inset -3px -3px 7px rgba(80,80,80,0.6);
-            /* Colores activos más saturados */
             --pos-btn-active-del-bg-dark: linear-gradient(145deg, #3f7ad8, #2a5bb0);
             --pos-btn-active-tras-bg-dark: linear-gradient(145deg, #d84a4a, #b02a2a);
-            --pos-btn-color-dark: #eee; /* Color de texto más claro para mejor contraste */
-
-            /* Variables para los cuadros de filtro en modo oscuro */
+            --pos-btn-color-dark: #eee;
             --filter-box-shadow-dark: 5px 5px 10px rgba(0,0,0,0.4), -5px -5px 10px rgba(30,30,30,0.8);
             --filter-input-border-dark: rgba(255,255,255,0.25);
         }
@@ -90,162 +75,94 @@
         }
 
         /* ================== HEADER ================== */
-        header {
-            width: 100%; max-width: 1200px; margin: 0 auto 1.5rem auto; text-align: center;
-        }
+        header { width: 100%; max-width: 1200px; margin: 0 auto 1.5rem auto; text-align: center; }
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
             display: flex; align-items: center; justify-content: center; gap: 12px;
             opacity: 0; animation: fadeDown 1s ease 0.3s forwards; white-space: nowrap;
         }
-        .header-subtitle {
-            font-size: 0.9rem; font-weight: 500; opacity: 0.8;
-            border-left: 2px solid var(--header-border-color); padding-left: 12px;
-            transition: border-color 0.5s ease;
-        }
-        header .header-x {
-            height: 1.1em; width: auto; display: inline-block;
-            vertical-align: middle; transition: transform 0.6s ease;
-        }
-        header .header-x path { 
-            fill: var(--header-x-fill);
-            transition: fill 0.5s ease; 
-        }
+        .header-subtitle { font-size: 0.9rem; font-weight: 500; opacity: 0.8; border-left: 2px solid var(--header-border-color); padding-left: 12px; transition: border-color 0.5s ease; }
+        header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
+        header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
 
         /* ================== ESTRUCTURA PRINCIPAL ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        
-        .filters-column {
-            flex: 0 0 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem; 
-        }
+        .filters-column { flex: 0 0 320px; display: flex; flex-direction: column; gap: 1.5rem; }
         .results-panel { flex: 1; }
 
-        /* ================== ESTILOS DE FILTROS Y TARJETAS (COMPACTOS) ================== */
+        /* ================== ESTILOS DE FILTROS Y TARJETAS ================== */
         .glass {
-            background-color: var(--glass-bg);    
-            backdrop-filter: blur(12px);
-            border:1px solid var(--glass-border);    
-            border-radius:1rem; 
-            padding: 1rem; 
-            box-shadow: var(--filter-box-shadow-light);
-            transition: box-shadow 0.3s ease;
+            background-color: var(--glass-bg); backdrop-filter: blur(12px); border:1px solid var(--glass-border); border-radius:1rem; 
+            padding: 1rem; box-shadow: var(--filter-box-shadow-light); transition: box-shadow 0.3s ease;
         }
-        body.lp-dark .glass {
-            box-shadow: var(--filter-box-shadow-dark);
-        }
-
-        .filter-title { 
-            font-weight: 600; 
-            font-size: 1rem; 
-            margin-bottom: 0.6rem; 
-            text-align: center; 
-        }
+        body.lp-dark .glass { box-shadow: var(--filter-box-shadow-dark); }
+        .filter-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.6rem; text-align: center; }
         .form-input {
-            width: 100%; 
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--filter-input-border-light); 
-            background-color: var(--input-bg);
-            color: var(--text-color); 
-            font-size: 0.9rem; 
-            transition: all 0.3s ease; 
-            box-sizing: border-box;
+            width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--filter-input-border-light); 
+            background-color: var(--input-bg); color: var(--text-color); font-size: 0.9rem; transition: all 0.3s ease; box-sizing: border-box;
         }
-        body.lp-dark .form-input {
-            border: 1px solid var(--filter-input-border-dark);
-        }
-
-        .form-input:focus { 
-            border-color: var(--input-focus-border); 
-            outline:none; 
-            background-color: var(--input-focus-bg); 
-        }
-        .filter-group { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 0.4rem; 
-            margin-bottom: 0.8rem;
-        }
+        body.lp-dark .form-input { border: 1px solid var(--filter-input-border-dark); }
+        .form-input:focus { border-color: var(--input-focus-border); outline:none; background-color: var(--input-focus-bg); }
+        .filter-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.8rem; }
         .filter-group:last-child { margin-bottom: 0; }
-        
-        .position-container { 
-            display:flex; 
-            gap: 0.4rem;
-        }
+        .position-container { display:flex; gap: 0.4rem; }
 
         /* -- ESTILO PARA LOS BOTONES DE POSICIÓN -- */
         .position-btn {
-            flex: 1;
-            min-width: 100px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-align: center;
-            transition: all 0.2s ease-out;
-            border: none;
-            color: var(--pos-btn-color-light); 
-            background-color: var(--pos-btn-bg-light);
-            box-shadow: var(--pos-btn-shadow-light);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
+            flex: 1; min-width: 100px; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+            font-weight: 500; text-align: center; transition: all 0.2s ease-out; border: none;
+            color: var(--pos-btn-color-light); background-color: var(--pos-btn-bg-light); box-shadow: var(--pos-btn-shadow-light);
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
         }
-        body.lp-dark .position-btn {
-            color: var(--pos-btn-color-dark);
-            background-color: var(--pos-btn-bg-dark);
-            box-shadow: var(--pos-btn-shadow-dark);
-        }
-
-        .position-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.15), inset -3px -3px 7px rgba(255,255,255,0.8);
-        }
-        body.lp-dark .position-btn:hover {
-            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -3px -3px 7px rgba(80,80,80,0.5);
-        }
-
-        .position-btn.active {
-            color: #fff;
-            font-weight: 600;
-            box-shadow: var(--pos-btn-active-shadow-light);
-        }
-        body.lp-dark .position-btn.active {
-            box-shadow: var(--pos-btn-active-shadow-dark);
-        }
-
-        #positionDelantera.active {
-            background: var(--pos-btn-active-del-bg-light);
-        }
-        body.lp-dark #positionDelantera.active {
-            background: var(--pos-btn-active-del-bg-dark);
-        }
-        #positionTrasera.active {
-            background: var(--pos-btn-active-tras-bg-light);
-        }
-        body.lp-dark #positionTrasera.active {
-            background: var(--pos-btn-active-tras-bg-dark);
-        }
-        /* -- FIN ESTILO BOTONES -- */
-
-        .input-group-horizontal { 
-            display:flex; 
-            gap: 0.4rem;
-        }
+        body.lp-dark .position-btn { color: var(--pos-btn-color-dark); background-color: var(--pos-btn-bg-dark); box-shadow: var(--pos-btn-shadow-dark); }
+        .position-btn:hover { transform: translateY(-1px); box-shadow: inset 2px 2px 5px rgba(0,0,0,0.15), inset -3px -3px 7px rgba(255,255,255,0.8); }
+        body.lp-dark .position-btn:hover { box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -3px -3px 7px rgba(80,80,80,0.5); }
+        .position-btn.active { color: #fff; font-weight: 600; box-shadow: var(--pos-btn-active-shadow-light); }
+        body.lp-dark .position-btn.active { box-shadow: var(--pos-btn-active-shadow-dark); }
+        #positionDelantera.active { background: var(--pos-btn-active-del-bg-light); }
+        body.lp-dark #positionDelantera.active { background: var(--pos-btn-active-del-bg-dark); }
+        #positionTrasera.active { background: var(--pos-btn-active-tras-bg-light); }
+        body.lp-dark #positionTrasera.active { background: var(--pos-btn-active-tras-bg-dark); }
+        
+        .input-group-horizontal { display:flex; gap: 0.4rem; }
         .input-group-horizontal .form-input { flex:1; }
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
-        /* Estilos de resultados (sin cambios) */
+        /* ================== ESTILOS BOTÓN BORRAR FILTROS ================== */
+        .clear-filters-wrapper { text-align: center; margin-top: 0.5rem; }
+        .clear-filters-btn {
+            position: relative; width: 60px; height: 60px; border-radius: 50%;
+            background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
+            backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: none; outline: none; margin: 0 auto;
+        }
+        body.lp-dark .clear-filters-btn {
+            background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
+        }
+        .clear-filters-btn svg {
+            width: 28px; height: 28px; stroke: #FF3B30; stroke-width: 2; fill: none;
+            stroke-linecap: round; stroke-linejoin: round;
+        }
+        body.lp-dark .clear-filters-btn svg { stroke: #ff453a; }
+        
+        @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.15)}50%{transform:scale(.95)}70%{transform:scale(1.1)}100%{transform:scale(1)} }
+        @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
+        @keyframes shake-body { 0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)} }
+        @keyframes spark-fade-out { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0.5); } }
+        
+        .spark { position: absolute; border-radius: 50%; opacity: 0; animation: spark-fade-out 0.6s ease-out forwards; box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
+        
+        .animate-button { animation: bounce 0.6s ease-in-out; }
+        .animate-lid { animation: open-lid 0.8s ease-in-out; }
+        .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
+
+        /* ================== ESTILOS DE RESULTADOS ================== */
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap:0.75rem; }
         .result-card {
-            background-color: var(--card-bg); backdrop-filter: blur(10px);
-            border-radius:1rem; padding:1rem; border:1px solid var(--card-border);
-            display:flex; flex-direction:column; gap:0.25rem;
-            opacity:0; transform: translateY(10px); animation: fadeInUp 0.3s forwards;
+            background-color: var(--card-bg); backdrop-filter: blur(10px); border-radius:1rem; padding:1rem; border:1px solid var(--card-border);
+            display:flex; flex-direction:column; gap:0.25rem; opacity:0; transform: translateY(10px); animation: fadeInUp 0.3s forwards;
         }
         .result-field { font-size:0.9rem; }
         .result-image { width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem; }
@@ -254,34 +171,25 @@
         .position-trasera { background-color:#fef2f2; color:#b91c1c; }
         .no-results { text-align:center; padding: 2rem 0; opacity: 0.7; grid-column: 1 / -1; }
 
-        /* ================== FLOATING BUTTONS ================== */
+        /* ================== BOTONES FLOTANTES ================== */
         .floating-buttons-container { position: fixed; bottom: 18px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
         .floating-buttons-container.left { left: 18px; }
         .floating-buttons-container.right { right: 18px; }
         .liquid-glass {
             position: relative; width: 50px; height: 50px; border-radius: 50%;
-            background: var(--liquid-glass-bg);
-            box-shadow: var(--liquid-glass-shadow);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; overflow: hidden;
-            transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55);
-            backdrop-filter: blur(8px); border:none; outline:none;
+            background: var(--liquid-glass-bg); box-shadow: var(--liquid-glass-shadow);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55); backdrop-filter: blur(8px); border:none; outline:none;
         }
-        .liquid-glass svg {
-            width: 20px; height: 20px; fill:none; stroke-width:2; position:absolute;
-            transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
-        }
+        .liquid-glass svg { width: 20px; height: 20px; fill:none; stroke-width:2; position:absolute; transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s; }
         .liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
         .lp-icon-sun { stroke: var(--icon-sun-stroke); }    
         .lp-icon-moon { stroke: var(--icon-moon-stroke); }
-        .lp-icon-arrow { 
-            stroke: var(--icon-arrow-stroke); 
-            animation: var(--arrow-glow-animation); 
-        }
+        .lp-icon-arrow { stroke: var(--icon-arrow-stroke); animation: var(--arrow-glow-animation); }
         #upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
         #upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
 
-        /* ================== ANIMATIONS ================== */
+        /* ================== ANIMACIONES GENERALES ================== */
         @keyframes fadeDown { 0% { opacity:0; transform:translateY(-8px); } 100% { opacity:1; transform:translateY(0); } }
         @keyframes bounceHeader { 0% { transform: scale(1); } 30% { transform: scale(1.15); } 50% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
         @keyframes arrow-glow { 0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } }
@@ -289,35 +197,21 @@
         @keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
-        /* ================== RESPONSIVE ADJUSTMENTS ================== */
-        @media (max-width: 992px) {
-            .main-layout { flex-direction: column; }
-            .filters-column { flex-basis: auto; width: 100%; }
-        }
-        @media (max-width: 768px) {
-            .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
-            .header-subtitle { display: none; }
-        }
+        /* ================== AJUSTES RESPONSIVE ================== */
+        @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
+        @media (max-width: 768px) { .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); } .header-subtitle { display: none; } }
         @media (max-width: 600px) {
-            body { padding: 0.5rem; }
-            .glass { padding: 1rem; }
-            .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 1rem; padding: 1rem; }
-            .result-field{ font-size:0.9rem; }
+            body { padding: 0.5rem; } .glass { padding: 1rem; } .position-container{ flex-direction: row; }
+            .form-input, .position-btn { font-size: 1rem; padding: 1rem; } .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
-        @media (max-width: 480px) {
-            header h1 { font-size: 1rem; }
-            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
-        }
+        @media (max-width: 480px) { header h1 { font-size: 1rem; } .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; } }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>
-            Brake
-            <svg class="header-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24"><path d="M8.98885921,23.8523026 C8.8942483,23.9435442 8.76801031,24 8.62933774,24 L2.03198365,24 C1.73814918,24 1.5,23.7482301 1.5,23.4380086 C1.5,23.2831829 1.55946972,23.1428989 1.65570253,23.0416777 L13.2166154,12.4291351 C13.3325814,12.3262031 13.4061076,12.1719477 13.4061076,11.999444 C13.4061076,11.8363496 13.3401502,11.6897927 13.2352673,11.587431 L1.68841087,0.990000249 C1.57298556,0.88706828 1.5,0.733668282 1.5,0.561734827 C1.5,0.251798399 1.73814918,2.85130108e-05 2.03198365,2.85130108e-05 L8.62933774,2.85130108e-05 C8.76855094,2.85130108e-05 8.89532956,0.0561991444 8.98994048,0.148296169 L21.4358709,11.5757407 C21.548593,11.6783875 21.6196864,11.8297916 21.6196864,11.999444 C21.6196864,12.1693815 21.5483227,12.3219261 21.4350599,12.4251432 L8.98885921,23.8523026 Z M26.5774333,23.8384453 L20.1765996,17.9616286 C20.060093,17.8578413 19.9865669,17.703871 19.9865669,17.5310822 C19.9865669,17.3859509 20.0390083,17.2536506 20.1246988,17.153855 L23.4190508,14.1291948 C23.5163648,14.0165684 23.6569296,13.945571 23.8131728,13.945571 C23.9602252,13.945571 24.0929508,14.0082997 24.1894539,14.1092357 L33.861933,22.9913237 C33.9892522,23.0939706 34.0714286,23.2559245 34.0714286,23.4381226 C34.0714286,23.748059 33.8332794,23.9998289 33.5394449,23.9998289 L26.9504707,23.9998289 C26.8053105,23.9998289 26.6733958,23.9382408 26.5774333,23.8384453 Z M26.5774333,0.161098511 C26.6733958,0.0615881034 26.8053105,0 26.9504707,0 L33.5394449,0 C33.8332794,0 34.0714286,0.251769886 34.0714286,0.561706314 C34.0714286,0.743904453 33.9892522,0.905573224 33.861933,1.00822006 L24.1894539,9.89030807 C24.0929508,9.99152926 23.9602252,10.0542579 23.8131728,10.0542579 C23.6569296,10.0542579 23.5163648,9.98354562 23.4190508,9.87063409 L20.1246988,6.8459739 C20.0390083,6.74617837 19.9865669,6.613878 19.9865669,6.46874677 C19.9865669,6.29624305 20.060093,6.14198767 20.1765996,6.03848544 L26.5774333,0.161098511 Z" /></svg>
+        <h1>Brake <svg class="header-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24"><path d="M8.98885921,23.8523026 C8.8942483,23.9435442 8.76801031,24 8.62933774,24 L2.03198365,24 C1.73814918,24 1.5,23.7482301 1.5,23.4380086 C1.5,23.2831829 1.55946972,23.1428989 1.65570253,23.0416777 L13.2166154,12.4291351 C13.3325814,12.3262031 13.4061076,12.1719477 13.4061076,11.999444 C13.4061076,11.8363496 13.3401502,11.6897927 13.2352673,11.587431 L1.68841087,0.990000249 C1.57298556,0.88706828 1.5,0.733668282 1.5,0.561734827 C1.5,0.251798399 1.73814918,2.85130108e-05 2.03198365,2.85130108e-05 L8.62933774,2.85130108e-05 C8.76855094,2.85130108e-05 8.89532956,0.0561991444 8.98994048,0.148296169 L2.14358709e1,11.5757407 C2.1548593e1,11.6783875 2.16196864e1,11.8297916 2.16196864e1,11.999444 C2.16196864e1,12.1693815 2.15483227e1,12.3219261 2.14350599e1,12.4251432 L8.98885921,23.8523026 Z M26.5774333,23.8384453 L20.1765996,17.9616286 C20.060093,17.8578413 19.9865669,17.703871 19.9865669,17.5310822 C19.9865669,17.3859509 20.0390083,17.2536506 20.1246988,17.153855 L23.4190508,14.1291948 C23.5163648,14.0165684 23.6569296,13.945571 23.8131728,13.945571 C23.9602252,13.945571 24.0929508,14.0082997 24.1894539,14.1092357 L33.861933,22.9913237 C33.9892522,23.0939706 34.0714286,23.2559245 34.0714286,23.4381226 C34.0714286,23.748059 33.8332794,23.9998289 33.5394449,23.9998289 L26.9504707,23.9998289 C26.8053105,23.9998289 26.6733958,23.9382408 26.5774333,23.8384453 Z M26.5774333,0.161098511 C26.6733958,0.0615881034 26.8053105,0 26.9504707,0 L33.5394449,0 C33.8332794,0 34.0714286,0.251769886 34.0714286,0.561706314 C34.0714286,0.743904453 33.9892522,0.905573224 33.861933,1.00822006 L24.1894539,9.89030807 C24.0929508,9.99152926 23.9602252,10.0542579 23.8131728,10.0542579 C23.6569296,10.0542579 23.5163648,9.98354562 23.4190508,9.87063409 L20.1246988,6.8459739 C20.0390083,6.74617837 19.9865669,6.613878 19.9865669,6.46874677 C19.9865669,6.29624305 20.060093,6.14198767 20.1765996,6.03848544 L26.5774333,0.161098511 Z" /></svg>
             <span class="header-subtitle">Consulta rápida. Frenado seguro.</span>
         </h1>
     </header>
@@ -361,6 +255,16 @@
                         <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
                     </div>
                 </div>
+                
+                <div class="clear-filters-wrapper">
+                    <button class="clear-filters-btn" id="clearFiltersBtn" aria-label="Borrar filtros">
+                        <svg id="trashIcon" viewBox="0 0 24 24">
+                            <g class="trash-body"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></g>
+                            <g class="trash-lid"><polyline points="3 6 5 6 21 6"></polyline><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></g>
+                        </svg>
+                    </button>
+                </div>
+
             </div>
 
         </div>
@@ -392,6 +296,7 @@
                 oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'),    
                 medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'),    
                 posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTrasera'),    
+                clearBtn: document.getElementById('clearFiltersBtn'), // Elemento añadido
                 datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'),    
                 datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),    
                 datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),    
@@ -400,10 +305,7 @@
                 
             const debounce = (func, delay) => {
                 let timeout;
-                return (...args) => {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func.apply(this, args), delay);
-                };
+                return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); };
             };
 
             const fillDatalist = (datalist, values) => {
@@ -422,17 +324,18 @@
                 if (!brakePadsData.length) return;
                 const fbusq = (val) => val.toLowerCase().trim();
                 const filters = {
-                    busqueda: fbusq(els.busqueda.value), marca: els.marca.value, modelo: els.modelo.value,
-                    anio: els.anio.value, oem: els.oem.value, fmsi: els.fmsi.value,
-                    ancho: parseFloat(els.medidasAncho.value), alto: parseFloat(els.medidasAlto.value),
-                    pos: getPositionFilter()
+                    busqueda: fbusq(els.busqueda.value), marca: els.marca.value, modelo: els.modelo.value, anio: els.anio.value,
+                    oem: els.oem.value, fmsi: els.fmsi.value, ancho: parseFloat(els.medidasAncho.value),
+                    alto: parseFloat(els.medidasAlto.value), pos: getPositionFilter()
                 };
                 const filtered = brakePadsData.filter(item => {
                     const busqMatch = !filters.busqueda || ['marca', 'modelo', 'ref', 'oem', 'fmsi'].some(key => item[key]?.toLowerCase().includes(filters.busqueda));
                     const anchoMatch = !filters.ancho || item.anchoNum === filters.ancho;
                     const altoMatch = !filters.alto || item.altoNum === filters.alto;
                     const posMatch = filters.pos === 'Todas' || item.posición === filters.pos;
-                    return busqMatch && (!filters.marca || item.marca === filters.marca) && (!filters.modelo || item.modelo === filters.modelo) && (!filters.anio || item.año === filters.anio) && (!filters.oem || item.oem === filters.oem) && (!filters.fmsi || item.fmsi === filters.fmsi) && anchoMatch && altoMatch && posMatch;
+                    return busqMatch && (!filters.marca || item.marca === filters.marca) && (!filters.modelo || item.modelo === filters.modelo) &&
+                           (!filters.anio || item.año === filters.anio) && (!filters.oem || item.oem === filters.oem) &&
+                           (!filters.fmsi || item.fmsi === filters.fmsi) && anchoMatch && altoMatch && posMatch;
                 });
                 renderResults(filtered);
             };
@@ -459,7 +362,20 @@
                 }).join('');
             };
 
+            // --- LÓGICA DEL BOTÓN BORRAR FILTROS ---
+            const clearAllFilters = () => {
+                const inputsToClear = [
+                    els.busqueda, els.marca, els.modelo, els.anio,
+                    els.oem, els.fmsi, els.medidasAncho, els.medidasAlto
+                ];
+                inputsToClear.forEach(input => input.value = '');
+                els.posDel.classList.remove('active');
+                els.posTras.classList.remove('active');
+                filterData();
+            };
+
             function setupEventListeners() {
+                // Modo Oscuro
                 els.darkBtn.addEventListener('click', () => {
                     const isDark = els.body.classList.toggle('lp-dark');
                     els.darkBtn.setAttribute('aria-pressed', String(isDark));
@@ -475,21 +391,66 @@
                     setTimeout(() => { els.headerX.style.animation = ''; }, 600);
                 });
 
+                // Subir al inicio
                 els.upBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
                 window.addEventListener('scroll', () => els.upBtn.classList.toggle('show', window.scrollY > 150));
 
+                // Filtros
                 const debouncedFilter = debounce(filterData, 300);
                 const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
                 filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
                 [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
-                    btn.classList.toggle('active');
-                    filterData();
+                    btn.classList.toggle('active'); filterData();
                 }));
+
+                // Lógica y animación del botón Borrar
+                const trashLid = els.clearBtn.querySelector('.trash-lid');
+                const trashBody = els.clearBtn.querySelector('.trash-body');
+                const NUM_SPARKS = 10;
+                const SPARK_COLORS = ['#00ffff', '#ff00ff', '#00ff7f', '#ffc700', '#ff5722'];
+
+                function createSparks(button) {
+                    for (let i = 0; i < NUM_SPARKS; i++) {
+                        const spark = document.createElement('div');
+                        spark.classList.add('spark');
+                        const size = Math.random() * 4 + 3;
+                        spark.style.width = `${size}px`; spark.style.height = `${size}px`;
+                        spark.style.backgroundColor = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)];
+                        spark.style.left = `calc(50% + ${Math.random() * 20 - 10}px)`;
+                        spark.style.top = `calc(50% + ${Math.random() * 20 - 10}px)`;
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = Math.random() * 25 + 20;
+                        const sparkX = Math.cos(angle) * distance;
+                        const sparkY = Math.sin(angle) * distance;
+                        spark.style.setProperty('--spark-x', `${sparkX}px`);
+                        spark.style.setProperty('--spark-y', `${sparkY}px`);
+                        button.appendChild(spark);
+                        spark.addEventListener('animationend', () => spark.remove(), { once: true });
+                    }
+                }
+
+                els.clearBtn.addEventListener('click', () => {
+                    if (els.clearBtn.disabled) return;
+                    els.clearBtn.disabled = true;
+
+                    els.clearBtn.classList.add('animate-button');
+                    trashLid.classList.add('animate-lid');
+                    trashBody.classList.add('animate-body');
+                    
+                    createSparks(els.clearBtn);
+                    clearAllFilters(); // Limpia los filtros durante la animación
+
+                    trashLid.addEventListener('animationend', () => {
+                        els.clearBtn.classList.remove('animate-button');
+                        trashLid.classList.remove('animate-lid');
+                        trashBody.classList.remove('animate-body');
+                        els.clearBtn.disabled = false;
+                    }, { once: true });
+                });
             }
 
             function inicializarApp() {
-                // --- DATOS FICTICIOS ---
                 const data = [
                     { "marca": "Chevrolet", "modelo": "Spark GT", "ref": "BX-1234", "año": "2018-2022", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT" },
                     { "marca": "Mazda", "modelo": "3", "ref": "BX-5678", "año": "2019-2023", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3" },
