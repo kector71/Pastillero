@@ -29,10 +29,24 @@
             --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #007AFF;
             --arrow-glow-animation: arrow-glow 1.5s ease-in-out infinite alternate;
+
+            /* Nuevas variables para los botones de posición */
+            --pos-btn-bg-light: #f0f0f0;
+            /* Mejor contraste de sombra para modo claro */
+            --pos-btn-shadow-light: 3px 3px 6px rgba(0,0,0,0.1), -3px -3px 6px rgba(255,255,255,0.7);
+            --pos-btn-active-shadow-light: inset 2px 2px 5px rgba(0,0,0,0.2), inset -3px -3px 7px rgba(255,255,255,0.9);
+            /* Colores activos más saturados */
+            --pos-btn-active-del-bg-light: linear-gradient(145deg, #4f8af9, #2d6be9); /* Azul más vívido */
+            --pos-btn-active-tras-bg-light: linear-gradient(145deg, #f96d6d, #e94b4b); /* Rojo más vívido */
+            --pos-btn-color-light: #333; /* Color de texto más oscuro para mejor contraste */
+
+            /* Variables para los cuadros de filtro en modo claro */
+            --filter-box-shadow-light: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px rgba(255,255,255,0.8);
+            --filter-input-border-light: rgba(0,0,0,0.25);
         }
 
         body.lp-dark {
-            --bg-color: #000;
+            --bg-color: #1a1a1a;
             --text-color: #fff;
             --header-border-color: rgba(255,255,255,0.2);
             --header-x-fill: #fff;
@@ -50,6 +64,19 @@
             --liquid-glass-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
             --icon-sun-stroke: #fff;
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
+
+            /* Variables de modo oscuro para los botones de posición */
+            --pos-btn-bg-dark: #2a2a2a;
+            --pos-btn-shadow-dark: inset 2px 2px 5px rgba(0,0,0,0.4), inset -3px -3px 7px rgba(60,60,60,0.4);
+            --pos-btn-active-shadow-dark: inset 2px 2px 5px rgba(0,0,0,0.6), inset -3px -3px 7px rgba(80,80,80,0.6);
+            /* Colores activos más saturados */
+            --pos-btn-active-del-bg-dark: linear-gradient(145deg, #3f7ad8, #2a5bb0);
+            --pos-btn-active-tras-bg-dark: linear-gradient(145deg, #d84a4a, #b02a2a);
+            --pos-btn-color-dark: #eee; /* Color de texto más claro para mejor contraste */
+
+            /* Variables para los cuadros de filtro en modo oscuro */
+            --filter-box-shadow-dark: 5px 5px 10px rgba(0,0,0,0.4), -5px -5px 10px rgba(30,30,30,0.8);
+            --filter-input-border-dark: rgba(255,255,255,0.25);
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -88,48 +115,131 @@
         /* ================== ESTRUCTURA PRINCIPAL ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
         
-        /* Contenedor para la columna de filtros */
         .filters-column {
             flex: 0 0 320px;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem; /* Espacio entre las tarjetas de filtros */
+            gap: 1.5rem; 
         }
         .results-panel { flex: 1; }
 
-        /* ================== ESTILOS DE FILTROS Y TARJETAS ================== */
+        /* ================== ESTILOS DE FILTROS Y TARJETAS (COMPACTOS) ================== */
         .glass {
             background-color: var(--glass-bg);    
             backdrop-filter: blur(12px);
             border:1px solid var(--glass-border);    
-            border-radius:1rem; padding:1.5rem;    
+            border-radius:1rem; 
+            padding: 1rem; 
+            box-shadow: var(--filter-box-shadow-light);
+            transition: box-shadow 0.3s ease;
         }
-        .filter-title { font-weight:600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        body.lp-dark .glass {
+            box-shadow: var(--filter-box-shadow-dark);
+        }
+
+        .filter-title { 
+            font-weight: 600; 
+            font-size: 1rem; 
+            margin-bottom: 0.6rem; 
+            text-align: center; 
+        }
         .form-input {
-            width: 100%; padding: 12px; border-radius: 12px;
-            border: 1px solid var(--input-border); background-color: var(--input-bg);
-            color: var(--text-color); font-size: 0.9rem; transition: all 0.3s ease; box-sizing: border-box;
+            width: 100%; 
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--filter-input-border-light); 
+            background-color: var(--input-bg);
+            color: var(--text-color); 
+            font-size: 0.9rem; 
+            transition: all 0.3s ease; 
+            box-sizing: border-box;
         }
+        body.lp-dark .form-input {
+            border: 1px solid var(--filter-input-border-dark);
+        }
+
         .form-input:focus { 
             border-color: var(--input-focus-border); 
             outline:none; 
             background-color: var(--input-focus-bg); 
         }
-        .filter-group { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1rem; }
+        .filter-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.4rem; 
+            margin-bottom: 0.8rem;
+        }
         .filter-group:last-child { margin-bottom: 0; }
         
-        .position-container { display:flex; gap:0.5rem; }
-        .position-btn {
-            flex:1; min-width:100px; padding: 12px; border-radius:12px; border:1px solid var(--btn-border);
-            cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
-            background-color: var(--btn-bg); color: var(--text-color);
+        .position-container { 
+            display:flex; 
+            gap: 0.4rem;
         }
-        #positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
-        #positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
-        .input-group-horizontal { display:flex; gap:0.5rem; }
+
+        /* -- ESTILO PARA LOS BOTONES DE POSICIÓN -- */
+        .position-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s ease-out;
+            border: none;
+            color: var(--pos-btn-color-light); 
+            background-color: var(--pos-btn-bg-light);
+            box-shadow: var(--pos-btn-shadow-light);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        body.lp-dark .position-btn {
+            color: var(--pos-btn-color-dark);
+            background-color: var(--pos-btn-bg-dark);
+            box-shadow: var(--pos-btn-shadow-dark);
+        }
+
+        .position-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.15), inset -3px -3px 7px rgba(255,255,255,0.8);
+        }
+        body.lp-dark .position-btn:hover {
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -3px -3px 7px rgba(80,80,80,0.5);
+        }
+
+        .position-btn.active {
+            color: #fff;
+            font-weight: 600;
+            box-shadow: var(--pos-btn-active-shadow-light);
+        }
+        body.lp-dark .position-btn.active {
+            box-shadow: var(--pos-btn-active-shadow-dark);
+        }
+
+        #positionDelantera.active {
+            background: var(--pos-btn-active-del-bg-light);
+        }
+        body.lp-dark #positionDelantera.active {
+            background: var(--pos-btn-active-del-bg-dark);
+        }
+        #positionTrasera.active {
+            background: var(--pos-btn-active-tras-bg-light);
+        }
+        body.lp-dark #positionTrasera.active {
+            background: var(--pos-btn-active-tras-bg-dark);
+        }
+        /* -- FIN ESTILO BOTONES -- */
+
+        .input-group-horizontal { 
+            display:flex; 
+            gap: 0.4rem;
+        }
         .input-group-horizontal .form-input { flex:1; }
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
+        /* Estilos de resultados (sin cambios) */
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap:0.75rem; }
         .result-card {
             background-color: var(--card-bg); backdrop-filter: blur(10px);
@@ -216,13 +326,13 @@
         <div class="filters-column">
             
             <div class="glass">
-                <div class="filter-title">Búsqueda rápida</div>
+                <div class="filter-title">Búsqueda Rápida</div>
                 <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref, OEM..." class="form-input">
             </div>
 
             <div class="glass">
                 <div class="filter-group">
-                    <div class="filter-title">Detalles del vehículo</div>
+                    <div class="filter-title">Detalles del Vehículo</div>
                     <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
                     <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
                     <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
@@ -231,13 +341,13 @@
                 <div class="filter-group">
                     <div class="filter-title">Posición</div>
                     <div class="position-container">
-                        <div class="position-btn" id="positionDelantera">Delantera</div>
-                        <div class="position-btn" id="positionTras">Trasera</div>
+                        <button class="position-btn" id="positionDelantera">Delantera</button>
+                        <button class="position-btn" id="positionTrasera">Trasera</button>
                     </div>
                 </div>
     
                 <div class="filter-group">
-                    <div class="filter-title">Referencias y códigos</div>
+                    <div class="filter-title">Referencias y Códigos</div>
                     <div class="input-group-horizontal">
                         <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
                         <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
@@ -281,7 +391,7 @@
                 modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'),    
                 oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'),    
                 medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'),    
-                posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTras'),    
+                posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTrasera'),    
                 datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'),    
                 datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),    
                 datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),    
@@ -378,29 +488,39 @@
                 }));
             }
 
-            async function inicializarApp() {
-                try {
-                    const response = await fetch('pastillas.json');
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    const data = await response.json();
+            function inicializarApp() {
+                // --- DATOS FICTICIOS ---
+                const data = [
+                    { "marca": "Chevrolet", "modelo": "Spark GT", "ref": "BX-1234", "año": "2018-2022", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT" },
+                    { "marca": "Mazda", "modelo": "3", "ref": "BX-5678", "año": "2019-2023", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3" },
+                    { "marca": "Renault", "modelo": "Logan", "ref": "BX-9101", "año": "2016-2021", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan" },
+                    { "marca": "Toyota", "modelo": "Corolla", "ref": "BX-1121", "año": "2020-2024", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla" },
+                    { "marca": "Ford", "modelo": "Fiesta", "ref": "BX-3141", "año": "2014-2019", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta" },
+                    { "marca": "Kia", "modelo": "Rio", "ref": "BX-5161", "año": "2018-2023", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio" },
+                    { "marca": "Hyundai", "modelo": "Accent", "ref": "BX-7181", "año": "2018-2022", "oem": "58101-H5A25", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Accent" },
+                    { "marca": "Nissan", "modelo": "Versa", "ref": "BX-9102", "año": "2020-2024", "oem": "D1060-5RB0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Versa" },
+                    { "marca": "Volkswagen", "modelo": "Jetta", "ref": "BX-1122", "año": "2019-2023", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta" },
+                    { "marca": "Chevrolet", "modelo": "Onix", "ref": "BX-3142", "año": "2020-2024", "oem": "26242300", "fmsi": "9097-D2031", "posición": "Delantera", "medidas": "131.6 x 52.8", "imagen": "https://via.placeholder.com/300x200.png?text=Onix" },
+                    { "marca": "Mazda", "modelo": "CX-5", "ref": "BX-5162", "año": "2017-2022", "oem": "KAY0-33-28Z", "fmsi": "8881-D1691", "posición": "Delantera", "medidas": "146.0 x 59.8", "imagen": "https://via.placeholder.com/300x200.png?text=CX-5" },
+                    { "marca": "Renault", "modelo": "Duster", "ref": "BX-7182", "año": "2015-2020", "oem": "41060-8481R", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Duster" },
+                    { "marca": "Toyota", "modelo": "RAV4", "ref": "BX-9103", "año": "2019-2023", "oem": "04465-42200", "fmsi": "9118-D1983", "posición": "Delantera", "medidas": "150.1 x 57.3", "imagen": "https://via.placeholder.com/300x200.png?text=RAV4" },
+                    { "marca": "Kia", "modelo": "Sportage", "ref": "BX-1123", "año": "2017-2022", "oem": "58101-D4A20", "fmsi": "8881-D1691", "posición": "Delantera", "medidas": "146.0 x 59.8", "imagen": "https://via.placeholder.com/300x200.png?text=Sportage" },
+                    { "marca": "Nissan", "modelo": "Kicks", "ref": "BX-3143", "año": "2018-2023", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks" }
+                ];
 
-                    brakePadsData = data.map(item => {
-                        const partes = item.medidas.split('x').map(s => parseFloat(s.trim()));
-                        return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
-                    });
+                brakePadsData = data.map(item => {
+                    const partes = item.medidas.split('x').map(s => parseFloat(s.trim()));
+                    return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
+                });
 
-                    const uniqueValues = (key) => [...new Set(brakePadsData.map(d => d[key]))].sort();
-                    fillDatalist(els.datalistMarca, uniqueValues('marca'));
-                    fillDatalist(els.datalistModelo, uniqueValues('modelo'));
-                    fillDatalist(els.datalistAnio, uniqueValues('año'));
-                    fillDatalist(els.datalistOem, uniqueValues('oem'));
-                    fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
-                    
-                    filterData();
-                } catch (error) {
-                    console.error("No se pudieron cargar los datos de las pastillas:", error);
-                    els.results.innerHTML = `<p class="no-results">Error al cargar los datos. Por favor, intente de nuevo más tarde.</p>`;
-                }
+                const uniqueValues = (key) => [...new Set(brakePadsData.map(d => d[key]))].sort();
+                fillDatalist(els.datalistMarca, uniqueValues('marca'));
+                fillDatalist(els.datalistModelo, uniqueValues('modelo'));
+                fillDatalist(els.datalistAnio, uniqueValues('año'));
+                fillDatalist(els.datalistOem, uniqueValues('oem'));
+                fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
+                
+                filterData();
             }
 
             setupEventListeners();
