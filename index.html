@@ -8,51 +8,29 @@
     
     <style>
         /* ================== GENERAL & BODY ================== */
-        :root {
-            --c-text: #000;
-            --c-background: #f0f0f0;
-            --c-glass-bg: rgba(255, 255, 255, 0.15);
-            --c-glass-border: rgba(255, 255, 255, 0.3);
-            --c-form-bg: rgba(255, 255, 255, 0.25);
-            --c-form-border: rgba(0, 0, 0, 0.15);
-        }
-        body.lp-dark {
-            --c-text: #fff;
-            --c-background: #000;
-            --c-glass-bg: rgba(50, 50, 50, 0.2);
-            --c-glass-border: rgba(255, 255, 255, 0.1);
-            --c-form-bg: rgba(0, 0, 0, 0.2);
-            --c-form-border: rgba(255, 255, 255, 0.15);
-        }
-        body.lp-dim {
-            --c-text: #e2e8f0;
-            --c-background: #1a202c; /* Gris oscuro azulado */
-            --c-glass-bg: rgba(45, 55, 72, 0.25);
-            --c-glass-border: rgba(255, 255, 255, 0.1);
-            --c-form-bg: rgba(26, 32, 44, 0.3);
-            --c-form-border: rgba(255, 255, 255, 0.1);
-        }
         * { box-sizing: border-box; margin:0; padding:0; }
         html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
         body { 
-            background: var(--c-background); 
+            background:#f0f0f0; 
             transition: background 0.5s ease, color 0.5s ease; 
-            color: var(--c-text);
+            color:#000;
             padding: 1rem;
         }
+        body.lp-dark { background:#000; color:#fff; }
 
         /* ================== HEADER ================== */
         header {
             width: 100%;
             max-width: 960px;
             margin: 0 auto 1.5rem auto;
+            text-align: center;
             padding: 15px 12px;
             border-radius: 12px;
-            transition: background 0.5s ease;
-            background: var(--c-background);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            transition: background 0.5s ease, color 0.5s ease;
+            background: #f0f0f0;
+        }
+        body.lp-dark header {
+             background: #000;
         }
         header h1 {
             font-family: 'Orbitron', sans-serif;
@@ -62,13 +40,11 @@
             color: inherit;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             gap: 12px;
             opacity: 0;
             animation: fadeDown 1s ease 0.3s forwards;
             white-space: nowrap;
-            flex-shrink: 1;
-            overflow: hidden;
         }
         .header-subtitle {
             font-size: 0.9rem;
@@ -79,7 +55,7 @@
             padding-left: 12px;
             transition: border-color 0.5s ease;
         }
-        body:not(.lp-light) .header-subtitle {
+        body.lp-dark .header-subtitle {
             border-left-color: rgba(255,255,255,0.2);
         }
         header .header-x {
@@ -89,70 +65,15 @@
             vertical-align: middle;
             transition: transform 0.6s ease;
         }
-        header .header-x path { transition: fill 0.5s ease; fill: var(--c-text); }
-        
-        /* ================== NUEVO INTERRUPTOR DE TEMA ================== */
-        .switcher {
-            position: relative;
-            border: 0;
-            padding: 3px;
-            display: flex;
-            background: var(--c-form-bg);
-            border-radius: 50px;
-            filter: url(#switcher);
-        }
-        .switcher__legend {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .switcher__option {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .switcher__input {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .switcher__icon {
-            --c: #9ca3af;
-            width: 24px;
-            height: 24px;
-            transition: color 0.3s;
-        }
-        .switcher__input:checked + .switcher__icon {
-            --c: var(--c-text);
-        }
-        .switcher__toggle {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 40px;
-            height: 40px;
-            background-color: #fff;
-            border-radius: 50%;
-            transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
-            z-index: -1;
-        }
-        body.lp-dark .switcher__toggle { background-color: #4b5563; }
-        body.lp-dim .switcher__toggle { background-color: #4a5568; }
-        .switcher__input[c-option="2"]:checked ~ .switcher__toggle {
-            transform: translateX(100%);
-        }
-        .switcher__input[c-option="3"]:checked ~ .switcher__toggle {
-            transform: translateX(200%);
-        }
+        header .header-x path { transition: fill 0.5s ease; }
+        body.lp-dark header .header-x path { fill: #FFFFFF; }
+        body:not(.lp-dark) header .header-x path { fill: #000000; }
 
         /* ================== MAIN CONTENT (FILTERS) ================== */
         .glass {
-            background-color: var(--c-glass-bg); 
+            background-color: rgba(255,255,255,0.15); 
             backdrop-filter: blur(12px);
-            border:1px solid var(--c-glass-border); 
+            border:1px solid rgba(255,255,255,0.3); 
             border-radius:1rem;
             padding:1.5rem; 
             max-width: 960px;
@@ -161,89 +82,133 @@
             flex-direction:column; 
             gap: 0.8rem;
         }
+        body.lp-dark .glass {
+            background-color: rgba(50,50,50,0.2);
+            border-color: rgba(255,255,255,0.1);
+        }
         .filter-title { font-weight:600; font-size: 0.9rem; }
         .form-input {
             width: 100%;
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid var(--c-form-border);
-            background-color: var(--c-form-bg);
-            color: var(--c-text);
+            border: 1px solid rgba(0,0,0,0.15);
+            background-color: rgba(255,255,255,0.25);
+            color: #000;
             font-size: 0.9rem;
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
-        .form-input:focus { border-color:#2563eb; outline:none; }
+        .form-input:focus { border-color:#2563eb; outline:none; background-color: rgba(255,255,255,0.35); }
+        body.lp-dark .form-input {
+            background-color: rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+        body.lp-dark .form-input:focus {
+            border-color: #60a5fa;
+            background-color: rgba(0,0,0,0.3);
+        }
         .position-container { display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center; }
         .position-btn {
-            flex:1; min-width:140px; max-width:180px; padding: 12px; border-radius:12px; border:1px solid var(--c-form-border);
+            flex:1; min-width:140px; max-width:180px; padding: 12px; border-radius:12px; border:1px solid rgba(0,0,0,0.15);
             cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
-            background-color: var(--c-form-bg); color: var(--c-text);
+            background-color: rgba(255,255,255,0.25); color: #000;
+        }
+        body.lp-dark .position-btn {
+            background-color: rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.15);
+            color: #fff;
         }
         #positionDelantera.active { background-color: #60a5fa; border-color: #3b82f6; color: #fff; }
         #positionTras.active { background-color: #f87171; border-color: #ef4444; color: #fff; }
         .medidas-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
         .medidas-container .form-input { flex:1; }
 
-        .trash-container { display: flex; justify-content: center; margin-top: 1rem; }
-        #trashBtn {
-            position: relative; width: auto; height: auto; border-radius: 50px; padding: 10px 20px;
-            font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 10px;
-        }
-        #trashBtn svg { width: 18px; height: 18px; position: relative; }
-
+        /* Filter Results */
         .results-wrapper {  
-            display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap:0.75rem; margin: 1rem auto 0 auto;
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap:0.75rem;
+            margin: 1rem auto 0 auto;
         }
         .result-card {
-            background-color: var(--c-glass-bg); backdrop-filter: blur(10px);
-            border-radius:1rem; padding:1rem; border:1px solid var(--c-glass-border);
+            background-color: rgba(255,255,255,0.25); 
+            backdrop-filter: blur(10px);
+            border-radius:1rem; padding:1rem; border:1px solid rgba(255,255,255,0.3);
             display:flex; flex-direction:column; gap:0.25rem;
-            opacity:0; transform: translateY(10px); animation: fadeInUp 0.3s forwards;
+            opacity:0; transform: translateY(10px);
+            animation: fadeInUp 0.3s forwards;
+        }
+        body.lp-dark .result-card {
+            background-color: rgba(50,50,50,0.2);
+            border-color: rgba(255,255,255,0.1);
         }
         .result-field { font-size:0.9rem; }
-        .result-image { width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem; }
+        .result-image {
+            width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem;
+        }
         .position-badge { display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; margin-right:0.25rem; text-align:center; }
         .position-delantera { background-color:#dbeafe; color:#1d4ed8; }
         .position-trasera { background-color:#fef2f2; color:#b91c1c; }
+        .no-results { text-align:center; padding: 2rem 0; opacity: 0.7; grid-column: 1 / -1; }
 
         /* ================== FLOATING BUTTONS ================== */
+        .floating-buttons-container {
+            position: fixed;
+            bottom: 18px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .floating-buttons-container.left {
+            left: 18px;
+        }
+        .floating-buttons-container.right {
+            right: 18px;
+        }
         .liquid-glass {
-            position: fixed; width: 50px; height: 50px; border-radius: 50%;
+            position: relative;
+            width: 50px; height: 50px;
+            border-radius: 50%;
             background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
             box-shadow: 0 5px 10px rgba(0,0,0,0.25), inset 0 0 18px rgba(255,255,255,0.3);
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            overflow: hidden; transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55);
-            backdrop-filter: blur(8px); border:none; outline:none; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55);
+            backdrop-filter: blur(8px);
+            border:none; outline:none;
         }
-        body:not(.lp-light) .liquid-glass {
+        body.lp-dark .liquid-glass {
             background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
             box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
         }
-        .liquid-glass svg { width: 20px; height: 20px; fill:none; stroke-width:2; position:absolute; transition: all 0.4s; }
+        .liquid-glass svg {
+            width: 20px; height: 20px;
+            fill:none; stroke-width:2;
+            position:absolute;
+            transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
+        }
         .liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
-        
-        #upBtn { left: 18px; bottom: 18px; }
-        #upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
-        #upBtn.show { opacity: 1; pointer-events: auto; transform: translateY(0); animation: slide-bounce 0.5s ease forwards; }
-
+        body:not(.lp-dark) .lp-icon-sun { stroke:#000; }  
+        body.lp-dark .lp-icon-sun { stroke:#fff; } 
+        .lp-icon-moon { stroke:#fff; }
         .lp-icon-arrow { stroke:#007AFF; animation: arrow-glow 1.5s ease-in-out infinite alternate; }
-        body:not(.lp-light) .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-in-out infinite alternate; }
-        
-        .lp-spark { position: fixed; border-radius: 50%; pointer-events: none; opacity: 0.9; filter: blur(1px); animation: sparkFall 0.8s forwards; }
+        body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-in-out infinite alternate; }
+        #upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
+        #upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
 
+        /* ================== ANIMATIONS (KEYFRAMES) ================== */
         @keyframes fadeDown { 0% { opacity:0; transform:translateY(-8px); } 100% { opacity:1; transform:translateY(0); } }
         @keyframes bounceHeader { 0% { transform: scale(1); } 30% { transform: scale(1.15); } 50% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
         @keyframes arrow-glow { 0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } }
         @keyframes arrow-glow-dark { 0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } }
         @keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
-        @keyframes lidOpen { 0% { transform: rotate(0deg) translateY(0); } 50% { transform: rotate(-25deg) translateY(-2px); } 100% { transform: rotate(0deg) translateY(0); } }
-        @keyframes sparkFall { 0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; } 100% { transform: translate(var(--dx,60px), var(--dy,140px)) rotate(720deg) scale(0); opacity: 0; } }
 
+        /* ================== RESPONSIVE ADJUSTMENTS ================== */
         @media (max-width: 768px) {
-            #upBtn { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
+            .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
             .header-subtitle { display: none; }
         }
         @media (max-width: 600px) {
@@ -256,10 +221,7 @@
         }
         @media (max-width: 480px) {
             header h1 { font-size: 1rem; }
-            header { flex-wrap: wrap; justify-content: center; gap: 10px; }
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
-            #trashBtn span { display: none; }
-            #trashBtn { width: 50px; height: 50px; border-radius: 50%; }
         }
     </style>
 </head>
@@ -273,22 +235,6 @@
             </svg>
             <span class="header-subtitle">Consulta rápida. Frenado seguro.</span>
         </h1>
-        <fieldset class="switcher">
-            <legend class="switcher__legend">Choose theme</legend>
-            <label class="switcher__option">
-              <input class="switcher__input" type="radio" name="theme" value="light" c-option="1" checked />
-              <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" fill-rule="evenodd" d="M18 12a6 6 0 1 1 0 12 6 6 0 0 1 0-12Zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" clip-rule="evenodd" /><path fill="var(--c)" d="M17 6.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 7.742a1 1 0 1 1 1.618 1.176L24.1 11.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 13.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM29.722 20.795a1 1 0 0 1-.619 1.902l-2.853-.927a1 1 0 1 1 .618-1.902l2.854.927ZM25.862 27.159a1 1 0 0 1-1.618 1.175l-1.763-2.427a1 1 0 1 1 1.618-1.175l1.763 2.427ZM19 30.038a1 1 0 0 1-2 0v-3a1 1 0 1 1 2 0v3ZM11.755 28.334a1 1 0 0 1-1.618-1.175l1.764-2.427a1 1 0 1 1 1.618 1.175l-1.764 2.427ZM6.896 22.697a1 1 0 1 1-.618-1.902l2.853-.927a1 1 0 1 1 .618 1.902l-2.853.927ZM6.278 15.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 8.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z" /></svg>
-            </label>
-            <label class="switcher__option">
-              <input class="switcher__input" type="radio" name="theme" value="dark" c-option="2" />
-              <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M12.5 8.473a10.968 10.968 0 0 1 8.785-.97 7.435 7.435 0 0 0-3.737 4.672l-.09.373A7.454 7.454 0 0 0 28.732 20.4a10.97 10.97 0 0 1-5.232 7.125l-.497.27c-5.014 2.566-11.175.916-14.234-3.813l-.295-.483C5.53 18.403 7.13 11.93 12.017 8.77l.483-.297Zm4.234.616a8.946 8.946 0 0 0-2.805.883l-.429.234A9 9 0 0 0 10.206 22.5l.241.395A9 9 0 0 0 22.5 25.794l.416-.255a8.94 8.94 0 0 0 2.167-1.99 9.433 9.433 0 0 1-2.782-.313c-5.043-1.352-8.036-6.535-6.686-11.578l.147-.491c.242-.745.573-1.44.972-2.078Z" /></svg>
-            </label>
-            <label class="switcher__option">
-              <input class="switcher__input" type="radio" name="theme" value="dim" c-option="3" />
-              <svg class="switcher__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36"><path fill="var(--c)" d="M5 21a1 1 0 0 1 1-1h24a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM12 25a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1ZM15 29a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM18 13a6 6 0 0 1 5.915 7h-2.041A4.005 4.005 0 0 0 18 15a4 4 0 0 0-3.874 5h-2.041A6 6 0 0 1 18 13ZM17 7.038a1 1 0 1 1 2 0v3a1 1 0 0 1-2 0v-3ZM24.244 8.742a1 1 0 1 1 1.618 1.176L24.1 12.345a1 1 0 1 1-1.618-1.176l1.763-2.427ZM29.104 14.379a1 1 0 0 1 .618 1.902l-2.854.927a1 1 0 1 1-.618-1.902l2.854-.927ZM6.278 16.28a1 1 0 1 1 .618-1.901l2.853.927a1 1 0 1 1-.618 1.902l-2.853-.927ZM10.137 9.918a1 1 0 0 1 1.618-1.176l1.764 2.427a1 1 0 0 1-1.618 1.176l-1.764-2.427Z" /></svg>
-            </label>
-            <div class="switcher__toggle"></div>
-        </fieldset>
     </header>
 
     <main class="glass">
@@ -311,71 +257,154 @@
             <div class="position-btn" id="positionDelantera">Delantera</div>
             <div class="position-btn" id="positionTras">Trasera</div>
         </div>
-        
-        <div class="trash-container">
-            <button id="trashBtn" class="liquid-glass">
-                <svg viewBox="0 0 64 64"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#888"></stop><stop offset="100%" stop-color="#444"></stop></linearGradient></defs><rect x="20" y="22" width="24" height="28" rx="4" ry="4" fill="url(#grad1)" stroke="#222" stroke-width="1"></rect><rect id="lid" x="18" y="18" width="28" height="5" rx="3" ry="3" fill="#555"></rect><rect x="18" y="18" width="28" height="2" rx="3" ry="3" fill="rgba(255,255,255,0.2)"></rect><line x1="26" y1="26" x2="26" y2="46" stroke="#333" stroke-width="2"></line><line x1="32" y1="26" x2="32" y2="46" stroke="#333" stroke-width="2"></line><line x1="38" y1="26" x2="38" y2="46" stroke="#333" stroke-width="2"></line></svg>
-                <span>Limpiar Filtros</span>
-            </button>
-        </div>
-
         <div class="results-wrapper" id="results-container"></div>
         <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
     </main>
-    
-    <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página"><svg class="lp-icon-arrow" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5,12 12,5 19,12"></polyline></svg></button>
-    
-    <audio id="trashSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
 
-    <svg hidden>
-        <filter id="switcher">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="goo" />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-        </filter>
-    </svg>
+    <div class="floating-buttons-container left">
+        <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página"><svg class="lp-icon-arrow" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5,12 12,5 19,12"></polyline></svg></button>
+    </div>
+
+    <div class="floating-buttons-container right">
+        <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false"><svg class="lp-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line></svg><svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
-            const brakePadsData = [
-              {"marca": "Chevrolet", "modelo": "Spark GT", "año": "2018", "oem": "96473228", "fmsi": "D1391-8500", "posición": "Delantera", "medidas": "131.6 x 51.5 x 16.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "ref": "SP-101"},
-              {"marca": "Renault", "modelo": "Logan", "año": "2020", "oem": "7701209849", "fmsi": "D1084-7983", "posición": "Delantera", "medidas": "100 x 64.8 x 18.2", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "ref": "RN-202"},
-              {"marca": "Mazda", "modelo": "3", "año": "2019", "oem": "B4Y0-33-28Z", "fmsi": "D1734-8991", "posición": "Delantera", "medidas": "142 x 58.7 x 17", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "ref": "MZ-303"},
-              {"marca": "Mazda", "modelo": "3", "año": "2019", "oem": "BBM4-26-48Z", "fmsi": "D1381-8492", "posición": "Trasera", "medidas": "101.9 x 42.6 x 14.5", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Trasera", "ref": "MZ-304"},
-              {"marca": "Toyota", "modelo": "Corolla", "año": "2021", "oem": "04465-02220", "fmsi": "D1210-8329", "posición": "Delantera", "medidas": "134.6 x 55.4 x 16.8", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "ref": "TY-404"}
-            ];
-
-            const els = { body: document.body, headerX: document.querySelector('.header-x'), upBtn: document.getElementById('upBtn'), trashBtn: document.getElementById('trashBtn'), lid: document.getElementById('lid'), trashSound: document.getElementById('trashSound'), busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'), modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'), oem: document.getElementById('filtroOem'), fmsi: document.getElementById('fmsiList'), medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'), posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTras'), datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'), datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'), datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'), count: document.getElementById('resultCount'), themeRadios: document.querySelectorAll('.switcher__input') };
+    
+            let brakePadsData = [];
+            const els = {
+                body: document.body, headerX: document.querySelector('.header-x'), darkBtn: document.getElementById('darkBtn'), 
+                sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'), 
+                upBtn: document.getElementById('upBtn'), 
+                busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'), 
+                modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'), 
+                oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'), 
+                medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'), 
+                posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTras'), 
+                datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'), 
+                datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'), 
+                datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'), 
+                count: document.getElementById('resultCount') 
+            };
             
-            // --- Lógica del Interruptor de Tema ---
-            els.themeRadios.forEach(radio => {
-                radio.addEventListener('change', (e) => {
-                    const theme = e.target.value;
-                    els.body.classList.remove('lp-dark', 'lp-dim');
-                    if (theme === 'dark') {
-                        els.body.classList.add('lp-dark');
-                    } else if (theme === 'dim') {
-                        els.body.classList.add('lp-dim');
-                    }
-                    // 'light' no necesita clase
+            const debounce = (func, delay) => {
+                let timeout;
+                return (...args) => {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), delay);
+                };
+            };
+
+            const fillDatalist = (datalist, values) => {
+                datalist.innerHTML = values.map(v => `<option value="${v}">`).join('');
+            };
+
+            const getPositionFilter = () => {
+                const isDelActive = els.posDel.classList.contains('active');
+                const isTrasActive = els.posTras.classList.contains('active');
+                if (isDelActive && !isTrasActive) return 'Delantera';
+                if (!isDelActive && isTrasActive) return 'Trasera';
+                return 'Todas';
+            };
+
+            const filterData = () => {
+                if (!brakePadsData.length) return;
+                const fbusq = (val) => val.toLowerCase().trim();
+                const filters = {
+                    busqueda: fbusq(els.busqueda.value), marca: els.marca.value, modelo: els.modelo.value,
+                    anio: els.anio.value, oem: els.oem.value, fmsi: els.fmsi.value,
+                    ancho: parseFloat(els.medidasAncho.value), alto: parseFloat(els.medidasAlto.value),
+                    pos: getPositionFilter()
+                };
+                const filtered = brakePadsData.filter(item => {
+                    const busqMatch = !filters.busqueda || ['marca', 'modelo', 'ref'].some(key => item[key]?.toLowerCase().includes(filters.busqueda));
+                    const anchoMatch = !filters.ancho || item.anchoNum === filters.ancho;
+                    const altoMatch = !filters.alto || item.altoNum === filters.alto;
+                    const posMatch = filters.pos === 'Todas' || item.posición === filters.pos;
+                    return busqMatch && (!filters.marca || item.marca === filters.marca) && (!filters.modelo || item.modelo === filters.modelo) && (!filters.anio || item.año === filters.anio) && (!filters.oem || item.oem === filters.oem) && (!filters.fmsi || item.fmsi === filters.fmsi) && anchoMatch && altoMatch && posMatch;
                 });
-            });
+                renderResults(filtered);
+            };
 
-            const fillDatalist = (datalist, values) => { datalist.innerHTML = ''; values.forEach(v => datalist.innerHTML += `<option value="${v}">`); };
-            const updateDatalists = () => { const uniqueValues = (key) => [...new Set(brakePadsData.map(d => d[key]))].sort(); fillDatalist(els.datalistMarca, uniqueValues('marca')); fillDatalist(els.datalistModelo, uniqueValues('modelo')); fillDatalist(els.datalistAnio, uniqueValues('año')); fillDatalist(els.datalistOem, uniqueValues('oem')); fillDatalist(els.datalistFmsi, uniqueValues('fmsi')); };
-            const getPositionFilter = () => { const isDelActive = els.posDel.classList.contains('active'); const isTrasActive = els.posTras.classList.contains('active'); if (isDelActive && isTrasActive) return 'Ambas'; if (isDelActive) return 'Delantera'; if (isTrasActive) return 'Trasera'; return 'Todas'; };
-            const filterData = () => { const fbusq = (val) => val.toLowerCase().trim(); const filters = { busqueda: fbusq(els.busqueda.value), marca: els.marca.value, modelo: els.modelo.value, anio: els.anio.value, oem: els.oem.value, fmsi: els.fmsi.value, ancho: els.medidasAncho.value.trim(), alto: els.medidasAlto.value.trim(), pos: getPositionFilter() }; const filtered = brakePadsData.filter(item => { const busqMatch = !filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) || item.modelo.toLowerCase().includes(filters.busqueda) || item.ref?.toLowerCase().includes(filters.busqueda); let anchoMatch = true, altoMatch = true; if (filters.ancho || filters.alto) { const partes = item.medidas.split('x').map(s => s.trim()); anchoMatch = !filters.ancho || (partes[0] && partes[0].includes(filters.ancho)); altoMatch = !filters.alto || (partes[1] && partes[1].includes(filters.alto)); } const posMatch = filters.pos === 'Todas' || filters.pos === 'Ambas' || (filters.pos === 'Delantera' && item.posición.includes('Del')) || (filters.pos === 'Trasera' && item.posición.includes('Tras')); return busqMatch && (!filters.marca || item.marca === filters.marca) && (!filters.modelo || item.modelo === filters.modelo) && (!filters.anio || item.año === filters.anio) && (!filters.oem || item.oem === filters.oem) && (!filters.fmsi || item.fmsi === filters.fmsi) && anchoMatch && altoMatch && posMatch; }); renderResults(filtered); };
-            const renderResults = (filteredData) => { els.count.textContent = filteredData.length; els.results.innerHTML = filteredData.map(item => { const posBadges = []; if (item.posición.includes('Del')) posBadges.push('<span class="position-badge position-delantera">Delantera</span>'); if (item.posición.includes('Tras')) posBadges.push('<span class="position-badge position-trasera">Trasera</span>'); return `<div class="result-card"><img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy"><div class="result-field"><strong>${item.marca} ${item.modelo}</strong></div><div class="result-field">Año: ${item.año}</div><div class="result-field">OEM: ${item.oem}</div><div class="result-field">FMSI: ${item.fmsi}</div><div class="result-field">${posBadges.join(' ')}</div><div class="result-field">Medidas: ${item.medidas}</div></div>`; }).join(''); };
-            const createSparks = () => { const rect = els.trashBtn.getBoundingClientRect(); for (let i = 0; i < 18; i++) { const spark = document.createElement('div'); spark.className = 'lp-spark'; const size = Math.random() * 12 + 8; const dx = Math.random() * 140 - 70; const dy = Math.random() * 180 + 20; const colors = ['rgba(255,140,0,0.9)', 'rgba(255,69,0,0.9)', 'rgba(255,0,0,0.9)', 'rgba(255,215,0,0.9)', 'rgba(255,255,255,0.9)']; spark.style.cssText = `width:${size}px; height:${size*1.5}px; left:${rect.left + rect.width/2}px; top:${rect.top + rect.height/2}px; --dx:${dx}px; --dy:${dy}px; background:${colors[Math.floor(Math.random()*colors.length)]}; filter:blur(${Math.random()*2+1}px); animation-duration:${0.5 + Math.random()*0.5}s;`; document.body.appendChild(spark); setTimeout(() => spark.remove(), 1000); } };
-            
-            els.upBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-            window.addEventListener('scroll', () => { els.upBtn.classList.toggle('show', window.scrollY > 150); });
-            
-            const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto]; filterInputs.forEach(input => input.addEventListener('input', filterData)); [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => { btn.classList.toggle('active'); filterData(); }));
-            els.trashBtn.addEventListener('click', () => { els.trashSound.currentTime = 0; els.trashSound.play(); createSparks(); els.lid.style.animation = 'lidOpen 0.35s ease'; els.lid.addEventListener('animationend', () => { els.lid.style.animation = ''; }, {once: true}); filterInputs.forEach(input => input.value = ''); els.posDel.classList.remove('active'); els.posTras.classList.remove('active'); filterData(); });
-            
-            updateDatalists(); filterData();
+            const renderResults = (filteredData) => {
+                els.count.textContent = filteredData.length;
+                if (filteredData.length === 0) {
+                    els.results.innerHTML = `<p class="no-results">No se encontraron pastillas con los filtros seleccionados.</p>`;
+                    return;
+                }
+                els.results.innerHTML = filteredData.map(item => {
+                    const posBadge = item.posición === 'Delantera'
+                        ? '<span class="position-badge position-delantera">Delantera</span>'
+                        : '<span class="position-badge position-trasera">Trasera</span>';
+                    return `<div class="result-card">
+                                <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
+                                <div class="result-field"><strong>${item.marca} ${item.modelo}</strong></div>
+                                <div class="result-field">Año: ${item.año}</div>
+                                <div class="result-field">OEM: ${item.oem}</div>
+                                <div class="result-field">FMSI: ${item.fmsi}</div>
+                                <div class="result-field">${posBadge}</div>
+                                <div class="result-field">Medidas: ${item.medidas}</div>
+                            </div>`;
+                }).join('');
+            };
+
+            function setupEventListeners() {
+                els.darkBtn.addEventListener('click', () => {
+                    const isDark = els.body.classList.toggle('lp-dark');
+                    els.darkBtn.setAttribute('aria-pressed', String(isDark));
+                    const iconAnimation = (icon, isShowing) => {
+                        const keyframes = isShowing
+                            ? [{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1)' }]
+                            : [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.6)' }];
+                        icon.animate(keyframes, { duration: 400, fill: 'forwards', easing: 'ease-in-out' });
+                    };
+                    iconAnimation(els.sunIcon, !isDark);
+                    iconAnimation(els.moonIcon, isDark);
+                    els.headerX.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+                    setTimeout(() => { els.headerX.style.animation = ''; }, 600);
+                });
+
+                els.upBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                window.addEventListener('scroll', () => els.upBtn.classList.toggle('show', window.scrollY > 150));
+
+                const debouncedFilter = debounce(filterData, 300);
+                const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
+                filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
+
+                [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
+                    btn.classList.toggle('active');
+                    filterData();
+                }));
+            }
+
+            async function inicializarApp() {
+                try {
+                    const response = await fetch('pastillas.json');
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+
+                    brakePadsData = data.map(item => {
+                        const partes = item.medidas.split('x').map(s => parseFloat(s.trim()));
+                        return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
+                    });
+
+                    const uniqueValues = (key) => [...new Set(brakePadsData.map(d => d[key]))].sort();
+                    fillDatalist(els.datalistMarca, uniqueValues('marca'));
+                    fillDatalist(els.datalistModelo, uniqueValues('modelo'));
+                    fillDatalist(els.datalistAnio, uniqueValues('año'));
+                    fillDatalist(els.datalistOem, uniqueValues('oem'));
+                    fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
+                    
+                    filterData();
+                } catch (error) {
+                    console.error("No se pudieron cargar los datos de las pastillas:", error);
+                    els.results.innerHTML = `<p class="no-results">Error al cargar los datos. Por favor, intente de nuevo más tarde.</p>`;
+                }
+            }
+
+            setupEventListeners();
+            inicializarApp();
         });
     </script>
 </body>
