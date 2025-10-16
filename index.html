@@ -15,9 +15,9 @@
             --header-x-fill: #000;
             
             /* Material Design Colores / Elevación */
-            --material-surface-light: #ffffff; 
+            --material-surface-light: #ffffff; /* Fondo de filtros y tarjetas */
             --material-surface-border: rgba(0, 0, 0, 0.1); 
-            --input-bg: #f3f4f6; 
+            --input-bg: #f3f4f6; /* Fondo de inputs más gris */
             --input-focus-border: #2563eb;
             
             /* Sombras de elevación (Material) */
@@ -37,10 +37,15 @@
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
             
             --floating-button-initial-bottom: 18px; 
+
+            /* VARIABLES DE ESTILO ESPECÍFICAS PARA EL BOTÓN BASURA */
+            --trash-button-bg: #ef4444; /* Rojo suave (Destructive Red) */
+            --trash-icon-stroke: #ffffff; /* Icono blanco para contraste */
+            --trash-icon-stroke-dark: #ff453a; /* Rojo brillante para el oscuro */
         }
 
         body.lp-dark {
-            --bg-color: #121212; 
+            --bg-color: #121212; /* Fondo oscuro */
             --text-color: #fff;
             --header-border-color: rgba(255,255,255,0.1);
             --header-x-fill: #fff;
@@ -65,6 +70,8 @@
             
             --btn-google-border: #8e918f;
             --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
+
+            --trash-button-bg: #b91c1c; /* Rojo oscuro para modo oscuro */
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -75,15 +82,14 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 0; 
-            /* Se establece el body como contenedor de contexto para el footer, si fuera necesario */
             min-height: 100vh;
         }
 
         /* Contenedor principal para el diseño (Wrapper) */
         #page-content-wrapper {
             position: relative;
-            min-height: calc(100vh - 8rem); /* Asegura que el footer no tape el contenido en pantallas pequeñas */
-            padding-bottom: 8rem; /* Espacio reservado para el footer al final del contenido */
+            min-height: calc(100vh - 8rem); 
+            padding-bottom: 8rem; 
         }
         
         /* ================== HEADER (Material Design) ================== */
@@ -119,12 +125,17 @@
             display: inline-block; 
             vertical-align: middle; 
             transition: transform 0.6s cubic-bezier(0.68,-0.55,0.27,1.55); 
+            animation: bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55);
+            animation-delay: 0.3s;
+            animation-fill-mode: forwards;
         }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
 
         /* ================== FOOTER BANNER (Scrollable) ================== */
         .footer-banner {
-            /* Se ha movido el footer fuera del wrapper y se ha ajustado para que se coloque al final */
+            position: absolute; 
+            bottom: 0;
+            left: 0;
             width: 100%;
             background-color: var(--material-surface-light);
             color: var(--text-color);
@@ -134,7 +145,6 @@
             z-index: 10; 
             font-size: 0.8rem;
             text-align: center;
-            /* Se utiliza margen en el wrapper para separarlo */
         }
         body.lp-dark .footer-banner {
             box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
@@ -161,7 +171,6 @@
         /* ================== ESTRUCTURA PRINCIPAL ================== */
         .main-layout { 
             max-width: 1200px; 
-            /* Margen superior para separar de la barra de encabezado fija */
             margin: 1.5rem auto 0 auto; 
             padding: 0 1rem; 
             display: flex; 
@@ -183,12 +192,10 @@
         }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
         
-        /* CORRECCIÓN: Espaciado de títulos de filtro */
         .filter-title { 
             font-weight: 600; 
             font-size: 1rem; 
-            /* Margen inferior para separar del siguiente input */
-            margin-bottom: 0.8rem; 
+            margin-bottom: 0.6rem; 
             text-align: left; 
             display: flex;
             align-items: center;
@@ -203,10 +210,9 @@
             fill: none;
             stroke-width: 2;
         }
-        /* Ajuste específico para títulos sin borde (ej. Posición), para que el espaciado sea igual al de los títulos con borde */
         .filter-title[style*="border-bottom: none"] {
             padding-bottom: 0;
-            margin-bottom: 0.5rem; /* Ajuste para igualar el espacio vertical */
+            margin-bottom: 0.5rem; 
         }
         
         .form-input {
@@ -220,11 +226,10 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            /* Se añade margen inferior para separar de forma consistente los inputs */
             margin-bottom: 0.5rem;
         }
         .filter-group input:last-of-type {
-            margin-bottom: 0; /* Eliminar el margen inferior del último input en el grupo */
+            margin-bottom: 0; 
         }
         body.lp-dark .form-input { border-color: var(--material-surface-border); }
         .form-input:focus { 
@@ -250,7 +255,7 @@
         #positionTrasera.active { background-color: #ef4444; border-color: #ef4444; color: #fff; box-shadow: var(--elevation-1); }
         
         .input-group-horizontal { display:flex; gap: 0.4rem; }
-        .input-group-horizontal .form-input { flex:1; margin-bottom: 0; } /* Eliminar margen para horizontal */
+        .input-group-horizontal .form-input { flex:1; margin-bottom: 0; } 
 
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
@@ -261,7 +266,8 @@
             width: 60px; 
             height: 60px; 
             border-radius: 50%;
-            background-color: var(--material-surface-light);
+            /* Fondo Rojo para Destacar */
+            background-color: var(--trash-button-bg);
             box-shadow: var(--elevation-2); 
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; 
@@ -272,7 +278,7 @@
             transition: box-shadow 0.3s ease, background-color 0.3s ease;
         }
         body.lp-dark .clear-filters-btn {
-            background-color: var(--material-surface-light);
+            background-color: var(--trash-button-bg);
             border-color: var(--material-surface-border);
             box-shadow: var(--elevation-2);
         }
@@ -281,10 +287,13 @@
         }
 
         .clear-filters-btn svg {
-            width: 28px; height: 28px; stroke: #FF3B30; stroke-width: 2; fill: none;
+            width: 28px; height: 28px; 
+            /* Icono Blanco/Claro en modo Claro, y Rojo más brillante en modo Oscuro */
+            stroke: var(--trash-icon-stroke); 
+            stroke-width: 2; fill: none;
             stroke-linecap: round; stroke-linejoin: round;
         }
-        body.lp-dark .clear-filters-btn svg { stroke: #ff453a; }
+        body.lp-dark .clear-filters-btn svg { stroke: var(--trash-icon-stroke); } /* Mantenemos blanco en oscuro para contraste con el fondo rojo oscuro */
         
         @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.15)}50%{transform:scale(.95)}70%{transform:scale(1.1)}100%{transform:scale(1)} }
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
@@ -561,13 +570,11 @@
         }
         
         @media (max-width: 600px) {
-            body { padding: 0; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
             .form-input { padding-top: 10px; padding-bottom: 10px; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
-            /* Ajuste de márgenes para móvil */
             .main-layout { margin: 1rem auto 10rem auto; padding: 0 0.5rem; }
         }
         
