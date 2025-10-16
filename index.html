@@ -80,13 +80,13 @@
             margin:0 auto;
             display:flex; 
             flex-direction:column; 
-            gap: 0.8rem;
+            gap: 1rem;
         }
         body.lp-dark .glass {
             background-color: rgba(50,50,50,0.2);
             border-color: rgba(255,255,255,0.1);
         }
-        .filter-title { font-weight:600; font-size: 0.9rem; }
+        .filter-title { font-weight:600; font-size: 0.9rem; margin-bottom: 0.2rem; }
         .form-input {
             width: 100%;
             padding: 12px;
@@ -108,9 +108,22 @@
             border-color: #60a5fa;
             background-color: rgba(0,0,0,0.3);
         }
+        
+        .filter-grid {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        .filter-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem; /* Espacio entre elementos de una misma columna */
+        }
+
         .position-container { display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center; }
         .position-btn {
-            flex:1; min-width:140px; max-width:180px; padding: 12px; border-radius:12px; border:1px solid rgba(0,0,0,0.15);
+            flex:1; min-width:80px; padding: 12px; border-radius:12px; border:1px solid rgba(0,0,0,0.15);
             cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
             background-color: rgba(255,255,255,0.25); color: #000;
         }
@@ -210,11 +223,15 @@
         @media (max-width: 768px) {
             .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
             .header-subtitle { display: none; }
+            .filter-grid {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
         }
         @media (max-width: 600px) {
             body { padding: 0.5rem; }
             .glass { padding: 1rem; }
-            .position-container{ flex-direction:column; }
+            .position-container{ flex-direction: row; }
             .form-input, .position-btn { font-size: 1rem; padding: 1rem; }
             .result-field{ font-size:0.9rem; }
             .medidas-container{ flex-direction:column; }
@@ -240,22 +257,31 @@
     <main class="glass">
         <div class="filter-title">Búsqueda rápida</div>
         <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref..." class="form-input">
-        <div class="filter-title">Detalles del vehículo</div>
-        <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
-        <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
-        <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
-        <div class="filter-title">Medidas</div>
-        <div class="medidas-container">
-            <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input">
-            <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
-        </div>
-        <div class="filter-title">Referencias y códigos</div>
-        <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
-        <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
-        <div class="filter-title">Posición</div>
-        <div class="position-container">
-            <div class="position-btn" id="positionDelantera">Delantera</div>
-            <div class="position-btn" id="positionTras">Trasera</div>
+        
+        <div class="filter-grid">
+            <div class="filter-column">
+                <div class="filter-title">Detalles del vehículo</div>
+                <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
+                <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
+                <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
+            </div>
+            <div class="filter-column">
+                <div class="filter-title">Posición</div>
+                <div class="position-container">
+                    <div class="position-btn" id="positionDelantera">Delantera</div>
+                    <div class="position-btn" id="positionTras">Trasera</div>
+                </div>
+                
+                <div class="filter-title" style="margin-top: 0.8rem;">Referencias y códigos</div>
+                <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
+                <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
+
+                <div class="filter-title" style="margin-top: 0.8rem;">Medidas</div>
+                <div class="medidas-container">
+                    <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input">
+                    <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
+                </div>
+            </div>
         </div>
         <div class="results-wrapper" id="results-container"></div>
         <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
