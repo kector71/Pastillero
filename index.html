@@ -609,73 +609,71 @@
         </h1>
         </header>
 
-        <div class="main-layout">
-            <div class="filters-column">
+        <div class="main-layout" role="main">
+            <div class="filters-column" role="search">
                 
                 <div class="glass">
                     <div class="filter-title">
                         <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         Búsqueda Rápida
                     </div>
-                    <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref, OEM..." class="form-input">
+                    <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref, OEM..." class="form-input" aria-label="Búsqueda rápida por marca, modelo o referencia">
                 </div>
 
                 <div class="glass">
-                    <div class="filter-title">
-                        Detalles del Vehículo
-                    </div>
-                    <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
-                    <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
-                    <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
-                    
-                    <div class="filter-group" style="margin-top: 1rem;">
-                        <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
-                        <div class="position-container">
-                            <button class="position-btn" id="positionDelantera">Delantera</button>
-                            <button class="position-btn" id="positionTrasera">Trasera</button>
+                    <fieldset class="filter-group"> <legend class="filter-title">Detalles del Vehículo</legend>
+                        <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca" aria-label="Filtrar por Marca del vehículo"><datalist id="marcas"></datalist>
+                        <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo" aria-label="Filtrar por Modelo del vehículo"><datalist id="modelos"></datalist>
+                        <input list="anios" id="filtroAnio" class="form-input" placeholder="Año" aria-label="Filtrar por Año del vehículo"><datalist id="anios"></datalist>
+                        
+                        <div class="filter-group" style="margin-top: 1rem;">
+                            <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
+                            <div class="position-container" role="radiogroup" aria-label="Posición de las pastillas">
+                                <button class="position-btn" id="positionDelantera" role="radio" aria-checked="false">Delantera</button>
+                                <button class="position-btn" id="positionTrasera" role="radio" aria-checked="false">Trasera</button>
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
 
                 <div class="glass">
-                    <div class="filter-title">
-                        Referencias y Códigos
-                    </div>
-                    <div class="input-group-horizontal">
-                        <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
-                        <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
-                    </div>
+                    <fieldset class="filter-group"> <legend class="filter-title">Referencias y Códigos</legend>
+                        <div class="input-group-horizontal">
+                            <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM" aria-label="Filtrar por Código OEM"><datalist id="oemList"></datalist>
+                            <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI" aria-label="Filtrar por Platina FMSI"><datalist id="fmsiList"></datalist>
+                        </div>
+                    </fieldset>
                 </div>
 
                 <div class="glass">
-                    <div class="filter-title">
-                        Medidas
-                    </div>
-                    <div class="input-group-horizontal">
-                        <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input">
-                        <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
-                    </div>
-                    
-                    <div class="clear-filters-wrapper">
-                        <button class="clear-filters-btn" id="clearFiltersBtn" aria-label="Borrar filtros">
-                            <svg id="trashIcon" viewBox="0 0 24 24">
-                                <g class="trash-body"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></g>
-                                <g class="trash-lid"><polyline points="3 6 5 6 21 6"></polyline><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></g>
-                            </svg>
-                        </button>
-                    </div>
-
+                    <fieldset class="filter-group"> <legend class="filter-title">Medidas (mm)</legend>
+                        <div class="input-group-horizontal">
+                            <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input" aria-label="Filtrar por Ancho en milímetros">
+                            <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input" aria-label="Filtrar por Alto en milímetros">
+                        </div>
+                        
+                        <div class="clear-filters-wrapper">
+                            <button class="clear-filters-btn" id="clearFiltersBtn" aria-label="Borrar todos los filtros">
+                                <svg id="trashIcon" viewBox="0 0 24 24">
+                                    <g class="trash-body"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></g>
+                                    <g class="trash-lid"><polyline points="3 6 5 6 21 6"></polyline><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></g>
+                                </svg>
+                            </button>
+                        </div>
+                    </fieldset>
                 </div>
 
             </div>
 
-            <div class="results-panel">
+            <div class="results-panel" role="region" aria-live="polite">
                 <div class="results-wrapper" id="results-container"></div>
                 <div class="result-count-container"> <span id="resultCount">0</span> resultados </div>
             </div>
         </div>
 
-    </div> <footer class="footer-banner">
+    </div> 
+    
+    <footer class="footer-banner" role="contentinfo">
         <div class="footer-content">
             <div class="footer-links">
                 <a href="#">Política de Privacidad</a> | 
@@ -697,9 +695,14 @@
     </div>
     
 <script>
+    // Dependencia: https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js
+    // En una aplicación real, se cargaría con <script src="..."></script>
+    
     document.addEventListener('DOMContentLoaded', () => {
     
         let brakePadsData = [];
+        let fuseSearch = null; // Instancia de Fuse.js para búsqueda rápida
+        
         const els = {
             body: document.body, headerX: document.querySelector('.header-x'), darkBtn: document.getElementById('darkBtn'),    
             sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'),    
@@ -716,6 +719,10 @@
             count: document.getElementById('resultCount')    
         };
             
+        // ====================================================================
+        // MEJORA 1: FUNCIONES DE UTILIDAD (Debounce y DataList)
+        // ====================================================================
+
         const debounce = (func, delay) => {
             let timeout;
             return (...args) => { clearTimeout(timeout); timeout = setTimeout(() => func.apply(this, args), delay); };
@@ -724,7 +731,7 @@
         const fillDatalist = (datalist, values) => {
             datalist.innerHTML = values.map(v => `<option value="${v}">`).join('');
         };
-
+        
         const getPositionFilter = () => {
             const isDelActive = els.posDel.classList.contains('active');
             const isTrasActive = els.posTras.classList.contains('active');
@@ -735,6 +742,10 @@
             return 'Todas';
         };
 
+        // ====================================================================
+        // MEJORA 2: LÓGICA DE FILTRADO CON FUSE.JS (Búsqueda Difusa)
+        // ====================================================================
+
         const filterData = () => {
             if (!brakePadsData.length) return;
             const fbusq = (val) => val.toLowerCase().trim();
@@ -744,8 +755,16 @@
                 alto: parseFloat(els.medidasAlto.value), pos: getPositionFilter()
             };
             
-            const filtered = brakePadsData.filter(item => {
-                
+            let currentData = brakePadsData;
+
+            // 1. FILTRO DE BÚSQUEDA RÁPIDA (Usando Fuse.js para Fuzzy Search)
+            if (filters.busqueda && fuseSearch) {
+                const fuseResults = fuseSearch.search(filters.busqueda);
+                // Mapear los resultados de Fuse.js para obtener el objeto original
+                currentData = fuseResults.map(result => result.item);
+            }
+            
+            const filtered = currentData.filter(item => {
                 // Conversión de propiedades del ítem a minúsculas para coincidencia parcial
                 const itemMarca = item.marca?.toLowerCase() || '';
                 const itemModelo = item.modelo?.toLowerCase() || '';
@@ -754,13 +773,9 @@
                 const itemFmsi = item.fmsi?.toLowerCase() || '';
                 const itemPosicion = item.posición; 
 
-                // 1. FILTRO DE BÚSQUEDA RÁPIDA
-                const busqMatch = !filters.busqueda || 
-                                ['marca', 'modelo', 'ref', 'oem', 'fmsi'].some(key => 
-                                    item[key]?.toLowerCase().includes(filters.busqueda)
-                                );
+                // 2. FILTROS DE TEXTO (Marca, Modelo, Año, OEM, FMSI) - Coincidencia parcial (Exacta si no se usó Fuse.js)
+                // NOTA: Si se usó Fuse.js, solo se filtra por los otros criterios
                 
-                // 2. FILTROS DE TEXTO (Marca, Modelo, Año, OEM, FMSI) - Coincidencia parcial
                 const marcaMatch = !filters.marca || itemMarca.includes(filters.marca);
                 const modeloMatch = !filters.modelo || itemModelo.includes(filters.modelo);
                 const anioMatch = !filters.anio || itemAnio.includes(filters.anio);
@@ -788,35 +803,31 @@
                                              item.altoNum <= (filters.alto + TOLERANCIA));
 
 
-                return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
+                return marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
         };
         
-        // FUNCIÓN CLAVE PARA LA NAVEGACIÓN DEL CARRUSEL
         function navigateCarousel(cardElement, direction) {
             const track = cardElement.querySelector('.image-track');
             const images = cardElement.querySelectorAll('.result-image');
             const counter = cardElement.querySelector('.carousel-counter');
             if (!track || images.length === 0) return;
 
-            // Obtener el índice actual (almacenado como data attribute en el track)
             let currentIndex = parseInt(track.dataset.currentIndex) || 0;
             const totalImages = images.length;
             
             let newIndex = currentIndex + direction;
 
             if (newIndex >= totalImages) {
-                newIndex = 0; // Vuelve al inicio
+                newIndex = 0; 
             } else if (newIndex < 0) {
-                newIndex = totalImages - 1; // Vuelve al final
+                newIndex = totalImages - 1; 
             }
 
-            // Aplicar la transformación para mostrar la imagen correcta
             const transformValue = `translateX(-${newIndex * 100}%)`;
             track.style.transform = transformValue;
             
-            // Actualizar el índice y el contador
             track.dataset.currentIndex = newIndex;
             counter.textContent = `${newIndex + 1}/${totalImages}`;
         }
@@ -833,16 +844,16 @@
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
                 
-                // Simulación de múltiples imágenes (Usaremos 3 por ahora)
                 const imagePath = item.imagen; 
                 const imageCount = 3; 
                 let imageTrackHTML = '';
 
-                // Crear los elementos de la galería
                 for (let i = 0; i < imageCount; i++) {
+                    // Nota: 'loading="lazy"' y 'aria-hidden' para imágenes secundarias en A11Y
+                    const ariaHidden = i > 0 ? 'aria-hidden="true"' : '';
                     imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" 
-                                            alt="${item.marca} ${item.modelo} Vista ${i + 1}" 
-                                            class="result-image" loading="lazy">`;
+                                            alt="${item.marca} ${item.modelo} Pastilla de freno vista ${i + 1}" 
+                                            class="result-image" loading="lazy" ${ariaHidden}>`;
                 }
 
                 const carouselHTML = `
@@ -851,13 +862,12 @@
                             ${imageTrackHTML}
                         </div>
                         <div class="carousel-counter">1/${imageCount}</div>
-                        <button class="carousel-nav-btn" data-direction="-1">‹</button>
-                        <button class="carousel-nav-btn" data-direction="1">›</button>
+                        <button class="carousel-nav-btn" data-direction="-1" role="button" aria-label="Imagen anterior">‹</button>
+                        <button class="carousel-nav-btn" data-direction="1" role="button" aria-label="Imagen siguiente">›</button>
                     </div>
                 `;
                     
-                // Estructura de tarjeta
-                return `<div class="result-card" data-ref="${item.ref}">
+                return `<div class="result-card" data-ref="${item.ref}" role="group" aria-label="Pastilla de freno ${item.ref}">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
                                 <div class="card-model">${item.marca} ${item.modelo} (${item.año})</div>
@@ -889,16 +899,17 @@
                         </div>`;
             }).join('');
             
-            // Asignar listeners de navegación después de que los resultados se hayan renderizado
             els.results.querySelectorAll('.carousel-nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // Prevenir que el click active el ripple en el botón padre (si tuviera)
                     e.stopPropagation(); 
                     const card = e.currentTarget.closest('.result-card');
                     const direction = parseInt(e.currentTarget.dataset.direction);
                     navigateCarousel(card, direction);
                 });
             });
+            // Mejora de Accesibilidad: Anunciar el número de resultados para lectores de pantalla
+            els.results.setAttribute('aria-label', `${filteredData.length} resultados encontrados`);
+
         };
 
         const clearAllFilters = () => {
@@ -907,8 +918,13 @@
                 els.oem, els.fmsi, els.medidasAncho, els.medidasAlto
             ];
             inputsToClear.forEach(input => input.value = '');
+            
+            // Mejora de Accesibilidad: Quitar el estado 'aria-checked'
             els.posDel.classList.remove('active');
+            els.posDel.setAttribute('aria-checked', 'false');
             els.posTras.classList.remove('active');
+            els.posTras.setAttribute('aria-checked', 'false');
+
             filterData();
         };
         
@@ -919,7 +935,6 @@
             const diameter = Math.max(button.clientWidth, button.clientHeight);
             const radius = diameter / 2;
 
-            // Coordenadas del click relativas al botón
             const rect = button.getBoundingClientRect();
             circle.style.width = circle.style.height = `${diameter}px`;
             circle.style.left = `${event.clientX - (rect.left + radius)}px`;
@@ -954,27 +969,25 @@
                 iconAnimation(els.sunIcon, !isDark);
                 iconAnimation(els.moonIcon, isDark);
                 
-                // CORRECCIÓN: Volver a aplicar la animación bounceHeader a la X
                 els.headerX.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
                 setTimeout(() => { els.headerX.style.animation = ''; }, 600);
             });
             
-            // CORRECCIÓN: Ejecutar bounceHeader una sola vez al cargar la página
             els.headerX.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
             setTimeout(() => { els.headerX.style.animation = ''; }, 600);
 
             els.upBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             
-            // Mostrar botón subir después de cierto scroll
             window.addEventListener('scroll', () => els.upBtn.classList.toggle('show', window.scrollY > 300));
 
             const debouncedFilter = debounce(filterData, 300);
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
-            // LÓGICA DE SELECCIÓN MÚLTIPLE para Delantera/Trasera
+            // LÓGICA DE SELECCIÓN MÚLTIPLE para Delantera/Trasera (MEJORA: Actualización de ARIA)
             [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
                 btn.classList.toggle('active'); 
+                btn.setAttribute('aria-checked', btn.classList.contains('active')); // Actualizar ARIA
                 filterData();
             }));
 
@@ -1024,8 +1037,15 @@
             });
         }
 
-        function inicializarApp() {
-            // DATOS DE EJEMPLO
+        // ====================================================================
+        // MEJORA 3: Simulación de Carga Asíncrona (Escalabilidad)
+        // ====================================================================
+        const loadPadsData = async () => {
+            // En una aplicación real, aquí usarías:
+            // const response = await fetch('/api/brakepads');
+            // const data = await response.json();
+            
+            // Datos de ejemplo
             const data = [
                 { "marca": "Chevrolet", "modelo": "Spark GT", "ref": "BX-1234", "año": "2018-2022", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT" },
                 { "marca": "Mazda", "modelo": "3", "ref": "BX-5678", "año": "2019-2023", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3" },
@@ -1042,16 +1062,37 @@
                 { "marca": "Toyota", "modelo": "RAV4", "ref": "BX-9103", "año": "2019-2023", "oem": "04465-42200", "fmsi": "9118-D1983", "posición": "Delantera", "medidas": "150.1 x 57.3", "imagen": "https://via.placeholder.com/300x200.png?text=RAV4" },
                 { "marca": "Kia", "modelo": "Sportage", "ref": "BX-1123", "año": "2017-2022", "oem": "58101-D4A20", "fmsi": "8881-D1691", "posición": "Delantera", "medidas": "146.0 x 59.8", "imagen": "https://via.placeholder.com/300x200.png?text=Sportage" },
                 { "marca": "Nissan", "modelo": "Kicks", "ref": "BX-3143", "año": "2018-2023", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks" },
-                // Añadimos algunas Traseras para probar el filtro de posición
                 { "marca": "Mazda", "modelo": "3", "ref": "BX-5679", "año": "2019-2023", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras" },
                 { "marca": "Toyota", "modelo": "Corolla", "ref": "BX-1122", "año": "2020-2024", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras" }
             ];
 
-            brakePadsData = data.map(item => {
-                const partes = item.medidas.split('x').map(s => parseFloat(s.trim()));
-                return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
+            return new Promise(resolve => {
+                // Simulación de delay de API
+                setTimeout(() => {
+                    resolve(data.map(item => {
+                        const partes = item.medidas.split('x').map(s => parseFloat(s.trim()));
+                        return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
+                    }));
+                }, 50); 
             });
-
+        };
+        
+        function inicializarApp(data) {
+            brakePadsData = data;
+            
+            // Inicializar Fuse.js con las claves relevantes para la búsqueda difusa
+            // Claves: ref, marca, modelo, oem, fmsi
+            if (typeof Fuse !== 'undefined') {
+                 const fuseOptions = {
+                    isCaseSensitive: false,
+                    threshold: 0.3, // Nivel de tolerancia para errores tipográficos
+                    keys: ['ref', 'marca', 'modelo', 'oem', 'fmsi']
+                };
+                fuseSearch = new Fuse(brakePadsData, fuseOptions);
+            } else {
+                console.warn("Fuse.js no está cargado. La búsqueda rápida usará solo 'includes'.");
+            }
+            
             const uniqueValues = (key) => [...new Set(brakePadsData.map(d => d[key]))].sort();
             fillDatalist(els.datalistMarca, uniqueValues('marca'));
             fillDatalist(els.datalistModelo, uniqueValues('modelo'));
@@ -1061,9 +1102,14 @@
             
             filterData();
         }
+        
+        // Ejecución principal (Usa la función asíncrona)
+        (async () => {
+            const data = await loadPadsData();
+            setupEventListeners();
+            inicializarApp(data);
+        })();
 
-        setupEventListeners();
-        inicializarApp();
     });
 </script>
 
