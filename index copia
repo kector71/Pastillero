@@ -644,24 +644,28 @@
         const fillDatalist = (datalist, values) => {
             datalist.innerHTML = values.map(v => `<option value="${v}">`).join('');
         };
-
+        
+        // **LÓGICA CORREGIDA**: Devuelve un array de las posiciones activas.
         const getPositionFilter = () => {
-            const isDelActive = els.posDel.classList.contains('active');
-            const isTrasActive = els.posTras.classList.contains('active');
-            
-            if (isDelActive && isTrasActive) return 'Ambas'; 
-            if (isDelActive) return 'Delantera';
-            if (isTrasActive) return 'Trasera';
-            return 'Todas';
+            const activePositions = [];
+            if (els.posDel.classList.contains('active')) activePositions.push('Delantera');
+            if (els.posTras.classList.contains('active')) activePositions.push('Trasera');
+            return activePositions; 
         };
+
 
         const filterData = () => {
             if (!brakePadsData.length) return;
             const fbusq = (val) => val.toLowerCase().trim();
+            
+            // Obtener las posiciones activas
+            const activePos = getPositionFilter(); 
+            
             const filters = {
                 busqueda: fbusq(els.busqueda.value), marca: fbusq(els.marca.value), modelo: fbusq(els.modelo.value), anio: fbusq(els.anio.value),
                 oem: fbusq(els.oem.value), fmsi: fbusq(els.fmsi.value), ancho: parseFloat(els.medidasAncho.value),
-                alto: parseFloat(els.medidasAlto.value), pos: getPositionFilter()
+                alto: parseFloat(els.medidasAlto.value), 
+                pos: activePos // Usamos el array de posiciones activas
             };
             
             const filtered = brakePadsData.filter(item => {
@@ -676,7 +680,7 @@
 
                 // 1. FILTRO DE BÚSQUEDA RÁPIDA
                 const busqMatch = !filters.busqueda || 
-                                ['marca', 'modelo', 'ref', 'oem', 'fmsi'].some(key => 
+                                ['ref', 'oem', 'fmsi', 'marca', 'modelo'].some(key => 
                                     item[key]?.toLowerCase().includes(filters.busqueda)
                                 );
                 
@@ -687,16 +691,13 @@
                 const oemMatch = !filters.oem || itemOem.includes(filters.oem);
                 const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
 
-                // 3. FILTRO DE POSICIÓN (Lógica de Selección Múltiple)
+                // 3. FILTRO DE POSICIÓN (Lógica de Selección Múltiple - CORREGIDA)
                 let posMatch = true;
-                if (filters.pos === 'Delantera') {
-                    posMatch = (itemPosicion === 'Delantera');
-                } else if (filters.pos === 'Trasera') {
-                    posMatch = (itemPosicion === 'Trasera');
-                } else if (filters.pos === 'Ambas') {
-                    posMatch = (itemPosicion === 'Delantera' || itemPosicion === 'Trasera');
+                if (filters.pos.length > 0) {
+                    // Si hay posiciones activas, la posición del ítem debe estar incluida en el array
+                    posMatch = filters.pos.includes(itemPosicion);
                 } 
-
+                
                 // 4. FILTROS DE MEDIDAS (Tolerancia de +/- 1.0 mm)
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || 
