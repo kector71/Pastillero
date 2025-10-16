@@ -41,22 +41,20 @@
             /* VARIABLES DE ESTILO ESPECÍFICAS PARA EL BOTÓN BASURA */
             --trash-button-bg: #ef4444; /* Rojo suave (Destructive Red) */
             --trash-icon-stroke: #ffffff; /* Icono blanco para contraste */
-            --trash-icon-stroke-dark: #ff453a; /* Rojo brillante para el oscuro */
+            --trash-icon-size: 24px; 
         }
 
         body.lp-dark {
-            --bg-color: #121212; /* Fondo oscuro */
+            --bg-color: #121212; 
             --text-color: #fff;
             --header-border-color: rgba(255,255,255,0.1);
             --header-x-fill: #fff;
             
-            /* Material Design Colores Oscuros / Elevación */
             --material-surface-light: #1e1e1e;
             --material-surface-border: rgba(255, 255, 255, 0.1);
             --input-bg: #2c2c2c;
             --input-focus-border: #60a5fa;
             
-            /* Sombras de elevación (Material) - Más sutiles en oscuro */
             --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03);
             --elevation-2: 0 4px 6px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.2);
             --elevation-4: 0 10px 15px rgba(0,0,0,0.6), 0 4px 6px rgba(0,0,0,0.3);
@@ -70,26 +68,31 @@
             
             --btn-google-border: #8e918f;
             --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
-
-            --trash-button-bg: #b91c1c; /* Rojo oscuro para modo oscuro */
         }
 
-        /* ================== GENERAL & BODY ================== */
+        /* ================== GENERAL & BODY (Flexbox para Sticky Footer) ================== */
         * { box-sizing: border-box; margin:0; padding:0; }
-        html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+        html { 
+            height: 100%; 
+        }
         body {    
             background: var(--bg-color);    
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 0; 
             min-height: 100vh;
+            display: flex; /* Habilitar Flexbox */
+            flex-direction: column; /* Apilar elementos verticalmente */
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
         }
 
-        /* Contenedor principal para el diseño (Wrapper) */
+        /* Contenedor principal que debe crecer (Main Content) */
         #page-content-wrapper {
             position: relative;
-            min-height: calc(100vh - 8rem); 
-            padding-bottom: 8rem; 
+            /* Hacemos que este contenedor crezca y empuje el footer hacia abajo */
+            flex-grow: 1; 
+            flex-shrink: 0;
+            padding-bottom: 0; /* Eliminamos el padding redundante */
         }
         
         /* ================== HEADER (Material Design) ================== */
@@ -133,9 +136,7 @@
 
         /* ================== FOOTER BANNER (Scrollable) ================== */
         .footer-banner {
-            position: absolute; 
-            bottom: 0;
-            left: 0;
+            /* Ya no necesita position: absolute/relative */
             width: 100%;
             background-color: var(--material-surface-light);
             color: var(--text-color);
@@ -171,6 +172,7 @@
         /* ================== ESTRUCTURA PRINCIPAL ================== */
         .main-layout { 
             max-width: 1200px; 
+            /* Margen superior para separar de la barra de encabezado */
             margin: 1.5rem auto 0 auto; 
             padding: 0 1rem; 
             display: flex; 
@@ -195,7 +197,7 @@
         .filter-title { 
             font-weight: 600; 
             font-size: 1rem; 
-            margin-bottom: 0.6rem; 
+            margin-bottom: 0.8rem; 
             text-align: left; 
             display: flex;
             align-items: center;
@@ -263,10 +265,9 @@
         .clear-filters-wrapper { text-align: center; margin-top: 0.5rem; }
         .clear-filters-btn {
             position: relative; 
-            width: 60px; 
-            height: 60px; 
-            border-radius: 50%;
-            /* Fondo Rojo para Destacar */
+            width: 52px; 
+            height: 52px; 
+            border-radius: 1rem; 
             background-color: var(--trash-button-bg);
             box-shadow: var(--elevation-2); 
             display: flex; align-items: center; justify-content: center;
@@ -287,13 +288,13 @@
         }
 
         .clear-filters-btn svg {
-            width: 28px; height: 28px; 
-            /* Icono Blanco/Claro en modo Claro, y Rojo más brillante en modo Oscuro */
+            width: var(--trash-icon-size); 
+            height: var(--trash-icon-size); 
             stroke: var(--trash-icon-stroke); 
             stroke-width: 2; fill: none;
             stroke-linecap: round; stroke-linejoin: round;
         }
-        body.lp-dark .clear-filters-btn svg { stroke: var(--trash-icon-stroke); } /* Mantenemos blanco en oscuro para contraste con el fondo rojo oscuro */
+        body.lp-dark .clear-filters-btn svg { stroke: var(--trash-icon-stroke); } 
         
         @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.15)}50%{transform:scale(.95)}70%{transform:scale(1.1)}100%{transform:scale(1)} }
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
@@ -575,6 +576,7 @@
             .form-input { padding-top: 10px; padding-bottom: 10px; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
+            /* Ajuste de márgenes para móvil */
             .main-layout { margin: 1rem auto 10rem auto; padding: 0 0.5rem; }
         }
         
