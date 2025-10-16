@@ -57,6 +57,7 @@
             --material-ripple-dark: rgba(255, 255, 255, 0.15);
             
             --icon-sun-stroke: #fff;
+            --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #FF3B30; 
             --icon-main-stroke: #60a5fa; 
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
@@ -73,7 +74,6 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 1rem;
-            /* AJUSTE: padding inferior para el footer fijo */
             padding-bottom: 5rem; 
         }
 
@@ -120,12 +120,10 @@
             z-index: 100; 
             font-size: 0.8rem;
             text-align: center;
-            /* AJUSTE: Transición para ocultar/mostrar */
             transform: translateY(0);
             transition: transform 0.3s ease-out; 
         }
         
-        /* CLASE PARA OCULTAR EL FOOTER */
         .footer-banner.hidden {
             transform: translateY(100%);
         }
@@ -415,7 +413,8 @@
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
         .floating-buttons-container { 
             position: fixed; 
-            bottom: 18px; 
+            /* **AJUSTE CLAVE**: Elevado para que quede por encima del footer (~50px) + margen (~20px) */
+            bottom: 70px; 
             z-index: 9999; 
             display: flex; 
             flex-direction: column; 
@@ -506,8 +505,9 @@
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
         
         @media (max-width: 768px) {
-            .floating-buttons-container.left { bottom: 18px; }
-            .floating-buttons-container.right { bottom: 18px; }
+            /* Mantenemos el bottom consistente */
+            .floating-buttons-container.left { bottom: 70px; }
+            .floating-buttons-container.right { bottom: 70px; }
         }
         
         @media (max-width: 600px) {
@@ -653,7 +653,7 @@
             datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),    
             datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),    
             count: document.getElementById('resultCount'),
-            footer: document.getElementById('footerBanner') // Referencia al footer
+            footer: document.getElementById('footerBanner') 
         };
             
         const debounce = (func, delay) => {
@@ -737,9 +737,8 @@
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             const clientHeight = document.documentElement.clientHeight;
             
-            // Si el contenido es menor que la ventana (no hay scroll), lo mantenemos oculto a menos que sea muy pequeño
+            // Si el contenido es menor que la ventana (no hay scroll), lo mantenemos visible.
             if (scrollHeight <= clientHeight) {
-                // Si la altura del contenido cabe en la ventana, mostramos el footer.
                 els.footer.classList.remove('hidden'); 
                 return;
             }
@@ -916,7 +915,7 @@
                 els.upBtn.classList.toggle('show', window.scrollY > 300);
                 checkFooterVisibility();
             });
-            // También revisamos al cargar, en caso de que la página sea corta.
+
             window.addEventListener('resize', checkFooterVisibility);
 
 
@@ -976,7 +975,6 @@
         }
 
         function inicializarApp() {
-            // Aseguramos que el footer esté inicialmente oculto y revisamos visibilidad
             els.footer.classList.add('hidden');
             
             // DATOS DE EJEMPLO
@@ -1014,7 +1012,7 @@
             fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
             
             filterData();
-            checkFooterVisibility(); // Inicializa la visibilidad al cargar
+            checkFooterVisibility(); 
         }
 
         setupEventListeners();
