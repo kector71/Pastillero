@@ -15,9 +15,9 @@
             --header-x-fill: #000;
             
             /* Material Design Colores / Elevación */
-            --material-surface-light: #ffffff; /* Fondo de filtros y tarjetas */
+            --material-surface-light: #ffffff; 
             --material-surface-border: rgba(0, 0, 0, 0.1); 
-            --input-bg: #f3f4f6; /* Fondo de inputs más gris */
+            --input-bg: #f3f4f6; 
             --input-focus-border: #2563eb;
             
             /* Sombras de elevación (Material) */
@@ -29,8 +29,8 @@
             
             --icon-sun-stroke: #000;
             --icon-moon-stroke: #fff;
-            --icon-arrow-stroke: #000; /* NEGRO para modo claro */
-            --icon-main-stroke: #007AFF; /* Color principal para iconos de filtro */
+            --icon-arrow-stroke: #000; 
+            --icon-main-stroke: #007AFF; 
             --arrow-glow-animation: arrow-glow 1.5s ease-in-out infinite alternate;
             
             --btn-google-border: #747775;
@@ -38,7 +38,7 @@
         }
 
         body.lp-dark {
-            --bg-color: #121212; /* Fondo oscuro */
+            --bg-color: #121212; 
             --text-color: #fff;
             --header-border-color: rgba(255,255,255,0.1);
             --header-x-fill: #fff;
@@ -57,8 +57,8 @@
             --material-ripple-dark: rgba(255, 255, 255, 0.15);
             
             --icon-sun-stroke: #fff;
-            --icon-arrow-stroke: #FF3B30; /* ROJO para modo oscuro */
-            --icon-main-stroke: #60a5fa; /* Color principal para iconos de filtro en modo oscuro */
+            --icon-arrow-stroke: #FF3B30; 
+            --icon-main-stroke: #60a5fa; 
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
             
             --btn-google-border: #8e918f;
@@ -73,8 +73,8 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 1rem;
-            /* Añadir padding inferior para que el footer no se superponga */
-            padding-bottom: 7rem; 
+            /* AJUSTE: padding inferior para el footer fijo */
+            padding-bottom: 5rem; 
         }
 
         /* ================== HEADER (Material Design) ================== */
@@ -83,7 +83,6 @@
             max-width: 1200px; 
             margin: 0 auto 1.5rem auto; 
             text-align: center; 
-            /* Estilos Material Surface para Banner */
             background-color: var(--material-surface-light); 
             border-bottom: 1px solid var(--material-surface-border);
             box-shadow: var(--elevation-1); 
@@ -109,25 +108,44 @@
 
         /* ================== FOOTER BANNER (Material Design) ================== */
         .footer-banner {
-            position: fixed;
+            position: fixed; 
             bottom: 0;
             left: 0;
             width: 100%;
             background-color: var(--material-surface-light);
             color: var(--text-color);
-            padding: 1.5rem 1rem;
+            padding: 1rem 1rem; 
             border-top: 1px solid var(--material-surface-border);
             box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-            z-index: 100; /* Asegurar que esté sobre el contenido */
+            z-index: 100; 
             font-size: 0.8rem;
             text-align: center;
+            /* AJUSTE: Transición para ocultar/mostrar */
+            transform: translateY(0);
+            transition: transform 0.3s ease-out; 
         }
+        
+        /* CLASE PARA OCULTAR EL FOOTER */
+        .footer-banner.hidden {
+            transform: translateY(100%);
+        }
+        
         body.lp-dark .footer-banner {
             box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
         }
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
         .footer-links a {
             color: var(--text-color);
@@ -140,8 +158,9 @@
             opacity: 1;
         }
         .footer-copyright {
-            margin-top: 0.75rem;
+            margin-top: 0; 
             opacity: 0.6;
+            font-size: 0.75rem; 
         }
 
         /* ================== ESTRUCTURA PRINCIPAL ================== */
@@ -402,8 +421,8 @@
             flex-direction: column; 
             gap: 10px; 
         }
-        .floating-buttons-container.left { left: 18px; }
-        .floating-buttons-container.right { right: 18px; }
+        .floating-buttons-container.left { left: 18px; } 
+        .floating-buttons-container.right { right: 18px; } 
         
         .material-btn {
             position: relative; 
@@ -487,7 +506,8 @@
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
         
         @media (max-width: 768px) {
-            .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
+            .floating-buttons-container.left { bottom: 18px; }
+            .floating-buttons-container.right { bottom: 18px; }
         }
         
         @media (max-width: 600px) {
@@ -595,12 +615,11 @@
         </div>
     </div>
 
-    <footer class="footer-banner">
+    <footer class="footer-banner hidden" id="footerBanner"> 
         <div class="footer-content">
             <div class="footer-links">
                 <a href="#">Política de Privacidad</a> | 
-                <a href="#">Términos y Condiciones</a> | 
-                <a href="#">Contacto: ventas@brakex.com</a>
+                <a href="#">Términos y Condiciones</a>
             </div>
             <div class="footer-copyright">
                 &copy; 2025 Brake X. Todos los derechos reservados.
@@ -633,7 +652,8 @@
             datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'),    
             datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),    
             datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),    
-            count: document.getElementById('resultCount')    
+            count: document.getElementById('resultCount'),
+            footer: document.getElementById('footerBanner') // Referencia al footer
         };
             
         const debounce = (func, delay) => {
@@ -645,7 +665,6 @@
             datalist.innerHTML = values.map(v => `<option value="${v}">`).join('');
         };
         
-        // **LÓGICA CORREGIDA**: Devuelve un array de las posiciones activas.
         const getPositionFilter = () => {
             const activePositions = [];
             if (els.posDel.classList.contains('active')) activePositions.push('Delantera');
@@ -658,19 +677,17 @@
             if (!brakePadsData.length) return;
             const fbusq = (val) => val.toLowerCase().trim();
             
-            // Obtener las posiciones activas
             const activePos = getPositionFilter(); 
             
             const filters = {
                 busqueda: fbusq(els.busqueda.value), marca: fbusq(els.marca.value), modelo: fbusq(els.modelo.value), anio: fbusq(els.anio.value),
                 oem: fbusq(els.oem.value), fmsi: fbusq(els.fmsi.value), ancho: parseFloat(els.medidasAncho.value),
                 alto: parseFloat(els.medidasAlto.value), 
-                pos: activePos // Usamos el array de posiciones activas
+                pos: activePos 
             };
             
             const filtered = brakePadsData.filter(item => {
                 
-                // Conversión de propiedades del ítem a minúsculas para coincidencia parcial
                 const itemMarca = item.marca?.toLowerCase() || '';
                 const itemModelo = item.modelo?.toLowerCase() || '';
                 const itemAnio = item.año?.toLowerCase() || '';
@@ -691,13 +708,12 @@
                 const oemMatch = !filters.oem || itemOem.includes(filters.oem);
                 const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
 
-                // 3. FILTRO DE POSICIÓN (Lógica de Selección Múltiple - CORREGIDA)
+                // 3. FILTRO DE POSICIÓN
                 let posMatch = true;
                 if (filters.pos.length > 0) {
-                    // Si hay posiciones activas, la posición del ítem debe estar incluida en el array
                     posMatch = filters.pos.includes(itemPosicion);
                 } 
-                
+
                 // 4. FILTROS DE MEDIDAS (Tolerancia de +/- 1.0 mm)
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || 
@@ -712,8 +728,34 @@
                 return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
+            checkFooterVisibility(); 
         };
         
+        // FUNCIÓN CLAVE para controlar la visibilidad del footer
+        function checkFooterVisibility() {
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+            
+            // Si el contenido es menor que la ventana (no hay scroll), lo mantenemos oculto a menos que sea muy pequeño
+            if (scrollHeight <= clientHeight) {
+                // Si la altura del contenido cabe en la ventana, mostramos el footer.
+                els.footer.classList.remove('hidden'); 
+                return;
+            }
+            
+            // Tolerancia de 5 píxeles para asegurar que se muestre al llegar casi al final
+            const tolerance = 5; 
+            
+            if (scrollTop + clientHeight >= scrollHeight - tolerance) {
+                // Si el scroll está al final, muestra el footer
+                els.footer.classList.remove('hidden');
+            } else {
+                // Si no, oculta el footer
+                els.footer.classList.add('hidden');
+            }
+        }
+
         // FUNCIÓN CLAVE PARA LA NAVEGACIÓN DEL CARRUSEL
         function navigateCarousel(cardElement, direction) {
             const track = cardElement.querySelector('.image-track');
@@ -721,23 +763,20 @@
             const counter = cardElement.querySelector('.carousel-counter');
             if (!track || images.length === 0) return;
 
-            // Obtener el índice actual (almacenado como data attribute en el track)
             let currentIndex = parseInt(track.dataset.currentIndex) || 0;
             const totalImages = images.length;
             
             let newIndex = currentIndex + direction;
 
             if (newIndex >= totalImages) {
-                newIndex = 0; // Vuelve al inicio
+                newIndex = 0; 
             } else if (newIndex < 0) {
-                newIndex = totalImages - 1; // Vuelve al final
+                newIndex = totalImages - 1; 
             }
 
-            // Aplicar la transformación para mostrar la imagen correcta
             const transformValue = `translateX(-${newIndex * 100}%)`;
             track.style.transform = transformValue;
             
-            // Actualizar el índice y el contador
             track.dataset.currentIndex = newIndex;
             counter.textContent = `${newIndex + 1}/${totalImages}`;
         }
@@ -754,12 +793,10 @@
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
                 
-                // Simulación de múltiples imágenes (Usaremos 3 por ahora)
                 const imagePath = item.imagen; 
                 const imageCount = 3; 
                 let imageTrackHTML = '';
 
-                // Crear los elementos de la galería
                 for (let i = 0; i < imageCount; i++) {
                     imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" 
                                             alt="${item.marca} ${item.modelo} Vista ${i + 1}" 
@@ -777,7 +814,6 @@
                     </div>
                 `;
                     
-                // Estructura de tarjeta
                 return `<div class="result-card" data-ref="${item.ref}">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
@@ -810,10 +846,8 @@
                         </div>`;
             }).join('');
             
-            // Asignar listeners de navegación después de que los resultados se hayan renderizado
             els.results.querySelectorAll('.carousel-nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // Prevenir que el click active el ripple en el botón padre (si tuviera)
                     e.stopPropagation(); 
                     const card = e.currentTarget.closest('.result-card');
                     const direction = parseInt(e.currentTarget.dataset.direction);
@@ -840,7 +874,6 @@
             const diameter = Math.max(button.clientWidth, button.clientHeight);
             const radius = diameter / 2;
 
-            // Coordenadas del click relativas al botón
             const rect = button.getBoundingClientRect();
             circle.style.width = circle.style.height = `${diameter}px`;
             circle.style.left = `${event.clientX - (rect.left + radius)}px`;
@@ -859,7 +892,6 @@
 
         function setupEventListeners() {
             
-            // APLICAR RIPPLE A LOS BOTONES FLOTANTES
             [els.darkBtn, els.upBtn].forEach(btn => btn.addEventListener('click', createRippleEffect));
 
 
@@ -880,14 +912,18 @@
 
             els.upBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             
-            // Mostrar botón subir después de cierto scroll
-            window.addEventListener('scroll', () => els.upBtn.classList.toggle('show', window.scrollY > 300));
+            window.addEventListener('scroll', () => {
+                els.upBtn.classList.toggle('show', window.scrollY > 300);
+                checkFooterVisibility();
+            });
+            // También revisamos al cargar, en caso de que la página sea corta.
+            window.addEventListener('resize', checkFooterVisibility);
+
 
             const debouncedFilter = debounce(filterData, 300);
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
-            // LÓGICA DE SELECCIÓN MÚLTIPLE para Delantera/Trasera
             [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
                 btn.classList.toggle('active'); 
                 filterData();
@@ -940,6 +976,9 @@
         }
 
         function inicializarApp() {
+            // Aseguramos que el footer esté inicialmente oculto y revisamos visibilidad
+            els.footer.classList.add('hidden');
+            
             // DATOS DE EJEMPLO
             const data = [
                 { "marca": "Chevrolet", "modelo": "Spark GT", "ref": "BX-1234", "año": "2018-2022", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT" },
@@ -957,7 +996,7 @@
                 { "marca": "Toyota", "modelo": "RAV4", "ref": "BX-9103", "año": "2019-2023", "oem": "04465-42200", "fmsi": "9118-D1983", "posición": "Delantera", "medidas": "150.1 x 57.3", "imagen": "https://via.placeholder.com/300x200.png?text=RAV4" },
                 { "marca": "Kia", "modelo": "Sportage", "ref": "BX-1123", "año": "2017-2022", "oem": "58101-D4A20", "fmsi": "8881-D1691", "posición": "Delantera", "medidas": "146.0 x 59.8", "imagen": "https://via.placeholder.com/300x200.png?text=Sportage" },
                 { "marca": "Nissan", "modelo": "Kicks", "ref": "BX-3143", "año": "2018-2023", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks" },
-                // Añadimos algunas Traseras para probar el filtro de posición
+                // Traseras
                 { "marca": "Mazda", "modelo": "3", "ref": "BX-5679", "año": "2019-2023", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras" },
                 { "marca": "Toyota", "modelo": "Corolla", "ref": "BX-1122", "año": "2020-2024", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras" }
             ];
@@ -975,6 +1014,7 @@
             fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
             
             filterData();
+            checkFooterVisibility(); // Inicializa la visibilidad al cargar
         }
 
         setupEventListeners();
