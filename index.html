@@ -336,90 +336,33 @@
             // ========== EMBEDDED JSON DATA ==========
             const brakePadsData = [
               {
-                "marca": "Chevrolet",
-                "modelo": "Spark GT",
-                "año": "2018",
-                "oem": "96473228",
-                "fmsi": "D1391-8500",
-                "posición": "Delantera",
-                "medidas": "131.6 x 51.5 x 16.5",
-                "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT",
-                "ref": "SP-101"
+                "marca": "Chevrolet", "modelo": "Spark GT", "año": "2018", "oem": "96473228", "fmsi": "D1391-8500", "posición": "Delantera", "medidas": "131.6 x 51.5 x 16.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "ref": "SP-101"
               },
               {
-                "marca": "Renault",
-                "modelo": "Logan",
-                "año": "2020",
-                "oem": "7701209849",
-                "fmsi": "D1084-7983",
-                "posición": "Delantera",
-                "medidas": "100 x 64.8 x 18.2",
-                "imagen": "https://via.placeholder.com/300x200.png?text=Logan",
-                "ref": "RN-202"
+                "marca": "Renault", "modelo": "Logan", "año": "2020", "oem": "7701209849", "fmsi": "D1084-7983", "posición": "Delantera", "medidas": "100 x 64.8 x 18.2", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "ref": "RN-202"
               },
               {
-                "marca": "Mazda",
-                "modelo": "3",
-                "año": "2019",
-                "oem": "B4Y0-33-28Z",
-                "fmsi": "D1734-8991",
-                "posición": "Delantera",
-                "medidas": "142 x 58.7 x 17",
-                "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3",
-                "ref": "MZ-303"
+                "marca": "Mazda", "modelo": "3", "año": "2019", "oem": "B4Y0-33-28Z", "fmsi": "D1734-8991", "posición": "Delantera", "medidas": "142 x 58.7 x 17", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "ref": "MZ-303"
               },
               {
-                "marca": "Mazda",
-                "modelo": "3",
-                "año": "2019",
-                "oem": "BBM4-26-48Z",
-                "fmsi": "D1381-8492",
-                "posición": "Trasera",
-                "medidas": "101.9 x 42.6 x 14.5",
-                "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Trasera",
-                "ref": "MZ-304"
+                "marca": "Mazda", "modelo": "3", "año": "2019", "oem": "BBM4-26-48Z", "fmsi": "D1381-8492", "posición": "Trasera", "medidas": "101.9 x 42.6 x 14.5", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Trasera", "ref": "MZ-304"
               },
               {
-                "marca": "Toyota",
-                "modelo": "Corolla",
-                "año": "2021",
-                "oem": "04465-02220",
-                "fmsi": "D1210-8329",
-                "posición": "Delantera",
-                "medidas": "134.6 x 55.4 x 16.8",
-                "imagen": "https://via.placeholder.com/300x200.png?text=Corolla",
-                "ref": "TY-404"
+                "marca": "Toyota", "modelo": "Corolla", "año": "2021", "oem": "04465-02220", "fmsi": "D1210-8329", "posición": "Delantera", "medidas": "134.6 x 55.4 x 16.8", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "ref": "TY-404"
               }
             ];
 
             // ========== DOM ELEMENT SELECTION ==========
             const els = {
-                body: document.body,
-                headerX: document.querySelector('.header-x'),
-                darkBtn: document.getElementById('darkBtn'),
-                sunIcon: document.querySelector('.lp-icon-sun'),
-                moonIcon: document.querySelector('.lp-icon-moon'),
+                body: document.body, headerX: document.querySelector('.header-x'),
+                darkBtn: document.getElementById('darkBtn'), sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'),
                 upBtn: document.getElementById('upBtn'),
-                trashBtn: document.getElementById('trashBtn'),
-                lid: document.getElementById('lid'),
-                trashSound: document.getElementById('trashSound'),
-                busqueda: document.getElementById('busquedaRapida'),
-                marca: document.getElementById('filtroMarca'),
-                modelo: document.getElementById('filtroModelo'),
-                anio: document.getElementById('filtroAnio'),
-                oem: document.getElementById('filtroOem'),
-                fmsi: document.getElementById('filtroFmsi'),
-                medidasAncho: document.getElementById('medidasAncho'),
-                medidasAlto: document.getElementById('medidasAlto'),
-                posDel: document.getElementById('positionDelantera'),
-                posTras: document.getElementById('positionTras'),
-                datalistMarca: document.getElementById('marcas'),
-                datalistModelo: document.getElementById('modelos'),
-                datalistAnio: document.getElementById('anios'),
-                datalistOem: document.getElementById('oemList'),
-                datalistFmsi: document.getElementById('fmsiList'),
-                results: document.getElementById('results-container'),
-                count: document.getElementById('resultCount')
+                trashBtn: document.getElementById('trashBtn'), lid: document.getElementById('lid'), trashSound: document.getElementById('trashSound'),
+                busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'), modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'), oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'),
+                medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'),
+                posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTras'),
+                datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'), datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'), datalistFmsi: document.getElementById('fmsiList'),
+                results: document.getElementById('results-container'), count: document.getElementById('resultCount')
             };
 
             // ========== FUNCTION DEFINITIONS ==========
@@ -449,39 +392,19 @@
             const filterData = () => {
                 const fbusq = (val) => val.toLowerCase().trim();
                 const filters = {
-                    busqueda: fbusq(els.busqueda.value),
-                    marca: els.marca.value,
-                    modelo: els.modelo.value,
-                    anio: els.anio.value,
-                    oem: els.oem.value,
-                    fmsi: els.fmsi.value,
-                    ancho: els.medidasAncho.value.trim(),
-                    alto: els.medidasAlto.value.trim(),
-                    pos: getPositionFilter()
+                    busqueda: fbusq(els.busqueda.value), marca: els.marca.value, modelo: els.modelo.value, anio: els.anio.value, oem: els.oem.value, fmsi: els.fmsi.value,
+                    ancho: els.medidasAncho.value.trim(), alto: els.medidasAlto.value.trim(), pos: getPositionFilter()
                 };
-
                 const filtered = brakePadsData.filter(item => {
-                    const busqMatch = !filters.busqueda || 
-                        item.marca.toLowerCase().includes(filters.busqueda) ||
-                        item.modelo.toLowerCase().includes(filters.busqueda) ||
-                        item.ref?.toLowerCase().includes(filters.busqueda);
-                    const anioMatch = !filters.anio || item.año === filters.anio;
+                    const busqMatch = !filters.busqueda || item.marca.toLowerCase().includes(filters.busqueda) || item.modelo.toLowerCase().includes(filters.busqueda) || item.ref?.toLowerCase().includes(filters.busqueda);
                     let anchoMatch = true, altoMatch = true;
                     if (filters.ancho || filters.alto) {
                         const partes = item.medidas.split('x').map(s => s.trim());
                         anchoMatch = !filters.ancho || (partes[0] && partes[0].includes(filters.ancho));
                         altoMatch = !filters.alto || (partes[1] && partes[1].includes(filters.alto));
                     }
-                    const posMatch = filters.pos === 'Todas' || filters.pos === 'Ambas' ||
-                        (filters.pos === 'Delantera' && item.posición.includes('Del')) ||
-                        (filters.pos === 'Trasera' && item.posición.includes('Tras'));
-                    return busqMatch &&
-                        (!filters.marca || item.marca === filters.marca) &&
-                        (!filters.modelo || item.modelo === filters.modelo) &&
-                        anioMatch &&
-                        (!filters.oem || item.oem === filters.oem) &&
-                        (!filters.fmsi || item.fmsi === filters.fmsi) &&
-                        anchoMatch && altoMatch && posMatch;
+                    const posMatch = filters.pos === 'Todas' || filters.pos === 'Ambas' || (filters.pos === 'Delantera' && item.posición.includes('Del')) || (filters.pos === 'Trasera' && item.posición.includes('Tras'));
+                    return busqMatch && (!filters.marca || item.marca === filters.marca) && (!filters.modelo || item.modelo === filters.modelo) && (!filters.anio || item.año === filters.anio) && (!filters.oem || item.oem === filters.oem) && (!filters.fmsi || item.fmsi === filters.fmsi) && anchoMatch && altoMatch && posMatch;
                 });
                 renderResults(filtered);
             };
@@ -492,8 +415,7 @@
                     const posBadges = [];
                     if (item.posición.includes('Del')) posBadges.push('<span class="position-badge position-delantera">Delantera</span>');
                     if (item.posición.includes('Tras')) posBadges.push('<span class="position-badge position-trasera">Trasera</span>');
-                    return `
-                        <div class="result-card">
+                    return `<div class="result-card">
                             <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
                             <div class="result-field"><strong>${item.marca} ${item.modelo}</strong></div>
                             <div class="result-field">Año: ${item.año}</div>
@@ -539,17 +461,15 @@
                 };
                 iconAnimation(els.sunIcon, !isDark);
                 iconAnimation(els.moonIcon, isDark);
-                els.headerX.parentElement.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
-                setTimeout(() => els.headerX.parentElement.style.animation = '', 600);
+                
+                // --- CORRECCIÓN AQUÍ ---
+                // Se aplica la animación directamente a la 'X' (els.headerX)
+                els.headerX.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
+                setTimeout(() => { els.headerX.style.animation = ''; }, 600);
             });
 
-            els.upBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            window.addEventListener('scroll', () => {
-                els.upBtn.classList.toggle('show', window.scrollY > 150);
-            });
+            els.upBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            window.addEventListener('scroll', () => { els.upBtn.classList.toggle('show', window.scrollY > 150); });
 
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', filterData));
