@@ -29,7 +29,8 @@
             
             --icon-sun-stroke: #000;
             --icon-moon-stroke: #fff;
-            --icon-arrow-stroke: #007AFF;
+            --icon-arrow-stroke: #000; /* NEGRO para modo claro */
+            --icon-main-stroke: #007AFF; /* Color principal para iconos de filtro */
             --arrow-glow-animation: arrow-glow 1.5s ease-in-out infinite alternate;
             
             --btn-google-border: #747775;
@@ -56,6 +57,8 @@
             --material-ripple-dark: rgba(255, 255, 255, 0.15);
             
             --icon-sun-stroke: #fff;
+            --icon-arrow-stroke: #FF3B30; /* ROJO para modo oscuro */
+            --icon-main-stroke: #60a5fa; /* Color principal para iconos de filtro en modo oscuro */
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
             
             --btn-google-border: #8e918f;
@@ -72,8 +75,22 @@
             padding: 1rem;
         }
 
-        /* ================== HEADER ================== */
-        header { width: 100%; max-width: 1200px; margin: 0 auto 1.5rem auto; text-align: center; }
+        /* ================== HEADER (Material Design) ================== */
+        header { 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto 1.5rem auto; 
+            text-align: center; 
+            /* Estilos Material Surface para Banner */
+            background-color: var(--material-surface-light); 
+            border-bottom: 1px solid var(--material-surface-border);
+            box-shadow: var(--elevation-1); 
+            padding: 1rem 0; /* Añadir padding interior para mantener la separación */
+        }
+        body.lp-dark header {
+            box-shadow: var(--elevation-2);
+        }
+        
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
             display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -105,7 +122,24 @@
         }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
         
-        .filter-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.6rem; text-align: center; }
+        .filter-title { 
+            font-weight: 600; 
+            font-size: 1rem; 
+            margin-bottom: 0.6rem; 
+            text-align: left; 
+            display: flex;
+            align-items: center;
+            gap: 8px; 
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--material-surface-border);
+        }
+        .filter-title svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--icon-main-stroke);
+            fill: none;
+            stroke-width: 2;
+        }
         
         .form-input {
             width: 100%; 
@@ -205,7 +239,8 @@
         }
         body.lp-dark .result-card { box-shadow: var(--elevation-2); }
         
-        /* Contenedor de encabezado y datos */
+        /* Nuevos estilos para organizar los datos dentro de la tarjeta */
+        
         .card-details {
             display: flex;
             flex-direction: column;
@@ -238,21 +273,21 @@
             overflow: hidden;
             border-radius: 0.75rem;
             margin-bottom: 0.75rem;
+            aspect-ratio: 3/2; 
         }
 
         .image-track {
             display: flex;
             width: 100%;
+            height: 100%;
             transition: transform 0.3s ease-in-out;
-            /* Usamos este contenedor para forzar la visualización horizontal de las imágenes */
         }
 
         .result-image { 
-            width: 100%; /* Cada imagen ocupa todo el ancho del carrusel */
-            height: auto; 
-            max-height: 200px;
-            object-fit: contain; /* Usar contain para que la imagen completa se vea si las dimensiones no coinciden */
-            border-radius: 0; /* Quitamos el borde para que no interfiera con el contenedor */
+            width: 100%; 
+            height: 100%;
+            max-height: none; 
+            object-fit: contain; 
             flex-shrink: 0; 
             margin-bottom: 0;
             display: block;
@@ -276,8 +311,9 @@
         }
         .carousel-nav-btn:hover { opacity: 1; }
         .carousel-nav-btn:focus { outline: none; }
-        #prevBtn { left: 0; border-radius: 0 0.5rem 0.5rem 0; }
-        #nextBtn { right: 0; border-radius: 0.5rem 0 0 0.5rem; }
+        /* Usamos padding-right en el izquierdo y padding-left en el derecho para una mejor separación */
+        #prevBtn { left: 0; border-radius: 0 0.5rem 0.5rem 0; padding-right: 0.7rem; } 
+        #nextBtn { right: 0; border-radius: 0.5rem 0 0 0.5rem; padding-left: 0.7rem; }
 
         .carousel-counter {
             position: absolute;
@@ -455,40 +491,50 @@
         <div class="filters-column">
             
             <div class="glass">
-                <div class="filter-title">Búsqueda Rápida</div>
+                <div class="filter-title">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Búsqueda Rápida
+                </div>
                 <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref, OEM..." class="form-input">
             </div>
 
             <div class="glass">
-                <div class="filter-group">
-                    <div class="filter-title">Detalles del Vehículo</div>
-                    <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
-                    <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
-                    <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
+                <div class="filter-title">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20h-1a1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1z"></path><circle cx="9" cy="14" r="2"></circle><circle cx="15" cy="14" r="2"></circle></svg>
+                    Detalles del Vehículo
                 </div>
-    
-                <div class="filter-group">
-                    <div class="filter-title">Posición</div>
+                <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
+                <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
+                <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
+                
+                <div class="filter-group" style="margin-top: 1rem;">
+                    <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
                     <div class="position-container">
                         <button class="position-btn" id="positionDelantera">Delantera</button>
                         <button class="position-btn" id="positionTrasera">Trasera</button>
                     </div>
                 </div>
-    
-                <div class="filter-group">
-                    <div class="filter-title">Referencias y Códigos</div>
-                    <div class="input-group-horizontal">
-                        <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
-                        <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
-                    </div>
+            </div>
+
+            <div class="glass">
+                <div class="filter-title">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    Referencias y Códigos
                 </div>
-    
-                <div class="filter-group">
-                    <div class="filter-title">Medidas</div>
-                    <div class="input-group-horizontal">
-                        <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input">
-                        <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
-                    </div>
+                <div class="input-group-horizontal">
+                    <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
+                    <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
+                </div>
+            </div>
+
+            <div class="glass">
+                <div class="filter-title">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line><line x1="20" y1="22" x2="20" y2="15"></line></svg>
+                    Medidas
+                </div>
+                <div class="input-group-horizontal">
+                    <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input">
+                    <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
                 </div>
                 
                 <div class="clear-filters-wrapper">
@@ -673,12 +719,12 @@
                             ${imageTrackHTML}
                         </div>
                         <div class="carousel-counter">1/${imageCount}</div>
-                        <button class="carousel-nav-btn" data-direction="-1" id="prevBtn">‹</button>
-                        <button class="carousel-nav-btn" data-direction="1" id="nextBtn">›</button>
+                        <button class="carousel-nav-btn" data-direction="-1">‹</button>
+                        <button class="carousel-nav-btn" data-direction="1">›</button>
                     </div>
                 `;
                     
-                // Estructura modificada
+                // Estructura de tarjeta
                 return `<div class="result-card" data-ref="${item.ref}">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
@@ -714,6 +760,8 @@
             // Asignar listeners de navegación después de que los resultados se hayan renderizado
             els.results.querySelectorAll('.carousel-nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
+                    // Prevenir que el click active el ripple en el botón padre (si tuviera)
+                    e.stopPropagation(); 
                     const card = e.currentTarget.closest('.result-card');
                     const direction = parseInt(e.currentTarget.dataset.direction);
                     navigateCarousel(card, direction);
