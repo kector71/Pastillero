@@ -21,7 +21,7 @@
         /* ================== HEADER ================== */
         header {
             width: 100%;
-            max-width: 960px; /* AJUSTADO PARA PC */
+            max-width: 960px;
             margin: 0 auto 1.5rem auto;
             text-align: center;
             padding: 15px 12px;
@@ -76,25 +76,25 @@
             border:1px solid rgba(255,255,255,0.3); 
             border-radius:1rem;
             padding:1.5rem; 
-            max-width: 960px; /* AJUSTADO PARA PC */
+            max-width: 960px;
             margin:0 auto;
             display:flex; 
             flex-direction:column; 
-            gap: 0.8rem; /* REDUCIDO */
+            gap: 0.8rem;
         }
         body.lp-dark .glass {
             background-color: rgba(50,50,50,0.2);
             border-color: rgba(255,255,255,0.1);
         }
-        .filter-title { font-weight:600; font-size: 0.9rem; } /* REDUCIDO */
+        .filter-title { font-weight:600; font-size: 0.9rem; }
         .form-input {
             width: 100%;
-            padding: 12px; /* REDUCIDO */
-            border-radius: 12px; /* REDUCIDO */
+            padding: 12px;
+            border-radius: 12px;
             border: 1px solid rgba(0,0,0,0.15);
             background-color: rgba(255,255,255,0.25);
             color: #000;
-            font-size: 0.9rem; /* REDUCIDO */
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
@@ -110,8 +110,8 @@
         }
         .position-container { display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center; }
         .position-btn {
-            flex:1; min-width:140px; max-width:180px; padding: 12px; /* REDUCIDO */ border-radius:12px; border:1px solid rgba(0,0,0,0.15);
-            cursor:pointer; font-size:0.9rem; /* REDUCIDO */ text-align:center; transition: all 0.3s ease;
+            flex:1; min-width:140px; max-width:180px; padding: 12px; border-radius:12px; border:1px solid rgba(0,0,0,0.15);
+            cursor:pointer; font-size:0.9rem; text-align:center; transition: all 0.3s ease;
             background-color: rgba(255,255,255,0.25); color: #000;
         }
         body.lp-dark .position-btn {
@@ -124,10 +124,36 @@
         .medidas-container { display:flex; gap:0.5rem; flex-wrap:wrap; }
         .medidas-container .form-input { flex:1; }
 
+        /* AJUSTADO: CONTENEDOR PARA EL BOTÓN DE PAPELERA */
+        .trash-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* AJUSTADO: ESTILOS PARA EL BOTÓN DE PAPELERA INTEGRADO */
+        #trashBtn {
+            position: relative;
+            width: auto;
+            height: auto;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #trashBtn svg {
+            width: 18px;
+            height: 18px;
+            position: relative; /* Sobrescribe el position absolute */
+        }
+
         /* Filter Results */
         .results-wrapper {  
             display:grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); /* REDUCIDO */
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap:0.75rem;
             margin: 1rem auto 0 auto;
         }
@@ -152,17 +178,8 @@
         .position-trasera { background-color:#fef2f2; color:#b91c1c; }
 
         /* ================== FLOATING BUTTONS ================== */
-        .floating-buttons {
-            position: fixed;
-            right: 18px;
-            bottom: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 9999;
-        }
         .liquid-glass {
-            position: relative;
+            position: fixed; /* Todos los botones flotantes ahora son fijos */
             width: 50px; height: 50px;
             border-radius: 50%;
             background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
@@ -172,6 +189,7 @@
             transition: all 0.35s cubic-bezier(0.68,-0.55,0.27,1.55);
             backdrop-filter: blur(8px);
             border:none; outline:none;
+            z-index: 9999;
         }
         body.lp-dark .liquid-glass {
             background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
@@ -184,14 +202,28 @@
             transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s;
         }
         .liquid-glass:focus { outline:none; box-shadow:0 0 0 3px rgba(0,122,255,0.5); }
+        
+        /* AJUSTADO: Posición de botones flotantes */
+        #upBtn {
+            left: 18px;
+            bottom: 18px;
+        }
+        #darkBtn {
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+        }
+
+        /* Icon Colors */
         body:not(.lp-dark) .lp-icon-sun { stroke:#000; }  
         body.lp-dark .lp-icon-sun { stroke:#fff; } 
         .lp-icon-moon { stroke:#fff; }
         .lp-icon-arrow { stroke:#007AFF; animation: arrow-glow 1.5s ease-in-out infinite alternate; }
         body.lp-dark .lp-icon-arrow { stroke:#fff; animation: arrow-glow-dark 1.5s ease-in-out infinite alternate; }
+        
         #upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
-        #upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
-        #trashBtn { animation: lp-float 2s ease-in-out infinite; }
+        #upBtn.show { opacity: 1; pointer-events: auto; transform: translateY(0); animation: slide-bounce 0.5s ease forwards; }
+
         .lp-spark { position: fixed; border-radius: 50%; pointer-events: none; opacity: 0.9; filter: blur(1px); animation: sparkFall 0.8s forwards; }
 
         /* ================== ANIMATIONS (KEYFRAMES) ================== */
@@ -201,26 +233,28 @@
         @keyframes arrow-glow-dark { 0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } }
         @keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
-        @keyframes lp-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
         @keyframes lidOpen { 0% { transform: rotate(0deg) translateY(0); } 50% { transform: rotate(-25deg) translateY(-2px); } 100% { transform: rotate(0deg) translateY(0); } }
         @keyframes sparkFall { 0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; } 100% { transform: translate(var(--dx,60px), var(--dy,140px)) rotate(720deg) scale(0); opacity: 0; } }
 
         /* ================== RESPONSIVE ADJUSTMENTS ================== */
         @media (max-width: 768px) {
-            .floating-buttons { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
+            #upBtn, #darkBtn { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
             .header-subtitle { display: none; }
         }
         @media (max-width: 600px) {
             body { padding: 0.5rem; }
             .glass { padding: 1rem; }
             .position-container{ flex-direction:column; }
-            .form-input, .position-btn { font-size: 1rem; padding: 1rem; } /* Reajustados para móvil */
+            .form-input, .position-btn { font-size: 1rem; padding: 1rem; }
             .result-field{ font-size:0.9rem; }
             .medidas-container{ flex-direction:column; }
         }
         @media (max-width: 480px) {
             header h1 { font-size: 1rem; }
-            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; } /* Más pequeños para pantallas chicas */
+            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
+            /* AJUSTADO: Ocultar texto de la papelera en pantallas pequeñas */
+            #trashBtn span { display: none; }
+            #trashBtn { width: 50px; height: 50px; border-radius: 50%; }
         }
     </style>
 </head>
@@ -256,16 +290,21 @@
             <div class="position-btn" id="positionDelantera">Delantera</div>
             <div class="position-btn" id="positionTras">Trasera</div>
         </div>
+        
+        <div class="trash-container">
+            <button id="trashBtn" class="liquid-glass">
+                <svg viewBox="0 0 64 64"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#888"></stop><stop offset="100%" stop-color="#444"></stop></linearGradient></defs><rect x="20" y="22" width="24" height="28" rx="4" ry="4" fill="url(#grad1)" stroke="#222" stroke-width="1"></rect><rect id="lid" x="18" y="18" width="28" height="5" rx="3" ry="3" fill="#555"></rect><rect x="18" y="18" width="28" height="2" rx="3" ry="3" fill="rgba(255,255,255,0.2)"></rect><line x1="26" y1="26" x2="26" y2="46" stroke="#333" stroke-width="2"></line><line x1="32" y1="26" x2="32" y2="46" stroke="#333" stroke-width="2"></line><line x1="38" y1="26" x2="38" y2="46" stroke="#333" stroke-width="2"></line></svg>
+                <span>Limpiar Filtros</span>
+            </button>
+        </div>
+
         <div class="results-wrapper" id="results-container"></div>
         <div style="font-size:0.75rem; color:#4b5563;"> <span id="resultCount">0</span> resultados </div>
     </main>
 
-    <div class="floating-buttons">
-        <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false"><svg class="lp-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line></svg><svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-        <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página"><svg class="lp-icon-arrow" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5,12 12,5 19,12"></polyline></svg></button>
-        <button id="trashBtn" class="liquid-glass"><svg viewBox="0 0 64 64" width="32" height="32"><defs><linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#888"></stop><stop offset="100%" stop-color="#444"></stop></linearGradient></defs><rect x="20" y="22" width="24" height="28" rx="4" ry="4" fill="url(#grad1)" stroke="#222" stroke-width="1"></rect><rect id="lid" x="18" y="18" width="28" height="5" rx="3" ry="3" fill="#555"></rect><rect x="18" y="18" width="28" height="2" rx="3" ry="3" fill="rgba(255,255,255,0.2)"></rect><line x1="26" y1="26" x2="26" y2="46" stroke="#333" stroke-width="2"></line><line x1="32" y1="26" x2="32" y2="46" stroke="#333" stroke-width="2"></line><line x1="38" y1="26" x2="38" y2="46" stroke="#333" stroke-width="2"></line></svg></button>
-    </div>
-
+    <button class="liquid-glass" id="darkBtn" aria-label="Cambiar modo oscuro" aria-pressed="false"><svg class="lp-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"></line><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"></line><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"></line></svg><svg class="lp-icon-moon" viewBox="0 0 24 24" style="opacity:0;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+    <button class="liquid-glass" id="upBtn" aria-label="Subir al inicio de la página"><svg class="lp-icon-arrow" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5,12 12,5 19,12"></polyline></svg></button>
+    
     <audio id="trashSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
 
     <script>
