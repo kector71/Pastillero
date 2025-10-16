@@ -210,7 +210,6 @@
         
         /* Nuevos estilos para organizar los datos dentro de la tarjeta */
         
-        /* Ajuste de card-details para incluir el borde inferior de la sección principal */
         .card-details {
             display: flex;
             flex-direction: column;
@@ -225,13 +224,15 @@
             color: var(--text-color);
             white-space: nowrap;
         }
-        /* CAMBIO: Marca y Modelo en negrita y subrayado */
+        
+        /* CAMBIO CSS para el subtítulo (Marca/Modelo/Año) */
         .card-model {
             font-size: 0.85rem;
-            font-weight: 700; /* Negrita */
-            text-decoration: underline; /* Subrayado */
-            opacity: 1; /* Asegura visibilidad completa */
+            font-weight: 700; /* Negrita (ya estaba, aseguramos) */
+            text-decoration: underline; 
+            opacity: 1; 
             margin-top: 0.2rem;
+            color: var(--text-color); /* Aseguramos que el color sea el principal */
         }
         /* FIN CAMBIO */
 
@@ -244,10 +245,12 @@
             padding-top: 0.5rem;
             border-top: 1px solid var(--material-surface-border);
         }
+        
+        /* Aseguramos que los títulos de especificación estén en negrita fuerte */
         .card-specs strong {
-            font-weight: 600;
+            font-weight: 700; /* Negrita más fuerte */
             font-size: 0.8rem;
-            opacity: 0.7;
+            opacity: 0.9; /* Menos opacidad para que resalte más */
             display: block;
         }
         .card-specs span {
@@ -571,7 +574,7 @@
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
                     
-                // Estructura modificada: eliminamos card-header y movemos el badge debajo de card-details
+                // Estructura modificada: Badge movido a un div debajo de la información principal
                 return `<div class="result-card">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
