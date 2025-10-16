@@ -21,19 +21,18 @@
         /* ================== HEADER ================== */
         header {
             width: 100%;
-            max-width: 700px;
+            max-width: 1200px;
             margin: 0 auto 1.5rem auto;
             text-align: center;
             padding: 10px 12px;
             border-radius: 12px;
-            backdrop-filter: blur(12px);
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15), inset 0 0 15px rgba(255,255,255,0.2);
             transition: background 0.5s ease, color 0.5s ease;
+            /* --- AJUSTES PARA ELIMINAR EFECTO FLOTANTE --- */
+            background: #f0f0f0; /* Fondo sólido igual al body */
+            /* Se eliminaron: backdrop-filter y box-shadow */
         }
         body.lp-dark header {
-            background: rgba(50,50,50,0.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 15px rgba(255,255,255,0.1);
+             background: #000; /* Fondo sólido para modo oscuro */
         }
         header h1 {
             font-family: 'Orbitron', sans-serif;
@@ -73,7 +72,7 @@
             border:1px solid rgba(255,255,255,0.3); 
             border-radius:1rem;
             padding:1.5rem; 
-            max-width:700px; 
+            max-width: 1200px;
             margin:0 auto;
             display:flex; 
             flex-direction:column; 
@@ -462,8 +461,6 @@
                 iconAnimation(els.sunIcon, !isDark);
                 iconAnimation(els.moonIcon, isDark);
                 
-                // --- CORRECCIÓN AQUÍ ---
-                // Se aplica la animación directamente a la 'X' (els.headerX)
                 els.headerX.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
                 setTimeout(() => { els.headerX.style.animation = ''; }, 600);
             });
