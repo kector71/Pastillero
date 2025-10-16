@@ -225,17 +225,37 @@
             white-space: nowrap;
         }
         
-        /* CAMBIO CSS para el subtítulo (Marca/Modelo/Año) */
+        /* Marca y Modelo en negrita y subrayado */
         .card-model {
             font-size: 0.85rem;
-            font-weight: 700; /* Negrita (ya estaba, aseguramos) */
+            font-weight: 700; 
             text-decoration: underline; 
             opacity: 1; 
             margin-top: 0.2rem;
-            color: var(--text-color); /* Aseguramos que el color sea el principal */
+            color: var(--text-color); 
         }
-        /* FIN CAMBIO */
 
+        /* Contenedor de Imágenes para alineación en móvil */
+        .card-images-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            overflow-x: auto; /* Permitir scroll si hay demasiadas imágenes */
+            justify-content: center; /* Centrar las imágenes horizontalmente */
+            padding-bottom: 0.5rem; /* Pequeño padding inferior para móvil */
+        }
+
+        /* Estilo para las imágenes individuales (1/2 o 1/3 del ancho del contenedor de la tarjeta) */
+        .result-image { 
+            width: 48%; /* Dos imágenes por línea aproximadamente */
+            max-width: 150px; /* Limitar el tamaño en pantallas grandes si se usa flex */
+            height: auto; 
+            border-radius: 0.75rem; 
+            object-fit: cover; 
+            flex-shrink: 0; /* No encoger las imágenes si no caben */
+            margin-bottom: 0;
+        }
+        
         .card-specs {
             font-size: 0.9rem;
             display: grid;
@@ -250,7 +270,7 @@
         .card-specs strong {
             font-weight: 700; /* Negrita más fuerte */
             font-size: 0.8rem;
-            opacity: 0.9; /* Menos opacidad para que resalte más */
+            opacity: 0.9; 
             display: block;
         }
         .card-specs span {
@@ -258,8 +278,6 @@
         }
         /* Fin de nuevos estilos de tarjeta */
 
-        .result-field { font-size:0.9rem; }
-        .result-image { width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem; }
         .position-badge { display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; text-align:center; }
         .position-delantera { background-color:#dbeafe; color:#1d4ed8; }
         .position-trasera { background-color:#fef2f2; color:#b91c1c; }
@@ -285,7 +303,7 @@
             /* Estilos Material Design */
             background-color: var(--material-surface-light); 
             color: var(--text-color);
-            box-shadow: var(--elevation-2); /* Más elevado que las tarjetas */
+            box-shadow: var(--elevation-2); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -297,7 +315,7 @@
         }
 
         .material-btn:hover {
-            box-shadow: var(--elevation-4); /* Más elevado al pasar el ratón */
+            box-shadow: var(--elevation-4); 
         }
         
         body.lp-dark .material-btn {
@@ -573,6 +591,15 @@
                 const posBadge = item.posición === 'Delantera'
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
+                
+                // Simulación de imágenes múltiples (usando 2 placeholders idénticos)
+                const imagePath = item.imagen; 
+                const imageElements = `
+                    <div class="card-images-container">
+                        <img src="${imagePath}" alt="${item.marca} ${item.modelo} (Vista 1)" class="result-image" loading="lazy">
+                        <img src="${imagePath.replace("text=", "text=Vista+2+")}" alt="${item.marca} ${item.modelo} (Vista 2)" class="result-image" loading="lazy">
+                    </div>
+                `;
                     
                 // Estructura modificada: Badge movido a un div debajo de la información principal
                 return `<div class="result-card">
@@ -583,7 +610,7 @@
                             
                             <div style="margin-bottom: 0.75rem; text-align: left;">${posBadge}</div>
                             
-                            <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
+                            ${imageElements}
                             
 
                             <div class="card-specs">
