@@ -201,14 +201,13 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--material-surface-border);
         }
-        .filter-title svg {
-            width: 18px;
-            height: 18px;
-            stroke: var(--icon-main-stroke);
-            fill: none;
-            stroke-width: 2;
-        }
         
+        /* ELIMINAMOS ICONOS DE LOS TÍTULOS DE FILTROS */
+        .filter-title svg {
+            display: none; /* Oculta el icono */
+        }
+        /* FIN ELIMINACIÓN DE ICONOS */
+
         .form-input {
             width: 100%; 
             padding: 10px; 
@@ -320,6 +319,7 @@
         .clear-filters-btn svg {
             width: 24px; 
             height: 24px; 
+            /* Icono blanco para contraste */
             stroke: #ffffff; 
             stroke-width: 2; 
             fill: none;
@@ -628,7 +628,6 @@
             
             <div class="glass">
                 <div class="filter-title">
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     Búsqueda Rápida
                 </div>
                 <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref, OEM..." class="form-input">
@@ -636,12 +635,12 @@
 
             <div class="glass">
                 <div class="filter-title">
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20h-1a1 1 0 0 1-1-1v-2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1z"></path><circle cx="9" cy="14" r="2"></circle><circle cx="15" cy="14" r="2"></circle></svg>
                     Detalles del Vehículo
                 </div>
                 <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
                 <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
-                <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
+                <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
+                <datalist id="anios"></datalist>
                 
                 <div class="filter-group" style="margin-top: 1rem;">
                     <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
@@ -654,7 +653,6 @@
 
             <div class="glass">
                 <div class="filter-title">
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                     Referencias y Códigos
                 </div>
                 <div class="input-group-horizontal">
@@ -665,7 +663,6 @@
 
             <div class="glass">
                 <div class="filter-title">
-                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line><line x1="20" y1="22" x2="20" y2="15"></line></svg>
                     Medidas
                 </div>
                 <div class="input-group-horizontal">
