@@ -208,6 +208,52 @@
         }
         body.lp-dark .result-card { box-shadow: var(--elevation-2); }
         
+        /* Nuevos estilos para organizar los datos dentro de la tarjeta */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Centrar verticalmente */
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            /* Eliminamos el border-bottom para que quede más limpio */
+            /* border-bottom: 1px solid var(--material-surface-border); */
+        }
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+        .card-ref {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+        .card-model {
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+        .card-specs {
+            font-size: 0.9rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.2rem 0.5rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--material-surface-border);
+        }
+        .card-specs strong {
+            font-weight: 600;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            display: block;
+        }
+        .card-specs span {
+            font-size: 0.9rem;
+        }
+        /* Fin de nuevos estilos de tarjeta */
+
         .result-field { font-size:0.9rem; }
         .result-image { width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem; }
         .position-badge { display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; text-align:center; }
@@ -523,14 +569,38 @@
                 const posBadge = item.posición === 'Delantera'
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
+                    
+                // Nueva estructura de tarjeta
                 return `<div class="result-card">
+                            <div class="card-header">
+                                <div class="card-details">
+                                    <div class="card-ref">${item.ref}</div>
+                                    <div class="card-model">${item.marca} ${item.modelo} (${item.año})</div>
+                                </div>
+                                <div>${posBadge}</div>
+                            </div>
+                            
                             <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
-                            <div class="result-field"><strong>${item.marca} ${item.modelo} (${item.ref})</strong></div>
-                            <div class="result-field">Año: ${item.año}</div>
-                            <div class="result-field">OEM: ${item.oem}</div>
-                            <div class="result-field">FMSI: ${item.fmsi}</div>
-                            <div class="result-field">${posBadge}</div>
-                            <div class="result-field">Medidas: ${item.medidas}</div>
+                            
+
+                            <div class="card-specs">
+                                <div>
+                                    <strong>OEM</strong>
+                                    <span>${item.oem}</span>
+                                </div>
+                                <div>
+                                    <strong>Platina FMSI</strong>
+                                    <span>${item.fmsi}</span>
+                                </div>
+                                <div>
+                                    <strong>Ancho</strong>
+                                    <span>${item.anchoNum} mm</span>
+                                </div>
+                                <div>
+                                    <strong>Alto</strong>
+                                    <span>${item.altoNum} mm</span>
+                                </div>
+                            </div>
                         </div>`;
             }).join('');
         };
@@ -606,7 +676,7 @@
                 filterData();
             }));
 
-            // El botón de papelera no tiene ripple, pero mantiene la animación de basura
+            // Lógica de animación del botón de papelera
             const trashLid = els.clearBtn.querySelector('.trash-lid');
             const trashBody = els.clearBtn.querySelector('.trash-body');
             const NUM_SPARKS = 10;
