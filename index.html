@@ -73,8 +73,8 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 1rem;
-            /* Añadir padding inferior para que el footer no se superponga */
-            padding-bottom: 7rem; 
+            /* CORRECCIÓN: Eliminar padding-bottom ya que el footer no está fijo */
+            padding-bottom: 1rem; 
         }
 
         /* ================== HEADER (Material Design) ================== */
@@ -87,7 +87,7 @@
             background-color: var(--material-surface-light); 
             border-bottom: 1px solid var(--material-surface-border);
             box-shadow: var(--elevation-1); 
-            padding: 1rem 0; 
+            padding: 1rem 0; /* Añadir padding interior para mantener la separación */
         }
         body.lp-dark header {
             box-shadow: var(--elevation-2);
@@ -109,7 +109,8 @@
 
         /* ================== FOOTER BANNER (Material Design) ================== */
         .footer-banner {
-            position: fixed;
+            /* CORRECCIÓN: Cambiamos a position: relative o quitamos la propiedad fixed */
+            position: relative; /* Se comporta como un elemento normal en el flujo */
             bottom: 0;
             left: 0;
             width: 100%;
@@ -117,10 +118,13 @@
             color: var(--text-color);
             padding: 1.5rem 1rem;
             border-top: 1px solid var(--material-surface-border);
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-            z-index: 100; /* Asegurar que esté sobre el contenido */
+            /* Sombra sutil hacia arriba */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05); 
+            /* Eliminamos z-index, ya no es un elemento fijo */
+            z-index: 10; 
             font-size: 0.8rem;
             text-align: center;
+            margin-top: 2rem; /* Añadir margen para separarlo del contenido principal */
         }
         body.lp-dark .footer-banner {
             box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
