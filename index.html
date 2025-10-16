@@ -20,6 +20,12 @@
             --input-bg: #f3f4f6; 
             --input-focus-border: #2563eb;
             
+            /* Colores primarios para el nuevo botón */
+            --btn-primary-bg: #3b82f6; /* Azul brillante */
+            --btn-primary-text: #ffffff;
+            --btn-primary-hover-bg: #2563eb;
+            --btn-primary-shadow: 0 4px 6px rgba(59, 130, 246, 0.3); /* Sombra azulada */
+            
             /* Sombras de elevación (Material) */
             --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
             --elevation-2: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
@@ -43,6 +49,12 @@
             --header-border-color: rgba(255,255,255,0.1);
             --header-x-fill: #fff;
             
+            /* Colores primarios oscuros para el nuevo botón */
+            --btn-primary-bg: #60a5fa; /* Azul más claro para contraste */
+            --btn-primary-text: #121212;
+            --btn-primary-hover-bg: #3b82f6;
+            --btn-primary-shadow: 0 4px 6px rgba(96, 165, 250, 0.2); 
+
             /* Material Design Colores Oscuros / Elevación */
             --material-surface-light: #1e1e1e;
             --material-surface-border: rgba(255, 255, 255, 0.1);
@@ -237,45 +249,77 @@
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
-        .clear-filters-wrapper { text-align: center; margin-top: 0.5rem; }
+        .clear-filters-wrapper { 
+            text-align: center; 
+            margin-top: 1rem; /* Más espacio superior */
+            margin-bottom: 0; /* Aseguramos que no haya margen inferior si está en la parte inferior del glass */
+        }
+        
         .clear-filters-btn {
+            /* **AJUSTES CLAVE para Material Contained Button** */
             position: relative; 
-            width: 60px; 
-            height: 60px; 
-            border-radius: 50%;
-            background-color: var(--material-surface-light);
-            box-shadow: var(--elevation-2); 
-            display: flex; align-items: center; justify-content: center;
+            width: 100%; /* Ocupa todo el ancho */
+            height: auto; 
+            padding: 10px 16px; /* Altura de botón estándar */
+            border-radius: 0.75rem; /* Esquinas redondeadas */
+            
+            /* Estilo primario */
+            background-color: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            box-shadow: var(--btn-primary-shadow); /* Sombra de color */
+            
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 10px; /* Separación entre texto e icono si lo hubiera */
+            
             cursor: pointer; 
-            border: 1px solid var(--material-surface-border); 
+            border: none; /* Quitamos el borde */
             outline: none; 
-            margin: 0 auto;
-            backdrop-filter: none; 
-            transition: box-shadow 0.3s ease, background-color 0.3s ease;
-        }
-        body.lp-dark .clear-filters-btn {
-            background-color: var(--material-surface-light);
-            border-color: var(--material-surface-border);
-            box-shadow: var(--elevation-2);
-        }
-        .clear-filters-btn:hover {
-            box-shadow: var(--elevation-4);
+            margin: 0; /* Quitamos el margin: 0 auto; */
+            
+            font-size: 1rem;
+            font-weight: 600;
+            
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
         }
 
-        .clear-filters-btn svg {
-            width: 28px; height: 28px; stroke: #FF3B30; stroke-width: 2; fill: none;
-            stroke-linecap: round; stroke-linejoin: round;
+        body.lp-dark .clear-filters-btn {
+            color: var(--btn-primary-text); /* Blanco/oscuro según el tema */
+            background-color: var(--btn-primary-bg);
+            box-shadow: var(--btn-primary-shadow);
         }
-        body.lp-dark .clear-filters-btn svg { stroke: #ff453a; }
         
-        @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.15)}50%{transform:scale(.95)}70%{transform:scale(1.1)}100%{transform:scale(1)} }
+        .clear-filters-btn:hover {
+            background-color: var(--btn-primary-hover-bg);
+            box-shadow: var(--elevation-4); /* Sombra más pronunciada en hover */
+        }
+        
+        /* Ajuste del icono para el nuevo tamaño del botón */
+        .clear-filters-btn svg {
+            width: 24px; /* Icono más pequeño para el botón plano */
+            height: 24px; 
+            stroke: var(--btn-primary-text); /* Color del texto del botón */
+            stroke-width: 2; 
+            fill: none;
+            position: static; /* El icono es parte del flujo normal */
+            transition: none;
+        }
+        body.lp-dark .clear-filters-btn svg { 
+            stroke: var(--btn-primary-text); 
+        }
+        
+        /* Ajuste de animaciones para el nuevo botón */
+        @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
+        
+        /* Las otras animaciones se mantendrán funcionales para el icono */
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
         @keyframes shake-body { 0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)} }
         @keyframes spark-fade-out { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0.5); } }
         
         .spark { position: absolute; border-radius: 50%; opacity: 0; animation: spark-fade-out 0.6s ease-out forwards; box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
         
-        .animate-button { animation: bounce 0.6s ease-in-out; }
+        .animate-button { animation: bounce 0.4s ease-in-out; }
         .animate-lid { animation: open-lid 0.8s ease-in-out; }
         .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
 
@@ -396,7 +440,6 @@
         }
         
         .card-specs strong {
-            /* **AJUSTE CLAVE**: Añadido text-decoration: underline; */
             font-weight: 700; 
             font-size: 0.8rem;
             opacity: 0.9; 
@@ -602,6 +645,7 @@
                             <g class="trash-body"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></g>
                             <g class="trash-lid"><polyline points="3 6 5 6 21 6"></polyline><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></g>
                         </svg>
+                        Borrar Filtros
                     </button>
                 </div>
 
@@ -957,6 +1001,9 @@
             els.clearBtn.addEventListener('click', () => {
                 if (els.clearBtn.disabled) return;
                 els.clearBtn.disabled = true;
+                
+                // Creamos un span temporal para el efecto ripple que no sea el SVG
+                createRippleEffect({ currentTarget: els.clearBtn, clientX: els.clearBtn.offsetWidth / 2, clientY: els.clearBtn.offsetHeight / 2, target: els.clearBtn, preventDefault: () => {} });
 
                 els.clearBtn.classList.add('animate-button');
                 trashLid.classList.add('animate-lid');
@@ -972,6 +1019,15 @@
                     els.clearBtn.disabled = false;
                 }, { once: true });
             });
+            
+            // Añadir ripple para el nuevo botón de borrar filtros (lo añadimos al final de setupEventListeners)
+            els.clearBtn.addEventListener('click', (e) => {
+                // Prevenimos el ripple duplicado si ya fue llamado dentro de la lógica del botón
+                if (e.clientX && e.clientY) {
+                    createRippleEffect(e);
+                }
+            });
+
         }
 
         function inicializarApp() {
