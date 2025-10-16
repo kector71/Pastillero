@@ -7,59 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ================== VARIABLES DE TEMA ================== */
+        /* ================== VARIABLES DE TEMA (Material) ================== */
         :root {
             --bg-color: #f8f9fa; 
             --text-color: #000;
-            --header-border-color: rgba(0,0,0,0.2);
+            --header-border-color: rgba(0,0,0,0.1);
             --header-x-fill: #000;
-            --glass-bg: rgba(255,255,255,0.15);
-            --glass-border: rgba(255,255,255,0.3);
-            --input-bg: rgba(255,255,255,0.25);
-            --input-border: rgba(0,0,0,0.15);
+            
+            /* Material Design Colores / Elevación */
+            --material-surface-light: #ffffff; /* Fondo de filtros y tarjetas */
+            --material-surface-border: rgba(0, 0, 0, 0.1); 
+            --input-bg: #f3f4f6; /* Fondo de inputs más gris */
             --input-focus-border: #2563eb;
-            --input-focus-bg: rgba(255,255,255,0.35);
-            --card-bg: rgba(255,255,255,0.25);
-            --card-border: rgba(255,255,255,0.3);
-            /* Valores Material Design para botones flotantes */
-            --material-bg-light: #f8f9fa;
-            --material-shadow-light: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-            --material-shadow-hover-light: 0 6px 10px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.12);
+            
+            /* Sombras de elevación (Material) */
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            --elevation-2: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --elevation-4: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+
             --material-ripple-light: rgba(0, 0, 0, 0.15);
             
             --icon-sun-stroke: #000;
             --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #007AFF;
             --arrow-glow-animation: arrow-glow 1.5s ease-in-out infinite alternate;
-            --filter-box-shadow-light: 5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px rgba(255,255,255,0.8);
-            --filter-input-border-light: rgba(0,0,0,0.25);
+            
             --btn-google-border: #747775;
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
         }
 
         body.lp-dark {
-            --bg-color: #000000;
+            --bg-color: #121212; /* Fondo oscuro */
             --text-color: #fff;
-            --header-border-color: rgba(255,255,255,0.2);
+            --header-border-color: rgba(255,255,255,0.1);
             --header-x-fill: #fff;
-            --glass-bg: rgba(50,50,50,0.2);
-            --glass-border: rgba(255,255,255,0.1);
-            --input-bg: rgba(0,0,0,0.2);
-            --input-border: rgba(255,255,255,0.15);
+            
+            /* Material Design Colores Oscuros / Elevación */
+            --material-surface-light: #1e1e1e;
+            --material-surface-border: rgba(255, 255, 255, 0.1);
+            --input-bg: #2c2c2c;
             --input-focus-border: #60a5fa;
-            --input-focus-bg: rgba(0,0,0,0.3);
-            --card-bg: rgba(50,50,50,0.2);
-            --card-border: rgba(255,255,255,0.1);
-            /* Valores Material Design para botones flotantes */
-            --material-bg-dark: #1c1c1c;
-            --material-shadow-dark: 0 4px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3);
-            --material-shadow-hover-dark: 0 6px 10px rgba(0,0,0,0.6), 0 3px 6px rgba(0,0,0,0.4);
-            --material-ripple-dark: rgba(255, 255, 255, 0.15);
+            
+            /* Sombras de elevación (Material) - Más sutiles en oscuro */
+            --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03);
+            --elevation-2: 0 4px 6px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.2);
+            --elevation-4: 0 10px 15px rgba(0,0,0,0.6), 0 4px 6px rgba(0,0,0,0.3);
 
+            --material-ripple-dark: rgba(255, 255, 255, 0.15);
+            
             --icon-sun-stroke: #fff;
             --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
-            --filter-box-shadow-dark: 5px 5px 10px rgba(0,0,0,0.4), -5px -5px 10px rgba(30,30,30,0.8);
-            --filter-input-border-dark: rgba(255,255,255,0.25);
+            
             --btn-google-border: #8e918f;
             --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
         }
@@ -79,12 +77,13 @@
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
             display: flex; align-items: center; justify-content: center; gap: 12px;
-            opacity: 0; animation: fadeDown 1s ease 0.3s forwards;
+            opacity: 1; 
+            animation: fadeDown 1s ease 0.3s forwards; 
         }
         .header-subtitle { 
             font-size: 0.9rem; font-weight: 500; opacity: 0.8; 
             border-left: 2px solid var(--header-border-color); padding-left: 12px; transition: border-color 0.5s ease;
-            white-space: nowrap; /* Mantiene el subtítulo en una línea en escritorio */
+            white-space: nowrap; 
         }
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
@@ -94,24 +93,47 @@
         .filters-column { flex: 0 0 320px; display: flex; flex-direction: column; gap: 1.5rem; }
         .results-panel { flex: 1; }
 
-        /* ================== ESTILOS DE FILTROS Y TARJETAS ================== */
+        /* ================== ESTILOS DE FILTROS Y TARJETAS (Material) ================== */
         .glass {
-            background-color: var(--glass-bg); backdrop-filter: blur(12px); border:1px solid var(--glass-border); border-radius:1rem; 
-            padding: 1rem; box-shadow: var(--filter-box-shadow-light); transition: box-shadow 0.3s ease;
+            /* REEMPLAZO COMPLETO POR ESTILO MATERIAL SURFACE */
+            background-color: var(--material-surface-light); 
+            border: 1px solid var(--material-surface-border);
+            border-radius:1rem; 
+            padding: 1rem; 
+            box-shadow: var(--elevation-1); /* Sombra de elevación sutil */
+            transition: box-shadow 0.3s ease;
+            /* Eliminamos backdrop-filter */
+            backdrop-filter: none; 
         }
-        body.lp-dark .glass { box-shadow: var(--filter-box-shadow-dark); }
+        body.lp-dark .glass { box-shadow: var(--elevation-2); }
+        
         .filter-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.6rem; text-align: center; }
+        
         .form-input {
-            width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--filter-input-border-light); 
-            background-color: var(--input-bg); color: var(--text-color); font-size: 0.9rem; transition: all 0.3s ease; box-sizing: border-box;
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 10px; 
+            border: 1px solid var(--material-surface-border); 
+            background-color: var(--input-bg); /* Fondo más grisáceo */
+            color: var(--text-color); 
+            font-size: 0.9rem; 
+            transition: all 0.3s ease; 
+            box-sizing: border-box;
+            box-shadow: none; /* Quitamos sombras internas */
         }
-        body.lp-dark .form-input { border: 1px solid var(--filter-input-border-dark); }
-        .form-input:focus { border-color: var(--input-focus-border); outline:none; background-color: var(--input-focus-bg); }
+        body.lp-dark .form-input { border-color: var(--material-surface-border); }
+        .form-input:focus { 
+            border-color: var(--input-focus-border); 
+            outline:none; 
+            background-color: var(--material-surface-light); /* Se aclara al hacer foco */
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); /* Sombra de foco */
+        }
+        
         .filter-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.8rem; }
         .filter-group:last-child { margin-bottom: 0; }
         .position-container { display:flex; gap: 0.5rem; }
 
-        /* -- ESTILO GOOGLE MATERIAL DESIGN PARA BOTONES -- */
+        /* -- Estilos de Botones de Posición (Mantienen Material Style) -- */
         .position-btn {
             flex: 1; padding: 8px 16px; border-radius: 100px; cursor: pointer;
             font-size: 0.875rem; font-weight: 500; text-align: center;
@@ -119,26 +141,30 @@
             border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
         }
         .position-btn:hover { background-color: var(--btn-google-hover-bg); }
-        #positionDelantera.active { background-color: #3b82f6; border-color: #3b82f6; color: #fff; }
-        #positionTrasera.active { background-color: #ef4444; border-color: #ef4444; color: #fff; }
+        #positionDelantera.active { background-color: #3b82f6; border-color: #3b82f6; color: #fff; box-shadow: var(--elevation-1); }
+        #positionTrasera.active { background-color: #ef4444; border-color: #ef4444; color: #fff; box-shadow: var(--elevation-1); }
         
         .input-group-horizontal { display:flex; gap: 0.4rem; }
         .input-group-horizontal .form-input { flex:1; }
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
-        /* ================== ESTILOS BOTÓN BORRAR FILTROS ================== */
+        /* ================== ESTILOS BOTÓN BORRAR FILTROS (Se simplifica a Material) ================== */
         .clear-filters-wrapper { text-align: center; margin-top: 0.5rem; }
         .clear-filters-btn {
             position: relative; width: 60px; height: 60px; border-radius: 50%;
-            /* Neumorfismo mantenido aquí */
-            background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7) 60%);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25), inset 0 0 20px rgba(255,255,255,0.3);
-            backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: none; outline: none; margin: 0 auto;
+            /* ESTILO MATERIAL PARA BOTÓN DE ACCIÓN */
+            background-color: var(--material-surface-light);
+            box-shadow: var(--elevation-2); 
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid var(--material-surface-border); outline: none; margin: 0 auto;
+            /* Eliminamos backdrop-filter */
+            backdrop-filter: none; 
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
         }
         body.lp-dark .clear-filters-btn {
-            background: linear-gradient(145deg, rgba(50,50,50,0.9), rgba(30,30,30,0.85) 60%);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 0 18px rgba(255,255,255,0.1);
+            background-color: var(--material-surface-light);
+            border-color: var(--material-surface-border);
+            box-shadow: var(--elevation-4);
         }
         .clear-filters-btn svg {
             width: 28px; height: 28px; stroke: #FF3B30; stroke-width: 2; fill: none;
@@ -157,12 +183,24 @@
         .animate-lid { animation: open-lid 0.8s ease-in-out; }
         .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
 
-        /* ================== ESTILOS DE RESULTADOS ================== */
+        /* ================== ESTILOS DE RESULTADOS (Material) ================== */
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap:0.75rem; }
         .result-card {
-            background-color: var(--card-bg); backdrop-filter: blur(10px); border-radius:1rem; padding:1rem; border:1px solid var(--card-border);
-            display:flex; flex-direction:column; gap:0.25rem; opacity:0; transform: translateY(10px); animation: fadeInUp 0.3s forwards;
+            /* REEMPLAZO COMPLETO POR ESTILO MATERIAL SURFACE */
+            background-color: var(--material-surface-light); 
+            border: 1px solid var(--material-surface-border);
+            border-radius:1rem; 
+            padding:1rem; 
+            box-shadow: var(--elevation-1); /* Elevación sutil */
+            display:flex; flex-direction:column; gap:0.25rem; 
+            opacity:1; 
+            transform: translateY(0); 
+            animation: fadeInUp 0.3s forwards;
+            /* Eliminamos backdrop-filter */
+            backdrop-filter: none; 
         }
+        body.lp-dark .result-card { box-shadow: var(--elevation-2); }
+        
         .result-field { font-size:0.9rem; }
         .result-image { width:100%; height:auto; border-radius:0.75rem; object-fit:cover; margin-bottom:0.5rem; }
         .position-badge { display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; text-align:center; }
@@ -171,7 +209,14 @@
         .no-results { text-align:center; padding: 2rem 0; opacity: 0.7; grid-column: 1 / -1; }
 
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
-        .floating-buttons-container { position: fixed; bottom: 18px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .floating-buttons-container { 
+            position: fixed; 
+            bottom: 18px; 
+            z-index: 9999; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+        }
         .floating-buttons-container.left { left: 18px; }
         .floating-buttons-container.right { right: 18px; }
         
@@ -181,28 +226,27 @@
             height: 56px; 
             border-radius: 50%;
             /* Estilos Material Design */
-            background-color: var(--material-bg-light); 
+            background-color: var(--material-surface-light); 
             color: var(--text-color);
-            box-shadow: var(--material-shadow-light); 
+            box-shadow: var(--elevation-2); /* Más elevado que las tarjetas */
             display: flex; 
             align-items: center; 
             justify-content: center; 
             cursor: pointer; 
             overflow: hidden;
             transition: box-shadow 0.3s ease, background-color 0.3s ease; 
-            border: 1px solid var(--header-border-color); 
+            border: 1px solid var(--material-surface-border); 
             outline:none;
         }
 
         .material-btn:hover {
-            box-shadow: var(--material-shadow-hover-light); 
+            box-shadow: var(--elevation-4); /* Más elevado al pasar el ratón */
         }
         
-        /* Ajustes para modo oscuro */
         body.lp-dark .material-btn {
-            background-color: var(--material-bg-dark); 
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: var(--material-shadow-dark);
+            background-color: var(--material-surface-light); 
+            border-color: var(--material-surface-border);
+            box-shadow: var(--elevation-2);
         }
 
         .material-btn svg { 
@@ -223,7 +267,7 @@
             background-color: var(--material-ripple-light); 
         }
         body.lp-dark .ripple {
-             background-color: var(--material-ripple-dark); 
+            background-color: var(--material-ripple-dark); 
         }
         @keyframes ripple-effect {
             to {
@@ -236,24 +280,41 @@
         .lp-icon-moon { stroke: var(--icon-moon-stroke); }
         .lp-icon-arrow { stroke: var(--icon-arrow-stroke); animation: var(--arrow-glow-animation); }
         
-        #upBtn { opacity: 0; transform: translateY(40px); pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; }
-        #upBtn.show { opacity: 1; pointer-events: auto; animation: slide-bounce 0.5s ease forwards; }
+        #upBtn { 
+            opacity: 0; 
+            transform: translateY(0); 
+            pointer-events: none; 
+            transition: opacity 0.3s ease, transform 0.3s ease; 
+        }
+        #upBtn.show { 
+            opacity: 1; 
+            pointer-events: auto; 
+        }
+
+        /* ================== ANIMACIONES GENERALES ================== */
+        @keyframes fadeDown { 0% { opacity:0; transform:translateY(-8px); } 100% { opacity:1; transform:translateY(0); } }
+        @keyframes bounceHeader { 0% { transform: scale(1); } 30% { transform: scale(1.15); } 50% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes arrow-glow { 0% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(0,122,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(0,122,255,0.4)); } }
+        @keyframes arrow-glow-dark { 0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } 50% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.8)); } 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); } }
+        @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
+
 
         /* ================== AJUSTES RESPONSIVE ================== */
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
         
-        /* Se eliminó la regla que ocultaba el subtítulo en móvil */
         @media (max-width: 768px) {
             .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
         }
         
         @media (max-width: 600px) {
-            body { padding: 0.5rem; } .glass { padding: 1rem; } .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 1rem; padding: 1rem; } .result-field{ font-size:0.9rem; }
+            body { padding: 0.5rem; } 
+            .glass { padding: 1rem; } 
+            .position-container{ flex-direction: row; }
+            .form-input, .position-btn { font-size: 1rem; padding: 0.8rem; } /* Ajuste de padding para móviles */
+            .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
         
-        /* Ajustes para que el subtítulo quepa bien en móvil vertical */
         @media (max-width: 480px) {
             header h1 { 
                 font-size: 1.1rem; 
@@ -478,16 +539,18 @@
             filterData();
         };
         
-        // FUNCIÓN PARA EL EFECTO RIPPLE
+        // FUNCIÓN PARA EL EFECTO RIPPLE (Material Design)
         const createRippleEffect = (event) => {
             const button = event.currentTarget;
             const circle = document.createElement('span');
             const diameter = Math.max(button.clientWidth, button.clientHeight);
             const radius = diameter / 2;
 
+            // Coordenadas del click relativas al botón
+            const rect = button.getBoundingClientRect();
             circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - (button.offsetLeft + radius)}px`;
-            circle.style.top = `${event.clientY - (button.offsetTop + radius)}px`;
+            circle.style.left = `${event.clientX - (rect.left + radius)}px`;
+            circle.style.top = `${event.clientY - (rect.top + radius)}px`;
             circle.classList.add('ripple');
 
             const ripple = button.getElementsByClassName('ripple')[0];
@@ -522,13 +585,15 @@
             });
 
             els.upBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', () => els.upBtn.classList.toggle('show', window.scrollY > 150));
+            
+            // Mostrar botón subir después de cierto scroll
+            window.addEventListener('scroll', () => els.upBtn.classList.toggle('show', window.scrollY > 300));
 
             const debouncedFilter = debounce(filterData, 300);
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
-            // LÓGICA DE SELECCIÓN MÚLTIPLE
+            // LÓGICA DE SELECCIÓN MÚLTIPLE para Delantera/Trasera
             [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
                 btn.classList.toggle('active'); 
                 filterData();
@@ -580,6 +645,7 @@
         }
 
         function inicializarApp() {
+            // DATOS DE EJEMPLO
             const data = [
                 { "marca": "Chevrolet", "modelo": "Spark GT", "ref": "BX-1234", "año": "2018-2022", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT" },
                 { "marca": "Mazda", "modelo": "3", "ref": "BX-5678", "año": "2019-2023", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3" },
