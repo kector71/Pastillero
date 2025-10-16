@@ -71,9 +71,14 @@
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
             display: flex; align-items: center; justify-content: center; gap: 12px;
-            opacity: 0; animation: fadeDown 1s ease 0.3s forwards; white-space: nowrap;
+            opacity: 0; animation: fadeDown 1s ease 0.3s forwards;
+            /* CAMBIO: Se eliminó white-space: nowrap; para permitir que el título se ajuste */
         }
-        .header-subtitle { font-size: 0.9rem; font-weight: 500; opacity: 0.8; border-left: 2px solid var(--header-border-color); padding-left: 12px; transition: border-color 0.5s ease; }
+        .header-subtitle { 
+            font-size: 0.9rem; font-weight: 500; opacity: 0.8; 
+            border-left: 2px solid var(--header-border-color); padding-left: 12px; transition: border-color 0.5s ease;
+            white-space: nowrap; /* Mantiene el subtítulo en una línea en escritorio */
+        }
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
 
@@ -99,34 +104,16 @@
         .filter-group:last-child { margin-bottom: 0; }
         .position-container { display:flex; gap: 0.5rem; }
 
-        /* -- NUEVO ESTILO GOOGLE MATERIAL DESIGN PARA BOTONES -- */
+        /* -- ESTILO GOOGLE MATERIAL DESIGN PARA BOTONES -- */
         .position-btn {
-            flex: 1;
-            padding: 8px 16px;
-            border-radius: 100px; /* Pill shape */
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-align: center;
+            flex: 1; padding: 8px 16px; border-radius: 100px; cursor: pointer;
+            font-size: 0.875rem; font-weight: 500; text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-            border: 1px solid var(--btn-google-border);
-            background-color: transparent;
-            color: var(--text-color);
+            border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
         }
-        .position-btn:hover {
-            background-color: var(--btn-google-hover-bg);
-        }
-        #positionDelantera.active {
-            background-color: #3b82f6;
-            border-color: #3b82f6;
-            color: #fff;
-        }
-        #positionTrasera.active {
-            background-color: #ef4444;
-            border-color: #ef4444;
-            color: #fff;
-        }
-        /* -- FIN ESTILO GOOGLE -- */
+        .position-btn:hover { background-color: var(--btn-google-hover-bg); }
+        #positionDelantera.active { background-color: #3b82f6; border-color: #3b82f6; color: #fff; }
+        #positionTrasera.active { background-color: #ef4444; border-color: #ef4444; color: #fff; }
         
         .input-group-horizontal { display:flex; gap: 0.4rem; }
         .input-group-horizontal .form-input { flex:1; }
@@ -204,8 +191,6 @@
         /* ================== AJUSTES RESPONSIVE ================== */
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
         @media (max-width: 768px) {
-            /* CAMBIO: Permitir que el título principal se ajuste en móviles */
-            header h1 { white-space: normal; }
             .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
             .header-subtitle { display: none; }
         }
@@ -214,7 +199,10 @@
             .form-input, .position-btn { font-size: 1rem; padding: 1rem; } .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
-        @media (max-width: 480px) { header h1 { font-size: 1rem; } .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; } }
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; /* Aumentar un poco el tamaño en móviles pequeños */ flex-wrap: wrap; /* Permitir que el contenido se ajuste */ }
+            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
+        }
     </style>
 </head>
 <body>
