@@ -188,19 +188,37 @@
         @keyframes slide-bounce { 0% { transform: translateY(40px) scale(0.8); opacity:0; } 60% { transform: translateY(-5px) scale(1.05); opacity:1; } 100% { transform: translateY(0) scale(1); opacity:1; } }
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
-        /* ================== AJUSTES RESPONSIVE ================== */
+        /* ================== AJUSTES RESPONSIVE (CORREGIDO) ================== */
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
+        
+        /* CORRECCIÓN: Eliminamos la línea que ocultaba el subtítulo en móvil */
         @media (max-width: 768px) {
             .floating-buttons-container { bottom: calc(env(safe-area-inset-bottom, 10px) + 8px); }
-            .header-subtitle { display: none; }
+            /* .header-subtitle { display: none; } <-- Eliminado */
         }
+        
         @media (max-width: 600px) {
             body { padding: 0.5rem; } .glass { padding: 1rem; } .position-container{ flex-direction: row; }
             .form-input, .position-btn { font-size: 1rem; padding: 1rem; } .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
+        
+        /* Ajustamos el encabezado en móviles pequeños para que el subtítulo quepa */
         @media (max-width: 480px) {
-            header h1 { font-size: 1.5rem; /* Aumentar un poco el tamaño en móviles pequeños */ flex-wrap: wrap; /* Permitir que el contenido se ajuste */ }
+            header h1 { 
+                font-size: 1.1rem; /* Reducir ligeramente el título principal */ 
+                flex-wrap: wrap; 
+                gap: 8px; /* Reducir el espacio entre el título y el subtítulo */
+            }
+            .header-subtitle { 
+                font-size: 0.8rem; /* Reducir el subtítulo para que quepa */
+                white-space: normal; /* Permitir que el subtítulo se divida si es necesario */
+                border-left: none; /* Quitar la línea divisoria vertical que ocupa espacio */
+                padding-left: 0;
+                display: block; /* Asegurar que use su propia línea si es necesario */
+                width: 100%; /* Ocupar el ancho disponible */
+                text-align: center;
+            }
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
         }
     </style>
@@ -312,9 +330,10 @@
         const getPositionFilter = () => {
             const isDelActive = els.posDel.classList.contains('active');
             const isTrasActive = els.posTras.classList.contains('active');
-            if (isDelActive && !isTrasActive) return 'Delantera';
-            if (!isTrasActive && isDelActive) return 'Trasera'; // Corregido: Si Delantera no está activa y Trasera sí.
-            if (!isDelActive && isTrasActive) return 'Trasera'; // Lógica redundante pero mantenida por seguridad.
+            
+            if (isDelActive && isTrasActive) return 'Ambas'; 
+            if (isDelActive) return 'Delantera';
+            if (isTrasActive) return 'Trasera';
             return 'Todas';
         };
 
@@ -335,6 +354,7 @@
                 const itemAnio = item.año?.toLowerCase() || '';
                 const itemOem = item.oem?.toLowerCase() || '';
                 const itemFmsi = item.fmsi?.toLowerCase() || '';
+                const itemPosicion = item.posición; 
 
                 // 1. FILTRO DE BÚSQUEDA RÁPIDA
                 const busqMatch = !filters.busqueda || 
@@ -349,8 +369,17 @@
                 const oemMatch = !filters.oem || itemOem.includes(filters.oem);
                 const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
 
-                // 3. FILTRO DE POSICIÓN
-                const posMatch = filters.pos === 'Todas' || item.posición === filters.pos;
+                // 3. FILTRO DE POSICIÓN (Lógica de Selección Múltiple)
+                let posMatch = true;
+                if (filters.pos === 'Delantera') {
+                    posMatch = (itemPosicion === 'Delantera');
+                } else if (filters.pos === 'Trasera') {
+                    posMatch = (itemPosicion === 'Trasera');
+                } else if (filters.pos === 'Ambas') {
+                    // Si 'Ambas' está seleccionado, muestra tanto Delantera como Trasera.
+                    posMatch = (itemPosicion === 'Delantera' || itemPosicion === 'Trasera');
+                } 
+                // Si filters.pos es 'Todas' (ninguna está activa), posMatch es true (muestra todas).
 
                 // 4. FILTROS DE MEDIDAS (Tolerancia de +/- 1.0 mm)
                 const TOLERANCIA = 1.0;
@@ -424,24 +453,9 @@
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
+            // LÓGICA DE SELECCIÓN MÚLTIPLE
             [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
-                // Lógica mejorada para botones de posición
-                const isDel = btn.id === 'positionDelantera';
-                const isTras = btn.id === 'positionTrasera';
-
-                if (isDel) {
-                    btn.classList.toggle('active');
-                    if (btn.classList.contains('active')) {
-                        // Si activas Delantera, asegúrate de que Trasera no esté activa si no se permite selección múltiple
-                        if (els.posTras.classList.contains('active')) els.posTras.classList.remove('active');
-                    }
-                } else if (isTras) {
-                    btn.classList.toggle('active');
-                    if (btn.classList.contains('active')) {
-                        // Si activas Trasera, asegúrate de que Delantera no esté activa
-                        if (els.posDel.classList.contains('active')) els.posDel.classList.remove('active');
-                    }
-                }
+                btn.classList.toggle('active'); 
                 filterData();
             }));
 
