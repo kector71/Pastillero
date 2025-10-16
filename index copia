@@ -312,7 +312,7 @@
             white-space: nowrap;
         }
         
-        /* Marca y Modelo en negrita y subrayado */
+        /* Marca y Modelo en negrita y subrayado (Subtítulo de tarjeta) */
         .card-model {
             font-size: 0.85rem;
             font-weight: 700; 
@@ -396,10 +396,12 @@
         }
         
         .card-specs strong {
+            /* **AJUSTE CLAVE**: Añadido text-decoration: underline; */
             font-weight: 700; 
             font-size: 0.8rem;
             opacity: 0.9; 
             display: block;
+            text-decoration: underline; 
         }
         .card-specs span {
             font-size: 0.9rem;
@@ -413,7 +415,6 @@
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
         .floating-buttons-container { 
             position: fixed; 
-            /* **AJUSTE CLAVE**: Elevado para que quede por encima del footer (~50px) + margen (~20px) */
             bottom: 70px; 
             z-index: 9999; 
             display: flex; 
@@ -505,7 +506,6 @@
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
         
         @media (max-width: 768px) {
-            /* Mantenemos el bottom consistente */
             .floating-buttons-container.left { bottom: 70px; }
             .floating-buttons-container.right { bottom: 70px; }
         }
