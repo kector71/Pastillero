@@ -126,7 +126,8 @@
             width: 100%;
             background-color: var(--material-surface-light);
             color: var(--text-color);
-            padding: 1rem 1rem; 
+            /* AQUI: Se reduce el padding vertical para reducir la altura */
+            padding: 0.5rem 1rem; 
             border-top: 1px solid var(--material-surface-border);
             box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
             z-index: 100; 
@@ -998,6 +999,7 @@
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
+            // CORRECCIÓN CLAVE para el filtro de posición
             [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
                 btn.classList.toggle('active'); 
                 filterData();
