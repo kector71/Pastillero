@@ -102,7 +102,6 @@
             padding: 1rem; 
             box-shadow: var(--elevation-1); /* Sombra de elevación sutil */
             transition: box-shadow 0.3s ease;
-            /* Eliminamos backdrop-filter */
             backdrop-filter: none; 
         }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
@@ -119,7 +118,7 @@
             font-size: 0.9rem; 
             transition: all 0.3s ease; 
             box-sizing: border-box;
-            box-shadow: none; /* Quitamos sombras internas */
+            box-shadow: none;
         }
         body.lp-dark .form-input { border-color: var(--material-surface-border); }
         .form-input:focus { 
@@ -148,24 +147,33 @@
         .input-group-horizontal .form-input { flex:1; }
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
-        /* ================== ESTILOS BOTÓN BORRAR FILTROS (Se simplifica a Material) ================== */
+        /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
         .clear-filters-wrapper { text-align: center; margin-top: 0.5rem; }
         .clear-filters-btn {
-            position: relative; width: 60px; height: 60px; border-radius: 50%;
-            /* ESTILO MATERIAL PARA BOTÓN DE ACCIÓN */
+            position: relative; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%;
+            /* ESTILO MATERIAL PARA BOTÓN DE ACCIÓN (Sólido y Elevado) */
             background-color: var(--material-surface-light);
             box-shadow: var(--elevation-2); 
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; border: 1px solid var(--material-surface-border); outline: none; margin: 0 auto;
-            /* Eliminamos backdrop-filter */
+            cursor: pointer; 
+            border: 1px solid var(--material-surface-border); 
+            outline: none; 
+            margin: 0 auto;
             backdrop-filter: none; 
             transition: box-shadow 0.3s ease, background-color 0.3s ease;
         }
         body.lp-dark .clear-filters-btn {
             background-color: var(--material-surface-light);
             border-color: var(--material-surface-border);
+            box-shadow: var(--elevation-2);
+        }
+        .clear-filters-btn:hover {
             box-shadow: var(--elevation-4);
         }
+
         .clear-filters-btn svg {
             width: 28px; height: 28px; stroke: #FF3B30; stroke-width: 2; fill: none;
             stroke-linecap: round; stroke-linejoin: round;
@@ -196,7 +204,6 @@
             opacity:1; 
             transform: translateY(0); 
             animation: fadeInUp 0.3s forwards;
-            /* Eliminamos backdrop-filter */
             backdrop-filter: none; 
         }
         body.lp-dark .result-card { box-shadow: var(--elevation-2); }
@@ -310,7 +317,7 @@
             body { padding: 0.5rem; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 1rem; padding: 0.8rem; } /* Ajuste de padding para móviles */
+            .form-input, .position-btn { font-size: 1rem; padding: 0.8rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
@@ -599,6 +606,7 @@
                 filterData();
             }));
 
+            // El botón de papelera no tiene ripple, pero mantiene la animación de basura
             const trashLid = els.clearBtn.querySelector('.trash-lid');
             const trashBody = els.clearBtn.querySelector('.trash-body');
             const NUM_SPARKS = 10;
