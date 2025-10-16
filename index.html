@@ -209,19 +209,15 @@
         body.lp-dark .result-card { box-shadow: var(--elevation-2); }
         
         /* Nuevos estilos para organizar los datos dentro de la tarjeta */
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center; /* Centrar verticalmente */
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.5rem;
-            /* Eliminamos el border-bottom para que quede más limpio */
-            /* border-bottom: 1px solid var(--material-surface-border); */
-        }
+        
+        /* Ajuste de card-details para incluir el borde inferior de la sección principal */
         .card-details {
             display: flex;
             flex-direction: column;
             gap: 0.1rem;
+            padding-bottom: 0.75rem; /* Separación antes del badge/imagen */
+            border-bottom: 1px solid var(--material-surface-border);
+            margin-bottom: 0.75rem; /* Margen para separar del badge/imagen */
         }
         .card-ref {
             font-size: 1.1rem;
@@ -229,11 +225,16 @@
             color: var(--text-color);
             white-space: nowrap;
         }
+        /* CAMBIO: Marca y Modelo en negrita y subrayado */
         .card-model {
             font-size: 0.85rem;
-            font-weight: 500;
-            opacity: 0.8;
+            font-weight: 700; /* Negrita */
+            text-decoration: underline; /* Subrayado */
+            opacity: 1; /* Asegura visibilidad completa */
+            margin-top: 0.2rem;
         }
+        /* FIN CAMBIO */
+
         .card-specs {
             font-size: 0.9rem;
             display: grid;
@@ -570,15 +571,14 @@
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
                     
-                // Nueva estructura de tarjeta
+                // Estructura modificada: eliminamos card-header y movemos el badge debajo de card-details
                 return `<div class="result-card">
-                            <div class="card-header">
-                                <div class="card-details">
-                                    <div class="card-ref">${item.ref}</div>
-                                    <div class="card-model">${item.marca} ${item.modelo} (${item.año})</div>
-                                </div>
-                                <div>${posBadge}</div>
+                            <div class="card-details">
+                                <div class="card-ref">${item.ref}</div>
+                                <div class="card-model">${item.marca} ${item.modelo} (${item.año})</div>
                             </div>
+                            
+                            <div style="margin-bottom: 0.75rem; text-align: left;">${posBadge}</div>
                             
                             <img src="${item.imagen}" alt="${item.marca} ${item.modelo}" class="result-image" loading="lazy">
                             
