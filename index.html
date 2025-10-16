@@ -73,6 +73,8 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 1rem;
+            /* Añadir padding inferior para que el footer no se superponga */
+            padding-bottom: 7rem; 
         }
 
         /* ================== HEADER (Material Design) ================== */
@@ -85,7 +87,7 @@
             background-color: var(--material-surface-light); 
             border-bottom: 1px solid var(--material-surface-border);
             box-shadow: var(--elevation-1); 
-            padding: 1rem 0; /* Añadir padding interior para mantener la separación */
+            padding: 1rem 0; 
         }
         body.lp-dark header {
             box-shadow: var(--elevation-2);
@@ -104,6 +106,43 @@
         }
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
+
+        /* ================== FOOTER BANNER (Material Design) ================== */
+        .footer-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--material-surface-light);
+            color: var(--text-color);
+            padding: 1.5rem 1rem;
+            border-top: 1px solid var(--material-surface-border);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            z-index: 100; /* Asegurar que esté sobre el contenido */
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        body.lp-dark .footer-banner {
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-links a {
+            color: var(--text-color);
+            opacity: 0.7;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: opacity 0.2s;
+        }
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        .footer-copyright {
+            margin-top: 0.75rem;
+            opacity: 0.6;
+        }
 
         /* ================== ESTRUCTURA PRINCIPAL ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
@@ -555,6 +594,19 @@
             <div class="result-count-container"> <span id="resultCount">0</span> resultados </div>
         </div>
     </div>
+
+    <footer class="footer-banner">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Política de Privacidad</a> | 
+                <a href="#">Términos y Condiciones</a> | 
+                <a href="#">Contacto: ventas@brakex.com</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 Brake X. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
 
     <div class="floating-buttons-container left">
         <button class="material-btn" id="upBtn" aria-label="Subir al inicio de la página"><svg class="lp-icon-arrow" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5,12 12,5 19,12"></polyline></svg></button>
