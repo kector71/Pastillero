@@ -1,3 +1,16 @@
+¡Entendido! Para que el footer se extienda de borde a borde de la pantalla, necesitas hacer dos pequeños ajustes en el CSS:
+ * Eliminar la restricción de ancho en el contenido del footer (.footer-content).
+ * Quitar el padding lateral del body para que no haya espacios en los costados.
+He aplicado estos cambios en el código a continuación.
+Resumen de los Cambios
+1. En el body:
+ * Antes: padding: 0.5rem 0.5rem 0; (Tenía un espacio de 0.5rem a los lados).
+ * Ahora: padding: 0.5rem 0 0; (Se eliminó el padding lateral).
+2. En .footer-content:
+ * Antes: Tenía un max-width que limitaba su tamaño.
+ * Ahora: Se ha eliminado la línea max-width para permitir que ocupe todo el espacio disponible.
+Con esto, el fondo del footer tocará los bordes de la pantalla y su contenido también se alineará con el nuevo ancho.
+Código HTML Completo y Corregido
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -113,9 +126,8 @@
             background: var(--bg-color);   
             transition: background 0.5s ease, color 0.5s ease;   
             color: var(--text-color);
-            padding: 0.5rem 0.5rem 0; /* <<< CAMBIO APLICADO: Padding-bottom a 0 */
+            padding: 0.5rem 0 0; /* <<< CAMBIO APLICADO: Sin padding lateral */
 
-            /* ▼▼▼ CAMBIOS PARA STICKY FOOTER ▼▼▼ */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -130,7 +142,7 @@
             background-color: transparent; 
             border-bottom: none; 
             box-shadow: none; 
-            padding: 0.25rem 0;
+            padding: 0.25rem 0.5rem; /* Se añade padding aquí para compensar el del body */
         }
         
         header h1 {
@@ -171,7 +183,7 @@
             box-shadow: var(--elevation-2);
         }
         .footer-content {
-            /* max-width: 1600px; */
+            /* max-width: 1600px; */ /* <<< CAMBIO APLICADO: Sin límite de ancho */
             margin: 0 auto;
             display: flex; 
             flex-direction: column;
@@ -208,7 +220,8 @@
             gap: 1rem; 
             align-items: flex-start;
             width: 100%;
-            flex: 1; /* <<< CAMBIO APLICADO: Hace que el contenido crezca */
+            flex: 1;
+            padding: 0 0.5rem; /* Se añade padding aquí para compensar el del body */
         }
         .filters-column { 
             flex: 0 0 262px; 
@@ -1293,3 +1306,4 @@
 
 </body>
 </html>
+
