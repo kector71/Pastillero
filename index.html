@@ -126,7 +126,7 @@
             background-color: transparent; 
             border-bottom: none; 
             box-shadow: none; 
-            padding: 1rem 0; 
+            padding: 0.25rem 0; /* <<< ESTE ES EL CAMBIO */
         }
         body.lp-dark header {
             box-shadow: none;
@@ -227,7 +227,7 @@
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:1rem; 
-            padding: 0.75rem 1rem; /* CAMBIO: Padding vertical reducido */
+            padding: 0.75rem 1rem;
             box-shadow: var(--elevation-1); 
             transition: box-shadow 0.3s ease;
             backdrop-filter: none; 
@@ -237,17 +237,17 @@
         .filter-title { 
             font-weight: 600; 
             font-size: 1rem; 
-            margin-bottom: 0.4rem; /* CAMBIO: Reducido */
+            margin-bottom: 0.4rem;
             text-align: left; 
             display: flex;
             align-items: center;
             gap: 8px; 
-            padding-bottom: 0.2rem; /* CAMBIO: Reducido */
+            padding-bottom: 0.2rem;
             border-bottom: 1px solid var(--material-surface-border);
         }
         
         .glass > .filter-title:not(:first-child) {
-            margin-top: 1rem; /* CAMBIO: Reducido */
+            margin-top: 1rem;
         }
 
         .form-input {
@@ -261,7 +261,7 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            margin-bottom: 0.4rem; /* CAMBIO: Reducido */
+            margin-bottom: 0.4rem;
         }
         
         .form-input:last-of-type {
@@ -305,7 +305,7 @@
             height: auto; 
             padding: 10px 16px; 
             border-radius: 0.75rem; 
-            margin-top: 1rem; /* CAMBIO: Reducido */
+            margin-top: 1rem;
             
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text); 
@@ -702,7 +702,7 @@
             body { padding: 0.5rem 0.25rem; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
+            .form-input, .position-btn { font-size: 0.8rem; padding: 0.6rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
