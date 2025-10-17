@@ -188,8 +188,8 @@
 
         /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        /* CLAVE: Reducción del ancho del filtro */
-        .filters-column { flex: 0 0 280px; display: flex; flex-direction: column; 
+        /* CLAVE: Reducción del ancho del filtro a 140px (aprox. la mitad de 280px) */
+        .filters-column { flex: 0 0 140px; display: flex; flex-direction: column; 
             /* CLAVE: Reducción del espaciado vertical */
             gap: 1rem; 
         }
@@ -268,8 +268,10 @@
 
         /* -- Estilos de Botones de Posición (Mantienen Material Style) -- */
         .position-btn {
-            flex: 1; padding: 8px 16px; border-radius: 100px; cursor: pointer;
-            font-size: 0.875rem; font-weight: 500; text-align: center;
+            /* CLAVE: Ajustar el padding horizontal y tamaño de fuente para el nuevo ancho de columna */
+            flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer;
+            font-size: 0.8rem; /* Reducido */
+            font-weight: 500; text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
         }
@@ -653,7 +655,12 @@
 
 
         /* ================== AJUSTES RESPONSIVE ================== */
-        @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
+        @media (max-width: 992px) { 
+            .main-layout { flex-direction: column; } 
+            .filters-column { flex-basis: auto; width: 100%; } 
+            /* Se anulan los estilos estrechos del botón para tablet/escritorio */
+            .position-btn { padding: 8px 16px; font-size: 0.875rem; }
+        }
         
         /* Ajuste de botones flotantes para pantallas pequeñas */
         @media (max-width: 768px) {
@@ -691,16 +698,11 @@
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
             /* Ajuste de grid de aplicaciones en móvil */
             .applications-list-container .app-detail-row {
-                 grid-template-columns: 2fr 1fr 3fr; /* Quita Litros para ahorrar espacio */
+                 grid-template-columns: 2fr 1fr 3fr; 
             }
-            .applications-list-container .app-header-row {
-                 grid-template-columns: 2fr 1fr 3fr;
-            }
-            .applications-list-container .app-header-row > div:nth-child(2) {
-                 display: none; /* Oculta Litros del encabezado */
-            }
+            /* Oculta Litros en móviles */
             .applications-list-container .app-detail-row > div:nth-child(2) {
-                 display: none; /* Oculta Litros de la fila */
+                 display: none; 
             }
             
         }
@@ -735,8 +737,8 @@
                 <div class="filter-group" style="margin-top: 1rem;">
                     <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
                     <div class="position-container">
-                        <button class="position-btn" id="positionDelantera">Delantera</button>
-                        <button class="position-btn" id="positionTrasera">Trasera</button>
+                        <button class="position-btn" id="positionDelantera">DL</button>
+                        <button class="position-btn" id="positionTrasera">TR</button>
                     </div>
                 </div>
             </div>
@@ -831,6 +833,7 @@
         
         const getPositionFilter = () => {
             const activePositions = [];
+            // CLAVE: Usamos 'Delantera' y 'Trasera' en la lógica, aunque los botones muestren 'DL' y 'TR'
             if (els.posDel.classList.contains('active')) activePositions.push('Delantera');
             if (els.posTras.classList.contains('active')) activePositions.push('Trasera');
             return activePositions; 
@@ -989,6 +992,7 @@
             els.results.innerHTML = filteredData.map(item => {
                 // CLAVE: Añadir clases 'delantera' o 'trasera' al badge para el CSS
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
+                // CLAVE: El texto del badge siempre será Delantera o Trasera, no la abreviación
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
                 // CLAVE: Renderizar la lista de aplicaciones
@@ -1131,8 +1135,9 @@
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
             // CORRECCIÓN CLAVE para el filtro de posición
-            [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
-                btn.classList.toggle('active'); 
+            [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', (e) => {
+                // Alternamos la clase 'active' en el botón
+                e.currentTarget.classList.toggle('active'); 
                 filterData();
             }));
 
