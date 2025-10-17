@@ -41,6 +41,12 @@
             
             --btn-google-border: #747775;
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
+
+            /* Colores para badges de posición (CLAVE: Definición) */
+            --badge-delantera-bg: #3b82f6; /* Azul de botones activos */
+            --badge-delantera-text: #fff;
+            --badge-trasera-bg: #ef4444; /* Rojo de botones activos */
+            --badge-trasera-text: #fff;
         }
 
         body.lp-dark {
@@ -72,6 +78,12 @@
             --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #FF3B30; 
             --icon-main-stroke: #60a5fa; 
+
+            /* Colores para badges de posición en modo oscuro (CLAVE: Definición) */
+            --badge-delantera-bg: #3b82f6; 
+            --badge-delantera-text: #fff;
+            --badge-trasera-bg: #ef4444; 
+            --badge-trasera-text: #fff;
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -375,9 +387,28 @@
         .result-card > div:nth-child(4) { 
             margin-bottom: 0.5rem !important; 
         }
+
+        /* Estilos de los badges de posición en las tarjetas (CLAVE: Aplicación de variables) */
         .position-badge { 
              font-size:0.7rem; 
-             padding:0.2rem 0.4rem; 
+             padding:0.2rem 0.6rem; 
+             border-radius: 100px; 
+             font-weight: 600; 
+             display: inline-block; 
+             margin-right: 0.5rem; 
+             transition: background-color 0.3s ease, color 0.3s ease;
+             box-shadow: var(--elevation-1); 
+        }
+
+        /* Colores específicos para los badges (delantera/trasera) */
+        .position-badge.delantera {
+            background-color: var(--badge-delantera-bg);
+            color: var(--badge-delantera-text);
+        }
+
+        .position-badge.trasera {
+            background-color: var(--badge-trasera-bg);
+            color: var(--badge-trasera-text);
         }
         
         /* Carrusel de Imágenes (Reducción de tamaño) */
@@ -899,8 +930,7 @@
 
             let appListHTML = '';
             
-            // CLAVE: Se elimina la fila de encabezados aquí:
-            // appListHTML += `<div class="app-header-row app-detail-row">...</div>`;
+            // CLAVE: Se omite la fila de encabezados
             
             for (const marca in groupedApps) {
                 // Encabezado de Marca (separador sutil)
@@ -934,9 +964,9 @@
             
             // Generar el HTML de las tarjetas
             els.results.innerHTML = filteredData.map(item => {
-                const posBadge = item.posición === 'Delantera'
-                    ? '<span class="position-badge position-delantera">Delantera</span>'
-                    : '<span class="position-badge position-trasera">Trasera</span>';
+                // CLAVE: Añadir clases 'delantera' o 'trasera' al badge para el CSS
+                const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
+                const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
                 // CLAVE: Renderizar la lista de aplicaciones
                 const appsHTML = renderApplicationsList(item.aplicaciones);
