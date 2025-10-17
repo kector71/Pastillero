@@ -113,7 +113,7 @@
             background: var(--bg-color);   
             transition: background 0.5s ease, color 0.5s ease;   
             color: var(--text-color);
-            padding: 1rem 0.5rem;
+            padding: 0.5rem 0.5rem; /* <<< CAMBIO: Padding superior reducido */
             padding-bottom: 2rem; 
         }
 
@@ -121,7 +121,7 @@
         header { 
             width: 100%; 
             max-width: 1600px; 
-            margin: 0 auto 1.5rem auto; 
+            margin: 0 auto 1rem auto; /* <<< CAMBIO: Margen inferior reducido */
             text-align: center; 
             background-color: transparent; 
             border-bottom: none; 
@@ -234,13 +234,12 @@
         }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
         
-        /* === CAMBIOS DE COMPACTACIÓN === */
         .filter-title { 
             font-weight: 600; 
-            font-size: 0.9rem; /* Ligeramente más pequeño */
-            margin-bottom: 0.3rem; /* Menos espacio abajo */
-            padding-bottom: 0; /* Sin padding */
-            border-bottom: none; /* Sin línea */
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0;
+            border-bottom: none;
             text-align: left; 
             display: flex;
             align-items: center;
@@ -248,12 +247,12 @@
         }
         
         .glass > .filter-title:not(:first-child) {
-            margin-top: 0.8rem; /* Menos espacio entre secciones */
+            margin-top: 0.8rem;
         }
 
         .form-input {
             width: 100%; 
-            padding: 6px 10px; /* Menos padding vertical */
+            padding: 6px 10px;
             border-radius: 10px; 
             border: 1px solid var(--material-surface-border); 
             background-color: var(--input-bg); 
@@ -262,7 +261,7 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            margin-bottom: 0.3rem; /* Menos espacio abajo */
+            margin-bottom: 0.3rem;
         }
         
         .form-input:last-of-type {
@@ -304,9 +303,9 @@
             position: relative; 
             width: 100%; 
             height: auto; 
-            padding: 8px 16px; /* Más compacto */
+            padding: 8px 16px;
             border-radius: 0.75rem; 
-            margin-top: 0.8rem; /* Menos espacio arriba */
+            margin-top: 0.8rem;
             
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text); 
@@ -321,7 +320,7 @@
             border: none; 
             outline: none; 
             
-            font-size: 0.9rem; /* Ligeramente más pequeño */
+            font-size: 0.9rem;
             font-weight: 600;
             
             transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
@@ -339,7 +338,7 @@
         }
         
         .clear-filters-btn svg {
-            width: 20px; /* Ligeramente más pequeño */
+            width: 20px;
             height: 20px; 
             stroke: #ffffff; 
             stroke-width: 2; 
@@ -415,7 +414,7 @@
         .card-content-wrapper {
             display: flex;
             flex-direction: column;
-            flex: 1.5;
+            flex: 1; /* <<< CAMBIO: Proporción 50/50 */
             min-width: 0;
         }
         
@@ -703,7 +702,7 @@
             body { padding: 0.5rem 0.25rem; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 0.8rem; padding: 0.5rem; } /* CAMBIO: Padding reducido */
+            .form-input, .position-btn { font-size: 0.8rem; padding: 0.5rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
