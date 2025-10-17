@@ -387,7 +387,7 @@
         
         .results-wrapper { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            grid-template-columns: 1fr;
             gap: 1rem; 
         }
         
@@ -397,24 +397,30 @@
         }
         
         .results-wrapper.un-solo-resultado .result-card {
-            max-width: 500px;
+            max-width: 800px;
             width: 100%;
         }
 
         .result-card {
             display: flex; 
-            flex-direction: column; 
-            justify-content: flex-start; 
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 1rem;
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:0.75rem; 
-            padding:0.75rem; 
+            padding:1rem; 
             box-shadow: var(--elevation-1); 
-            gap:0.2rem; 
             opacity:0; 
             transform: translateY(10px); 
             animation: fadeInUp 0.5s forwards;
-            backdrop-filter: none; 
+        }
+
+        .card-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1.5;
+            min-width: 0;
         }
         
         .card-details {
@@ -426,13 +432,11 @@
             margin-bottom: 0.5rem; 
         }
         .card-ref {
-            font-size: 1rem; 
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-color);
             white-space: nowrap;
         }
-        
-        .card-model { display: none; }
         
         .card-position {
              margin-bottom: 0.5rem;
@@ -461,10 +465,10 @@
         
         .card-images-carousel {
             position: relative;
-            width: 100%;
+            flex: 1;
+            max-width: 320px;
             overflow: hidden;
             border-radius: 0.5rem; 
-            margin-bottom: 0.5rem; 
             aspect-ratio: 4/3; 
         }
         
@@ -530,7 +534,6 @@
 
         .app-detail-row {
             display: grid;
-            /* === CAMBIO CSS: AJUSTE DE COLUMNAS === */
             grid-template-columns: 2fr 1fr 1fr;
             font-size: 0.75rem;
             line-height: 1.2;
@@ -543,23 +546,24 @@
              border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
         }
         
-        .app-header-row { display: none;  }
-        
+        /* === ESTE ES EL CAMBIO #1 === */
         .card-specs {
             display: flex;
             flex-direction: column;
             gap: 0;
-            margin-top: 0.4rem; 
+            margin-top: auto; 
             padding-top: 0.4rem; 
-            margin-bottom: 0; 
             border-top: 1px solid var(--material-surface-border);
+            margin: 0 -1rem; /* Margen negativo */
+            margin-top: auto;
         }
 
+        /* === ESTE ES EL CAMBIO #2 === */
         .spec-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2px 0;
+            padding: 2px 1rem; /* Padding horizontal añadido */
             font-size: 0.8rem;
             border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
         }
@@ -569,7 +573,7 @@
 
         .spec-item:last-child {
             border-bottom: none;
-            padding-bottom: 0;
+            padding-bottom: 2px; /* Alineación con el padding superior */
         }
 
         .spec-item strong {
@@ -584,6 +588,8 @@
             text-align: right;
             opacity: 0.9;
         }
+        
+        .card-model, .app-header-row { display: none;  }
         
         @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
@@ -684,8 +690,19 @@
         }
         
         @media (max-width: 768px) {
-            .floating-buttons-container.left { bottom: 18px; }
-            .floating-buttons-container.right { bottom: 18px; }
+            .floating-buttons-container.left,
+            .floating-buttons-container.right { 
+                bottom: 18px; 
+            }
+
+            .result-card {
+                flex-direction: column;
+            }
+
+            .card-images-carousel {
+                max-width: 100%;
+                margin-bottom: 0.5rem;
+            }
         }
         
         @media (max-width: 600px) {
@@ -695,8 +712,6 @@
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
-            
-            .results-wrapper { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:0.5rem; }
         }
         
         @media (max-width: 480px) {
@@ -717,7 +732,6 @@
             }
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
             .applications-list-container .app-detail-row {
-                /* === CAMBIO CSS: AJUSTE DE COLUMNAS RESPONSIVE === */
                  grid-template-columns: 2fr 1fr; 
             }
             .applications-list-container .app-detail-row > div:nth-child(2) {
@@ -996,7 +1010,6 @@
                 appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`;
                 
                 groupedApps[marca].forEach(app => {
-                    /* === CAMBIO JS: ELIMINADA LA LÍNEA DE ESPECIFICACIÓN === */
                     appListHTML += `
                         <div class="app-detail-row">
                             <div>${app.serie || ''}</div>
@@ -1030,8 +1043,6 @@
 
         const renderResults = (filteredData) => {
             
-            els.results.classList.remove('three-cols');
-
             if (filteredData.length === 1) {
                 els.results.classList.add('un-solo-resultado');
             } else {
@@ -1093,17 +1104,15 @@
                 `;
                         
                 return `<div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms">
-                            <div class="card-details">
-                                <div class="card-ref">${item.ref}</div>
+                            <div class="card-content-wrapper">
+                                <div class="card-details">
+                                    <div class="card-ref">${item.ref}</div>
+                                </div>
+                                <div class="card-position">${posBadge}</div>
+                                ${appsHTML}
+                                ${specsHTML}
                             </div>
-                            
-                            <div class="card-position" style="text-align: left;">${posBadge}</div>
-                            
                             ${carouselHTML}
-                            
-                            ${appsHTML}
-
-                            ${specsHTML}
                         </div>`;
             }).join('');
             
