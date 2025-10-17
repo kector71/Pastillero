@@ -90,19 +90,24 @@
             padding-bottom: 2rem; 
         }
 
-        /* ================== MODIFICACIÓN DE HEADER (Una sola línea) ================== */
+        /* ================== MODIFICACIÓN DE HEADER (No Tarjeta) ================== */
         header { 
             width: 100%; 
             max-width: 1200px; 
             margin: 0 auto 1.5rem auto; 
             text-align: center; 
-            background-color: var(--material-surface-light); 
-            border-bottom: 1px solid var(--material-surface-border);
-            box-shadow: var(--elevation-1); 
+            /* CLAVE: Eliminado el color de superficie para que tome el color de fondo del body */
+            background-color: transparent; 
+            /* CLAVE: Eliminado el borde inferior */
+            border-bottom: none; 
+            /* CLAVE: Eliminado el box-shadow (elevación) */
+            box-shadow: none; 
             padding: 1rem 0; 
         }
         body.lp-dark header {
-            box-shadow: var(--elevation-2);
+            /* CLAVE: Aseguramos que no haya sombra ni fondo en modo oscuro */
+            box-shadow: none;
+            background-color: transparent;
         }
         
         header h1 {
@@ -115,8 +120,13 @@
             white-space: nowrap; 
         }
         .header-subtitle { 
-            font-size: 0.9rem; font-weight: 500; opacity: 0.8; 
-            border-left: 2px solid var(--header-border-color); padding-left: 12px; transition: border-color 0.5s ease;
+            font-size: 0.9rem; font-weight: 500; 
+            color: var(--text-color); /* Usar color de texto, no opacidad */
+            opacity: 0.6; /* Sutilmente más claro */
+            /* CLAVE: Eliminación de borde y ajuste de padding */
+            border-left: none; 
+            padding-left: 12px; 
+            transition: color 0.5s ease;
             white-space: nowrap; 
         }
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
@@ -813,12 +823,8 @@
                 return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
-            // checkFooterVisibility(); // Eliminado ya que el footer ya no es flotante
         };
         
-        // FUNCIÓN ELIMINADA: checkFooterVisibility ya no es necesaria.
-        /* function checkFooterVisibility() { ... } */
-
         // FUNCIÓN CLAVE PARA LA NAVEGACIÓN DEL CARRUSEL
         function navigateCarousel(cardElement, direction) {
             const track = cardElement.querySelector('.image-track');
@@ -978,10 +984,7 @@
             
             window.addEventListener('scroll', () => {
                 els.upBtn.classList.toggle('show', window.scrollY > 300);
-                // checkFooterVisibility(); // Eliminado
             });
-
-            // window.addEventListener('resize', checkFooterVisibility); // Eliminado
 
 
             const debouncedFilter = debounce(filterData, 300);
@@ -1051,7 +1054,6 @@
         }
 
         function inicializarApp() {
-            // els.footer.classList.add('hidden'); // Eliminado
             
             // DATOS DE EJEMPLO
             const data = [
@@ -1088,7 +1090,6 @@
             fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
             
             filterData();
-            // checkFooterVisibility(); // Eliminado
         }
 
         setupEventListeners();
