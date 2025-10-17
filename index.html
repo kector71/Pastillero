@@ -187,10 +187,17 @@
         }
 
         /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
-        .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        /* CLAVE: Ancho ampliado a 182px */
-        .filters-column { flex: 0 0 182px; display: flex; flex-direction: column; 
-            /* CLAVE: Espaciado vertical compacto */
+        /* CLAVE: Reducción del espacio entre filtros y resultados a 1rem */
+        .main-layout { max-width: 1200px; margin: 0 auto; display: flex; 
+            gap: 1rem; 
+            align-items: flex-start; 
+        }
+        /* CLAVE: Ancho ampliado a 218px */
+        .filters-column { 
+            flex: 0 0 218px; 
+            display: flex; 
+            flex-direction: column; 
+            /* Espaciado vertical compacto */
             gap: 1rem; 
         }
         .results-panel { flex: 1; }
@@ -286,7 +293,7 @@
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
         .clear-filters-wrapper { 
             text-align: center; 
-            margin-top: 1rem; 
+            margin-top: 1rem; /* Reducido */
             margin-bottom: 0;
             padding: 0; 
             background-color: transparent; 
@@ -352,10 +359,10 @@
         
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
         
-        /* CLAVE: Control dinámico del grid en JS. Aquí definimos el comportamiento por defecto (más de 3) */
+        /* Por defecto: Cuadrícula flexible para aprovechar el espacio */
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.5rem; }
         
-        /* Estilo para 3 columnas forzadas cuando no hay filtros de vehículo */
+        /* CLAVE: Estilo para 3 columnas forzadas (se aplica con JS cuando no hay filtros) */
         .results-wrapper.three-cols {
             grid-template-columns: repeat(3, 1fr);
         }
@@ -678,6 +685,8 @@
             .filters-column { flex-basis: auto; width: 100%; } 
             /* Se anulan los estilos estrechos del botón para tablet/escritorio */
             .position-btn { padding: 8px 16px; font-size: 0.875rem; }
+            /* Se anula el modo de 3 columnas para evitar problemas en tablet */
+            .results-wrapper.three-cols { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         }
         
         /* Ajuste de botones flotantes para pantallas pequeñas */
@@ -859,10 +868,16 @@
         
         // Nueva función para verificar si hay filtros de vehículo activos (excluyendo Búsqueda Rápida y Medidas)
         const hasVehicleFilters = () => {
-            return els.marca.value.trim() !== '' ||
+            // CLAVE: Se añade la verificación de la caja de Búsqueda Rápida también para controlar el grid
+            return els.busqueda.value.trim() !== '' ||
+                   els.marca.value.trim() !== '' ||
                    els.modelo.value.trim() !== '' ||
                    els.anio.value.trim() !== '' ||
-                   getPositionFilter().length > 0;
+                   getPositionFilter().length > 0 ||
+                   els.oem.value.trim() !== '' ||
+                   els.fmsi.value.trim() !== '' ||
+                   els.medidasAncho.value.trim() !== '' ||
+                   els.medidasAlto.value.trim() !== '';
         };
 
 
