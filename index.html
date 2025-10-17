@@ -120,7 +120,7 @@
         /* ================== MODIFICACIÓN DE HEADER (No Tarjeta) ================== */
         header { 
             width: 100%; 
-            max-width: 1440px; /* <<< CAMBIO: Ancho reducido */
+            max-width: 1440px;
             margin: 0 auto 1rem auto;
             text-align: center; 
             background-color: transparent; 
@@ -177,7 +177,7 @@
             box-shadow: var(--elevation-2);
         }
         .footer-content {
-            max-width: 1440px; /* <<< CAMBIO: Ancho reducido */
+            max-width: 1440px;
             margin: 0 auto;
             display: flex; 
             flex-direction: column;
@@ -208,7 +208,7 @@
 
         /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
         .main-layout { 
-            max-width: 1440px; /* <<< CAMBIO: Ancho reducido */
+            max-width: 1440px;
             margin: 0 auto; 
             display: flex; 
             gap: 1rem; 
@@ -397,11 +397,10 @@
             max-width: 800px;
             width: 100%;
         }
-        
-        /* <<< CAMBIO #2: Diseño vertical por defecto (mobile-first) */
+
         .result-card {
             display: flex; 
-            flex-direction: column; 
+            flex-direction: column;
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:0.75rem; 
@@ -462,7 +461,7 @@
         .card-images-carousel {
             position: relative;
             flex: 1;
-            max-width: 100%; /* Ocupa todo el ancho en móvil por defecto */
+            max-width: 100%;
             margin-bottom: 0.5rem;
             overflow: hidden;
             border-radius: 0.5rem; 
@@ -684,7 +683,6 @@
             .position-btn { padding: 8px 16px; font-size: 0.875rem; }
         }
         
-        /* <<< CAMBIO #2: Nueva regla para layout horizontal en escritorio */
         @media (min-width: 769px) {
             .result-card {
                 flex-direction: row;
@@ -695,10 +693,17 @@
             }
         }
         
+        /* <<< ESTE ES EL CAMBIO PRINCIPAL >>> */
         @media (max-width: 768px) {
             .floating-buttons-container.left,
             .floating-buttons-container.right { 
                 bottom: 18px; 
+            }
+
+            /* Resetea el flex para el layout vertical */
+            .card-content-wrapper,
+            .card-images-carousel {
+                flex: none;
             }
         }
         
