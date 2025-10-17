@@ -186,9 +186,13 @@
             font-size: 0.75rem; 
         }
 
-        /* ================== ESTRUCTURA PRINCIPAL ================== */
+        /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        .filters-column { flex: 0 0 320px; display: flex; flex-direction: column; gap: 1.5rem; }
+        /* CLAVE: Reducción del ancho del filtro */
+        .filters-column { flex: 0 0 280px; display: flex; flex-direction: column; 
+            /* CLAVE: Reducción del espaciado vertical */
+            gap: 1rem; 
+        }
         .results-panel { flex: 1; }
 
         /* ================== ESTILOS DE FILTROS Y TARJETAS (Material) ================== */
@@ -232,14 +236,15 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            /* Aplicado a todos los inputs por defecto */
-            margin-bottom: 0.75rem; 
+            /* CLAVE: Reducción del margen inferior */
+            margin-bottom: 0.6rem; 
         }
         
         /* Regla para separar los inputs que están directamente dentro de .glass */
         .glass > input[type="text"]:last-of-type,
         .glass > input[list]:last-of-type {
-            margin-bottom: 0.75rem;
+            /* CLAVE: Ajuste en el último input del grupo (ej. Busqueda Rápida) */
+            margin-bottom: 0.6rem;
         }
 
         /* Excepción para los grupos de inputs y el último input en ese contexto */
@@ -249,7 +254,7 @@
         
         /* Arreglamos la separación específica de los inputs de Vehículo */
         .glass:nth-child(2) > input[list]:nth-last-child(3) { 
-             margin-bottom: 0;
+             margin-bottom: 0.6rem;
         }
 
         /* Reseteamos para el input de búsqueda rápida (es el único en su panel) */
@@ -269,8 +274,8 @@
             border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
         }
         .position-btn:hover { background-color: var(--btn-google-hover-bg); }
-        #positionDelantera.active { background-color: #3b82f6; border-color: #3b82f6; color: #fff; box-shadow: var(--elevation-1); }
-        #positionTrasera.active { background-color: #ef4444; border-color: #ef4444; color: #fff; box-shadow: var(--elevation-1); }
+        #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; box-shadow: var(--elevation-1); }
+        #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; box-shadow: var(--elevation-1); }
         
         .input-group-horizontal { display:flex; gap: 0.4rem; margin-bottom: 0.75rem; } 
         
@@ -279,7 +284,7 @@
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
         .clear-filters-wrapper { 
             text-align: center; 
-            margin-top: 1.5rem; 
+            margin-top: 1rem; /* Reducido */
             margin-bottom: 0;
             padding: 0; 
             background-color: transparent; 
@@ -688,9 +693,14 @@
             .applications-list-container .app-detail-row {
                  grid-template-columns: 2fr 1fr 3fr; /* Quita Litros para ahorrar espacio */
             }
-            /* Oculta Litros en móviles */
+            .applications-list-container .app-header-row {
+                 grid-template-columns: 2fr 1fr 3fr;
+            }
+            .applications-list-container .app-header-row > div:nth-child(2) {
+                 display: none; /* Oculta Litros del encabezado */
+            }
             .applications-list-container .app-detail-row > div:nth-child(2) {
-                 display: none; 
+                 display: none; /* Oculta Litros de la fila */
             }
             
         }
