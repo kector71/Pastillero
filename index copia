@@ -113,7 +113,7 @@
             background: var(--bg-color);   
             transition: background 0.5s ease, color 0.5s ease;   
             color: var(--text-color);
-            padding: 0.5rem 0.5rem; /* <<< CAMBIO: Padding superior reducido */
+            padding: 0.5rem 0.5rem;
             padding-bottom: 2rem; 
         }
 
@@ -121,7 +121,7 @@
         header { 
             width: 100%; 
             max-width: 1600px; 
-            margin: 0 auto 1rem auto; /* <<< CAMBIO: Margen inferior reducido */
+            margin: 0 auto 1rem auto;
             text-align: center; 
             background-color: transparent; 
             border-bottom: none; 
@@ -411,10 +411,11 @@
             animation: fadeInUp 0.5s forwards;
         }
 
+        /* <<< ESTE ES EL CAMBIO PRINCIPAL (FLEX: 1) >>> */
         .card-content-wrapper {
             display: flex;
             flex-direction: column;
-            flex: 1; /* <<< CAMBIO: Proporción 50/50 */
+            flex: 1; /* Ahora es 50% */
             min-width: 0;
         }
         
@@ -461,7 +462,7 @@
         .card-images-carousel {
             position: relative;
             flex: 1;
-            max-width: 320px;
+            max-width: none; /* Quitamos el max-width para que flex funcione */
             overflow: hidden;
             border-radius: 0.5rem; 
             aspect-ratio: 4/3; 
