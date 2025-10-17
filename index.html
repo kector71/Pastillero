@@ -42,7 +42,7 @@
             --btn-google-border: #747775;
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
 
-            /* Colores para badges de posición (CLAVE: Definición) */
+            /* Colores para badges de posición */
             --badge-delantera-bg: #3b82f6; /* Azul de botones activos */
             --badge-delantera-text: #fff;
             --badge-trasera-bg: #ef4444; /* Rojo de botones activos */
@@ -79,7 +79,7 @@
             --icon-arrow-stroke: #FF3B30; 
             --icon-main-stroke: #60a5fa; 
 
-            /* Colores para badges de posición en modo oscuro (CLAVE: Definición) */
+            /* Colores para badges de posición en modo oscuro */
             --badge-delantera-bg: #3b82f6; 
             --badge-delantera-text: #fff;
             --badge-trasera-bg: #ef4444; 
@@ -504,25 +504,45 @@
             display: none; 
         }
         
-        /* Especificaciones */
+        /* Especificaciones (CLAVE: Estilo de lista compacta) */
         .card-specs {
-            font-size: 0.8rem; 
-            grid-template-columns: 1fr 1fr;
-            gap: 0.1rem 0.4rem; 
+            display: flex;
+            flex-direction: column;
+            gap: 0; /* Elimina el espacio entre filas */
             margin-top: 0.4rem; 
             padding-top: 0.4rem; 
             margin-bottom: 0; 
             border-top: 1px solid var(--material-surface-border);
         }
-        .card-specs strong {
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 0; /* Compactado */
+            font-size: 0.8rem;
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+        }
+        body.lp-dark .spec-item {
+             border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .spec-item strong {
             font-weight: 700; 
             font-size: 0.75rem; 
             opacity: 0.9; 
-            display: block;
             text-decoration: underline; 
+            margin-right: 0.5rem; /* Separación del valor */
         }
-        .card-specs span {
+        .spec-item span {
             font-size: 0.8rem; 
+            text-align: right;
+            opacity: 0.9;
         }
         
         /* Animaciones (sin cambios) */
@@ -668,14 +688,9 @@
             .applications-list-container .app-detail-row {
                  grid-template-columns: 2fr 1fr 3fr; /* Quita Litros para ahorrar espacio */
             }
-            .applications-list-container .app-header-row {
-                 grid-template-columns: 2fr 1fr 3fr;
-            }
-            .applications-list-container .app-header-row > div:nth-child(2) {
-                 display: none; /* Oculta Litros del encabezado */
-            }
+            /* Oculta Litros en móviles */
             .applications-list-container .app-detail-row > div:nth-child(2) {
-                 display: none; /* Oculta Litros de la fila */
+                 display: none; 
             }
             
         }
@@ -930,8 +945,6 @@
 
             let appListHTML = '';
             
-            // CLAVE: Se omite la fila de encabezados
-            
             for (const marca in groupedApps) {
                 // Encabezado de Marca (separador sutil)
                 appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`;
@@ -992,11 +1005,33 @@
                         <button class="carousel-nav-btn" data-direction="1">›</button>
                     </div>
                 `;
+                
+                // CLAVE: Nueva estructura para las especificaciones
+                const specsHTML = `
+                    <div class="card-specs">
+                        <div class="spec-item">
+                            <strong>OEM</strong>
+                            <span>${item.oem}</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Platina FMSI</strong>
+                            <span>${item.fmsi}</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Ancho</strong>
+                            <span>${item.anchoNum} mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Alto</strong>
+                            <span>${item.altoNum} mm</span>
+                        </div>
+                    </div>
+                `;
                     
                 return `<div class="result-card" data-ref="${item.ref}">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
-                                </div>
+                            </div>
                             
                             <div style="margin-bottom: 0.5rem; text-align: left;">${posBadge}</div>
                             
@@ -1004,24 +1039,7 @@
                             
                             ${appsHTML}
 
-                            <div class="card-specs">
-                                <div>
-                                    <strong>OEM</strong>
-                                    <span>${item.oem}</span>
-                                </div>
-                                <div>
-                                    <strong>Platina FMSI</strong>
-                                    <span>${item.fmsi}</span>
-                                </div>
-                                <div>
-                                    <strong>Ancho</strong>
-                                    <span>${item.anchoNum} mm</span>
-                                </div>
-                                <div>
-                                    <strong>Alto</strong>
-                                    <span>${item.altoNum} mm</span>
-                                </div>
-                            </div>
+                            ${specsHTML}
                         </div>`;
             }).join('');
             
