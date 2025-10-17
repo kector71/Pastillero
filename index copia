@@ -113,7 +113,7 @@
             background: var(--bg-color);   
             transition: background 0.5s ease, color 0.5s ease;   
             color: var(--text-color);
-            padding: 1rem 0.5rem;
+            padding: 0.5rem 0.5rem; /* <<< CAMBIO: Padding superior reducido */
             padding-bottom: 2rem; 
         }
 
@@ -121,12 +121,12 @@
         header { 
             width: 100%; 
             max-width: 1600px; 
-            margin: 0 auto 1.5rem auto; 
+            margin: 0 auto 1rem auto; /* <<< CAMBIO: Margen inferior reducido */
             text-align: center; 
             background-color: transparent; 
             border-bottom: none; 
             box-shadow: none; 
-            padding: 1rem 0; 
+            padding: 0.25rem 0;
         }
         body.lp-dark header {
             box-shadow: none;
@@ -227,7 +227,7 @@
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:1rem; 
-            padding: 1rem; 
+            padding: 0.75rem 1rem;
             box-shadow: var(--elevation-1); 
             transition: box-shadow 0.3s ease;
             backdrop-filter: none; 
@@ -236,21 +236,23 @@
         
         .filter-title { 
             font-weight: 600; 
-            font-size: 1rem; 
-            margin-bottom: 0.6rem; 
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0;
+            border-bottom: none;
             text-align: left; 
             display: flex;
             align-items: center;
             gap: 8px; 
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--material-surface-border);
         }
         
-        .filter-title svg { display: none; }
+        .glass > .filter-title:not(:first-child) {
+            margin-top: 0.8rem;
+        }
 
         .form-input {
             width: 100%; 
-            padding: 10px; 
+            padding: 6px 10px;
             border-radius: 10px; 
             border: 1px solid var(--material-surface-border); 
             background-color: var(--input-bg); 
@@ -259,23 +261,14 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            margin-bottom: 0.6rem; 
+            margin-bottom: 0.3rem;
         }
         
-        .glass > input[type="text"]:last-of-type,
-        .glass > input[list]:last-of-type {
-            margin-bottom: 0.6rem;
+        .form-input:last-of-type {
+             margin-bottom: 0;
         }
-
-        .input-group-horizontal .form-input { margin-bottom: 0; }
         
-        .glass:nth-child(2) > input[list]:nth-last-child(3) {  margin-bottom: 0.6rem; }
-
-        #busquedaRapida { margin-bottom: 0; }
-
-        .filter-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.8rem; }
-        .filter-group:last-child { margin-bottom: 0; }
-        .position-container { display:flex; gap: 0.5rem; }
+        .position-container { display:flex; gap: 0.4rem; }
 
         .position-btn {
             flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer;
@@ -288,28 +281,31 @@
         #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; box-shadow: var(--elevation-1); }
         #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; box-shadow: var(--elevation-1); }
         
-        .input-group-horizontal { display:flex; gap: 0.4rem; margin-bottom: 0.75rem; } 
+        .input-group-horizontal { 
+            display:flex; 
+            gap: 0.3rem; 
+            margin-bottom: 0.3rem;
+        } 
+        
+        .input-group-horizontal .form-input {
+            margin-bottom: 0;
+            flex: 1;
+        }
+        
+        .input-group-horizontal:last-of-type {
+            margin-bottom: 0;
+        }
         
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
-        .clear-filters-wrapper { 
-            text-align: center; 
-            margin-top: 1rem;
-            margin-bottom: 0;
-            padding: 0; 
-            background-color: transparent; 
-            border: none;
-            box-shadow: none; 
-            border-radius: 0;
-        }
-        
         .clear-filters-btn {
             position: relative; 
             width: 100%; 
             height: auto; 
-            padding: 10px 16px; 
+            padding: 8px 16px;
             border-radius: 0.75rem; 
+            margin-top: 0.8rem;
             
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text); 
@@ -323,9 +319,8 @@
             cursor: pointer; 
             border: none; 
             outline: none; 
-            margin: 0; 
             
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             
             transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
@@ -343,8 +338,8 @@
         }
         
         .clear-filters-btn svg {
-            width: 24px; 
-            height: 24px; 
+            width: 20px;
+            height: 20px; 
             stroke: #ffffff; 
             stroke-width: 2; 
             fill: none;
@@ -387,7 +382,7 @@
         
         .results-wrapper { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            grid-template-columns: 1fr;
             gap: 1rem; 
         }
         
@@ -397,24 +392,30 @@
         }
         
         .results-wrapper.un-solo-resultado .result-card {
-            max-width: 500px;
+            max-width: 800px;
             width: 100%;
         }
 
         .result-card {
             display: flex; 
-            flex-direction: column; 
-            justify-content: flex-start; 
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 1rem;
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:0.75rem; 
-            padding:0.75rem; 
+            padding:1rem; 
             box-shadow: var(--elevation-1); 
-            gap:0.2rem; 
             opacity:0; 
             transform: translateY(10px); 
             animation: fadeInUp 0.5s forwards;
-            backdrop-filter: none; 
+        }
+
+        .card-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1; /* <<< CAMBIO: Proporción 50/50 */
+            min-width: 0;
         }
         
         .card-details {
@@ -426,13 +427,11 @@
             margin-bottom: 0.5rem; 
         }
         .card-ref {
-            font-size: 1rem; 
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-color);
             white-space: nowrap;
         }
-        
-        .card-model { display: none; }
         
         .card-position {
              margin-bottom: 0.5rem;
@@ -461,10 +460,10 @@
         
         .card-images-carousel {
             position: relative;
-            width: 100%;
+            flex: 1;
+            max-width: 320px;
             overflow: hidden;
             border-radius: 0.5rem; 
-            margin-bottom: 0.5rem; 
             aspect-ratio: 4/3; 
         }
         
@@ -530,7 +529,6 @@
 
         .app-detail-row {
             display: grid;
-            /* === CAMBIO CSS: AJUSTE DE COLUMNAS === */
             grid-template-columns: 2fr 1fr 1fr;
             font-size: 0.75rem;
             line-height: 1.2;
@@ -543,23 +541,22 @@
              border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
         }
         
-        .app-header-row { display: none;  }
-        
         .card-specs {
             display: flex;
             flex-direction: column;
             gap: 0;
-            margin-top: 0.4rem; 
+            margin-top: auto; 
             padding-top: 0.4rem; 
-            margin-bottom: 0; 
             border-top: 1px solid var(--material-surface-border);
+            margin: 0 -1rem;
+            margin-top: auto;
         }
 
         .spec-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2px 0;
+            padding: 2px 1rem;
             font-size: 0.8rem;
             border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
         }
@@ -569,7 +566,7 @@
 
         .spec-item:last-child {
             border-bottom: none;
-            padding-bottom: 0;
+            padding-bottom: 2px;
         }
 
         .spec-item strong {
@@ -584,6 +581,8 @@
             text-align: right;
             opacity: 0.9;
         }
+        
+        .card-model, .app-header-row { display: none;  }
         
         @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
@@ -684,19 +683,28 @@
         }
         
         @media (max-width: 768px) {
-            .floating-buttons-container.left { bottom: 18px; }
-            .floating-buttons-container.right { bottom: 18px; }
+            .floating-buttons-container.left,
+            .floating-buttons-container.right { 
+                bottom: 18px; 
+            }
+
+            .result-card {
+                flex-direction: column;
+            }
+
+            .card-images-carousel {
+                max-width: 100%;
+                margin-bottom: 0.5rem;
+            }
         }
         
         @media (max-width: 600px) {
             body { padding: 0.5rem 0.25rem; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
+            .form-input, .position-btn { font-size: 0.8rem; padding: 0.5rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
-            
-            .results-wrapper { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:0.5rem; }
         }
         
         @media (max-width: 480px) {
@@ -717,7 +725,6 @@
             }
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
             .applications-list-container .app-detail-row {
-                /* === CAMBIO CSS: AJUSTE DE COLUMNAS RESPONSIVE === */
                  grid-template-columns: 2fr 1fr; 
             }
             .applications-list-container .app-detail-row > div:nth-child(2) {
@@ -739,17 +746,12 @@
         <div class="filters-column">
             
             <div class="glass">
-                <div class="filter-title">
-                    Búsqueda Rápida
-                </div>
+                
+                <div class="filter-title">Búsqueda Rápida</div>
                 <label for="busquedaRapida" class="visually-hidden">Búsqueda Rápida por Marca, Serie, Referencia u OEM</label>
                 <input type="text" id="busquedaRapida" placeholder="Marca, Serie, Ref, OEM..." class="form-input">
-            </div>
-
-            <div class="glass">
-                <div class="filter-title">
-                    Detalles del Vehículo
-                </div>
+                
+                <div class="filter-title">Detalles del Vehículo</div>
                 <label for="filtroMarca" class="visually-hidden">Filtrar por Marca</label>
                 <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
                 
@@ -759,19 +761,13 @@
                 <label for="filtroAnio" class="visually-hidden">Filtrar por Año</label>
                 <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
                 
-                <div class="filter-group" style="margin-top: 1rem;">
-                    <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
-                    <div class="position-container">
-                        <button class="position-btn" id="positionDelantera">DL</button>
-                        <button class="position-btn" id="positionTrasera">TR</button>
-                    </div>
+                <div class="filter-title">Posición</div>
+                <div class="position-container">
+                    <button class="position-btn" id="positionDelantera">Delantera</button>
+                    <button class="position-btn" id="positionTrasera">Trasera</button>
                 </div>
-            </div>
-
-            <div class="glass">
-                <div class="filter-title">
-                    Referencias y Códigos
-                </div>
+                
+                <div class="filter-title">Referencias y Códigos</div>
                 <div class="input-group-horizontal">
                     <label for="filtroOem" class="visually-hidden">Filtrar por código OEM</label>
                     <input list="oemList" id="filtroOem" class="form-input" placeholder="OEM"><datalist id="oemList"></datalist>
@@ -779,12 +775,8 @@
                     <label for="filtroFmsi" class="visually-hidden">Filtrar por código FMSI</label>
                     <input list="fmsiList" id="filtroFmsi" class="form-input" placeholder="Platina FMSI"><datalist id="fmsiList"></datalist>
                 </div>
-            </div>
-
-            <div class="glass">
-                <div class="filter-title">
-                    Medidas
-                </div>
+                
+                <div class="filter-title">Medidas</div>
                 <div class="input-group-horizontal">
                     <label for="medidasAncho" class="visually-hidden">Filtrar por Ancho en milímetros</label>
                     <input type="number" id="medidasAncho" placeholder="Ancho (mm)" class="form-input">
@@ -792,10 +784,7 @@
                     <label for="medidasAlto" class="visually-hidden">Filtrar por Alto en milímetros</label>
                     <input type="number" id="medidasAlto" placeholder="Alto (mm)" class="form-input">
                 </div>
-            </div>
-            
-            
-            <div class="clear-filters-wrapper">
+                
                 <button class="clear-filters-btn" id="clearFiltersBtn" aria-label="Borrar filtros">
                     <svg id="trashIcon" viewBox="0 0 24 24">
                         <g class="trash-body"><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></g>
@@ -804,6 +793,7 @@
                     Borrar Filtros
                 </button>
             </div>
+            
         </div>
 
         <div class="results-panel">
@@ -996,7 +986,6 @@
                 appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`;
                 
                 groupedApps[marca].forEach(app => {
-                    /* === CAMBIO JS: ELIMINADA LA LÍNEA DE ESPECIFICACIÓN === */
                     appListHTML += `
                         <div class="app-detail-row">
                             <div>${app.serie || ''}</div>
@@ -1030,8 +1019,6 @@
 
         const renderResults = (filteredData) => {
             
-            els.results.classList.remove('three-cols');
-
             if (filteredData.length === 1) {
                 els.results.classList.add('un-solo-resultado');
             } else {
@@ -1093,17 +1080,15 @@
                 `;
                         
                 return `<div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms">
-                            <div class="card-details">
-                                <div class="card-ref">${item.ref}</div>
+                            <div class="card-content-wrapper">
+                                <div class="card-details">
+                                    <div class="card-ref">${item.ref}</div>
+                                </div>
+                                <div class="card-position">${posBadge}</div>
+                                ${appsHTML}
+                                ${specsHTML}
                             </div>
-                            
-                            <div class="card-position" style="text-align: left;">${posBadge}</div>
-                            
                             ${carouselHTML}
-                            
-                            ${appsHTML}
-
-                            ${specsHTML}
                         </div>`;
             }).join('');
             
