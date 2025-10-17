@@ -188,9 +188,9 @@
 
         /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        /* CLAVE: Reducción del ancho del filtro a 140px (aprox. la mitad de 280px) */
-        .filters-column { flex: 0 0 140px; display: flex; flex-direction: column; 
-            /* CLAVE: Reducción del espaciado vertical */
+        /* CLAVE: Ancho ampliado a 182px */
+        .filters-column { flex: 0 0 182px; display: flex; flex-direction: column; 
+            /* CLAVE: Espaciado vertical compacto */
             gap: 1rem; 
         }
         .results-panel { flex: 1; }
@@ -268,9 +268,9 @@
 
         /* -- Estilos de Botones de Posición (Mantienen Material Style) -- */
         .position-btn {
-            /* CLAVE: Ajustar el padding horizontal y tamaño de fuente para el nuevo ancho de columna */
+            /* CLAVE: Ajuste para el nuevo ancho de columna */
             flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer;
-            font-size: 0.8rem; /* Reducido */
+            font-size: 0.8rem; 
             font-weight: 500; text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
@@ -286,7 +286,7 @@
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
         .clear-filters-wrapper { 
             text-align: center; 
-            margin-top: 1rem; /* Reducido */
+            margin-top: 1rem; 
             margin-bottom: 0;
             padding: 0; 
             background-color: transparent; 
@@ -352,8 +352,26 @@
         
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
         
-        /* CLAVE: Reducción del ancho mínimo y del gap */
+        /* CLAVE: Control dinámico del grid en JS. Aquí definimos el comportamiento por defecto (más de 3) */
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.5rem; }
+        
+        /* Estilo para 3 columnas forzadas cuando no hay filtros de vehículo */
+        .results-wrapper.three-cols {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* Ajuste para pantallas más pequeñas si se fuerza a 3 columnas */
+        @media (max-width: 1000px) {
+            .results-wrapper.three-cols {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Permitir que se ajusten si no caben 3 */
+            }
+        }
+        @media (max-width: 600px) {
+            .results-wrapper.three-cols {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+        
         
         .result-card {
             display: flex; 
@@ -833,10 +851,18 @@
         
         const getPositionFilter = () => {
             const activePositions = [];
-            // CLAVE: Usamos 'Delantera' y 'Trasera' en la lógica, aunque los botones muestren 'DL' y 'TR'
+            // Usamos 'Delantera' y 'Trasera' en la lógica, aunque los botones muestren 'DL' y 'TR'
             if (els.posDel.classList.contains('active')) activePositions.push('Delantera');
             if (els.posTras.classList.contains('active')) activePositions.push('Trasera');
             return activePositions; 
+        };
+        
+        // Nueva función para verificar si hay filtros de vehículo activos (excluyendo Búsqueda Rápida y Medidas)
+        const hasVehicleFilters = () => {
+            return els.marca.value.trim() !== '' ||
+                   els.modelo.value.trim() !== '' ||
+                   els.anio.value.trim() !== '' ||
+                   getPositionFilter().length > 0;
         };
 
 
@@ -982,6 +1008,13 @@
 
         const renderResults = (filteredData) => {
             
+            // CLAVE: Lógica para cambiar la clase de grid
+            if (hasVehicleFilters()) {
+                els.results.classList.remove('three-cols'); // Muestra la cuadrícula flexible si hay filtros
+            } else {
+                els.results.classList.add('three-cols');    // Muestra 3 columnas forzadas si no hay filtros
+            }
+            
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
                 els.results.innerHTML = `<p class="no-results">No se encontraron pastillas con los filtros seleccionados.</p>`;
@@ -992,7 +1025,6 @@
             els.results.innerHTML = filteredData.map(item => {
                 // CLAVE: Añadir clases 'delantera' o 'trasera' al badge para el CSS
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
-                // CLAVE: El texto del badge siempre será Delantera o Trasera, no la abreviación
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
                 // CLAVE: Renderizar la lista de aplicaciones
