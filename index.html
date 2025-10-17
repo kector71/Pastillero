@@ -41,6 +41,11 @@
             
             --btn-google-border: #747775;
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
+
+            /* Nuevo color para el botón de detalle de tarjeta */
+            --btn-card-detail-bg: #3b82f6;
+            --btn-card-detail-text: #ffffff;
+            --btn-card-detail-hover-bg: #2563eb;
         }
 
         body.lp-dark {
@@ -76,6 +81,10 @@
             
             --btn-google-border: #8e918f;
             --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
+
+            --btn-card-detail-bg: #60a5fa;
+            --btn-card-detail-text: #1e1e1e;
+            --btn-card-detail-hover-bg: #3b82f6;
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -86,7 +95,6 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 1rem;
-            /* Se ajusta el padding inferior ya que el footer ya no es flotante */
             padding-bottom: 2rem; 
         }
 
@@ -96,34 +104,27 @@
             max-width: 1200px; 
             margin: 0 auto 1.5rem auto; 
             text-align: center; 
-            /* CLAVE: Eliminado el color de superficie para que tome el color de fondo del body */
             background-color: transparent; 
-            /* CLAVE: Eliminado el borde inferior */
             border-bottom: none; 
-            /* CLAVE: Eliminado el box-shadow (elevación) */
             box-shadow: none; 
             padding: 1rem 0; 
         }
         body.lp-dark header {
-            /* CLAVE: Aseguramos que no haya sombra ni fondo en modo oscuro */
             box-shadow: none;
             background-color: transparent;
         }
         
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
-            /* CLAVE: Flex para mantener todo en línea */
             display: flex; align-items: center; justify-content: center; gap: 12px;
             opacity: 1; 
             animation: fadeDown 1s ease 0.3s forwards; 
-            /* CLAVE: Evitar que se rompa en varias líneas */
             white-space: nowrap; 
         }
         .header-subtitle { 
             font-size: 0.9rem; font-weight: 500; 
-            color: var(--text-color); /* Usar color de texto, no opacidad */
-            opacity: 0.6; /* Sutilmente más claro */
-            /* CLAVE: Eliminación de borde y ajuste de padding */
+            color: var(--text-color); 
+            opacity: 0.6; 
             border-left: none; 
             padding-left: 12px; 
             transition: color 0.5s ease;
@@ -134,26 +135,22 @@
 
         /* ================== MODIFICACIÓN DE FOOTER (No flotante) ================== */
         .footer-banner {
-            /* CLAVE: Eliminamos el posicionamiento fijo */
             position: static; 
             width: 100%;
-            margin-top: 2rem; /* Espacio antes del footer */
+            margin-top: 2rem; 
             background-color: var(--material-surface-light);
             color: var(--text-color);
             padding: 0.5rem 1rem; 
             border-top: 1px solid var(--material-surface-border);
-            /* Sombra sutil para destacar del fondo */
             box-shadow: var(--elevation-1);
             z-index: 100; 
             font-size: 0.8rem;
             text-align: center;
-            /* Eliminamos la lógica de hidden ya que no flota */
             transform: none;
             transition: none; 
         }
         
         .footer-banner.hidden {
-            /* Eliminamos la regla de ocultar */
             transform: none;
         }
         
@@ -347,96 +344,76 @@
              stroke: #ffffff; 
         }
         
-        /* ================== CORRECCIÓN CLAVE: ESTILOS CARRUSEL ================== */
-        .carousel-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.4);
-            border: none;
-            color: white;
-            padding: 0.5rem 0.3rem;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-            border-radius: 0;
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-        
-        /* POSICIÓN: Botón Anterior */
-        .card-images-carousel > .carousel-nav-btn:nth-of-type(1) {
-            left: 0;
-            transform: translateY(-50%); 
-            border-radius: 0 0.5rem 0.5rem 0; 
-            padding-right: 0.7rem;
-        }
-
-        /* POSICIÓN: Botón Siguiente */
-        .card-images-carousel > .carousel-nav-btn:nth-of-type(2) {
-            right: 0;
-            left: auto; 
-            transform: translateY(-50%); 
-            border-radius: 0.5rem 0 0 0.5rem; 
-            padding-left: 0.7rem;
-        }
-        /* ========================================================================= */
-
-        /* Animaciones */
-        @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
-        @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
-        @keyframes shake-body { 0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)} }
-        @keyframes spark-fade-out { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0.5); } }
-        
-        .spark { position: absolute; border-radius: 50%; opacity: 0; animation: spark-fade-out 0.6s ease-out forwards; box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
-        
-        .animate-button { animation: bounce 0.4s ease-in-out; }
-        .animate-lid { animation: open-lid 0.8s ease-in-out; }
-        .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
-
-        /* ================== ESTILOS DE RESULTADOS (Material) ================== */
-        .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap:0.75rem; }
+        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
         .result-card {
+            /* Flexbox para empujar el botón al final */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            /* ... (resto de estilos de tarjeta) ... */
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:1rem; 
             padding:1rem; 
             box-shadow: var(--elevation-1); 
-            display:flex; flex-direction:column; gap:0.25rem; 
+            gap:0.25rem; 
             opacity:1; 
             transform: translateY(0); 
             animation: fadeInUp 0.3s forwards;
             backdrop-filter: none; 
         }
-        body.lp-dark .result-card { box-shadow: var(--elevation-2); }
         
-        /* Nuevos estilos para organizar los datos dentro de la tarjeta */
-        
-        .card-details {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-            padding-bottom: 0.75rem; 
-            border-bottom: 1px solid var(--material-surface-border);
-            margin-bottom: 0.75rem; 
-        }
-        .card-ref {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-color);
-            white-space: nowrap;
+        /* Contenedor del botón de acción */
+        .card-action-container {
+            padding-top: 1rem;
+            margin-top: auto; /* Empuja el contenedor al final */
+            text-align: center;
         }
         
-        /* Marca y Modelo en negrita y subrayado (Subtítulo de tarjeta) */
-        .card-model {
+        /* Botón de Acción dentro de la Tarjeta */
+        .card-detail-btn {
+            position: relative;
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 0.5rem;
+            background-color: var(--btn-card-detail-bg);
+            color: var(--btn-card-detail-text);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: var(--elevation-1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-detail-btn:hover {
+            background-color: var(--btn-card-detail-hover-bg);
+            box-shadow: var(--elevation-2);
+        }
+
+        /* Estilos para aplicaciones secundarias */
+        .secondary-applications {
+            margin-bottom: 0.5rem; /* Espacio antes de las especificaciones o el botón */
+        }
+        .secondary-applications strong {
             font-size: 0.85rem;
-            font-weight: 700; 
-            text-decoration: underline; 
-            opacity: 1; 
-            margin-top: 0.2rem;
-            color: var(--text-color); 
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.2rem;
+            opacity: 0.8;
+            color: inherit;
         }
+        .secondary-applications ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 0.2rem;
+        }
+        .secondary-applications li {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            line-height: 1.3;
+        }
+
 
         /* Estilos del Carrusel de Imágenes */
         .card-images-carousel {
@@ -488,6 +465,8 @@
             margin-top: 0.5rem;
             padding-top: 0.5rem;
             border-top: 1px solid var(--material-surface-border);
+            /* Asegura que haya espacio antes del botón */
+            margin-bottom: 0.5rem; 
         }
         
         .card-specs strong {
@@ -509,7 +488,6 @@
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
         .floating-buttons-container { 
             position: fixed; 
-            /* Se ajusta la posición bottom para compensar el footer estático */
             bottom: 18px; 
             z-index: 9999; 
             display: flex; 
@@ -783,33 +761,40 @@
             
             const filtered = brakePadsData.filter(item => {
                 
-                const itemMarca = item.marca?.toLowerCase() || '';
-                const itemModelo = item.modelo?.toLowerCase() || '';
-                const itemAnio = item.año?.toLowerCase() || '';
+                // Crea una cadena de texto con todas las aplicaciones para la búsqueda rápida y por campos
+                const itemVehicles = item.aplicaciones.map(app => 
+                    `${app.marca} ${app.modelo} ${app.año}`
+                ).join(' ').toLowerCase();
+
                 const itemOem = item.oem?.toLowerCase() || '';
                 const itemFmsi = item.fmsi?.toLowerCase() || '';
                 const itemPosicion = item.posición; 
 
                 // 1. FILTRO DE BÚSQUEDA RÁPIDA
                 const busqMatch = !filters.busqueda || 
-                                ['ref', 'oem', 'fmsi', 'marca', 'modelo'].some(key => 
+                                ['ref', 'oem', 'fmsi'].some(key => 
                                     item[key]?.toLowerCase().includes(filters.busqueda)
-                                );
+                                ) || itemVehicles.includes(filters.busqueda); // CLAVE: Búsqueda en todos los vehículos
                 
-                // 2. FILTROS DE TEXTO (Marca, Modelo, Año, OEM, FMSI) - Coincidencia parcial
-                const marcaMatch = !filters.marca || itemMarca.includes(filters.marca);
-                const modeloMatch = !filters.modelo || itemModelo.includes(filters.modelo);
-                const anioMatch = !filters.anio || itemAnio.includes(filters.anio);
+                // 2. FILTROS DE TEXTO (Marca, Modelo, Año) - Coincidencia en AL MENOS UNA APLICACIÓN
+                const appMatch = !filters.marca && !filters.modelo && !filters.anio || 
+                                 item.aplicaciones.some(app => 
+                                    (!filters.marca || app.marca.toLowerCase().includes(filters.marca)) &&
+                                    (!filters.modelo || app.modelo.toLowerCase().includes(filters.modelo)) &&
+                                    (!filters.anio || app.año.toLowerCase().includes(filters.anio))
+                                 );
+
+                // 3. FILTROS DE REFERENCIA
                 const oemMatch = !filters.oem || itemOem.includes(filters.oem);
                 const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
 
-                // 3. FILTRO DE POSICIÓN
+                // 4. FILTRO DE POSICIÓN
                 let posMatch = true;
                 if (filters.pos.length > 0) {
                     posMatch = filters.pos.includes(itemPosicion);
                 } 
 
-                // 4. FILTROS DE MEDIDAS (Tolerancia de +/- 1.0 mm)
+                // 5. FILTROS DE MEDIDAS (Tolerancia de +/- 1.0 mm)
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || 
                                              (item.anchoNum >= (filters.ancho - TOLERANCIA) && 
@@ -820,7 +805,7 @@
                                              item.altoNum <= (filters.alto + TOLERANCIA));
 
 
-                return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
+                return busqMatch && appMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
         };
@@ -862,13 +847,31 @@
                     ? '<span class="position-badge position-delantera">Delantera</span>'
                     : '<span class="position-badge position-trasera">Trasera</span>';
                 
+                // === CLAVE: SELECCIONAR APLICACIONES ===
+                const primaryApp = item.aplicaciones[0];
+                const secondaryApps = item.aplicaciones.slice(1);
+                
+                let secondaryAppsHTML = '';
+                if (secondaryApps.length > 0) {
+                    secondaryAppsHTML = secondaryApps.map(app => 
+                        `<li>${app.marca} ${app.modelo} (${app.año})</li>`
+                    ).join('');
+                    secondaryAppsHTML = `
+                        <div class="secondary-applications" style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed var(--material-surface-border);">
+                            <strong>Otras Aplicaciones:</strong>
+                            <ul>${secondaryAppsHTML}</ul>
+                        </div>
+                    `;
+                }
+                // ========================================
+
                 const imagePath = item.imagen; 
                 const imageCount = 3; 
                 let imageTrackHTML = '';
 
                 for (let i = 0; i < imageCount; i++) {
                     imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" 
-                                            alt="${item.marca} ${item.modelo} Vista ${i + 1}" 
+                                            alt="${primaryApp.marca} ${primaryApp.modelo} Vista ${i + 1}" 
                                             class="result-image" loading="lazy">`;
                 }
 
@@ -886,13 +889,14 @@
                 return `<div class="result-card" data-ref="${item.ref}">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
-                                <div class="card-model">${item.marca} ${item.modelo} (${item.año})</div>
+                                <div class="card-model">${primaryApp.marca} ${primaryApp.modelo} (${primaryApp.año})</div>
                             </div>
                             
                             <div style="margin-bottom: 0.75rem; text-align: left;">${posBadge}</div>
                             
                             ${carouselHTML}
                             
+                            ${secondaryAppsHTML}
 
                             <div class="card-specs">
                                 <div>
@@ -912,6 +916,10 @@
                                     <span>${item.altoNum} mm</span>
                                 </div>
                             </div>
+
+                            <div class="card-action-container">
+                                <button class="card-detail-btn" data-ref="${item.ref}">Ver Detalles</button>
+                            </div>
                         </div>`;
             }).join('');
             
@@ -922,6 +930,14 @@
                     const card = e.currentTarget.closest('.result-card');
                     const direction = parseInt(e.currentTarget.dataset.direction);
                     navigateCarousel(card, direction);
+                });
+            });
+
+            // CLAVE: Listener para el nuevo botón "Ver Detalles"
+            els.results.querySelectorAll('.card-detail-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const ref = e.currentTarget.dataset.ref;
+                    alert(`Simulando la apertura de detalles para la Referencia: ${ref}\n(Aquí se abriría un modal o se redirigiría a una página de producto completa)`);
                 });
             });
         };
@@ -962,7 +978,9 @@
 
         function setupEventListeners() {
             
+            // Se añade ripple al nuevo botón de detalle
             [els.darkBtn, els.upBtn].forEach(btn => btn.addEventListener('click', createRippleEffect));
+            document.querySelectorAll('.card-detail-btn').forEach(btn => btn.addEventListener('click', createRippleEffect));
 
 
             els.darkBtn.addEventListener('click', () => {
@@ -1055,26 +1073,55 @@
 
         function inicializarApp() {
             
-            // DATOS DE EJEMPLO
+            // CLAVE: DATOS DE EJEMPLO CON APLICACIONES MÚLTIPLES
             const data = [
-                { "marca": "Chevrolet", "modelo": "Spark GT", "ref": "BX-1234", "año": "2018-2022", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT" },
-                { "marca": "Mazda", "modelo": "3", "ref": "BX-5678", "año": "2019-2023", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3" },
-                { "marca": "Renault", "modelo": "Logan", "ref": "BX-9101", "año": "2016-2021", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan" },
-                { "marca": "Toyota", "modelo": "Corolla", "ref": "BX-1121", "año": "2020-2024", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla" },
-                { "marca": "Ford", "modelo": "Fiesta", "ref": "BX-3141", "año": "2014-2019", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta" },
-                { "marca": "Kia", "modelo": "Rio", "ref": "BX-5161", "año": "2018-2023", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio" },
-                { "marca": "Hyundai", "modelo": "Accent", "ref": "BX-7181", "año": "2018-2022", "oem": "58101-H5A25", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Accent" },
-                { "marca": "Nissan", "modelo": "Versa", "ref": "BX-9102", "año": "2020-2024", "oem": "D1060-5RB0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Versa" },
-                { "marca": "Volkswagen", "modelo": "Jetta", "ref": "BX-1122", "año": "2019-2023", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta" },
-                { "marca": "Chevrolet", "modelo": "Onix", "ref": "BX-3142", "año": "2020-2024", "oem": "26242300", "fmsi": "9097-D2031", "posición": "Delantera", "medidas": "131.6 x 52.8", "imagen": "https://via.placeholder.com/300x200.png?text=Onix" },
-                { "marca": "Mazda", "modelo": "CX-5", "ref": "BX-5162", "año": "2017-2022", "oem": "KAY0-33-28Z", "fmsi": "8881-D1691", "posición": "Delantera", "medidas": "146.0 x 59.8", "imagen": "https://via.placeholder.com/300x200.png?text=CX-5" },
-                { "marca": "Renault", "modelo": "Duster", "ref": "BX-7182", "año": "2015-2020", "oem": "41060-8481R", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Duster" },
-                { "marca": "Toyota", "modelo": "RAV4", "ref": "BX-9103", "año": "2019-2023", "oem": "04465-42200", "fmsi": "9118-D1983", "posición": "Delantera", "medidas": "150.1 x 57.3", "imagen": "https://via.placeholder.com/300x200.png?text=RAV4" },
-                { "marca": "Kia", "modelo": "Sportage", "ref": "BX-1123", "año": "2017-2022", "oem": "58101-D4A20", "fmsi": "8881-D1691", "posición": "Delantera", "medidas": "146.0 x 59.8", "imagen": "https://via.placeholder.com/300x200.png?text=Sportage" },
-                { "marca": "Nissan", "modelo": "Kicks", "ref": "BX-3143", "año": "2018-2023", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks" },
-                // Traseras
-                { "marca": "Mazda", "modelo": "3", "ref": "BX-5679", "año": "2019-2023", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras" },
-                { "marca": "Toyota", "modelo": "Corolla", "ref": "BX-1122", "año": "2020-2024", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras" }
+                { 
+                    "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", 
+                    "aplicaciones": [
+                        { "marca": "Chevrolet", "modelo": "Spark GT", "año": "2018-2022" },
+                        { "marca": "Daewoo", "modelo": "Matiz", "año": "2010-2015" }
+                    ]
+                },
+                { 
+                    "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3",
+                    "aplicaciones": [
+                        { "marca": "Mazda", "modelo": "3", "año": "2019-2023" },
+                        { "marca": "Mazda", "modelo": "CX-30", "año": "2020-2024" }
+                    ]
+                },
+                { 
+                    "ref": "BX-9101", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan",
+                    "aplicaciones": [
+                        { "marca": "Renault", "modelo": "Logan", "año": "2016-2021" },
+                        { "marca": "Renault", "modelo": "Sandero", "año": "2016-2021" },
+                        { "marca": "Dacia", "modelo": "Logan", "año": "2010-2015" }
+                    ]
+                },
+                { 
+                    "ref": "BX-1121", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla",
+                    "aplicaciones": [
+                        { "marca": "Toyota", "modelo": "Corolla", "año": "2020-2024" }
+                    ]
+                },
+                { 
+                    "ref": "BX-5161", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio",
+                    "aplicaciones": [
+                        { "marca": "Kia", "modelo": "Rio", "año": "2018-2023" },
+                        { "marca": "Hyundai", "modelo": "Accent", "año": "2018-2022" }
+                    ]
+                },
+                { 
+                    "ref": "BX-5679", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras",
+                    "aplicaciones": [
+                        { "marca": "Mazda", "modelo": "3", "año": "2019-2023" },
+                        { "marca": "Mazda", "modelo": "CX-5", "año": "2017-2022" }
+                    ]
+                },
+                // Se conservan algunos para variedad y pruebas
+                { "ref": "BX-3141", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "modelo": "Fiesta", "año": "2014-2019" }] },
+                { "ref": "BX-1122", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "modelo": "Jetta", "año": "2019-2023" }] },
+                { "ref": "BX-3143", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "modelo": "Kicks", "año": "2018-2023" }] },
+                { "ref": "BX-1122T", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "modelo": "Corolla", "año": "2020-2024" }] }
             ];
 
             brakePadsData = data.map(item => {
@@ -1082,18 +1129,31 @@
                 return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
             });
 
-            const uniqueValues = (key) => [...new Set(brakePadsData.map(d => d[key]))].sort();
-            fillDatalist(els.datalistMarca, uniqueValues('marca'));
-            fillDatalist(els.datalistModelo, uniqueValues('modelo'));
-            fillDatalist(els.datalistAnio, uniqueValues('año'));
-            fillDatalist(els.datalistOem, uniqueValues('oem'));
-            fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
+            // CLAVE: Recopilación de valores únicos para datalist (de todas las aplicaciones)
+            const getAllApplicationValues = (key) => {
+                const allValues = new Set();
+                brakePadsData.forEach(item => {
+                    item.aplicaciones.forEach(app => {
+                        if (app[key]) allValues.add(app[key]);
+                    });
+                });
+                return [...allValues].sort();
+            };
+
+            fillDatalist(els.datalistMarca, getAllApplicationValues('marca'));
+            fillDatalist(els.datalistModelo, getAllApplicationValues('modelo'));
+            fillDatalist(els.datalistAnio, getAllApplicationValues('año'));
+            fillDatalist(els.datalistOem, getAllApplicationValues('oem')); 
+            fillDatalist(els.datalistFmsi, getAllApplicationValues('fmsi'));
             
             filterData();
         }
 
         setupEventListeners();
         inicializarApp();
+        
+        // Ejecutar setupEventListeners de nuevo para incluir los listeners del nuevo botón después de renderizar la primera vez
+        // Esto es un workaround. Lo ideal es encapsular el renderizado de botones. Lo haremos en el renderResults.
     });
 </script>
 
