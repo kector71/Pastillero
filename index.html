@@ -270,12 +270,15 @@
         
         .position-container { display:flex; gap: 0.4rem; }
 
+        /* <<< ESTE ES EL CAMBIO PRINCIPAL >>> */
         .position-btn {
             flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer;
             font-size: 0.8rem; 
             font-weight: 500; text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-            border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
+            border: 1px solid var(--material-surface-border); /* Borde sutil por defecto */
+            background-color: transparent; 
+            color: var(--text-color);
         }
         .position-btn:hover { background-color: var(--btn-google-hover-bg); }
         #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; box-shadow: var(--elevation-1); }
@@ -411,11 +414,10 @@
             animation: fadeInUp 0.5s forwards;
         }
 
-        /* <<< ESTE ES EL CAMBIO PRINCIPAL (FLEX: 1) >>> */
         .card-content-wrapper {
             display: flex;
             flex-direction: column;
-            flex: 1; /* Ahora es 50% */
+            flex: 1;
             min-width: 0;
         }
         
@@ -462,7 +464,7 @@
         .card-images-carousel {
             position: relative;
             flex: 1;
-            max-width: none; /* Quitamos el max-width para que flex funcione */
+            max-width: none;
             overflow: hidden;
             border-radius: 0.5rem; 
             aspect-ratio: 4/3; 
