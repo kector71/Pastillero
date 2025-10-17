@@ -126,7 +126,7 @@
             background-color: transparent; 
             border-bottom: none; 
             box-shadow: none; 
-            padding: 0.25rem 0; /* <<< ESTE ES EL CAMBIO */
+            padding: 0.25rem 0;
         }
         body.lp-dark header {
             box-shadow: none;
@@ -234,25 +234,26 @@
         }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
         
+        /* === CAMBIOS DE COMPACTACIÓN === */
         .filter-title { 
             font-weight: 600; 
-            font-size: 1rem; 
-            margin-bottom: 0.4rem;
+            font-size: 0.9rem; /* Ligeramente más pequeño */
+            margin-bottom: 0.3rem; /* Menos espacio abajo */
+            padding-bottom: 0; /* Sin padding */
+            border-bottom: none; /* Sin línea */
             text-align: left; 
             display: flex;
             align-items: center;
             gap: 8px; 
-            padding-bottom: 0.2rem;
-            border-bottom: 1px solid var(--material-surface-border);
         }
         
         .glass > .filter-title:not(:first-child) {
-            margin-top: 1rem;
+            margin-top: 0.8rem; /* Menos espacio entre secciones */
         }
 
         .form-input {
             width: 100%; 
-            padding: 10px; 
+            padding: 6px 10px; /* Menos padding vertical */
             border-radius: 10px; 
             border: 1px solid var(--material-surface-border); 
             background-color: var(--input-bg); 
@@ -261,7 +262,7 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem; /* Menos espacio abajo */
         }
         
         .form-input:last-of-type {
@@ -284,7 +285,7 @@
         .input-group-horizontal { 
             display:flex; 
             gap: 0.3rem; 
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         } 
         
         .input-group-horizontal .form-input {
@@ -303,9 +304,9 @@
             position: relative; 
             width: 100%; 
             height: auto; 
-            padding: 10px 16px; 
+            padding: 8px 16px; /* Más compacto */
             border-radius: 0.75rem; 
-            margin-top: 1rem;
+            margin-top: 0.8rem; /* Menos espacio arriba */
             
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text); 
@@ -320,7 +321,7 @@
             border: none; 
             outline: none; 
             
-            font-size: 1rem;
+            font-size: 0.9rem; /* Ligeramente más pequeño */
             font-weight: 600;
             
             transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
@@ -338,8 +339,8 @@
         }
         
         .clear-filters-btn svg {
-            width: 24px; 
-            height: 24px; 
+            width: 20px; /* Ligeramente más pequeño */
+            height: 20px; 
             stroke: #ffffff; 
             stroke-width: 2; 
             fill: none;
@@ -702,7 +703,7 @@
             body { padding: 0.5rem 0.25rem; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 0.8rem; padding: 0.6rem; }
+            .form-input, .position-btn { font-size: 0.8rem; padding: 0.5rem; } /* CAMBIO: Padding reducido */
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
         }
