@@ -208,7 +208,6 @@
 
         /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
         .main-layout { 
-            /* === CAMBIO #1: AUMENTADO EL ANCHO MÁXIMO === */
             max-width: 1600px; 
             margin: 0 auto; 
             display: flex; 
@@ -387,15 +386,20 @@
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
         
         .results-wrapper { 
-            display:grid; 
-            /* === CAMBIO #2: AJUSTE DE LA CUADRÍCULA === */
+            display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-            gap:1rem; 
+            gap: 1rem; 
         }
         
-        /* Ya no se necesita esta clase porque auto-fit es más flexible */
-        .results-wrapper.three-cols {
-           grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        /* === CAMBIO #1: NUEVA REGLA CSS PARA UN SOLO RESULTADO === */
+        .results-wrapper.un-solo-resultado {
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .results-wrapper.un-solo-resultado .result-card {
+            max-width: 350px;
+            width: 100%;
         }
 
         .result-card {
@@ -1019,14 +1023,20 @@
                 `;
             }
             els.results.innerHTML = skeletonHTML;
-            els.results.classList.remove('three-cols');
+            els.results.classList.remove('un-solo-resultado');
         };
 
 
         const renderResults = (filteredData) => {
             
-            // La clase .three-cols ya no es necesaria con el nuevo grid auto-fit
             els.results.classList.remove('three-cols');
+
+            /* === CAMBIO #2: AÑADIR/QUITAR LA CLASE PARA UN SOLO RESULTADO === */
+            if (filteredData.length === 1) {
+                els.results.classList.add('un-solo-resultado');
+            } else {
+                els.results.classList.remove('un-solo-resultado');
+            }
             
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
