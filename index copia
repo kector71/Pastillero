@@ -47,6 +47,10 @@
             --badge-delantera-text: #fff;
             --badge-trasera-bg: #ef4444; /* Rojo de botones activos */
             --badge-trasera-text: #fff;
+
+            /* Colores para el Skeleton Loader */
+            --skeleton-bg: #e2e8f0;
+            --skeleton-highlight: #f1f5f9;
         }
 
         body.lp-dark {
@@ -84,14 +88,18 @@
             --badge-delantera-text: #fff;
             --badge-trasera-bg: #ef4444; 
             --badge-trasera-text: #fff;
+            
+            /* Colores para el Skeleton Loader en modo oscuro */
+            --skeleton-bg: #2d3748;
+            --skeleton-highlight: #4a5568;
         }
 
         /* ================== GENERAL & BODY ================== */
         * { box-sizing: border-box; margin:0; padding:0; }
         html, body { height:100%; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
-        body {    
-            background: var(--bg-color);    
-            transition: background 0.5s ease, color 0.5s ease;    
+        body {   
+            background: var(--bg-color);   
+            transition: background 0.5s ease, color 0.5s ease;   
             color: var(--text-color);
             padding: 1rem;
             padding-bottom: 2rem; 
@@ -187,10 +195,14 @@
         }
 
         /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
-        .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        /* CLAVE: Reducción del ancho del filtro */
-        .filters-column { flex: 0 0 280px; display: flex; flex-direction: column; 
-            /* CLAVE: Reducción del espaciado vertical */
+        .main-layout { max-width: 1200px; margin: 0 auto; display: flex; 
+            gap: 0.5rem; 
+            align-items: flex-start; 
+        }
+        .filters-column { 
+            flex: 0 0 262px; 
+            display: flex; 
+            flex-direction: column; 
             gap: 1rem; 
         }
         .results-panel { flex: 1; }
@@ -219,11 +231,7 @@
             border-bottom: 1px solid var(--material-surface-border);
         }
         
-        /* ELIMINAMOS ICONOS DE LOS TÍTULOS DE FILTROS */
-        .filter-title svg {
-            display: none; /* Oculta el icono */
-        }
-        /* FIN ELIMINACIÓN DE ICONOS */
+        .filter-title svg { display: none; }
 
         .form-input {
             width: 100%; 
@@ -236,40 +244,28 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            /* CLAVE: Reducción del margen inferior */
             margin-bottom: 0.6rem; 
         }
         
-        /* Regla para separar los inputs que están directamente dentro de .glass */
         .glass > input[type="text"]:last-of-type,
         .glass > input[list]:last-of-type {
-            /* CLAVE: Ajuste en el último input del grupo (ej. Busqueda Rápida) */
             margin-bottom: 0.6rem;
         }
 
-        /* Excepción para los grupos de inputs y el último input en ese contexto */
-        .input-group-horizontal .form-input {
-            margin-bottom: 0; 
-        }
+        .input-group-horizontal .form-input { margin-bottom: 0; }
         
-        /* Arreglamos la separación específica de los inputs de Vehículo */
-        .glass:nth-child(2) > input[list]:nth-last-child(3) { 
-             margin-bottom: 0.6rem;
-        }
+        .glass:nth-child(2) > input[list]:nth-last-child(3) {  margin-bottom: 0.6rem; }
 
-        /* Reseteamos para el input de búsqueda rápida (es el único en su panel) */
-        #busquedaRapida {
-            margin-bottom: 0;
-        }
+        #busquedaRapida { margin-bottom: 0; }
 
         .filter-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.8rem; }
         .filter-group:last-child { margin-bottom: 0; }
         .position-container { display:flex; gap: 0.5rem; }
 
-        /* -- Estilos de Botones de Posición (Mantienen Material Style) -- */
         .position-btn {
-            flex: 1; padding: 8px 16px; border-radius: 100px; cursor: pointer;
-            font-size: 0.875rem; font-weight: 500; text-align: center;
+            flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer;
+            font-size: 0.8rem; 
+            font-weight: 500; text-align: center;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
             border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
         }
@@ -284,7 +280,7 @@
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
         .clear-filters-wrapper { 
             text-align: center; 
-            margin-top: 1rem; /* Reducido */
+            margin-top: 1rem;
             margin-bottom: 0;
             padding: 0; 
             background-color: transparent; 
@@ -300,7 +296,6 @@
             padding: 10px 16px; 
             border-radius: 0.75rem; 
             
-            /* Usamos la variable para el color primario */
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text); 
             box-shadow: var(--btn-primary-shadow); 
@@ -321,7 +316,6 @@
             transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
         }
         
-        /* Reglas específicas para el modo oscuro */
         body.lp-dark .clear-filters-btn {
             color: var(--btn-primary-text); 
             background-color: var(--btn-primary-bg); 
@@ -333,25 +327,66 @@
             box-shadow: var(--elevation-4); 
         }
         
-        /* Ajuste del icono para el nuevo tamaño del botón */
         .clear-filters-btn svg {
             width: 24px; 
             height: 24px; 
-            /* Icono blanco para contraste */
             stroke: #ffffff; 
             stroke-width: 2; 
             fill: none;
             position: static; 
             transition: none;
         }
-        body.lp-dark .clear-filters-btn svg { 
-             stroke: #ffffff; 
-        }
+        body.lp-dark .clear-filters-btn svg {  stroke: #ffffff;  }
         
+        /* SKELETON LOADER STYLES */
+        @keyframes skeleton-pulse {
+            0%, 100% { background-color: var(--skeleton-bg); }
+            50% { background-color: var(--skeleton-highlight); }
+        }
+        .skeleton-card {
+            background-color: var(--material-surface-light);
+            border: 1px solid var(--material-surface-border);
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            box-shadow: var(--elevation-1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .skeleton-line {
+            height: 1rem;
+            border-radius: 0.25rem;
+            animation: skeleton-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .skeleton-box {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 0.5rem;
+            animation: skeleton-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .skeleton-line.short { width: 40%; }
+        .skeleton-line.long { width: 80%; }
+        /* FIN SKELETON LOADER STYLES */
+
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
         
-        /* CLAVE: Reducción del ancho mínimo y del gap */
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.5rem; }
+        
+        /* CLAVE: Estilo para 2 columnas forzadas (se aplica con JS cuando no hay filtros) */
+        .results-wrapper.three-cols {
+            grid-template-columns: repeat(2, 1fr); /* <-- AJUSTADO */
+        }
+
+        @media (max-width: 1000px) {
+            .results-wrapper.three-cols {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+        @media (max-width: 600px) {
+            .results-wrapper.three-cols {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
         
         .result-card {
             display: flex; 
@@ -363,9 +398,9 @@
             padding:0.75rem; 
             box-shadow: var(--elevation-1); 
             gap:0.2rem; 
-            opacity:1; 
-            transform: translateY(0); 
-            animation: fadeInUp 0.3s forwards;
+            opacity:0; 
+            transform: translateY(10px); 
+            animation: fadeInUp 0.5s forwards;
             backdrop-filter: none; 
         }
         
@@ -384,16 +419,10 @@
             white-space: nowrap;
         }
         
-        .card-model {
-            display: none; 
-        }
+        .card-model { display: none; }
         
-        /* Contenedor del carrusel y posición */
-        .result-card > div:nth-child(4) { 
-            margin-bottom: 0.5rem !important; 
-        }
+        .result-card > div:nth-child(4) {  margin-bottom: 0.5rem !important;  }
 
-        /* Estilos de los badges de posición en las tarjetas (CLAVE: Aplicación de variables) */
         .position-badge { 
              font-size:0.7rem; 
              padding:0.2rem 0.6rem; 
@@ -405,7 +434,6 @@
              box-shadow: var(--elevation-1); 
         }
 
-        /* Colores específicos para los badges (delantera/trasera) */
         .position-badge.delantera {
             background-color: var(--badge-delantera-bg);
             color: var(--badge-delantera-text);
@@ -416,7 +444,6 @@
             color: var(--badge-trasera-text);
         }
         
-        /* Carrusel de Imágenes (Reducción de tamaño) */
         .card-images-carousel {
             position: relative;
             width: 100%;
@@ -438,7 +465,6 @@
             z-index: 10;
         }
 
-        /* CORRECCIÓN DE POSICIONAMIENTO DE BOTONES DEL CARRUSEL */
         .carousel-nav-btn {
             position: absolute;
             top: 50%;
@@ -469,7 +495,6 @@
             padding-left: 0.6rem; 
         }
         
-        /* Estilos para APLICACIONES (Formato de Lista Minimalista) */
         .applications-list-container {
             margin-top: 0.4rem;
             margin-bottom: 0.75rem;
@@ -477,7 +502,6 @@
             border-top: 1px dashed var(--material-surface-border);
         }
         
-        /* Encabezado de Marca (Sutil, como un separador) */
         .app-brand-header {
             font-weight: 700;
             font-size: 0.85rem;
@@ -489,10 +513,9 @@
             text-transform: uppercase;
         }
 
-        /* Detalles de la aplicación (Filas) */
         .app-detail-row {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 2fr; /* Columna: Serie | Litros | Año | Especificación */
+            grid-template-columns: 2fr 1fr 1fr 2fr;
             font-size: 0.75rem;
             line-height: 1.2;
             padding: 4px 0;
@@ -504,16 +527,12 @@
              border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
         }
         
-        /* Encabezados de columna fija (CLAVE: ocultamos por defecto, ya que se pidió quitarlos) */
-        .app-header-row {
-            display: none; 
-        }
+        .app-header-row { display: none;  }
         
-        /* Especificaciones (CLAVE: Estilo de lista compacta) */
         .card-specs {
             display: flex;
             flex-direction: column;
-            gap: 0; /* Elimina el espacio entre filas */
+            gap: 0;
             margin-top: 0.4rem; 
             padding-top: 0.4rem; 
             margin-bottom: 0; 
@@ -524,7 +543,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2px 0; /* Compactado */
+            padding: 2px 0;
             font-size: 0.8rem;
             border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
         }
@@ -542,7 +561,7 @@
             font-size: 0.75rem; 
             opacity: 0.9; 
             text-decoration: underline; 
-            margin-right: 0.5rem; /* Separación del valor */
+            margin-right: 0.5rem;
         }
         .spec-item span {
             font-size: 0.8rem; 
@@ -550,7 +569,6 @@
             opacity: 0.9;
         }
         
-        /* Animaciones (sin cambios) */
         @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
         @keyframes shake-body { 0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)} }
@@ -576,8 +594,8 @@
         
         .material-btn {
             position: relative; 
-            width: 56px; 
-            height: 56px; 
+            width: 48px; 
+            height: 48px; 
             border-radius: 50%;
             background-color: var(--material-surface-light); 
             color: var(--text-color);
@@ -592,9 +610,7 @@
             outline:none;
         }
 
-        .material-btn:hover {
-            box-shadow: var(--elevation-4); 
-        }
+        .material-btn:hover { box-shadow: var(--elevation-4);  }
         
         body.lp-dark .material-btn {
             background-color: var(--material-surface-light); 
@@ -603,15 +619,14 @@
         }
 
         .material-btn svg { 
-            width: 24px; 
-            height: 24px; 
+            width: 22px; 
+            height: 22px; 
             fill:none; 
             stroke-width:2; 
             position:absolute; 
             transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s; 
         }
 
-        /* Estilo del efecto Ripple */
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -619,17 +634,10 @@
             animation: ripple-effect 0.6s linear;
             background-color: var(--material-ripple-light); 
         }
-        body.lp-dark .ripple {
-            background-color: var(--material-ripple-dark); 
-        }
-        @keyframes ripple-effect {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
+        body.lp-dark .ripple { background-color: var(--material-ripple-dark);  }
+        @keyframes ripple-effect { to { transform: scale(4); opacity: 0; } }
         
-        .lp-icon-sun { stroke: var(--icon-sun-stroke); }    
+        .lp-icon-sun { stroke: var(--icon-sun-stroke); }   
         .lp-icon-moon { stroke: var(--icon-moon-stroke); }
         .lp-icon-arrow { stroke: var(--icon-arrow-stroke); animation: var(--arrow-glow-animation); }
         
@@ -653,9 +661,13 @@
 
 
         /* ================== AJUSTES RESPONSIVE ================== */
-        @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
+        @media (max-width: 992px) { 
+            .main-layout { flex-direction: column; } 
+            .filters-column { flex-basis: auto; width: 100%; } 
+            .position-btn { padding: 8px 16px; font-size: 0.875rem; }
+            .results-wrapper.three-cols { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        }
         
-        /* Ajuste de botones flotantes para pantallas pequeñas */
         @media (max-width: 768px) {
             .floating-buttons-container.left { bottom: 18px; }
             .floating-buttons-container.right { bottom: 18px; }
@@ -689,18 +701,11 @@
                 text-align: center;
             }
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
-            /* Ajuste de grid de aplicaciones en móvil */
             .applications-list-container .app-detail-row {
-                 grid-template-columns: 2fr 1fr 3fr; /* Quita Litros para ahorrar espacio */
-            }
-            .applications-list-container .app-header-row {
-                 grid-template-columns: 2fr 1fr 3fr;
-            }
-            .applications-list-container .app-header-row > div:nth-child(2) {
-                 display: none; /* Oculta Litros del encabezado */
+                 grid-template-columns: 2fr 1fr 3fr; 
             }
             .applications-list-container .app-detail-row > div:nth-child(2) {
-                 display: none; /* Oculta Litros de la fila */
+                 display: none; 
             }
             
         }
@@ -735,8 +740,8 @@
                 <div class="filter-group" style="margin-top: 1rem;">
                     <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
                     <div class="position-container">
-                        <button class="position-btn" id="positionDelantera">Delantera</button>
-                        <button class="position-btn" id="positionTrasera">Trasera</button>
+                        <button class="position-btn" id="positionDelantera">DL</button>
+                        <button class="position-btn" id="positionTrasera">TR</button>
                     </div>
                 </div>
             </div>
@@ -804,18 +809,18 @@
     
         let brakePadsData = [];
         const els = {
-            body: document.body, headerX: document.querySelector('.header-x'), darkBtn: document.getElementById('darkBtn'),    
-            sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'),    
-            upBtn: document.getElementById('upBtn'),    
-            busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'),    
-            modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'),    
-            oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'),    
-            medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'),    
-            posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTrasera'),    
+            body: document.body, headerX: document.querySelector('.header-x'), darkBtn: document.getElementById('darkBtn'),   
+            sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'),   
+            upBtn: document.getElementById('upBtn'),   
+            busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'),   
+            modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'),   
+            oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'),   
+            medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'),   
+            posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTrasera'),   
             clearBtn: document.getElementById('clearFiltersBtn'),
-            datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'),    
-            datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),    
-            datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),    
+            datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'),   
+            datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),   
+            datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),   
             count: document.getElementById('resultCount'),
             footer: document.getElementById('footerBanner') 
         };
@@ -835,6 +840,18 @@
             if (els.posTras.classList.contains('active')) activePositions.push('Trasera');
             return activePositions; 
         };
+        
+        const hasVehicleFilters = () => {
+            return els.busqueda.value.trim() !== '' ||
+                   els.marca.value.trim() !== '' ||
+                   els.modelo.value.trim() !== '' ||
+                   els.anio.value.trim() !== '' ||
+                   getPositionFilter().length > 0 ||
+                   els.oem.value.trim() !== '' ||
+                   els.fmsi.value.trim() !== '' ||
+                   els.medidasAncho.value.trim() !== '' ||
+                   els.medidasAlto.value.trim() !== '';
+        };
 
 
         const filterData = () => {
@@ -852,7 +869,6 @@
             
             const filtered = brakePadsData.filter(item => {
                 
-                // Crea una cadena de texto con todas las aplicaciones para la búsqueda rápida y por campos
                 const itemVehicles = item.aplicaciones.map(app => 
                     `${app.marca} ${app.serie} ${app.litros} ${app.año} ${app.especificacion}`
                 ).join(' ').toLowerCase();
@@ -861,31 +877,26 @@
                 const itemFmsi = item.fmsi?.toLowerCase() || '';
                 const itemPosicion = item.posición; 
 
-                // 1. FILTRO DE BÚSQUEDA RÁPIDA
                 const busqMatch = !filters.busqueda || 
-                                ['ref', 'oem', 'fmsi'].some(key => 
-                                    item[key]?.toLowerCase().includes(filters.busqueda)
-                                ) || itemVehicles.includes(filters.busqueda); // CLAVE: Búsqueda en todos los vehículos
+                                  ['ref', 'oem', 'fmsi'].some(key => 
+                                      item[key]?.toLowerCase().includes(filters.busqueda)
+                                  ) || itemVehicles.includes(filters.busqueda);
                 
-                // 2. FILTROS DE TEXTO (Marca, Modelo/Serie, Año) - Coincidencia en AL MENOS UNA APLICACIÓN
                 const appMatch = !filters.marca && !filters.modelo && !filters.anio || 
-                                 item.aplicaciones.some(app => 
-                                    (!filters.marca || app.marca.toLowerCase().includes(filters.marca)) &&
-                                    (!filters.modelo || app.serie.toLowerCase().includes(filters.modelo)) && // Usamos 'serie' para 'modelo'
-                                    (!filters.anio || app.año.toLowerCase().includes(filters.anio))
-                                 );
+                                   item.aplicaciones.some(app => 
+                                       (!filters.marca || app.marca.toLowerCase().includes(filters.marca)) &&
+                                       (!filters.modelo || app.serie.toLowerCase().includes(filters.modelo)) &&
+                                       (!filters.anio || app.año.toLowerCase().includes(filters.anio))
+                                   );
 
-                // 3. FILTROS DE REFERENCIA
                 const oemMatch = !filters.oem || itemOem.includes(filters.oem);
                 const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
 
-                // 4. FILTRO DE POSICIÓN
                 let posMatch = true;
                 if (filters.pos.length > 0) {
                     posMatch = filters.pos.includes(itemPosicion);
                 } 
 
-                // 5. FILTROS DE MEDIDAS (Tolerancia de +/- 1.0 mm)
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || 
                                              (item.anchoNum >= (filters.ancho - TOLERANCIA) && 
@@ -899,9 +910,9 @@
                 return busqMatch && appMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
+            updateURLWithFilters();
         };
         
-        // FUNCIÓN CLAVE PARA LA NAVEGACIÓN DEL CARRUSEL
         function navigateCarousel(cardElement, direction) {
             const track = cardElement.querySelector('.image-track');
             const images = cardElement.querySelectorAll('.result-image');
@@ -926,7 +937,6 @@
             counter.textContent = `${newIndex + 1}/${totalImages}`;
         }
         
-        // Función para agrupar las aplicaciones y generar la LISTA DE DETALLES (Minimalista)
         const renderApplicationsList = (aplicaciones) => {
             const groupedApps = aplicaciones.reduce((acc, app) => {
                 const marca = app.marca || 'N/A';
@@ -937,7 +947,6 @@
                 return acc;
             }, {});
 
-            // Ordenar las aplicaciones dentro de cada marca (por Serie y luego por Año)
             Object.keys(groupedApps).forEach(marca => {
                  groupedApps[marca].sort((a, b) => {
                     const serieA = a.serie || '';
@@ -956,12 +965,9 @@
             let appListHTML = '';
             
             for (const marca in groupedApps) {
-                // Encabezado de Marca (separador sutil)
                 appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`;
                 
-                // Filas de aplicaciones
                 groupedApps[marca].forEach(app => {
-                    // La estructura de la fila se mantiene (Serie | Litros | Año | Especificación)
                     appListHTML += `
                         <div class="app-detail-row">
                             <div>${app.serie || ''}</div>
@@ -975,9 +981,32 @@
 
             return `<div class="applications-list-container">${appListHTML}</div>`;
         };
+        
+        const showSkeletonLoader = (count = 6) => {
+            let skeletonHTML = '';
+            for (let i = 0; i < count; i++) {
+                skeletonHTML += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-line long"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-box"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
+                    </div>
+                `;
+            }
+            els.results.innerHTML = skeletonHTML;
+            els.results.classList.remove('three-cols');
+        };
 
 
         const renderResults = (filteredData) => {
+            
+            if (hasVehicleFilters()) {
+                els.results.classList.remove('three-cols');
+            } else {
+                els.results.classList.add('three-cols');   
+            }
             
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
@@ -985,13 +1014,10 @@
                 return;
             }
             
-            // Generar el HTML de las tarjetas
-            els.results.innerHTML = filteredData.map(item => {
-                // CLAVE: Añadir clases 'delantera' o 'trasera' al badge para el CSS
+            els.results.innerHTML = filteredData.map((item, index) => {
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
-                // CLAVE: Renderizar la lista de aplicaciones
                 const appsHTML = renderApplicationsList(item.aplicaciones);
 
                 const imagePath = item.imagen; 
@@ -999,7 +1025,6 @@
                 let imageTrackHTML = '';
 
                 for (let i = 0; i < imageCount; i++) {
-                    // Usaremos la referencia como alt text por simplicidad
                     imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" 
                                             alt="Referencia ${item.ref} Vista ${i + 1}" 
                                             class="result-image" loading="lazy">`;
@@ -1007,7 +1032,7 @@
 
                 const carouselHTML = `
                     <div class="card-images-carousel">
-                        <div class="image-track" data-current-index="0">
+                        <div class="image-track" style="display:flex;" data-current-index="0">
                             ${imageTrackHTML}
                         </div>
                         <div class="carousel-counter">1/${imageCount}</div>
@@ -1016,7 +1041,6 @@
                     </div>
                 `;
                 
-                // CLAVE: Nueva estructura para las especificaciones
                 const specsHTML = `
                     <div class="card-specs">
                         <div class="spec-item">
@@ -1037,8 +1061,8 @@
                         </div>
                     </div>
                 `;
-                    
-                return `<div class="result-card" data-ref="${item.ref}">
+                      
+                return `<div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
                             </div>
@@ -1053,7 +1077,6 @@
                         </div>`;
             }).join('');
             
-            // Asignar listeners del carrusel después de que se inserta el HTML
             els.results.querySelectorAll('.carousel-nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation(); 
@@ -1075,7 +1098,6 @@
             filterData();
         };
         
-        // FUNCIÓN PARA EL EFECTO RIPPLE (Material Design)
         const createRippleEffect = (event) => {
             const button = event.currentTarget;
             const circle = document.createElement('span');
@@ -1089,20 +1111,59 @@
             circle.classList.add('ripple');
 
             const ripple = button.getElementsByClassName('ripple')[0];
-
-            if (ripple) {
-                ripple.remove();
-            }
-
+            if (ripple) { ripple.remove(); }
             button.appendChild(circle);
         };
 
+        const updateURLWithFilters = () => {
+            const params = new URLSearchParams();
+            const filters = {
+                busqueda: els.busqueda.value.trim(),
+                marca: els.marca.value.trim(),
+                modelo: els.modelo.value.trim(),
+                anio: els.anio.value.trim(),
+                oem: els.oem.value.trim(),
+                fmsi: els.fmsi.value.trim(),
+                ancho: els.medidasAncho.value.trim(),
+                alto: els.medidasAlto.value.trim(),
+            };
+
+            for (const key in filters) {
+                if (filters[key]) {
+                    params.set(key, filters[key]);
+                }
+            }
+
+            const activePositions = getPositionFilter();
+            if (activePositions.length > 0) {
+                params.set('pos', activePositions.join(','));
+            }
+
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            history.pushState({}, '', newUrl);
+        };
+
+        const applyFiltersFromURL = () => {
+            const params = new URLSearchParams(window.location.search);
+            els.busqueda.value = params.get('busqueda') || '';
+            els.marca.value = params.get('marca') || '';
+            els.modelo.value = params.get('modelo') || '';
+            els.anio.value = params.get('anio') || '';
+            els.oem.value = params.get('oem') || '';
+            els.fmsi.value = params.get('fmsi') || '';
+            els.medidasAncho.value = params.get('ancho') || '';
+            els.medidasAlto.value = params.get('alto') || '';
+
+            const posParam = params.get('pos');
+            if (posParam) {
+                if (posParam.includes('Delantera')) els.posDel.classList.add('active');
+                if (posParam.includes('Trasera')) els.posTras.classList.add('active');
+            }
+        };
 
         function setupEventListeners() {
             
-            // Se añade ripple a los botones flotantes
             [els.darkBtn, els.upBtn].forEach(btn => btn.addEventListener('click', createRippleEffect));
-
 
             els.darkBtn.addEventListener('click', () => {
                 const isDark = els.body.classList.toggle('lp-dark');
@@ -1130,13 +1191,11 @@
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
 
-            // CORRECCIÓN CLAVE para el filtro de posición
-            [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', () => {
-                btn.classList.toggle('active'); 
+            [els.posDel, els.posTras].forEach(btn => btn.addEventListener('click', (e) => {
+                e.currentTarget.classList.toggle('active'); 
                 filterData();
             }));
 
-            // Lógica de animación del botón de papelera
             const trashLid = els.clearBtn.querySelector('.trash-lid');
             const trashBody = els.clearBtn.querySelector('.trash-body');
             const NUM_SPARKS = 10;
@@ -1166,7 +1225,6 @@
                 if (els.clearBtn.disabled) return;
                 els.clearBtn.disabled = true;
                 
-                // Aplicamos ripple manualmente
                 const rect = e.currentTarget.getBoundingClientRect();
                 createRippleEffect({ 
                     currentTarget: e.currentTarget, 
@@ -1192,54 +1250,19 @@
             });
         }
 
-        function inicializarApp() {
+        async function inicializarApp() {
             
-            // CLAVE: DATOS DE EJEMPLO CON LA NUEVA ESTRUCTURA DE APLICACIONES
+            showSkeletonLoader();
+
+            await new Promise(resolve => setTimeout(resolve, 800));
+
             const data = [
-                { 
-                    "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", 
-                    "aplicaciones": [
-                        { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" },
-                        { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" },
-                        { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" }
-                    ]
-                },
-                { 
-                    "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3",
-                    "aplicaciones": [
-                        { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" },
-                        { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" }
-                    ]
-                },
-                { 
-                    "ref": "BX-9101", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan",
-                    "aplicaciones": [
-                        { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" },
-                        { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" },
-                        { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" }
-                    ]
-                },
-                { 
-                    "ref": "BX-1121", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla",
-                    "aplicaciones": [
-                        { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" }
-                    ]
-                },
-                { 
-                    "ref": "BX-5161", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio",
-                    "aplicaciones": [
-                        { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" },
-                        { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" }
-                    ]
-                },
-                { 
-                    "ref": "BX-5679", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras",
-                    "aplicaciones": [
-                        { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" },
-                        { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" }
-                    ]
-                },
-                // Se conservan algunos para variedad y pruebas
+                { "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
+                { "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
+                { "ref": "BX-9101", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
+                { "ref": "BX-1121", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
+                { "ref": "BX-5161", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
+                { "ref": "BX-5679", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
                 { "ref": "BX-3141", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
                 { "ref": "BX-1122", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
                 { "ref": "BX-3143", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
@@ -1251,7 +1274,6 @@
                 return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 };
             });
 
-            // CLAVE: Recopilación de valores únicos para datalist (de todas las aplicaciones)
             const getAllApplicationValues = (key) => {
                 const allValues = new Set();
                 brakePadsData.forEach(item => {
@@ -1264,11 +1286,12 @@
             };
 
             fillDatalist(els.datalistMarca, getAllApplicationValues('marca'));
-            fillDatalist(els.datalistModelo, getAllApplicationValues('modelo')); // Muestra las Series
+            fillDatalist(els.datalistModelo, getAllApplicationValues('modelo'));
             fillDatalist(els.datalistAnio, getAllApplicationValues('año'));
-            fillDatalist(els.datalistOem, getAllApplicationValues('oem')); 
-            fillDatalist(els.datalistFmsi, getAllApplicationValues('fmsi'));
+            fillDatalist(els.datalistOem, brakePadsData.map(i => i.oem).filter(Boolean).sort());
+            fillDatalist(els.datalistFmsi, brakePadsData.map(i => i.fmsi).filter(Boolean).sort());
             
+            applyFiltersFromURL();
             filterData();
         }
 
