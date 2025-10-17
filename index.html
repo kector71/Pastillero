@@ -1,16 +1,3 @@
-¡Entendido! Para que el footer se extienda de borde a borde de la pantalla, necesitas hacer dos pequeños ajustes en el CSS:
- * Eliminar la restricción de ancho en el contenido del footer (.footer-content).
- * Quitar el padding lateral del body para que no haya espacios en los costados.
-He aplicado estos cambios en el código a continuación.
-Resumen de los Cambios
-1. En el body:
- * Antes: padding: 0.5rem 0.5rem 0; (Tenía un espacio de 0.5rem a los lados).
- * Ahora: padding: 0.5rem 0 0; (Se eliminó el padding lateral).
-2. En .footer-content:
- * Antes: Tenía un max-width que limitaba su tamaño.
- * Ahora: Se ha eliminado la línea max-width para permitir que ocupe todo el espacio disponible.
-Con esto, el fondo del footer tocará los bordes de la pantalla y su contenido también se alineará con el nuevo ancho.
-Código HTML Completo y Corregido
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1306,4 +1293,3 @@ Código HTML Completo y Corregido
 
 </body>
 </html>
-
