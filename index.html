@@ -48,7 +48,7 @@
             --badge-trasera-bg: #ef4444; /* Rojo de botones activos */
             --badge-trasera-text: #fff;
 
-            /* CLAVE: Colores para el Skeleton Loader */
+            /* Colores para el Skeleton Loader */
             --skeleton-bg: #e2e8f0;
             --skeleton-highlight: #f1f5f9;
         }
@@ -89,7 +89,7 @@
             --badge-trasera-bg: #ef4444; 
             --badge-trasera-text: #fff;
             
-            /* CLAVE: Colores para el Skeleton Loader en modo oscuro */
+            /* Colores para el Skeleton Loader en modo oscuro */
             --skeleton-bg: #2d3748;
             --skeleton-highlight: #4a5568;
         }
@@ -338,7 +338,7 @@
         }
         body.lp-dark .clear-filters-btn svg {  stroke: #ffffff;  }
         
-        /* */
+        /* SKELETON LOADER STYLES */
         @keyframes skeleton-pulse {
             0%, 100% { background-color: var(--skeleton-bg); }
             50% { background-color: var(--skeleton-highlight); }
@@ -351,7 +351,7 @@
             box-shadow: var(--elevation-1);
             display: flex;
             flex-direction: column;
-            gap: 0.8rem; /* Espacio entre elementos del esqueleto */
+            gap: 0.8rem;
         }
         .skeleton-line {
             height: 1rem;
@@ -366,15 +366,15 @@
         }
         .skeleton-line.short { width: 40%; }
         .skeleton-line.long { width: 80%; }
-        /* */
-
+        /* FIN SKELETON LOADER STYLES */
 
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
         
         .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.5rem; }
         
+        /* CLAVE: Estilo para 2 columnas forzadas (se aplica con JS cuando no hay filtros) */
         .results-wrapper.three-cols {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr); /* <-- AJUSTADO */
         }
 
         @media (max-width: 1000px) {
@@ -387,7 +387,6 @@
                 grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             }
         }
-        
         
         .result-card {
             display: flex; 
@@ -595,8 +594,8 @@
         
         .material-btn {
             position: relative; 
-            width: 56px; 
-            height: 56px; 
+            width: 48px; 
+            height: 48px; 
             border-radius: 50%;
             background-color: var(--material-surface-light); 
             color: var(--text-color);
@@ -620,8 +619,8 @@
         }
 
         .material-btn svg { 
-            width: 24px; 
-            height: 24px; 
+            width: 22px; 
+            height: 22px; 
             fill:none; 
             stroke-width:2; 
             position:absolute; 
@@ -911,7 +910,6 @@
                 return busqMatch && appMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
-            // CLAVE: Se actualiza la URL cada vez que los datos se filtran
             updateURLWithFilters();
         };
         
@@ -984,7 +982,6 @@
             return `<div class="applications-list-container">${appListHTML}</div>`;
         };
         
-        // CLAVE: NUEVA LÓGICA DE SKELETON LOADER
         const showSkeletonLoader = (count = 6) => {
             let skeletonHTML = '';
             for (let i = 0; i < count; i++) {
@@ -999,7 +996,7 @@
                 `;
             }
             els.results.innerHTML = skeletonHTML;
-            els.results.classList.remove('three-cols'); // Asegura que el loader se vea bien
+            els.results.classList.remove('three-cols');
         };
 
 
@@ -1098,7 +1095,7 @@
             inputsToClear.forEach(input => input.value = '');
             els.posDel.classList.remove('active');
             els.posTras.classList.remove('active');
-            filterData(); // Esto ya llama a updateURLWithFilters()
+            filterData();
         };
         
         const createRippleEffect = (event) => {
@@ -1118,7 +1115,6 @@
             button.appendChild(circle);
         };
 
-        // CLAVE: === LÓGICA DE URL ===
         const updateURLWithFilters = () => {
             const params = new URLSearchParams();
             const filters = {
@@ -1164,7 +1160,6 @@
                 if (posParam.includes('Trasera')) els.posTras.classList.add('active');
             }
         };
-        // CLAVE: === FIN LÓGICA DE URL ===
 
         function setupEventListeners() {
             
@@ -1255,12 +1250,10 @@
             });
         }
 
-        // CLAVE: La función de inicialización ahora es asíncrona para simular la carga
         async function inicializarApp() {
             
-            showSkeletonLoader(); // Mostrar el loader primero
+            showSkeletonLoader();
 
-            // Simulación de carga de datos (puedes reemplazar esto con un fetch real)
             await new Promise(resolve => setTimeout(resolve, 800));
 
             const data = [
@@ -1298,7 +1291,6 @@
             fillDatalist(els.datalistOem, brakePadsData.map(i => i.oem).filter(Boolean).sort());
             fillDatalist(els.datalistFmsi, brakePadsData.map(i => i.fmsi).filter(Boolean).sort());
             
-            // CLAVE: Aplica filtros de la URL y luego filtra los datos
             applyFiltersFromURL();
             filterData();
         }
@@ -1310,4 +1302,4 @@
 </script>
 
 </body>
-</html>
+</html>ñ
