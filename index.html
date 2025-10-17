@@ -113,8 +113,7 @@
             background: var(--bg-color);   
             transition: background 0.5s ease, color 0.5s ease;   
             color: var(--text-color);
-            padding: 0.5rem 0.5rem;
-            padding-bottom: 2rem; 
+            padding: 0.5rem 0.5rem 4rem;
         }
 
         /* ================== MODIFICACIÓN DE HEADER (No Tarjeta) ================== */
@@ -128,17 +127,12 @@
             box-shadow: none; 
             padding: 0.25rem 0;
         }
-        body.lp-dark header {
-            box-shadow: none;
-            background-color: transparent;
-        }
         
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
-            display: flex; align-items: center; justify-content: center; gap: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
             opacity: 1; 
             animation: fadeDown 1s ease 0.3s forwards; 
-            white-space: nowrap; 
         }
         .header-subtitle { 
             font-size: 0.9rem; font-weight: 500; 
@@ -147,7 +141,6 @@
             border-left: none; 
             padding-left: 12px; 
             transition: color 0.5s ease;
-            white-space: nowrap; 
         }
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
@@ -167,10 +160,6 @@
             text-align: center;
             transform: none;
             transition: none; 
-        }
-        
-        .footer-banner.hidden {
-            transform: none;
         }
         
         body.lp-dark .footer-banner {
@@ -465,7 +454,7 @@
             margin-bottom: 0.5rem;
             overflow: hidden;
             border-radius: 0.5rem; 
-            aspect-ratio: 4/3; 
+            aspect-ratio: 4 / 3; 
         }
         
         .carousel-counter {
@@ -531,7 +520,7 @@
         .app-detail-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             line-height: 1.2;
             padding: 4px 0;
             border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
@@ -646,9 +635,11 @@
 
         /* ================== AJUSTES RESPONSIVE ================== */
         @media (max-width: 992px) { 
-            .main-layout { flex-direction: column; } 
+            .main-layout { 
+                flex-direction: column; 
+                gap: 1.5rem; /* <<< ESTE ES EL CAMBIO */
+            } 
             .filters-column { flex-basis: auto; width: 100%; } 
-            .position-btn { padding: 8px 16px; font-size: 0.875rem; }
             .input-group-horizontal { flex-direction: column; gap: 0.3rem; }
         }
         
@@ -667,30 +658,23 @@
         }
         
         @media (max-width: 600px) {
-            body { padding: 0.5rem 0.25rem; } 
-            .glass { padding: 1rem; } 
-            .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 0.8rem; padding: 0.5rem; }
-            .result-field{ font-size:0.9rem; }
+            .form-input, .position-btn {
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
         }
         
         @media (max-width: 480px) {
             header h1 { 
                 font-size: 1.1rem; 
-                flex-wrap: wrap; 
                 gap: 8px; 
-                white-space: normal; 
             }
             .header-subtitle { 
                 font-size: 0.8rem; 
-                white-space: normal; 
-                border-left: none; 
                 padding-left: 0;
-                display: block; 
-                width: 100%; 
+                flex-basis: 100%;
                 text-align: center;
             }
-            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
             .applications-list-container .app-detail-row {
                  grid-template-columns: 2fr 1fr; 
             }
@@ -966,7 +950,6 @@
             return appListHTML;
         };
         
-        /* === CAMBIO JS: NUEVA FUNCIÓN PARA RENDERIZAR ESPECIFICACIONES === */
         const renderSpecs = (item) => {
             let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`;
             specsHTML += `
@@ -1031,7 +1014,7 @@
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
                 const appsHTML = renderApplicationsList(item.aplicaciones);
-                const specsHTML = renderSpecs(item); // Se llama a la nueva función
+                const specsHTML = renderSpecs(item);
 
                 const imagePath = item.imagen; 
                 const imageCount = 3; 
