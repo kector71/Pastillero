@@ -41,11 +41,6 @@
             
             --btn-google-border: #747775;
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
-
-            /* Nuevo color para el botón de detalle de tarjeta */
-            --btn-card-detail-bg: #3b82f6;
-            --btn-card-detail-text: #ffffff;
-            --btn-card-detail-hover-bg: #2563eb;
         }
 
         body.lp-dark {
@@ -81,10 +76,6 @@
             
             --btn-google-border: #8e918f;
             --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
-
-            --btn-card-detail-bg: #60a5fa;
-            --btn-card-detail-text: #1e1e1e;
-            --btn-card-detail-hover-bg: #3b82f6;
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -344,146 +335,161 @@
              stroke: #ffffff; 
         }
         
-        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
+        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
+        
+        /* CLAVE: Reducción del ancho mínimo y del gap */
+        .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.5rem; }
+        
         .result-card {
-            /* Flexbox para empujar el botón al final */
             display: flex; 
             flex-direction: column; 
-            justify-content: space-between; 
-            /* ... (resto de estilos de tarjeta) ... */
+            justify-content: flex-start; /* Eliminado space-between para quitar espacio del botón */
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
-            border-radius:1rem; 
-            padding:1rem; 
+            border-radius:0.75rem; /* Reducido */
+            padding:0.75rem; /* Reducido */
             box-shadow: var(--elevation-1); 
-            gap:0.25rem; 
+            gap:0.2rem; /* Reducido */
             opacity:1; 
             transform: translateY(0); 
             animation: fadeInUp 0.3s forwards;
             backdrop-filter: none; 
         }
         
-        /* Contenedor del botón de acción */
-        .card-action-container {
-            padding-top: 1rem;
-            margin-top: auto; /* Empuja el contenedor al final */
-            text-align: center;
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            padding-bottom: 0.5rem; /* Reducido */
+            border-bottom: 1px solid var(--material-surface-border);
+            margin-bottom: 0.5rem; /* Reducido */
+        }
+        .card-ref {
+            font-size: 1rem; /* Reducido */
+            font-weight: 700;
+            color: var(--text-color);
+            white-space: nowrap;
         }
         
-        /* Botón de Acción dentro de la Tarjeta */
-        .card-detail-btn {
-            position: relative;
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 0.5rem;
-            background-color: var(--btn-card-detail-bg);
-            color: var(--btn-card-detail-text);
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: var(--elevation-1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        .card-model {
+            font-size: 0.8rem; /* Reducido */
+            font-weight: 700; 
+            text-decoration: underline; 
+            opacity: 1; 
+            margin-top: 0.1rem; /* Reducido */
+            color: var(--text-color); 
         }
-
-        .card-detail-btn:hover {
-            background-color: var(--btn-card-detail-hover-bg);
-            box-shadow: var(--elevation-2);
+        
+        /* Contenedor del carrusel y posición */
+        .result-card > div:nth-child(4) { /* El div que contiene el badge de posición */
+            margin-bottom: 0.5rem !important; /* Reducido */
         }
-
-        /* Estilos para aplicaciones secundarias */
-        .secondary-applications {
-            margin-bottom: 0.5rem; /* Espacio antes de las especificaciones o el botón */
+        .position-badge { 
+             font-size:0.7rem; /* Reducido */
+             padding:0.2rem 0.4rem; /* Reducido */
         }
-        .secondary-applications strong {
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.2rem;
-            opacity: 0.8;
-            color: inherit;
-        }
-        .secondary-applications ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin-top: 0.2rem;
-        }
-        .secondary-applications li {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            line-height: 1.3;
-        }
-
-
-        /* Estilos del Carrusel de Imágenes */
+        
+        /* Carrusel de Imágenes (Reducción de tamaño) */
         .card-images-carousel {
             position: relative;
             width: 100%;
             overflow: hidden;
-            border-radius: 0.75rem;
-            margin-bottom: 0.75rem;
-            aspect-ratio: 3/2; 
+            border-radius: 0.5rem; /* Reducido */
+            margin-bottom: 0.5rem; /* Reducido */
+            aspect-ratio: 4/3; /* Ligeramente más cuadrado/compacto */
         }
-
-        .image-track {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .result-image { 
-            width: 100%; 
-            height: 100%;
-            max-height: none; 
-            object-fit: contain; 
-            flex-shrink: 0; 
-            margin-bottom: 0;
-            display: block;
-        }
-
-
+        
         .carousel-counter {
-            position: absolute;
+            position: absolute; /* Aseguramos que el contador sea hijo directo de .card-images-carousel */
             bottom: 5px;
             right: 5px;
             background: rgba(0, 0, 0, 0.6);
             color: white;
-            padding: 0.2rem 0.5rem;
+            padding: 0.1rem 0.4rem; /* Reducido */
             border-radius: 0.5rem;
-            font-size: 0.75rem;
+            font-size: 0.7rem; /* Reducido */
             z-index: 10;
         }
-        /* Fin Estilos del Carrusel */
 
-        
-        .card-specs {
-            font-size: 0.9rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.2rem 0.5rem;
-            margin-top: 0.5rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid var(--material-surface-border);
-            /* Asegura que haya espacio antes del botón */
-            margin-bottom: 0.5rem; 
+        /* CLAVE: CORRECCIÓN DE POSICIONAMIENTO DE BOTONES DEL CARRUSEL */
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            border: none;
+            color: white;
+            padding: 0.4rem 0.2rem; /* Reducido */
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            border-radius: 0;
+            font-size: 1rem; /* Reducido */
+            line-height: 1;
         }
         
+        /* CLAVE: Posición de botón Anterior */
+        .card-images-carousel .carousel-nav-btn[data-direction="-1"] { 
+            left: 0;
+            border-radius: 0 0.4rem 0.4rem 0; 
+            padding-right: 0.6rem; 
+        }
+
+        /* CLAVE: Posición de botón Siguiente */
+        .card-images-carousel .carousel-nav-btn[data-direction="1"] { 
+            right: 0;
+            left: auto; 
+            border-radius: 0.4rem 0 0 0.4rem; 
+            padding-left: 0.6rem; 
+        }
+        
+        /* Estilos para aplicaciones secundarias */
+        .secondary-applications {
+            margin-bottom: 0.5rem; /* Reducido */
+            padding-top: 0.4rem; /* Reducido */
+        }
+        .secondary-applications strong {
+            font-size: 0.8rem; /* Reducido */
+        }
+        .secondary-applications li {
+            font-size: 0.75rem; /* Reducido */
+            line-height: 1.2;
+        }
+
+        /* Especificaciones */
+        .card-specs {
+            font-size: 0.8rem; /* Reducido */
+            grid-template-columns: 1fr 1fr;
+            gap: 0.1rem 0.4rem; /* Reducido */
+            margin-top: 0.4rem; /* Reducido */
+            padding-top: 0.4rem; /* Reducido */
+            /* Se elimina el margin-bottom para compactar */
+            margin-bottom: 0; 
+            border-top: 1px solid var(--material-surface-border);
+        }
         .card-specs strong {
             font-weight: 700; 
-            font-size: 0.8rem;
+            font-size: 0.75rem; /* Reducido */
             opacity: 0.9; 
             display: block;
             text-decoration: underline; 
         }
         .card-specs span {
-            font-size: 0.9rem;
+            font-size: 0.8rem; /* Reducido */
         }
-
-        .position-badge { display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; text-align:center; }
-        .position-delantera { background-color:#dbeafe; color:#1d4ed8; }
-        .position-trasera { background-color:#fef2f2; color:#b91c1c; }
-        .no-results { text-align:center; padding: 2rem 0; opacity: 0.7; grid-column: 1 / -1; }
+        
+        /* Animaciones (sin cambios) */
+        @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
+        @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
+        @keyframes shake-body { 0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)} }
+        @keyframes spark-fade-out { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0.5); } }
+        
+        .spark { position: absolute; border-radius: 50%; opacity: 0; animation: spark-fade-out 0.6s ease-out forwards; box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
+        
+        .animate-button { animation: bounce 0.4s ease-in-out; }
+        .animate-lid { animation: open-lid 0.8s ease-in-out; }
+        .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
 
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
         .floating-buttons-container { 
@@ -591,6 +597,9 @@
             .form-input, .position-btn { font-size: 1rem; padding: 0.8rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
+            
+            /* Ajuste para que quepan más tarjetas en móvil si es necesario */
+            .results-wrapper { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:0.5rem; }
         }
         
         @media (max-width: 480px) {
@@ -837,11 +846,14 @@
 
 
         const renderResults = (filteredData) => {
+            
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
                 els.results.innerHTML = `<p class="no-results">No se encontraron pastillas con los filtros seleccionados.</p>`;
                 return;
             }
+            
+            // Generar el HTML de las tarjetas
             els.results.innerHTML = filteredData.map(item => {
                 const posBadge = item.posición === 'Delantera'
                     ? '<span class="position-badge position-delantera">Delantera</span>'
@@ -849,15 +861,26 @@
                 
                 // === CLAVE: SELECCIONAR APLICACIONES ===
                 const primaryApp = item.aplicaciones[0];
-                const secondaryApps = item.aplicaciones.slice(1);
+                let secondaryApps = item.aplicaciones.slice(1);
                 
                 let secondaryAppsHTML = '';
+                
                 if (secondaryApps.length > 0) {
+                    // CLAVE: Ordenar las aplicaciones secundarias por marca y luego por modelo
+                    secondaryApps.sort((a, b) => {
+                        if (a.marca < b.marca) return -1;
+                        if (a.marca > b.marca) return 1;
+                        if (a.modelo < b.modelo) return -1;
+                        if (a.modelo > b.modelo) return 1;
+                        return 0;
+                    });
+                    
                     secondaryAppsHTML = secondaryApps.map(app => 
                         `<li>${app.marca} ${app.modelo} (${app.año})</li>`
                     ).join('');
+                    
                     secondaryAppsHTML = `
-                        <div class="secondary-applications" style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed var(--material-surface-border);">
+                        <div class="secondary-applications" style="margin-top: 0.5rem; padding-top: 0.4rem; border-top: 1px dashed var(--material-surface-border);">
                             <strong>Otras Aplicaciones:</strong>
                             <ul>${secondaryAppsHTML}</ul>
                         </div>
@@ -892,7 +915,7 @@
                                 <div class="card-model">${primaryApp.marca} ${primaryApp.modelo} (${primaryApp.año})</div>
                             </div>
                             
-                            <div style="margin-bottom: 0.75rem; text-align: left;">${posBadge}</div>
+                            <div style="margin-bottom: 0.5rem; text-align: left;">${posBadge}</div>
                             
                             ${carouselHTML}
                             
@@ -916,28 +939,16 @@
                                     <span>${item.altoNum} mm</span>
                                 </div>
                             </div>
-
-                            <div class="card-action-container">
-                                <button class="card-detail-btn" data-ref="${item.ref}">Ver Detalles</button>
-                            </div>
                         </div>`;
             }).join('');
             
-            // Asignar listeners de navegación después de que los resultados se hayan renderizado
+            // Asignar listeners del carrusel después de que se inserta el HTML
             els.results.querySelectorAll('.carousel-nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation(); 
                     const card = e.currentTarget.closest('.result-card');
                     const direction = parseInt(e.currentTarget.dataset.direction);
                     navigateCarousel(card, direction);
-                });
-            });
-
-            // CLAVE: Listener para el nuevo botón "Ver Detalles"
-            els.results.querySelectorAll('.card-detail-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const ref = e.currentTarget.dataset.ref;
-                    alert(`Simulando la apertura de detalles para la Referencia: ${ref}\n(Aquí se abriría un modal o se redirigiría a una página de producto completa)`);
                 });
             });
         };
@@ -978,9 +989,8 @@
 
         function setupEventListeners() {
             
-            // Se añade ripple al nuevo botón de detalle
+            // Se añade ripple a los botones flotantes
             [els.darkBtn, els.upBtn].forEach(btn => btn.addEventListener('click', createRippleEffect));
-            document.querySelectorAll('.card-detail-btn').forEach(btn => btn.addEventListener('click', createRippleEffect));
 
 
             els.darkBtn.addEventListener('click', () => {
@@ -1152,8 +1162,6 @@
         setupEventListeners();
         inicializarApp();
         
-        // Ejecutar setupEventListeners de nuevo para incluir los listeners del nuevo botón después de renderizar la primera vez
-        // Esto es un workaround. Lo ideal es encapsular el renderizado de botones. Lo haremos en el renderResults.
     });
 </script>
 
