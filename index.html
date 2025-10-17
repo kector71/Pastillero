@@ -460,7 +460,7 @@
         
         .card-images-carousel {
             position: relative;
-            flex: 1;
+            width: 100%;
             max-width: 100%;
             margin-bottom: 0.5rem;
             overflow: hidden;
@@ -512,7 +512,7 @@
         
         .applications-list-container {
             margin-top: 0.4rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0;
             padding-top: 0.4rem;
             border-top: 1px dashed var(--material-surface-border);
         }
@@ -537,50 +537,18 @@
             border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
             color: var(--text-color);
             opacity: 0.85;
+            align-items: center;
         }
+        .app-detail-row > div:last-child {
+            text-align: right;
+        }
+        
         body.lp-dark .app-detail-row {
              border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
         }
         
-        .card-specs {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            margin-top: auto; 
-            padding-top: 0.4rem; 
-            border-top: 1px solid var(--material-surface-border);
-            margin: 0 -1rem;
-            margin-top: auto;
-        }
-
-        .spec-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2px 1rem;
-            font-size: 0.8rem;
-            border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
-        }
-        body.lp-dark .spec-item {
-             border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
-        }
-
-        .spec-item:last-child {
+        .app-detail-row:last-child {
             border-bottom: none;
-            padding-bottom: 2px;
-        }
-
-        .spec-item strong {
-            font-weight: 700; 
-            font-size: 0.75rem; 
-            opacity: 0.9; 
-            text-decoration: underline; 
-            margin-right: 0.5rem;
-        }
-        .spec-item span {
-            font-size: 0.8rem; 
-            text-align: right;
-            opacity: 0.9;
         }
         
         .card-model, .app-header-row { display: none;  }
@@ -692,16 +660,9 @@
             }
             .card-content-wrapper { flex: 1; }
             .card-images-carousel {
-                flex: 1;
+                flex: 1.5;
                 max-width: none;
                 margin-bottom: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .floating-buttons-container.left,
-            .floating-buttons-container.right { 
-                bottom: 18px; 
             }
         }
         
@@ -1002,7 +963,35 @@
                 });
             }
 
-            return `<div class="applications-list-container">${appListHTML}</div>`;
+            return appListHTML;
+        };
+        
+        /* === CAMBIO JS: NUEVA FUNCIÓN PARA RENDERIZAR ESPECIFICACIONES === */
+        const renderSpecs = (item) => {
+            let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`;
+            specsHTML += `
+                <div class="app-detail-row">
+                    <div><strong>OEM</strong></div>
+                    <div></div>
+                    <div>${item.oem}</div>
+                </div>
+                <div class="app-detail-row">
+                    <div><strong>Platina FMSI</strong></div>
+                    <div></div>
+                    <div>${item.fmsi}</div>
+                </div>
+                <div class="app-detail-row">
+                    <div><strong>Ancho</strong></div>
+                    <div></div>
+                    <div>${item.anchoNum} mm</div>
+                </div>
+                <div class="app-detail-row">
+                    <div><strong>Alto</strong></div>
+                    <div></div>
+                    <div>${item.altoNum} mm</div>
+                </div>
+            `;
+            return specsHTML;
         };
         
         const showSkeletonLoader = (count = 6) => {
@@ -1042,6 +1031,7 @@
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
                 const appsHTML = renderApplicationsList(item.aplicaciones);
+                const specsHTML = renderSpecs(item); // Se llama a la nueva función
 
                 const imagePath = item.imagen; 
                 const imageCount = 3; 
@@ -1063,27 +1053,6 @@
                         <button class="carousel-nav-btn" data-direction="1" aria-label="Siguiente imagen">›</button>
                     </div>
                 `;
-                
-                const specsHTML = `
-                    <div class="card-specs">
-                        <div class="spec-item">
-                            <strong>OEM</strong>
-                            <span>${item.oem}</span>
-                        </div>
-                        <div class="spec-item">
-                            <strong>Platina FMSI</strong>
-                            <span>${item.fmsi}</span>
-                        </div>
-                        <div class="spec-item">
-                            <strong>Ancho</strong>
-                            <span>${item.anchoNum} mm</span>
-                        </div>
-                        <div class="spec-item">
-                            <strong>Alto</strong>
-                            <span>${item.altoNum} mm</span>
-                        </div>
-                    </div>
-                `;
                         
                 return `<div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms">
                             <div class="card-content-wrapper">
@@ -1091,8 +1060,10 @@
                                     <div class="card-ref">${item.ref}</div>
                                 </div>
                                 <div class="card-position">${posBadge}</div>
-                                ${appsHTML}
-                                ${specsHTML}
+                                <div class="applications-list-container">
+                                    ${appsHTML}
+                                    ${specsHTML}
+                                </div>
                             </div>
                             ${carouselHTML}
                         </div>`;
