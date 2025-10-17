@@ -227,7 +227,7 @@
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:1rem; 
-            padding: 1rem; 
+            padding: 0.75rem 1rem; /* CAMBIO: Padding vertical reducido */
             box-shadow: var(--elevation-1); 
             transition: box-shadow 0.3s ease;
             backdrop-filter: none; 
@@ -237,17 +237,17 @@
         .filter-title { 
             font-weight: 600; 
             font-size: 1rem; 
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem; /* CAMBIO: Reducido */
             text-align: left; 
             display: flex;
             align-items: center;
             gap: 8px; 
-            padding-bottom: 0.25rem;
+            padding-bottom: 0.2rem; /* CAMBIO: Reducido */
             border-bottom: 1px solid var(--material-surface-border);
         }
         
         .glass > .filter-title:not(:first-child) {
-            margin-top: 1.25rem;
+            margin-top: 1rem; /* CAMBIO: Reducido */
         }
 
         .form-input {
@@ -261,14 +261,14 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem; /* CAMBIO: Reducido */
         }
         
         .form-input:last-of-type {
              margin-bottom: 0;
         }
         
-        .position-container { display:flex; gap: 0.5rem; }
+        .position-container { display:flex; gap: 0.4rem; }
 
         .position-btn {
             flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer;
@@ -283,14 +283,13 @@
         
         .input-group-horizontal { 
             display:flex; 
-            gap: 0.4rem; 
-            margin-bottom: 0.5rem;
+            gap: 0.3rem; 
+            margin-bottom: 0.4rem;
         } 
         
-        /* === ESTE ES EL CAMBIO === */
         .input-group-horizontal .form-input {
             margin-bottom: 0;
-            flex: 1; /* Esto hace que los inputs en el grupo compartan el espacio por igual */
+            flex: 1;
         }
         
         .input-group-horizontal:last-of-type {
@@ -306,7 +305,7 @@
             height: auto; 
             padding: 10px 16px; 
             border-radius: 0.75rem; 
-            margin-top: 1.25rem;
+            margin-top: 1rem; /* CAMBIO: Reducido */
             
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text); 
@@ -383,7 +382,7 @@
         
         .results-wrapper { 
             display: grid; 
-            grid-template-columns: 1fr; 
+            grid-template-columns: 1fr;
             gap: 1rem; 
         }
         
