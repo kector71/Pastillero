@@ -86,10 +86,11 @@
             transition: background 0.5s ease, color 0.5s ease;    
             color: var(--text-color);
             padding: 1rem;
-            padding-bottom: 5rem; 
+            /* Se ajusta el padding inferior ya que el footer ya no es flotante */
+            padding-bottom: 2rem; 
         }
 
-        /* ================== HEADER (Material Design) ================== */
+        /* ================== MODIFICACIÓN DE HEADER (Una sola línea) ================== */
         header { 
             width: 100%; 
             max-width: 1200px; 
@@ -106,9 +107,12 @@
         
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
+            /* CLAVE: Flex para mantener todo en línea */
             display: flex; align-items: center; justify-content: center; gap: 12px;
             opacity: 1; 
             animation: fadeDown 1s ease 0.3s forwards; 
+            /* CLAVE: Evitar que se rompa en varias líneas */
+            white-space: nowrap; 
         }
         .header-subtitle { 
             font-size: 0.9rem; font-weight: 500; opacity: 0.8; 
@@ -118,31 +122,33 @@
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
 
-        /* ================== FOOTER BANNER (Material Design) ================== */
+        /* ================== MODIFICACIÓN DE FOOTER (No flotante) ================== */
         .footer-banner {
-            position: fixed; 
-            bottom: 0;
-            left: 0;
+            /* CLAVE: Eliminamos el posicionamiento fijo */
+            position: static; 
             width: 100%;
+            margin-top: 2rem; /* Espacio antes del footer */
             background-color: var(--material-surface-light);
             color: var(--text-color);
-            /* AQUI: Se reduce el padding vertical para reducir la altura */
             padding: 0.5rem 1rem; 
             border-top: 1px solid var(--material-surface-border);
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            /* Sombra sutil para destacar del fondo */
+            box-shadow: var(--elevation-1);
             z-index: 100; 
             font-size: 0.8rem;
             text-align: center;
-            transform: translateY(0);
-            transition: transform 0.3s ease-out; 
+            /* Eliminamos la lógica de hidden ya que no flota */
+            transform: none;
+            transition: none; 
         }
         
         .footer-banner.hidden {
-            transform: translateY(100%);
+            /* Eliminamos la regla de ocultar */
+            transform: none;
         }
         
         body.lp-dark .footer-banner {
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+            box-shadow: var(--elevation-2);
         }
         .footer-content {
             max-width: 1200px;
@@ -493,7 +499,8 @@
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
         .floating-buttons-container { 
             position: fixed; 
-            bottom: 70px; 
+            /* Se ajusta la posición bottom para compensar el footer estático */
+            bottom: 18px; 
             z-index: 9999; 
             display: flex; 
             flex-direction: column; 
@@ -583,9 +590,10 @@
         /* ================== AJUSTES RESPONSIVE ================== */
         @media (max-width: 992px) { .main-layout { flex-direction: column; } .filters-column { flex-basis: auto; width: 100%; } }
         
+        /* Ajuste de botones flotantes para pantallas pequeñas */
         @media (max-width: 768px) {
-            .floating-buttons-container.left { bottom: 70px; }
-            .floating-buttons-container.right { bottom: 70px; }
+            .floating-buttons-container.left { bottom: 18px; }
+            .floating-buttons-container.right { bottom: 18px; }
         }
         
         @media (max-width: 600px) {
@@ -598,10 +606,12 @@
         }
         
         @media (max-width: 480px) {
+            /* CLAVE: En móvil, permitimos que el título se envuelva si es necesario, pero mantenemos la estructura en la medida de lo posible */
             header h1 { 
                 font-size: 1.1rem; 
                 flex-wrap: wrap; 
                 gap: 8px; 
+                white-space: normal; /* Permitimos el wrap en pantallas muy pequeñas */
             }
             .header-subtitle { 
                 font-size: 0.8rem; 
@@ -690,7 +700,7 @@
         </div>
     </div>
 
-    <footer class="footer-banner hidden" id="footerBanner"> 
+    <footer class="footer-banner" id="footerBanner"> 
         <div class="footer-content">
             <div class="footer-links">
                 <a href="#">Política de Privacidad</a> | 
@@ -803,32 +813,11 @@
                 return busqMatch && marcaMatch && modeloMatch && anioMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
             });
             renderResults(filtered);
-            checkFooterVisibility(); 
+            // checkFooterVisibility(); // Eliminado ya que el footer ya no es flotante
         };
         
-        // FUNCIÓN CLAVE para controlar la visibilidad del footer
-        function checkFooterVisibility() {
-            const scrollHeight = document.documentElement.scrollHeight;
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const clientHeight = document.documentElement.clientHeight;
-            
-            // Si el contenido es menor que la ventana (no hay scroll), lo mantenemos visible.
-            if (scrollHeight <= clientHeight) {
-                els.footer.classList.remove('hidden'); 
-                return;
-            }
-            
-            // Tolerancia de 5 píxeles para asegurar que se muestre al llegar casi al final
-            const tolerance = 5; 
-            
-            if (scrollTop + clientHeight >= scrollHeight - tolerance) {
-                // Si el scroll está al final, muestra el footer
-                els.footer.classList.remove('hidden');
-            } else {
-                // Si no, oculta el footer
-                els.footer.classList.add('hidden');
-            }
-        }
+        // FUNCIÓN ELIMINADA: checkFooterVisibility ya no es necesaria.
+        /* function checkFooterVisibility() { ... } */
 
         // FUNCIÓN CLAVE PARA LA NAVEGACIÓN DEL CARRUSEL
         function navigateCarousel(cardElement, direction) {
@@ -989,10 +978,10 @@
             
             window.addEventListener('scroll', () => {
                 els.upBtn.classList.toggle('show', window.scrollY > 300);
-                checkFooterVisibility();
+                // checkFooterVisibility(); // Eliminado
             });
 
-            window.addEventListener('resize', checkFooterVisibility);
+            // window.addEventListener('resize', checkFooterVisibility); // Eliminado
 
 
             const debouncedFilter = debounce(filterData, 300);
@@ -1062,7 +1051,7 @@
         }
 
         function inicializarApp() {
-            els.footer.classList.add('hidden');
+            // els.footer.classList.add('hidden'); // Eliminado
             
             // DATOS DE EJEMPLO
             const data = [
@@ -1099,7 +1088,7 @@
             fillDatalist(els.datalistFmsi, uniqueValues('fmsi'));
             
             filterData();
-            checkFooterVisibility(); 
+            // checkFooterVisibility(); // Eliminado
         }
 
         setupEventListeners();
