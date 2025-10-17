@@ -42,10 +42,11 @@
             --btn-google-border: #747775;
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
 
-            /* Nuevo color para el botón de detalle de tarjeta */
-            --btn-card-detail-bg: #3b82f6;
-            --btn-card-detail-text: #ffffff;
-            --btn-card-detail-hover-bg: #2563eb;
+            /* Colores para badges de posición */
+            --badge-delantera-bg: #3b82f6; /* Azul de botones activos */
+            --badge-delantera-text: #fff;
+            --badge-trasera-bg: #ef4444; /* Rojo de botones activos */
+            --badge-trasera-text: #fff;
         }
 
         body.lp-dark {
@@ -77,14 +78,12 @@
             --icon-moon-stroke: #fff;
             --icon-arrow-stroke: #FF3B30; 
             --icon-main-stroke: #60a5fa; 
-            --arrow-glow-animation: arrow-glow-dark 1.5s ease-in-out infinite alternate;
-            
-            --btn-google-border: #8e918f;
-            --btn-google-hover-bg: rgba(255, 255, 255, 0.08);
 
-            --btn-card-detail-bg: #60a5fa;
-            --btn-card-detail-text: #1e1e1e;
-            --btn-card-detail-hover-bg: #3b82f6;
+            /* Colores para badges de posición en modo oscuro */
+            --badge-delantera-bg: #3b82f6; 
+            --badge-delantera-text: #fff;
+            --badge-trasera-bg: #ef4444; 
+            --badge-trasera-text: #fff;
         }
 
         /* ================== GENERAL & BODY ================== */
@@ -187,9 +186,13 @@
             font-size: 0.75rem; 
         }
 
-        /* ================== ESTRUCTURA PRINCIPAL ================== */
+        /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
         .main-layout { max-width: 1200px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: flex-start; }
-        .filters-column { flex: 0 0 320px; display: flex; flex-direction: column; gap: 1.5rem; }
+        /* CLAVE: Reducción del ancho del filtro */
+        .filters-column { flex: 0 0 280px; display: flex; flex-direction: column; 
+            /* CLAVE: Reducción del espaciado vertical */
+            gap: 1rem; 
+        }
         .results-panel { flex: 1; }
 
         /* ================== ESTILOS DE FILTROS Y TARJETAS (Material) ================== */
@@ -233,14 +236,15 @@
             transition: all 0.3s ease; 
             box-sizing: border-box;
             box-shadow: none;
-            /* Aplicado a todos los inputs por defecto */
-            margin-bottom: 0.75rem; 
+            /* CLAVE: Reducción del margen inferior */
+            margin-bottom: 0.6rem; 
         }
         
         /* Regla para separar los inputs que están directamente dentro de .glass */
         .glass > input[type="text"]:last-of-type,
         .glass > input[list]:last-of-type {
-            margin-bottom: 0.75rem;
+            /* CLAVE: Ajuste en el último input del grupo (ej. Busqueda Rápida) */
+            margin-bottom: 0.6rem;
         }
 
         /* Excepción para los grupos de inputs y el último input en ese contexto */
@@ -250,7 +254,7 @@
         
         /* Arreglamos la separación específica de los inputs de Vehículo */
         .glass:nth-child(2) > input[list]:nth-last-child(3) { 
-             margin-bottom: 0;
+             margin-bottom: 0.6rem;
         }
 
         /* Reseteamos para el input de búsqueda rápida (es el único en su panel) */
@@ -270,8 +274,8 @@
             border: 1px solid var(--btn-google-border); background-color: transparent; color: var(--text-color);
         }
         .position-btn:hover { background-color: var(--btn-google-hover-bg); }
-        #positionDelantera.active { background-color: #3b82f6; border-color: #3b82f6; color: #fff; box-shadow: var(--elevation-1); }
-        #positionTrasera.active { background-color: #ef4444; border-color: #ef4444; color: #fff; box-shadow: var(--elevation-1); }
+        #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; box-shadow: var(--elevation-1); }
+        #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; box-shadow: var(--elevation-1); }
         
         .input-group-horizontal { display:flex; gap: 0.4rem; margin-bottom: 0.75rem; } 
         
@@ -280,7 +284,7 @@
         /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
         .clear-filters-wrapper { 
             text-align: center; 
-            margin-top: 1.5rem; 
+            margin-top: 1rem; /* Reducido */
             margin-bottom: 0;
             padding: 0; 
             background-color: transparent; 
@@ -344,146 +348,219 @@
              stroke: #ffffff; 
         }
         
-        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
+        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
+        
+        /* CLAVE: Reducción del ancho mínimo y del gap */
+        .results-wrapper { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.5rem; }
+        
         .result-card {
-            /* Flexbox para empujar el botón al final */
             display: flex; 
             flex-direction: column; 
-            justify-content: space-between; 
-            /* ... (resto de estilos de tarjeta) ... */
+            justify-content: flex-start; 
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
-            border-radius:1rem; 
-            padding:1rem; 
+            border-radius:0.75rem; 
+            padding:0.75rem; 
             box-shadow: var(--elevation-1); 
-            gap:0.25rem; 
+            gap:0.2rem; 
             opacity:1; 
             transform: translateY(0); 
             animation: fadeInUp 0.3s forwards;
             backdrop-filter: none; 
         }
         
-        /* Contenedor del botón de acción */
-        .card-action-container {
-            padding-top: 1rem;
-            margin-top: auto; /* Empuja el contenedor al final */
-            text-align: center;
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            padding-bottom: 0.5rem; 
+            border-bottom: 1px solid var(--material-surface-border);
+            margin-bottom: 0.5rem; 
+        }
+        .card-ref {
+            font-size: 1rem; 
+            font-weight: 700;
+            color: var(--text-color);
+            white-space: nowrap;
         }
         
-        /* Botón de Acción dentro de la Tarjeta */
-        .card-detail-btn {
-            position: relative;
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 0.5rem;
-            background-color: var(--btn-card-detail-bg);
-            color: var(--btn-card-detail-text);
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: var(--elevation-1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        .card-model {
+            display: none; 
+        }
+        
+        /* Contenedor del carrusel y posición */
+        .result-card > div:nth-child(4) { 
+            margin-bottom: 0.5rem !important; 
         }
 
-        .card-detail-btn:hover {
-            background-color: var(--btn-card-detail-hover-bg);
-            box-shadow: var(--elevation-2);
+        /* Estilos de los badges de posición en las tarjetas (CLAVE: Aplicación de variables) */
+        .position-badge { 
+             font-size:0.7rem; 
+             padding:0.2rem 0.6rem; 
+             border-radius: 100px; 
+             font-weight: 600; 
+             display: inline-block; 
+             margin-right: 0.5rem; 
+             transition: background-color 0.3s ease, color 0.3s ease;
+             box-shadow: var(--elevation-1); 
         }
 
-        /* Estilos para aplicaciones secundarias */
-        .secondary-applications {
-            margin-bottom: 0.5rem; /* Espacio antes de las especificaciones o el botón */
-        }
-        .secondary-applications strong {
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.2rem;
-            opacity: 0.8;
-            color: inherit;
-        }
-        .secondary-applications ul {
-            list-style-type: none;
-            padding-left: 0;
-            margin-top: 0.2rem;
-        }
-        .secondary-applications li {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            line-height: 1.3;
+        /* Colores específicos para los badges (delantera/trasera) */
+        .position-badge.delantera {
+            background-color: var(--badge-delantera-bg);
+            color: var(--badge-delantera-text);
         }
 
-
-        /* Estilos del Carrusel de Imágenes */
+        .position-badge.trasera {
+            background-color: var(--badge-trasera-bg);
+            color: var(--badge-trasera-text);
+        }
+        
+        /* Carrusel de Imágenes (Reducción de tamaño) */
         .card-images-carousel {
             position: relative;
             width: 100%;
             overflow: hidden;
-            border-radius: 0.75rem;
-            margin-bottom: 0.75rem;
-            aspect-ratio: 3/2; 
+            border-radius: 0.5rem; 
+            margin-bottom: 0.5rem; 
+            aspect-ratio: 4/3; 
         }
-
-        .image-track {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .result-image { 
-            width: 100%; 
-            height: 100%;
-            max-height: none; 
-            object-fit: contain; 
-            flex-shrink: 0; 
-            margin-bottom: 0;
-            display: block;
-        }
-
-
+        
         .carousel-counter {
-            position: absolute;
+            position: absolute; 
             bottom: 5px;
             right: 5px;
             background: rgba(0, 0, 0, 0.6);
             color: white;
-            padding: 0.2rem 0.5rem;
+            padding: 0.1rem 0.4rem; 
             border-radius: 0.5rem;
-            font-size: 0.75rem;
+            font-size: 0.7rem; 
             z-index: 10;
         }
-        /* Fin Estilos del Carrusel */
 
+        /* CORRECCIÓN DE POSICIONAMIENTO DE BOTONES DEL CARRUSEL */
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            border: none;
+            color: white;
+            padding: 0.4rem 0.2rem; 
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+            border-radius: 0;
+            font-size: 1rem; 
+            line-height: 1;
+        }
         
-        .card-specs {
-            font-size: 0.9rem;
+        .card-images-carousel .carousel-nav-btn[data-direction="-1"] { 
+            left: 0;
+            border-radius: 0 0.4rem 0.4rem 0; 
+            padding-right: 0.6rem; 
+        }
+
+        .card-images-carousel .carousel-nav-btn[data-direction="1"] { 
+            right: 0;
+            left: auto; 
+            border-radius: 0.4rem 0 0 0.4rem; 
+            padding-left: 0.6rem; 
+        }
+        
+        /* Estilos para APLICACIONES (Formato de Lista Minimalista) */
+        .applications-list-container {
+            margin-top: 0.4rem;
+            margin-bottom: 0.75rem;
+            padding-top: 0.4rem;
+            border-top: 1px dashed var(--material-surface-border);
+        }
+        
+        /* Encabezado de Marca (Sutil, como un separador) */
+        .app-brand-header {
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 3px 0;
+            margin-top: 6px;
+            color: var(--text-color);
+            opacity: 0.9;
+            border-bottom: 1px solid var(--material-surface-border);
+            text-transform: uppercase;
+        }
+
+        /* Detalles de la aplicación (Filas) */
+        .app-detail-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.2rem 0.5rem;
-            margin-top: 0.5rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid var(--material-surface-border);
-            /* Asegura que haya espacio antes del botón */
-            margin-bottom: 0.5rem; 
+            grid-template-columns: 2fr 1fr 1fr 2fr; /* Columna: Serie | Litros | Año | Especificación */
+            font-size: 0.75rem;
+            line-height: 1.2;
+            padding: 4px 0;
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+            opacity: 0.85;
+        }
+        body.lp-dark .app-detail-row {
+             border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
         }
         
-        .card-specs strong {
-            font-weight: 700; 
-            font-size: 0.8rem;
-            opacity: 0.9; 
-            display: block;
-            text-decoration: underline; 
+        /* Encabezados de columna fija (CLAVE: ocultamos por defecto, ya que se pidió quitarlos) */
+        .app-header-row {
+            display: none; 
         }
-        .card-specs span {
-            font-size: 0.9rem;
+        
+        /* Especificaciones (CLAVE: Estilo de lista compacta) */
+        .card-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 0; /* Elimina el espacio entre filas */
+            margin-top: 0.4rem; 
+            padding-top: 0.4rem; 
+            margin-bottom: 0; 
+            border-top: 1px solid var(--material-surface-border);
         }
 
-        .position-badge { display:inline-block; padding:0.3rem 0.5rem; border-radius:0.4rem; font-size:0.75rem; font-weight:500; text-align:center; }
-        .position-delantera { background-color:#dbeafe; color:#1d4ed8; }
-        .position-trasera { background-color:#fef2f2; color:#b91c1c; }
-        .no-results { text-align:center; padding: 2rem 0; opacity: 0.7; grid-column: 1 / -1; }
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 0; /* Compactado */
+            font-size: 0.8rem;
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+        }
+        body.lp-dark .spec-item {
+             border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .spec-item strong {
+            font-weight: 700; 
+            font-size: 0.75rem; 
+            opacity: 0.9; 
+            text-decoration: underline; 
+            margin-right: 0.5rem; /* Separación del valor */
+        }
+        .spec-item span {
+            font-size: 0.8rem; 
+            text-align: right;
+            opacity: 0.9;
+        }
+        
+        /* Animaciones (sin cambios) */
+        @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
+        @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
+        @keyframes shake-body { 0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)} }
+        @keyframes spark-fade-out { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0.5); } }
+        
+        .spark { position: absolute; border-radius: 50%; opacity: 0; animation: spark-fade-out 0.6s ease-out forwards; box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
+        
+        .animate-button { animation: bounce 0.4s ease-in-out; }
+        .animate-lid { animation: open-lid 0.8s ease-in-out; }
+        .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
 
         /* ================== BOTONES FLOTANTES (Material Design) ================== */
         .floating-buttons-container { 
@@ -588,18 +665,19 @@
             body { padding: 0.5rem; } 
             .glass { padding: 1rem; } 
             .position-container{ flex-direction: row; }
-            .form-input, .position-btn { font-size: 1rem; padding: 0.8rem; }
+            .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
             .result-field{ font-size:0.9rem; }
             .input-group-horizontal{ flex-direction:column; }
+            
+            .results-wrapper { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:0.5rem; }
         }
         
         @media (max-width: 480px) {
-            /* CLAVE: En móvil, permitimos que el título se envuelva si es necesario, pero mantenemos la estructura en la medida de lo posible */
             header h1 { 
                 font-size: 1.1rem; 
                 flex-wrap: wrap; 
                 gap: 8px; 
-                white-space: normal; /* Permitimos el wrap en pantallas muy pequeñas */
+                white-space: normal; 
             }
             .header-subtitle { 
                 font-size: 0.8rem; 
@@ -611,6 +689,20 @@
                 text-align: center;
             }
             .form-input, .position-btn { font-size: 0.9rem; padding: 0.8rem; }
+            /* Ajuste de grid de aplicaciones en móvil */
+            .applications-list-container .app-detail-row {
+                 grid-template-columns: 2fr 1fr 3fr; /* Quita Litros para ahorrar espacio */
+            }
+            .applications-list-container .app-header-row {
+                 grid-template-columns: 2fr 1fr 3fr;
+            }
+            .applications-list-container .app-header-row > div:nth-child(2) {
+                 display: none; /* Oculta Litros del encabezado */
+            }
+            .applications-list-container .app-detail-row > div:nth-child(2) {
+                 display: none; /* Oculta Litros de la fila */
+            }
+            
         }
     </style>
 </head>
@@ -629,7 +721,7 @@
                 <div class="filter-title">
                     Búsqueda Rápida
                 </div>
-                <input type="text" id="busquedaRapida" placeholder="Marca, Modelo, Ref, OEM..." class="form-input">
+                <input type="text" id="busquedaRapida" placeholder="Marca, Serie, Ref, OEM..." class="form-input">
             </div>
 
             <div class="glass">
@@ -637,9 +729,8 @@
                     Detalles del Vehículo
                 </div>
                 <input list="marcas" id="filtroMarca" class="form-input" placeholder="Marca"><datalist id="marcas"></datalist>
-                <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo"><datalist id="modelos"></datalist>
-                <input list="anios" id="filtroAnio" class="form-input" placeholder="Año">
-                <datalist id="anios"></datalist>
+                <input list="modelos" id="filtroModelo" class="form-input" placeholder="Modelo/Serie"><datalist id="modelos"></datalist>
+                <input list="anios" id="filtroAnio" class="form-input" placeholder="Año"><datalist id="anios"></datalist>
                 
                 <div class="filter-group" style="margin-top: 1rem;">
                     <div class="filter-title" style="border-bottom: none; padding-bottom: 0;">Posición</div>
@@ -763,7 +854,7 @@
                 
                 // Crea una cadena de texto con todas las aplicaciones para la búsqueda rápida y por campos
                 const itemVehicles = item.aplicaciones.map(app => 
-                    `${app.marca} ${app.modelo} ${app.año}`
+                    `${app.marca} ${app.serie} ${app.litros} ${app.año} ${app.especificacion}`
                 ).join(' ').toLowerCase();
 
                 const itemOem = item.oem?.toLowerCase() || '';
@@ -776,11 +867,11 @@
                                     item[key]?.toLowerCase().includes(filters.busqueda)
                                 ) || itemVehicles.includes(filters.busqueda); // CLAVE: Búsqueda en todos los vehículos
                 
-                // 2. FILTROS DE TEXTO (Marca, Modelo, Año) - Coincidencia en AL MENOS UNA APLICACIÓN
+                // 2. FILTROS DE TEXTO (Marca, Modelo/Serie, Año) - Coincidencia en AL MENOS UNA APLICACIÓN
                 const appMatch = !filters.marca && !filters.modelo && !filters.anio || 
                                  item.aplicaciones.some(app => 
                                     (!filters.marca || app.marca.toLowerCase().includes(filters.marca)) &&
-                                    (!filters.modelo || app.modelo.toLowerCase().includes(filters.modelo)) &&
+                                    (!filters.modelo || app.serie.toLowerCase().includes(filters.modelo)) && // Usamos 'serie' para 'modelo'
                                     (!filters.anio || app.año.toLowerCase().includes(filters.anio))
                                  );
 
@@ -834,44 +925,83 @@
             track.dataset.currentIndex = newIndex;
             counter.textContent = `${newIndex + 1}/${totalImages}`;
         }
+        
+        // Función para agrupar las aplicaciones y generar la LISTA DE DETALLES (Minimalista)
+        const renderApplicationsList = (aplicaciones) => {
+            const groupedApps = aplicaciones.reduce((acc, app) => {
+                const marca = app.marca || 'N/A';
+                if (!acc[marca]) {
+                    acc[marca] = [];
+                }
+                acc[marca].push(app);
+                return acc;
+            }, {});
+
+            // Ordenar las aplicaciones dentro de cada marca (por Serie y luego por Año)
+            Object.keys(groupedApps).forEach(marca => {
+                 groupedApps[marca].sort((a, b) => {
+                    const serieA = a.serie || '';
+                    const serieB = b.serie || '';
+                    if (serieA < serieB) return -1;
+                    if (serieA > serieB) return 1;
+                    
+                    const anioA = a.año || '';
+                    const anioB = b.año || '';
+                    if (anioA < anioB) return -1;
+                    if (anioA > anioB) return 1;
+                    return 0;
+                });
+            });
+
+            let appListHTML = '';
+            
+            for (const marca in groupedApps) {
+                // Encabezado de Marca (separador sutil)
+                appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`;
+                
+                // Filas de aplicaciones
+                groupedApps[marca].forEach(app => {
+                    // La estructura de la fila se mantiene (Serie | Litros | Año | Especificación)
+                    appListHTML += `
+                        <div class="app-detail-row">
+                            <div>${app.serie || ''}</div>
+                            <div>${app.litros || ''}</div>
+                            <div>${app.año || ''}</div>
+                            <div>${app.especificacion || ''}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            return `<div class="applications-list-container">${appListHTML}</div>`;
+        };
 
 
         const renderResults = (filteredData) => {
+            
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
                 els.results.innerHTML = `<p class="no-results">No se encontraron pastillas con los filtros seleccionados.</p>`;
                 return;
             }
+            
+            // Generar el HTML de las tarjetas
             els.results.innerHTML = filteredData.map(item => {
-                const posBadge = item.posición === 'Delantera'
-                    ? '<span class="position-badge position-delantera">Delantera</span>'
-                    : '<span class="position-badge position-trasera">Trasera</span>';
+                // CLAVE: Añadir clases 'delantera' o 'trasera' al badge para el CSS
+                const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
+                const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 
-                // === CLAVE: SELECCIONAR APLICACIONES ===
-                const primaryApp = item.aplicaciones[0];
-                const secondaryApps = item.aplicaciones.slice(1);
-                
-                let secondaryAppsHTML = '';
-                if (secondaryApps.length > 0) {
-                    secondaryAppsHTML = secondaryApps.map(app => 
-                        `<li>${app.marca} ${app.modelo} (${app.año})</li>`
-                    ).join('');
-                    secondaryAppsHTML = `
-                        <div class="secondary-applications" style="margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px dashed var(--material-surface-border);">
-                            <strong>Otras Aplicaciones:</strong>
-                            <ul>${secondaryAppsHTML}</ul>
-                        </div>
-                    `;
-                }
-                // ========================================
+                // CLAVE: Renderizar la lista de aplicaciones
+                const appsHTML = renderApplicationsList(item.aplicaciones);
 
                 const imagePath = item.imagen; 
                 const imageCount = 3; 
                 let imageTrackHTML = '';
 
                 for (let i = 0; i < imageCount; i++) {
+                    // Usaremos la referencia como alt text por simplicidad
                     imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" 
-                                            alt="${primaryApp.marca} ${primaryApp.modelo} Vista ${i + 1}" 
+                                            alt="Referencia ${item.ref} Vista ${i + 1}" 
                                             class="result-image" loading="lazy">`;
                 }
 
@@ -885,59 +1015,51 @@
                         <button class="carousel-nav-btn" data-direction="1">›</button>
                     </div>
                 `;
+                
+                // CLAVE: Nueva estructura para las especificaciones
+                const specsHTML = `
+                    <div class="card-specs">
+                        <div class="spec-item">
+                            <strong>OEM</strong>
+                            <span>${item.oem}</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Platina FMSI</strong>
+                            <span>${item.fmsi}</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Ancho</strong>
+                            <span>${item.anchoNum} mm</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Alto</strong>
+                            <span>${item.altoNum} mm</span>
+                        </div>
+                    </div>
+                `;
                     
                 return `<div class="result-card" data-ref="${item.ref}">
                             <div class="card-details">
                                 <div class="card-ref">${item.ref}</div>
-                                <div class="card-model">${primaryApp.marca} ${primaryApp.modelo} (${primaryApp.año})</div>
                             </div>
                             
-                            <div style="margin-bottom: 0.75rem; text-align: left;">${posBadge}</div>
+                            <div style="margin-bottom: 0.5rem; text-align: left;">${posBadge}</div>
                             
                             ${carouselHTML}
                             
-                            ${secondaryAppsHTML}
+                            ${appsHTML}
 
-                            <div class="card-specs">
-                                <div>
-                                    <strong>OEM</strong>
-                                    <span>${item.oem}</span>
-                                </div>
-                                <div>
-                                    <strong>Platina FMSI</strong>
-                                    <span>${item.fmsi}</span>
-                                </div>
-                                <div>
-                                    <strong>Ancho</strong>
-                                    <span>${item.anchoNum} mm</span>
-                                </div>
-                                <div>
-                                    <strong>Alto</strong>
-                                    <span>${item.altoNum} mm</span>
-                                </div>
-                            </div>
-
-                            <div class="card-action-container">
-                                <button class="card-detail-btn" data-ref="${item.ref}">Ver Detalles</button>
-                            </div>
+                            ${specsHTML}
                         </div>`;
             }).join('');
             
-            // Asignar listeners de navegación después de que los resultados se hayan renderizado
+            // Asignar listeners del carrusel después de que se inserta el HTML
             els.results.querySelectorAll('.carousel-nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation(); 
                     const card = e.currentTarget.closest('.result-card');
                     const direction = parseInt(e.currentTarget.dataset.direction);
                     navigateCarousel(card, direction);
-                });
-            });
-
-            // CLAVE: Listener para el nuevo botón "Ver Detalles"
-            els.results.querySelectorAll('.card-detail-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const ref = e.currentTarget.dataset.ref;
-                    alert(`Simulando la apertura de detalles para la Referencia: ${ref}\n(Aquí se abriría un modal o se redirigiría a una página de producto completa)`);
                 });
             });
         };
@@ -978,9 +1100,8 @@
 
         function setupEventListeners() {
             
-            // Se añade ripple al nuevo botón de detalle
+            // Se añade ripple a los botones flotantes
             [els.darkBtn, els.upBtn].forEach(btn => btn.addEventListener('click', createRippleEffect));
-            document.querySelectorAll('.card-detail-btn').forEach(btn => btn.addEventListener('click', createRippleEffect));
 
 
             els.darkBtn.addEventListener('click', () => {
@@ -1073,55 +1194,56 @@
 
         function inicializarApp() {
             
-            // CLAVE: DATOS DE EJEMPLO CON APLICACIONES MÚLTIPLES
+            // CLAVE: DATOS DE EJEMPLO CON LA NUEVA ESTRUCTURA DE APLICACIONES
             const data = [
                 { 
                     "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", 
                     "aplicaciones": [
-                        { "marca": "Chevrolet", "modelo": "Spark GT", "año": "2018-2022" },
-                        { "marca": "Daewoo", "modelo": "Matiz", "año": "2010-2015" }
+                        { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" },
+                        { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" },
+                        { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" }
                     ]
                 },
                 { 
                     "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3",
                     "aplicaciones": [
-                        { "marca": "Mazda", "modelo": "3", "año": "2019-2023" },
-                        { "marca": "Mazda", "modelo": "CX-30", "año": "2020-2024" }
+                        { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" },
+                        { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" }
                     ]
                 },
                 { 
                     "ref": "BX-9101", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan",
                     "aplicaciones": [
-                        { "marca": "Renault", "modelo": "Logan", "año": "2016-2021" },
-                        { "marca": "Renault", "modelo": "Sandero", "año": "2016-2021" },
-                        { "marca": "Dacia", "modelo": "Logan", "año": "2010-2015" }
+                        { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" },
+                        { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" },
+                        { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" }
                     ]
                 },
                 { 
                     "ref": "BX-1121", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla",
                     "aplicaciones": [
-                        { "marca": "Toyota", "modelo": "Corolla", "año": "2020-2024" }
+                        { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" }
                     ]
                 },
                 { 
                     "ref": "BX-5161", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio",
                     "aplicaciones": [
-                        { "marca": "Kia", "modelo": "Rio", "año": "2018-2023" },
-                        { "marca": "Hyundai", "modelo": "Accent", "año": "2018-2022" }
+                        { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" },
+                        { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" }
                     ]
                 },
                 { 
                     "ref": "BX-5679", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras",
                     "aplicaciones": [
-                        { "marca": "Mazda", "modelo": "3", "año": "2019-2023" },
-                        { "marca": "Mazda", "modelo": "CX-5", "año": "2017-2022" }
+                        { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" },
+                        { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" }
                     ]
                 },
                 // Se conservan algunos para variedad y pruebas
-                { "ref": "BX-3141", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "modelo": "Fiesta", "año": "2014-2019" }] },
-                { "ref": "BX-1122", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "modelo": "Jetta", "año": "2019-2023" }] },
-                { "ref": "BX-3143", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "modelo": "Kicks", "año": "2018-2023" }] },
-                { "ref": "BX-1122T", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "modelo": "Corolla", "año": "2020-2024" }] }
+                { "ref": "BX-3141", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
+                { "ref": "BX-1122", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
+                { "ref": "BX-3143", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
+                { "ref": "BX-1122T", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] }
             ];
 
             brakePadsData = data.map(item => {
@@ -1134,14 +1256,15 @@
                 const allValues = new Set();
                 brakePadsData.forEach(item => {
                     item.aplicaciones.forEach(app => {
-                        if (app[key]) allValues.add(app[key]);
+                        const prop = (key === 'modelo') ? 'serie' : key;
+                        if (app[prop]) allValues.add(app[prop]);
                     });
                 });
                 return [...allValues].sort();
             };
 
             fillDatalist(els.datalistMarca, getAllApplicationValues('marca'));
-            fillDatalist(els.datalistModelo, getAllApplicationValues('modelo'));
+            fillDatalist(els.datalistModelo, getAllApplicationValues('modelo')); // Muestra las Series
             fillDatalist(els.datalistAnio, getAllApplicationValues('año'));
             fillDatalist(els.datalistOem, getAllApplicationValues('oem')); 
             fillDatalist(els.datalistFmsi, getAllApplicationValues('fmsi'));
@@ -1152,8 +1275,6 @@
         setupEventListeners();
         inicializarApp();
         
-        // Ejecutar setupEventListeners de nuevo para incluir los listeners del nuevo botón después de renderizar la primera vez
-        // Esto es un workaround. Lo ideal es encapsular el renderizado de botones. Lo haremos en el renderResults.
     });
 </script>
 
