@@ -400,7 +400,7 @@
 
         .result-card {
             display: flex; 
-            flex-direction: column;
+            flex-direction: column; /* <<< CAMBIO: Mobile-first, vertical por defecto */
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:0.75rem; 
@@ -414,7 +414,7 @@
         .card-content-wrapper {
             display: flex;
             flex-direction: column;
-            flex: 1;
+            width: 100%; /* Ocupa todo el ancho en móvil */
             min-width: 0;
         }
         
@@ -460,7 +460,7 @@
         
         .card-images-carousel {
             position: relative;
-            flex: 1;
+            width: 100%;
             max-width: 100%;
             margin-bottom: 0.5rem;
             overflow: hidden;
@@ -686,24 +686,23 @@
         @media (min-width: 769px) {
             .result-card {
                 flex-direction: row;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .card-content-wrapper {
+                flex: 1;
             }
             .card-images-carousel {
-                max-width: 320px;
+                flex: 1;
+                max-width: none;
                 margin-bottom: 0;
             }
         }
         
-        /* <<< ESTE ES EL CAMBIO PRINCIPAL >>> */
         @media (max-width: 768px) {
             .floating-buttons-container.left,
             .floating-buttons-container.right { 
                 bottom: 18px; 
-            }
-
-            /* Resetea el flex para el layout vertical */
-            .card-content-wrapper,
-            .card-images-carousel {
-                flex: none;
             }
         }
         
