@@ -25,9 +25,14 @@
             --btn-primary-text: #ffffff; 
             --btn-primary-hover-bg: #dc2626; 
             --btn-primary-shadow: 0 4px 6px rgba(239, 68, 68, 0.4); 
-            --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-            --elevation-2: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-            --elevation-4: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+            
+            /* --- MODIFICADO --- */
+            --card-inset-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.75); /* Relieve sutil para modo claro */
+            --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06), var(--card-inset-highlight);
+            --elevation-2: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08), var(--card-inset-highlight);
+            --elevation-4: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05), var(--card-inset-highlight);
+            /* --- FIN MODIFICADO --- */
+
             --material-ripple-light: rgba(0, 0, 0, 0.15);
             --icon-sun-stroke: #000;
             --icon-moon-stroke: #fff;
@@ -58,9 +63,13 @@
             --material-surface-border: rgba(255, 255, 255, 0.1);
             --input-bg: #1a1a1a; 
             --input-focus-border: #60a5fa;
-            --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03); 
-            --elevation-2: 0 2px 4px rgba(255,255,255,0.07), 0 1px 3px rgba(255,255,255,0.05); 
-            --elevation-4: 0 8px 12px rgba(255,255,255,0.08), 0 4px 6px rgba(255,255,255,0.06); 
+
+            /* --- MODIFICADO --- */
+            --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03), inset 0 1px 1px rgba(255, 255, 255, 0.15); 
+            --elevation-2: 0 2px 4px rgba(255,255,255,0.07), 0 1px 3px rgba(255,255,255,0.05), inset 0 1px 1px rgba(255, 255, 255, 0.15); 
+            --elevation-4: 0 8px 12px rgba(255,255,255,0.08), 0 4px 6px rgba(255,255,255,0.06), inset 0 1px 1px rgba(255, 255, 255, 0.15); 
+            /* --- FIN MODIFICADO --- */
+            
             --material-ripple-dark: rgba(255, 255, 255, 0.15);
             --icon-sun-stroke: #fff;
             --icon-moon-stroke: #fff;
