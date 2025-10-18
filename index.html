@@ -60,10 +60,10 @@
             --material-surface-light: #000000; 
             
             /* --- MODIFICADO: Borde más visible --- */
-            --material-surface-border: rgba(255, 255, 255, 0.2); 
+            --material-surface-border: rgba(255, 255, 255, 0.25); 
             
             /* --- MODIFICADO: Input más claro --- */
-            --input-bg: #222; 
+            --input-bg: #2a2a2a; 
             
             --input-focus-border: #60a5fa;
 
@@ -118,10 +118,9 @@
         }
         .header-subtitle { 
             font-size: 0.9rem; font-weight: 500; color: var(--text-color); opacity: 0.6; 
-            border-left: none; padding-left: 12px; transition: color 0.5s ease;
+            border-left: none; padding-left: 12px; transition: color 0.5s ease, opacity 0.3s ease;
         }
-        /* --- AÑADIDO: Mejorar contraste subtítulo --- */
-        body.lp-dark .header-subtitle { opacity: 0.8; }
+        body.lp-dark .header-subtitle { opacity: 0.85; } /* Contraste subtítulo */
         
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
@@ -139,9 +138,8 @@
         .footer-links { display: flex; justify-content: center; align-items: center; margin-bottom: 0.5rem; }
         .footer-links a { color: var(--text-color); opacity: 0.7; text-decoration: none; margin: 0 0.5rem; transition: opacity 0.2s; }
         .footer-links a:hover { opacity: 1; }
-        .footer-copyright { margin-top: 0; opacity: 0.6; font-size: 0.75rem; }
-        /* --- AÑADIDO: Mejorar contraste copyright --- */
-        body.lp-dark .footer-copyright { opacity: 0.75; }
+        .footer-copyright { margin-top: 0; opacity: 0.6; font-size: 0.75rem; transition: opacity 0.3s ease; }
+        body.lp-dark .footer-copyright { opacity: 0.8; } /* Contraste copyright */
 
         /* ================== ESTRUCTURA PRINCIPAL (Sticky Footer Fix) ================== */
         .main-layout { 
@@ -153,12 +151,11 @@
         .results-panel { flex: 1; }
 
         /* ================== FILTROS Y TARJETAS ================== */
-        .glass { background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:1rem; padding: 0.75rem 1rem; box-shadow: var(--elevation-1); transition: box-shadow 0.3s ease; backdrop-filter: none; }
+        .glass { background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:1rem; padding: 0.75rem 1rem; box-shadow: var(--elevation-1); transition: box-shadow 0.3s ease, border-color 0.3s ease; backdrop-filter: none; }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
-        .filter-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; padding-bottom: 0; border-bottom: none; text-align: left; display: flex; align-items: center; gap: 8px; }
+        .filter-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; padding-bottom: 0; border-bottom: none; text-align: left; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease; }
         .glass > .filter-title:not(:first-child) { margin-top: 0.8rem; }
-        /* --- AÑADIDO: Mejorar contraste título filtro --- */
-        body.lp-dark .filter-title { color: rgba(255, 255, 255, 0.9); }
+        body.lp-dark .filter-title { color: rgba(255, 255, 255, 0.9); } /* Contraste título filtro */
 
         .form-input { width: 100%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--material-surface-border); background-color: var(--input-bg); color: var(--text-color); font-size: 0.9rem; transition: all 0.3s ease; box-sizing: border-box; box-shadow: none; margin-bottom: 0.3rem; }
         .form-input:last-of-type { margin-bottom: 0; }
@@ -169,9 +166,10 @@
         #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; }
         #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; }
         
+        /* --- MODIFICADO: Aumentada opacidad botón inactivo --- */
         body.lp-dark .position-btn {
-            border-color: rgba(255, 255, 255, 0.45); 
-            color: rgba(255, 255, 255, 0.85);      
+            border-color: rgba(255, 255, 255, 0.5); 
+            color: rgba(255, 255, 255, 0.9);      
         }
         body.lp-dark .position-btn:hover {
             background-color: rgba(255, 255, 255, 0.08);
@@ -221,7 +219,7 @@
             transform: none; 
             overflow: hidden; 
             cursor: pointer; 
-            transition: box-shadow 0.2s ease; 
+            transition: box-shadow 0.2s ease, border-color 0.3s ease; 
             flex-basis: 234px; 
         }
         .result-card:hover, .result-card:focus { box-shadow: var(--elevation-2); outline: 2px solid var(--input-focus-border); outline-offset: 2px; }
@@ -229,7 +227,7 @@
         .result-image { display: block; width: 100%; height: 100%; object-fit: cover; }
         .card-content-wrapper { flex: 1; }
         .card-details { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; /* Espacio antes del resumen */ }
-        .card-ref { font-weight: 600; color: var(--text-color); white-space: nowrap; font-size: 0.9rem; line-height: 1.2; }
+        .card-ref { font-weight: 600; color: var(--text-color); white-space: nowrap; font-size: 0.9rem; line-height: 1.2; transition: color 0.3s ease; }
         .position-badge { padding: 0.1rem 0.4rem; border-radius: 50px; font-weight: 500; font-size: 0.65rem; }
         .position-badge.delantera { background-color: var(--badge-delantera-bg); color: var(--badge-delantera-text); }
         .position-badge.trasera { background-color: var(--badge-trasera-bg); color: var(--badge-trasera-text); }
@@ -239,26 +237,25 @@
             font-size: 0.7rem; line-height: 1.3; color: var(--text-color); opacity: 0.7;
             max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; 
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            transition: color 0.3s ease, opacity 0.3s ease;
         }
-        /* --- MODIFICADO: Aumentada opacidad resumen --- */
-        body.lp-dark .card-app-summary { opacity: 0.75; }
+        body.lp-dark .card-app-summary { opacity: 0.8; } /* Contraste resumen */
         /* === FIN ESTILOS RESUMEN === */
 
         /* Estilos internos de aplicaciones/specs (usados solo en modal ahora) */
         .applications-list-container { margin-top: 0; padding-top: 0; }
-        .app-brand-header { font-weight: 700; font-size: 0.85rem; padding: 3px 0; margin-top: 6px; color: var(--text-color); opacity: 0.9; border-bottom: 1px solid var(--material-surface-border); text-transform: uppercase; }
-        .app-detail-row { display: grid; grid-template-columns: 2fr 1fr 1fr; font-size: 0.85rem; line-height: 1.2; padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1); color: var(--text-color); opacity: 0.85; align-items: center; }
+        .app-brand-header { font-weight: 700; font-size: 0.85rem; padding: 3px 0; margin-top: 6px; color: var(--text-color); opacity: 0.9; border-bottom: 1px solid var(--material-surface-border); text-transform: uppercase; transition: color 0.3s ease, border-color 0.3s ease; }
+        .app-detail-row { display: grid; grid-template-columns: 2fr 1fr 1fr; font-size: 0.85rem; line-height: 1.2; padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1); color: var(--text-color); opacity: 0.85; align-items: center; transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease; }
         .app-detail-row > div:last-child { text-align: right; }
         body.lp-dark .app-detail-row { border-bottom: 1px dotted rgba(255, 255, 255, 0.1); }
-        /* --- AÑADIDO: Mejorar contraste detalles app --- */
-        body.lp-dark .app-detail-row { opacity: 0.9; }
+        body.lp-dark .app-detail-row { opacity: 0.9; } /* Contraste detalles app */
         .app-detail-row:last-child { border-bottom: none; }
         .card-model, .app-header-row { display: none; }
 
         /* ================== ESTILOS DEL MODAL ================== */
         .modal-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 1rem; cursor: pointer; }
-        .modal-content { background-color: var(--material-surface-light); color: var(--text-color); border-radius: 0.8rem; box-shadow: var(--elevation-4); padding: 1.5rem; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative; cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .modal-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; font-size: 1.8rem; line-height: 1; color: var(--text-color); opacity: 0.6; cursor: pointer; padding: 0.2rem; }
+        .modal-content { background-color: var(--material-surface-light); color: var(--text-color); border-radius: 0.8rem; box-shadow: var(--elevation-4); padding: 1.5rem; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative; cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        .modal-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; font-size: 1.8rem; line-height: 1; color: var(--text-color); opacity: 0.6; cursor: pointer; padding: 0.2rem; transition: color 0.3s ease, opacity 0.2s ease; }
         .modal-close-btn:hover { opacity: 1; }
         .modal-image-carousel { grid-column: 1 / 2; width: 100%; aspect-ratio: 4 / 3; border-radius: 0.5rem; overflow: hidden; position: relative; background-color: var(--skeleton-bg); }
         .modal-image-carousel .image-track { display: flex; height: 100%; }
@@ -268,9 +265,9 @@
         .modal-image-carousel .carousel-nav-btn[data-direction="-1"] { left: 0; border-radius: 0 0.4rem 0.4rem 0; padding-right: 0.6rem; }
         .modal-image-carousel .carousel-nav-btn[data-direction="1"] { right: 0; left: auto; border-radius: 0.4rem 0 0 0.4rem; padding-left: 0.6rem; }
         .modal-details-content { grid-column: 2 / 3; display: flex; flex-direction: column; gap: 0.8rem; }
-        .modal-ref { font-size: 1.5rem; font-weight: 700; margin-bottom: 0rem; line-height: 1.2; }
+        .modal-ref { font-size: 1.5rem; font-weight: 700; margin-bottom: 0rem; line-height: 1.2; transition: color 0.3s ease; }
         .modal-position .position-badge { font-size: 0.8rem; padding: 0.2rem 0.6rem; }
-        .modal-apps-specs { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--material-surface-border); }
+        .modal-apps-specs { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--material-surface-border); transition: border-color 0.3s ease; }
         @media (max-width: 650px) { .modal-content { grid-template-columns: 1fr; max-height: 85vh; padding: 1rem; } .modal-image-carousel { grid-column: 1 / -1; } .modal-details-content { grid-column: 1 / -1; } .modal-close-btn { font-size: 1.5rem; top: 0.3rem; right: 0.3rem; } .modal-ref { font-size: 1.3rem; } }
 
         /* Animaciones */
@@ -284,7 +281,7 @@
         /* ================== BOTONES FLOTANTES ================== */
         .floating-buttons-container { position: fixed; bottom: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
         .floating-buttons-container.left { left: 18px; } .floating-buttons-container.right { right: 18px; } 
-        .material-btn { position: relative; width: 48px; height: 48px; border-radius: 50%; background-color: var(--material-surface-light); color: var(--text-color); box-shadow: var(--elevation-2); display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease; border: 1px solid var(--material-surface-border); outline:none; }
+        .material-btn { position: relative; width: 48px; height: 48px; border-radius: 50%; background-color: var(--material-surface-light); color: var(--text-color); box-shadow: var(--elevation-2); display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease; border: 1px solid var(--material-surface-border); outline:none; }
         .material-btn:hover { box-shadow: var(--elevation-4); }
         body.lp-dark .material-btn { background-color: var(--material-surface-light); border-color: var(--material-surface-border); box-shadow: var(--elevation-2); }
         .material-btn svg { width: 22px; height: 22px; fill:none; stroke-width:2; position:absolute; transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s; }
