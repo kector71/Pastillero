@@ -244,8 +244,12 @@
             grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); 
             gap: 1rem; 
         }
+        /* === HORIZONTAL POR DEFECTO === */
         .result-card {
-            display: flex; flex-direction: column; 
+            display: flex; 
+            flex-direction: row; 
+            align-items: flex-start; 
+            gap: 1rem; 
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border); border-radius:0.75rem; 
             padding: 0.8rem; 
@@ -253,7 +257,11 @@
             transform: translateY(10px); animation: fadeInUp 0.5s forwards;
             container-type: inline-size; container-name: result-card;  
         }
-        .card-content-wrapper { display: flex; flex-direction: column; width: 100%; min-width: 0; }
+        .card-content-wrapper { 
+            display: flex; flex-direction: column; 
+            flex: 1; /* <-- Ocupa mitad */
+            min-width: 0; 
+        }
         .card-details {
             display: flex; flex-direction: row; align-items: center; 
             justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; 
@@ -262,20 +270,22 @@
         }
         .card-ref {
             font-weight: 700; color: var(--text-color); white-space: nowrap;
-            font-size: clamp(1rem, 4cqi, 1.2rem); /* <-- Ajustado */
+            font-size: clamp(1rem, 4cqi, 1.2rem); 
         }
         .position-badge { 
-             padding: clamp(0.15rem, 1.2cqi, 0.2rem) clamp(0.5rem, 2.5cqi, 0.6rem); /* <-- Ajustado */
+             padding: clamp(0.15rem, 1.2cqi, 0.2rem) clamp(0.5rem, 2.5cqi, 0.6rem); 
              border-radius: 100px; font-weight: 600; display: inline-block; 
              transition: background-color 0.3s ease, color 0.3s ease;
              box-shadow: var(--elevation-1); 
-             font-size: clamp(0.65rem, 3cqi, 0.7rem); /* <-- Ajustado */
+             font-size: clamp(0.65rem, 3cqi, 0.7rem); 
         }
         .position-badge.delantera { background-color: var(--badge-delantera-bg); color: var(--badge-delantera-text); }
         .position-badge.trasera { background-color: var(--badge-trasera-bg); color: var(--badge-trasera-text); }
         .card-images-carousel {
-            position: relative; width: 100%; max-width: 100%; margin-bottom: 0.5rem;
-            overflow: hidden; border-radius: 0.5rem; aspect-ratio: 4 / 3; 
+            position: relative;
+            flex: 1; /* <-- Ocupa mitad */
+            overflow: hidden; border-radius: 0.5rem; 
+            aspect-ratio: 4 / 3; 
         }
         .result-image { width: 100%; flex-shrink: 0; object-fit: cover; }
         .carousel-counter {
@@ -300,13 +310,13 @@
             font-weight: 700; padding: 3px 0; margin-top: 6px; color: var(--text-color);
             opacity: 0.9; border-bottom: 1px solid var(--material-surface-border);
             text-transform: uppercase;
-            font-size: clamp(0.75rem, 3.5cqi, 0.85rem); /* <-- Ajustado */
+            font-size: clamp(0.75rem, 3.5cqi, 0.85rem); 
         }
         .app-detail-row {
             display: grid; grid-template-columns: 2fr 1fr 1fr; line-height: 1.2;
             padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
             color: var(--text-color); opacity: 0.85; align-items: center;
-            font-size: clamp(0.75rem, 3.5cqi, 0.85rem); /* <-- Ajustado */
+            font-size: clamp(0.75rem, 3.5cqi, 0.85rem); 
         }
         .app-detail-row > div:last-child { text-align: right; }
         body.lp-dark .app-detail-row { border-bottom: 1px dotted rgba(255, 255, 255, 0.1); }
@@ -350,19 +360,33 @@
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
         /* ================== AJUSTES RESPONSIVE (CONTAINER & MEDIA QUERIES) ================== */
-        @container result-card (min-width: 600px) { 
-            .result-card { flex-direction: row; align-items: flex-start; gap: 1rem; }
-            .card-content-wrapper { flex: 1; }
-            .card-images-carousel { flex: 1; max-width: none; margin-bottom: 0; }
-        }
-        @container result-card (min-width: 400px) { .result-card { padding: 1rem; } }
+        /* Contenido interno adaptable */
+        @container result-card (min-width: 400px) { .result-card { padding: 1rem; } } 
         
-        /* === MEDIA QUERY AJUSTADA === */
-        @media (max-width: 767px) { 
+        /* Layout principal: Columna en móvil, 2 columnas en tablet/desktop */
+        @media (max-width: 767px) { /* <-- Ajustado para mantener filtros en tablet */
             .main-layout { flex-direction: column; gap: 1.5rem; } 
             .filters-column { flex-basis: auto; width: 100%; } 
             .input-group-horizontal { flex-direction: column; gap: 0.3rem; }
         }
+        
+        /* Layout de tarjeta: Vertical en móvil */
+        @media (max-width: 600px) { 
+            .result-card {
+                flex-direction: column; 
+                gap: 0.5rem; 
+            }
+            .card-content-wrapper,
+            .card-images-carousel {
+                flex: none; 
+                width: 100%; 
+            }
+            .card-images-carousel {
+                 margin-bottom: 0.5rem; 
+            }
+        }
+
+        /* Ajustes menores de tamaño en pantallas muy pequeñas */
         @media (max-width: 600px) { .form-input, .position-btn { font-size: 1rem; padding: 0.75rem; } }
         @media (max-width: 480px) {
             header h1 { font-size: 1.1rem; gap: 8px; }
