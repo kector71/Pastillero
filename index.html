@@ -385,7 +385,7 @@
         
         .result-card {
             display: flex; 
-            flex-direction: column;
+            flex-direction: column; /* Default: Imagen arriba */
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:0.75rem; 
@@ -394,6 +394,8 @@
             opacity:0; 
             transform: translateY(10px); 
             animation: fadeInUp 0.5s forwards;
+            container-type: inline-size; /* <<< CAMBIO APLICADO: Define como contenedor */
+            container-name: result-card;  /* <<< CAMBIO APLICADO: Nombre del contenedor */
         }
 
         .card-content-wrapper {
@@ -635,7 +637,26 @@
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
 
-        /* ================== AJUSTES RESPONSIVE ================== */
+        /* ================== AJUSTES RESPONSIVE (CON CONTAINER QUERIES) ================== */
+
+        /* Regla @container reemplaza la anterior @media (min-width: 769px) */
+        @container result-card (min-width: 600px) { 
+            .result-card {
+                flex-direction: row; 
+                align-items: flex-start; 
+                gap: 1rem;
+            }
+            .card-content-wrapper { 
+                flex: 1; /* 50% */
+            }
+            .card-images-carousel {
+                flex: 1; /* 50% */
+                max-width: none; 
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Otras reglas @media se mantienen */
         @media (max-width: 992px) { 
             .main-layout { 
                 flex-direction: column; 
@@ -643,24 +664,6 @@
             } 
             .filters-column { flex-basis: auto; width: 100%; } 
             .input-group-horizontal { flex-direction: column; gap: 0.3rem; }
-        }
-        
-        @media (min-width: 769px) {
-            .result-card {
-                flex-direction: row;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-            .card-content-wrapper { 
-                flex: 1; 
-                min-width: 280px; /* <<< CAMBIO APLICADO */
-            }
-            .card-images-carousel {
-                flex: 1.5;
-                max-width: none; 
-                margin-bottom: 0;
-                min-width: 250px; /* <<< CAMBIO APLICADO */
-            }
         }
         
         @media (max-width: 600px) {
