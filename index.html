@@ -177,8 +177,8 @@
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
         .results-wrapper { 
             display: grid; 
-            /* --- ¡¡AQUÍ ESTÁ LA CORRECCIÓN!! --- */
-            grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); 
+            /* --- AJUSTE 1: Devuelto a 234px para Desktop --- */
+            grid-template-columns: repeat(auto-fit, minmax(234px, 1fr)); 
             gap: 0.8rem; 
         }
         .result-card { display: flex; flex-direction: column; background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:0.5rem; padding: 0.6rem; box-shadow: var(--elevation-1); opacity: 1; transform: none; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s ease; }
@@ -258,7 +258,14 @@
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } } 
 
         /* ================== AJUSTES RESPONSIVE (MEDIA QUERIES) ================== */
-        @media (max-width: 767px) { .main-layout { flex-direction: column; gap: 1.5rem; } .filters-column { flex-basis: auto; width: 100%; } .input-group-horizontal { flex-direction: column; gap: 0.3rem; } }
+        @media (max-width: 767px) { 
+            .main-layout { flex-direction: column; gap: 1.5rem; } 
+            .filters-column { flex-basis: auto; width: 100%; } 
+            .input-group-horizontal { flex-direction: column; gap: 0.3rem; } 
+
+            /* --- AJUSTE 2: Añadido para forzar 1 columna en móvil --- */
+            .results-wrapper { grid-template-columns: 1fr; }
+        }
         @media (max-width: 600px) { .form-input, .position-btn { font-size: 1rem; padding: 0.75rem; } }
         @media (max-width: 480px) {
             header h1 { font-size: 1.1rem; gap: 8px; }
