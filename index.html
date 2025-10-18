@@ -58,13 +58,8 @@
             --btn-primary-hover-bg: #991b1b;
             --btn-primary-shadow: 0 4px 6px rgba(185, 28, 28, 0.6); 
             --material-surface-light: #000000; 
-            
-            /* --- MODIFICADO: Borde más visible --- */
             --material-surface-border: rgba(255, 255, 255, 0.25); 
-            
-            /* --- MODIFICADO: Input más claro --- */
             --input-bg: #2a2a2a; 
-            
             --input-focus-border: #60a5fa;
 
             --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03), inset 0 1px 1px rgba(255, 255, 255, 0.15); 
@@ -120,7 +115,7 @@
             font-size: 0.9rem; font-weight: 500; color: var(--text-color); opacity: 0.6; 
             border-left: none; padding-left: 12px; transition: color 0.5s ease, opacity 0.3s ease;
         }
-        body.lp-dark .header-subtitle { opacity: 0.85; } /* Contraste subtítulo */
+        body.lp-dark .header-subtitle { opacity: 0.85; } 
         
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
@@ -132,14 +127,15 @@
             padding: 0.5rem 1rem; border-top: 1px solid var(--material-surface-border);
             box-shadow: var(--elevation-1); z-index: 100; font-size: 0.8rem;
             text-align: center; 
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         body.lp-dark .footer-banner { box-shadow: var(--elevation-2); }
         .footer-content { margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .footer-links { display: flex; justify-content: center; align-items: center; margin-bottom: 0.5rem; }
-        .footer-links a { color: var(--text-color); opacity: 0.7; text-decoration: none; margin: 0 0.5rem; transition: opacity 0.2s; }
+        .footer-links a { color: var(--text-color); opacity: 0.7; text-decoration: none; margin: 0 0.5rem; transition: opacity 0.2s, color 0.3s ease; }
         .footer-links a:hover { opacity: 1; }
-        .footer-copyright { margin-top: 0; opacity: 0.6; font-size: 0.75rem; transition: opacity 0.3s ease; }
-        body.lp-dark .footer-copyright { opacity: 0.8; } /* Contraste copyright */
+        .footer-copyright { margin-top: 0; opacity: 0.6; font-size: 0.75rem; transition: opacity 0.3s ease, color 0.3s ease; }
+        body.lp-dark .footer-copyright { opacity: 0.8; } 
 
         /* ================== ESTRUCTURA PRINCIPAL (Sticky Footer Fix) ================== */
         .main-layout { 
@@ -151,11 +147,11 @@
         .results-panel { flex: 1; }
 
         /* ================== FILTROS Y TARJETAS ================== */
-        .glass { background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:1rem; padding: 0.75rem 1rem; box-shadow: var(--elevation-1); transition: box-shadow 0.3s ease, border-color 0.3s ease; backdrop-filter: none; }
+        .glass { background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:1rem; padding: 0.75rem 1rem; box-shadow: var(--elevation-1); transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease; backdrop-filter: none; }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
         .filter-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; padding-bottom: 0; border-bottom: none; text-align: left; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease; }
         .glass > .filter-title:not(:first-child) { margin-top: 0.8rem; }
-        body.lp-dark .filter-title { color: rgba(255, 255, 255, 0.9); } /* Contraste título filtro */
+        body.lp-dark .filter-title { color: rgba(255, 255, 255, 0.9); } 
 
         .form-input { width: 100%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--material-surface-border); background-color: var(--input-bg); color: var(--text-color); font-size: 0.9rem; transition: all 0.3s ease; box-sizing: border-box; box-shadow: none; margin-bottom: 0.3rem; }
         .form-input:last-of-type { margin-bottom: 0; }
@@ -166,7 +162,6 @@
         #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; }
         #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; }
         
-        /* --- MODIFICADO: Aumentada opacidad botón inactivo --- */
         body.lp-dark .position-btn {
             border-color: rgba(255, 255, 255, 0.5); 
             color: rgba(255, 255, 255, 0.9);      
@@ -219,7 +214,7 @@
             transform: none; 
             overflow: hidden; 
             cursor: pointer; 
-            transition: box-shadow 0.2s ease, border-color 0.3s ease; 
+            transition: box-shadow 0.2s ease, border-color 0.3s ease, background-color 0.3s ease; 
             flex-basis: 234px; 
         }
         .result-card:hover, .result-card:focus { box-shadow: var(--elevation-2); outline: 2px solid var(--input-focus-border); outline-offset: 2px; }
@@ -239,7 +234,7 @@
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
             transition: color 0.3s ease, opacity 0.3s ease;
         }
-        body.lp-dark .card-app-summary { opacity: 0.8; } /* Contraste resumen */
+        body.lp-dark .card-app-summary { opacity: 0.8; } 
         /* === FIN ESTILOS RESUMEN === */
 
         /* Estilos internos de aplicaciones/specs (usados solo en modal ahora) */
@@ -248,7 +243,7 @@
         .app-detail-row { display: grid; grid-template-columns: 2fr 1fr 1fr; font-size: 0.85rem; line-height: 1.2; padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1); color: var(--text-color); opacity: 0.85; align-items: center; transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease; }
         .app-detail-row > div:last-child { text-align: right; }
         body.lp-dark .app-detail-row { border-bottom: 1px dotted rgba(255, 255, 255, 0.1); }
-        body.lp-dark .app-detail-row { opacity: 0.9; } /* Contraste detalles app */
+        body.lp-dark .app-detail-row { opacity: 0.9; } 
         .app-detail-row:last-child { border-bottom: none; }
         .card-model, .app-header-row { display: none; }
 
@@ -443,17 +438,27 @@
         const getPositionFilter = () => { const activePositions = []; if (els.posDel.classList.contains('active')) activePositions.push('Delantera'); if (els.posTras.classList.contains('active')) activePositions.push('Trasera'); return activePositions; };
         const hasVehicleFilters = () => { return els.busqueda.value.trim() !== '' || els.marca.value.trim() !== '' || els.modelo.value.trim() !== '' || els.anio.value.trim() !== '' || getPositionFilter().length > 0 || els.oem.value.trim() !== '' || els.fmsi.value.trim() !== '' || els.medidasAncho.value.trim() !== '' || els.medidasAlto.value.trim() !== ''; };
 
+        // --- MODIFICADO: Lógica de filtrado para arrays OEM/FMSI ---
         const filterData = () => {
             if (!brakePadsData.length) return;
-            const fbusq = (val) => val.toLowerCase().trim(); const activePos = getPositionFilter(); 
+            const fbusq = (val) => val.toLowerCase().trim(); const activePos = getPositionFilter();
             const filters = { busqueda: fbusq(els.busqueda.value), marca: fbusq(els.marca.value), modelo: fbusq(els.modelo.value), anio: fbusq(els.anio.value), oem: fbusq(els.oem.value), fmsi: fbusq(els.fmsi.value), ancho: parseFloat(els.medidasAncho.value), alto: parseFloat(els.medidasAlto.value), pos: activePos };
             const filtered = brakePadsData.filter(item => {
                 const itemVehicles = item.aplicaciones.map(app => `${app.marca} ${app.serie} ${app.litros} ${app.año} ${app.especificacion}`).join(' ').toLowerCase();
-                const itemOem = item.oem?.toLowerCase() || ''; const itemFmsi = item.fmsi?.toLowerCase() || ''; const itemPosicion = item.posición; 
-                const busqMatch = !filters.busqueda || ['ref', 'oem', 'fmsi'].some(key => item[key]?.toLowerCase().includes(filters.busqueda)) || itemVehicles.includes(filters.busqueda);
+                const itemPosicion = item.posición;
+
+                const busqMatch = !filters.busqueda ||
+                    item.ref?.toLowerCase().includes(filters.busqueda) ||
+                    item.oem?.some(o => o.toLowerCase().includes(filters.busqueda)) || 
+                    item.fmsi?.some(f => f.toLowerCase().includes(filters.busqueda)) || 
+                    itemVehicles.includes(filters.busqueda);
+
                 const appMatch = !filters.marca && !filters.modelo && !filters.anio || item.aplicaciones.some(app => (!filters.marca || app.marca.toLowerCase().includes(filters.marca)) && (!filters.modelo || app.serie.toLowerCase().includes(filters.modelo)) && (!filters.anio || app.año.toLowerCase().includes(filters.anio)));
-                const oemMatch = !filters.oem || itemOem.includes(filters.oem); const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
-                let posMatch = true; if (filters.pos.length > 0) { posMatch = filters.pos.includes(itemPosicion); } 
+
+                const oemMatch = !filters.oem || (item.oem && item.oem.some(o => o.toLowerCase().includes(filters.oem)));
+                const fmsiMatch = !filters.fmsi || (item.fmsi && item.fmsi.some(f => f.toLowerCase().includes(filters.fmsi)));
+
+                let posMatch = true; if (filters.pos.length > 0) { posMatch = filters.pos.includes(itemPosicion); }
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || (item.anchoNum >= (filters.ancho - TOLERANCIA) && item.anchoNum <= (filters.ancho + TOLERANCIA));
                 const altoMatchTolerancia = !filters.alto || (item.altoNum >= (filters.alto - TOLERANCIA) && item.altoNum <= (filters.alto + TOLERANCIA));
@@ -471,7 +476,19 @@
         }
         
         const renderApplicationsList = (aplicaciones) => { const groupedApps = aplicaciones.reduce((acc, app) => { const marca = app.marca || 'N/A'; if (!acc[marca]) { acc[marca] = []; } acc[marca].push(app); return acc; }, {}); Object.keys(groupedApps).forEach(marca => { groupedApps[marca].sort((a, b) => { const serieA = a.serie || ''; const serieB = b.serie || ''; if (serieA < serieB) return -1; if (serieA > serieB) return 1; const anioA = a.año || ''; const anioB = b.año || ''; if (anioA < anioB) return -1; if (anioA > anioB) return 1; return 0; }); }); let appListHTML = ''; for (const marca in groupedApps) { appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`; groupedApps[marca].forEach(app => { appListHTML += `<div class="app-detail-row"><div>${app.serie || ''}</div><div>${app.litros || ''}</div><div>${app.año || ''}</div></div>`; }); } return appListHTML; };
-        const renderSpecs = (item) => { let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`; specsHTML += `<div class="app-detail-row"><div><strong>OEM</strong></div><div></div><div>${item.oem || 'N/A'}</div></div>`; specsHTML += `<div class="app-detail-row"><div><strong>Platina FMSI</strong></div><div></div><div>${item.fmsi || 'N/A'}</div></div>`; specsHTML += `<div class="app-detail-row"><div><strong>Ancho</strong></div><div></div><div>${item.anchoNum || 'N/A'} mm</div></div>`; specsHTML += `<div class="app-detail-row"><div><strong>Alto</strong></div><div></div><div>${item.altoNum || 'N/A'} mm</div></div>`; return specsHTML; };
+        
+        // --- MODIFICADO: renderSpecs para mostrar arrays unidos por coma ---
+        const renderSpecs = (item) => {
+            let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`;
+            const oemText = (item.oem && item.oem.length > 0 ? item.oem.join(', ') : 'N/A');
+            specsHTML += `<div class="app-detail-row"><div><strong>OEM</strong></div><div></div><div>${oemText}</div></div>`;
+            const fmsiText = (item.fmsi && item.fmsi.length > 0 ? item.fmsi.join(', ') : 'N/A');
+            specsHTML += `<div class="app-detail-row"><div><strong>Platina FMSI</strong></div><div></div><div>${fmsiText}</div></div>`;
+            specsHTML += `<div class="app-detail-row"><div><strong>Ancho</strong></div><div></div><div>${item.anchoNum || 'N/A'} mm</div></div>`;
+            specsHTML += `<div class="app-detail-row"><div><strong>Alto</strong></div><div></div><div>${item.altoNum || 'N/A'} mm</div></div>`;
+            return specsHTML;
+        };
+
         const showSkeletonLoader = (count = 6) => { let skeletonHTML = ''; for (let i = 0; i < count; i++) { skeletonHTML += `<div class="skeleton-card"><div class="skeleton-line long"></div><div class="skeleton-line short"></div><div class="skeleton-box"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`; } els.results.innerHTML = skeletonHTML; };
 
         const renderResults = (filteredData) => {
@@ -481,13 +498,11 @@
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 const imagePath = item.imagen; const firstImageSrc = imagePath.replace("text=", `text=Vista+1+`); 
-                // --- Generar resumen de aplicaciones ---
                 const appSummaryItems = item.aplicaciones.slice(0, 3).map(app => `${app.marca} ${app.serie}`).filter((value, index, self) => self.indexOf(value) === index); 
                 let appSummaryHTML = '';
                 if (appSummaryItems.length > 0) {
                     appSummaryHTML = `<div class="card-app-summary">${appSummaryItems.join(', ')}${item.aplicaciones.length > 3 ? ', ...' : ''}</div>`;
                 }
-                // --- Fin Resumen ---
                 return `
                     <div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms" tabindex="0" role="button" aria-haspopup="dialog"> 
                         <div class="card-thumbnail"><img src="${firstImageSrc}" alt="Referencia ${item.ref}" class="result-image" loading="lazy"></div>
@@ -559,13 +574,12 @@
                 createSparks(els.clearBtn);
                 clearAllFilters();
 
-                // Usar setTimeout para re-habilitar y limpiar clases
                 setTimeout(() => {
                     els.clearBtn.classList.remove('animate-button');
                     if (trashLid) trashLid.classList.remove('animate-lid');
                     if (trashBody) trashBody.classList.remove('animate-body');
                     els.clearBtn.disabled = false;
-                }, 900); // Duración ligeramente mayor a la animación más larga (0.8s)
+                }, 900); 
             });
              // === FIN BOTÓN BORRAR FILTROS ===
 
@@ -573,28 +587,34 @@
             els.modal.addEventListener('click', (event) => { if (event.target === els.modal) { closeModal(); } });
         }
 
+        // --- MODIFICADO: inicializarApp para manejar arrays OEM/FMSI en datalists ---
         async function inicializarApp() {
             showSkeletonLoader();
             await new Promise(resolve => setTimeout(resolve, 800));
-            // === MÁS DATOS DE EJEMPLO ===
             const data = [ 
-                 { "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
-                { "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
-                { "ref": "BX-9101", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
-                { "ref": "BX-1121", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
-                { "ref": "BX-5161", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
-                { "ref": "BX-5679", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
-                { "ref": "BX-3141", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
-                { "ref": "BX-1122", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
-                { "ref": "BX-3143", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
-                { "ref": "BX-1122T", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] },
-                { "ref": "BX-7777", "oem": "1K0698151F", "fmsi": "8212-D1084", "posición": "Delantera", "medidas": "156.3 x 74.0", "imagen": "https://via.placeholder.com/300x200.png?text=Golf+GTI", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Golf GTI", "litros": "2.0T", "año": "2015-2021", "especificacion": "MK7" }] },
-                { "ref": "BX-8888", "oem": "4G0698451", "fmsi": "1545-D1419", "posición": "Trasera", "medidas": "123.0 x 52.0", "imagen": "https://via.placeholder.com/300x200.png?text=Audi+A6+Tras", "aplicaciones": [{ "marca": "Audi", "serie": "A6", "litros": "2.0T/3.0T", "año": "2012-2018", "especificacion": "C7 Tras." }] },
-                 { "ref": "BX-9999", "oem": "LR051626", "fmsi": "8631-D1515", "posición": "Delantera", "medidas": "193.2 x 77.8", "imagen": "https://via.placeholder.com/300x200.png?text=Range+Rover", "aplicaciones": [{ "marca": "Land Rover", "serie": "Range Rover Sport", "litros": "3.0/5.0", "año": "2014-2022", "especificacion": "Supercharged" }] }
+                 { "ref": "BX-1234", "oem": ["96567830", "96567830A"], "fmsi": ["7877-D978", "D978"], "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
+                 { "ref": "BX-5678", "oem": ["B4Y0-33-28Z"], "fmsi": ["8340-D1228", "D1228-MZD"], "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
+                 { "ref": "BX-9101", "oem": ["7701209164"], "fmsi": ["7718-D888"], "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
+                 { "ref": "BX-1121", "oem": ["04465-02220"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
+                 { "ref": "BX-5161", "oem": ["58101-H8A00"], "fmsi": ["8447-D1339"], "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
+                 { "ref": "BX-5679", "oem": ["B4Y0-26-48Z"], "fmsi": ["1545-D977"], "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
+                 { "ref": "BX-3141", "oem": ["8V51-2K021-AA"], "fmsi": ["8202-D1089"], "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
+                 { "ref": "BX-1122", "oem": ["5C0-698-151-B"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
+                 { "ref": "BX-3143", "oem": ["D1060-4BA0A"], "fmsi": ["8528-D1410"], "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
+                 { "ref": "BX-1122T", "oem": ["04466-02220"], "fmsi": ["8340-D1228"], "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] },
+                 { "ref": "BX-7777", "oem": ["1K0698151F"], "fmsi": ["8212-D1084"], "posición": "Delantera", "medidas": "156.3 x 74.0", "imagen": "https://via.placeholder.com/300x200.png?text=Golf+GTI", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Golf GTI", "litros": "2.0T", "año": "2015-2021", "especificacion": "MK7" }] },
+                 { "ref": "BX-8888", "oem": ["4G0698451"], "fmsi": ["1545-D1419"], "posición": "Trasera", "medidas": "123.0 x 52.0", "imagen": "https://via.placeholder.com/300x200.png?text=Audi+A6+Tras", "aplicaciones": [{ "marca": "Audi", "serie": "A6", "litros": "2.0T/3.0T", "año": "2012-2018", "especificacion": "C7 Tras." }] },
+                 { "ref": "BX-9999", "oem": ["LR051626"], "fmsi": ["8631-D1515"], "posición": "Delantera", "medidas": "193.2 x 77.8", "imagen": "https://via.placeholder.com/300x200.png?text=Range+Rover", "aplicaciones": [{ "marca": "Land Rover", "serie": "Range Rover Sport", "litros": "3.0/5.0", "año": "2014-2022", "especificacion": "Supercharged" }] }
             ];
             brakePadsData = data.map(item => { const partes = item.medidas.split('x').map(s => parseFloat(s.trim())); return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 }; });
             const getAllApplicationValues = (key) => { const allValues = new Set(); brakePadsData.forEach(item => { item.aplicaciones.forEach(app => { const prop = (key === 'modelo') ? 'serie' : key; if (app[prop]) allValues.add(app[prop]); }); }); return [...allValues].sort(); };
-            fillDatalist(els.datalistMarca, getAllApplicationValues('marca')); fillDatalist(els.datalistModelo, getAllApplicationValues('modelo')); fillDatalist(els.datalistAnio, getAllApplicationValues('año')); fillDatalist(els.datalistOem, brakePadsData.map(i => i.oem).filter(Boolean).sort()); fillDatalist(els.datalistFmsi, brakePadsData.map(i => i.fmsi).filter(Boolean).sort());
+            fillDatalist(els.datalistMarca, getAllApplicationValues('marca')); fillDatalist(els.datalistModelo, getAllApplicationValues('modelo')); fillDatalist(els.datalistAnio, getAllApplicationValues('año'));
+
+            const allOems = [...new Set(brakePadsData.flatMap(i => i.oem || []))].filter(Boolean).sort();
+            const allFmsis = [...new Set(brakePadsData.flatMap(i => i.fmsi || []))].filter(Boolean).sort();
+            fillDatalist(els.datalistOem, allOems);
+            fillDatalist(els.datalistFmsi, allFmsis);
+
             applyFiltersFromURL(); filterData();
         }
 
