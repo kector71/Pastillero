@@ -156,9 +156,10 @@
         #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; }
         #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; }
         
+        /* --- MODIFICADO: Aumentada opacidad para legibilidad --- */
         body.lp-dark .position-btn {
-            border-color: rgba(255, 255, 255, 0.3); 
-            color: rgba(255, 255, 255, 0.6);      
+            border-color: rgba(255, 255, 255, 0.45); 
+            color: rgba(255, 255, 255, 0.85);      
         }
         body.lp-dark .position-btn:hover {
             background-color: rgba(255, 255, 255, 0.08);
@@ -211,7 +212,6 @@
             transition: box-shadow 0.2s ease; 
             
             flex-basis: 234px; /* Ancho base */
-            /* flex-grow: 1; <-- ¡¡ELIMINADO!! */
         }
         .result-card:hover, .result-card:focus { box-shadow: var(--elevation-2); outline: 2px solid var(--input-focus-border); outline-offset: 2px; }
         .card-thumbnail { width: 100%; aspect-ratio: 4 / 3; margin-bottom: 0.5rem; border-radius: 0.3rem; overflow: hidden; background-color: var(--skeleton-bg); }
@@ -295,7 +295,7 @@
             .input-group-horizontal { flex-direction: column; gap: 0.3rem; } 
             
             .results-wrapper { 
-                display: grid; /* Vuelve a Grid en móvil */
+                display: grid; 
                 grid-template-columns: 1fr; 
             }
         }
