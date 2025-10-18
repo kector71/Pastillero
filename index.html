@@ -379,23 +379,10 @@
         
         .results-wrapper { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* <<< CAMBIO APLICADO: Grid adaptable */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
             gap: 1rem; 
         }
         
-        /* Reglas .un-solo-resultado eliminadas/comentadas */
-        /*
-        .results-wrapper.un-solo-resultado {
-            display: flex;
-            justify-content: center;
-        }
-        
-        .results-wrapper.un-solo-resultado .result-card {
-            max-width: 800px;
-            width: 100%;
-        }
-        */
-
         .result-card {
             display: flex; 
             flex-direction: column;
@@ -407,15 +394,13 @@
             opacity:0; 
             transform: translateY(10px); 
             animation: fadeInUp 0.5s forwards;
-            /* width: auto; */ /* Ya no es necesario con grid */
-            /* max-width: none; */ /* Ya no es necesario con grid */
         }
 
         .card-content-wrapper {
             display: flex;
             flex-direction: column;
             width: 100%;
-            min-width: 0;
+            min-width: 0; /* Asegura flexibilidad en layout flex/grid */
         }
         
         .card-details {
@@ -666,10 +651,13 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
-            .card-content-wrapper { flex: 1; }
+            .card-content-wrapper { 
+                flex: 1; 
+                min-width: 280px; /* <<< CAMBIO APLICADO: Ancho mínimo para contenido */
+            }
             .card-images-carousel {
                 flex: 1.5;
-                max-width: none;
+                max-width: none; 
                 margin-bottom: 0;
             }
         }
@@ -791,6 +779,7 @@
     </div>
     
 <script>
+    // Tu JavaScript sigue igual, no necesita cambios
     document.addEventListener('DOMContentLoaded', () => {
     
         let brakePadsData = [];
@@ -1008,19 +997,10 @@
                 `;
             }
             els.results.innerHTML = skeletonHTML;
-            // els.results.classList.remove('un-solo-resultado'); // Ya no se necesita
         };
 
 
         const renderResults = (filteredData) => {
-            
-            /* Lógica un-solo-resultado eliminada/comentada 
-            if (filteredData.length === 1) {
-                els.results.classList.add('un-solo-resultado');
-            } else {
-                els.results.classList.remove('un-solo-resultado');
-            }
-            */
             
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
