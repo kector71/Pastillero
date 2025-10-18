@@ -176,11 +176,22 @@
         .card-thumbnail { width: 100%; aspect-ratio: 4 / 3; margin-bottom: 0.5rem; border-radius: 0.3rem; overflow: hidden; background-color: var(--skeleton-bg); }
         .result-image { display: block; width: 100%; height: 100%; object-fit: cover; }
         .card-content-wrapper { flex: 1; }
-        .card-details { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem; }
+        .card-details { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; /* Espacio antes del resumen */ }
         .card-ref { font-weight: 600; color: var(--text-color); white-space: nowrap; font-size: 0.9rem; line-height: 1.2; }
         .position-badge { padding: 0.1rem 0.4rem; border-radius: 50px; font-weight: 500; font-size: 0.65rem; }
         .position-badge.delantera { background-color: var(--badge-delantera-bg); color: var(--badge-delantera-text); }
         .position-badge.trasera { background-color: var(--badge-trasera-bg); color: var(--badge-trasera-text); }
+        
+        /* === ESTILOS PARA RESUMEN DE APLICACIONES === */
+        .card-app-summary {
+            font-size: 0.7rem; line-height: 1.3; color: var(--text-color); opacity: 0.7;
+            max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; 
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+        }
+        body.lp-dark .card-app-summary { opacity: 0.6; }
+        /* === FIN ESTILOS RESUMEN === */
+
+        /* Estilos internos de aplicaciones/specs (usados solo en modal ahora) */
         .applications-list-container { margin-top: 0; padding-top: 0; }
         .app-brand-header { font-weight: 700; font-size: 0.85rem; padding: 3px 0; margin-top: 6px; color: var(--text-color); opacity: 0.9; border-bottom: 1px solid var(--material-surface-border); text-transform: uppercase; }
         .app-detail-row { display: grid; grid-template-columns: 2fr 1fr 1fr; font-size: 0.85rem; line-height: 1.2; padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1); color: var(--text-color); opacity: 0.85; align-items: center; }
@@ -215,7 +226,7 @@
         .spark { position: absolute; border-radius: 50%; opacity: 0; animation: spark-fade-out 0.6s ease-out forwards; box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
         .animate-button { animation: bounce 0.4s ease-in-out; } .animate-lid { animation: open-lid 0.8s ease-in-out; } .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
 
-        /* ================== BOTONES FLOTANTES (Z-index Aumentado) ================== */
+        /* ================== BOTONES FLOTANTES ================== */
         .floating-buttons-container { position: fixed; bottom: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
         .floating-buttons-container.left { left: 18px; } .floating-buttons-container.right { right: 18px; } 
         .material-btn { position: relative; width: 48px; height: 48px; border-radius: 50%; background-color: var(--material-surface-light); color: var(--text-color); box-shadow: var(--elevation-2); display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease; border: 1px solid var(--material-surface-border); outline:none; }
@@ -388,7 +399,7 @@
             if (!track || images.length <= 1) return; 
             let currentIndex = parseInt(track.dataset.currentIndex) || 0; const totalImages = images.length; let newIndex = currentIndex + direction;
             if (newIndex >= totalImages) { newIndex = 0; } else if (newIndex < 0) { newIndex = totalImages - 1; }
-            track.style.transform = `translateX(-${newIndex * 100}%)`; track.dataset.currentIndex = newIndex; counter.textContent = `${newIndex + 1}/${totalImages}`;
+            track.style.transform = `translateX(-${newIndex * 100}%)`; track.dataset.currentIndex = newIndex; if (counter) counter.textContent = `${newIndex + 1}/${totalImages}`;
         }
         
         const renderApplicationsList = (aplicaciones) => { const groupedApps = aplicaciones.reduce((acc, app) => { const marca = app.marca || 'N/A'; if (!acc[marca]) { acc[marca] = []; } acc[marca].push(app); return acc; }, {}); Object.keys(groupedApps).forEach(marca => { groupedApps[marca].sort((a, b) => { const serieA = a.serie || ''; const serieB = b.serie || ''; if (serieA < serieB) return -1; if (serieA > serieB) return 1; const anioA = a.año || ''; const anioB = b.año || ''; if (anioA < anioB) return -1; if (anioA > anioB) return 1; return 0; }); }); let appListHTML = ''; for (const marca in groupedApps) { appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`; groupedApps[marca].forEach(app => { appListHTML += `<div class="app-detail-row"><div>${app.serie || ''}</div><div>${app.litros || ''}</div><div>${app.año || ''}</div></div>`; }); } return appListHTML; };
@@ -402,6 +413,13 @@
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
                 const imagePath = item.imagen; const firstImageSrc = imagePath.replace("text=", `text=Vista+1+`); 
+                // --- Generar resumen de aplicaciones ---
+                const appSummaryItems = item.aplicaciones.slice(0, 3).map(app => `${app.marca} ${app.serie}`).filter((value, index, self) => self.indexOf(value) === index); 
+                let appSummaryHTML = '';
+                if (appSummaryItems.length > 0) {
+                    appSummaryHTML = `<div class="card-app-summary">${appSummaryItems.join(', ')}${item.aplicaciones.length > 3 ? ', ...' : ''}</div>`;
+                }
+                // --- Fin Resumen ---
                 return `
                     <div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms" tabindex="0" role="button" aria-haspopup="dialog"> 
                         <div class="card-thumbnail"><img src="${firstImageSrc}" alt="Referencia ${item.ref}" class="result-image" loading="lazy"></div>
@@ -410,6 +428,7 @@
                                 <div class="card-ref">${item.ref}</div>
                                 ${posBadge}
                             </div>
+                            ${appSummaryHTML} 
                         </div> 
                     </div>`; 
             }).join('');
@@ -446,7 +465,7 @@
             [els.darkBtn, els.upBtn].forEach(btn => btn.addEventListener('click', createRippleEffect));
             els.darkBtn.addEventListener('click', () => { const isDark = els.body.classList.toggle('lp-dark'); els.darkBtn.setAttribute('aria-pressed', String(isDark)); const iconAnimation = (icon, isShowing) => { const keyframes = isShowing ? [{ opacity: 0, transform: 'scale(0.6)' }, { opacity: 1, transform: 'scale(1)' }] : [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(0.6)' }]; icon.animate(keyframes, { duration: 400, fill: 'forwards', easing: 'ease-in-out' }); }; iconAnimation(els.sunIcon, !isDark); iconAnimation(els.moonIcon, isDark); els.headerX.style.animation = 'bounceHeader 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)'; setTimeout(() => { els.headerX.style.animation = ''; }, 600); });
             els.upBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', () => { els.upBtn.classList.toggle('show', window.scrollY > 300); }); // Lógica para mostrar #upBtn
+            window.addEventListener('scroll', () => { els.upBtn.classList.toggle('show', window.scrollY > 300); });
             const debouncedFilter = debounce(filterData, 300);
             const filterInputs = [els.busqueda, els.marca, els.modelo, els.anio, els.oem, els.fmsi, els.medidasAncho, els.medidasAlto];
             filterInputs.forEach(input => input.addEventListener('input', debouncedFilter));
@@ -478,7 +497,7 @@
                     if (trashLid) trashLid.classList.remove('animate-lid');
                     if (trashBody) trashBody.classList.remove('animate-body');
                     els.clearBtn.disabled = false;
-                }, 900); // Duración slightly mayor a la animación más larga (0.8s)
+                }, 900); // Duración ligeramente mayor a la animación más larga (0.8s)
             });
              // === FIN BOTÓN BORRAR FILTROS ===
 
@@ -489,7 +508,7 @@
         async function inicializarApp() {
             showSkeletonLoader();
             await new Promise(resolve => setTimeout(resolve, 800));
-            // === MÁS DATOS DE EJEMPLO PARA FORZAR SCROLL ===
+            // === MÁS DATOS DE EJEMPLO ===
             const data = [ 
                  { "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
                 { "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
