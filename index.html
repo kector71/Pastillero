@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brake X - Consulta de Pastillas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* ================== VARIABLES DE TEMA (Material) ================== */
@@ -21,10 +25,10 @@
             --input-focus-border: #2563eb;
             
             /* Colores primarios para el botón de borrar filtros (Modo Claro) */
-            --btn-primary-bg: #ef4444; /* Fondo Rojo */
-            --btn-primary-text: #ffffff; /* Texto Blanco para contraste */
-            --btn-primary-hover-bg: #dc2626; /* Rojo más oscuro al pasar el ratón */
-            --btn-primary-shadow: 0 4px 6px rgba(239, 68, 68, 0.4); /* Sombra rojiza */
+            --btn-primary-bg: #ef4444; 
+            --btn-primary-text: #ffffff; 
+            --btn-primary-hover-bg: #dc2626; 
+            --btn-primary-shadow: 0 4px 6px rgba(239, 68, 68, 0.4); 
             
             /* Sombras de elevación (Material) */
             --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
@@ -43,9 +47,9 @@
             --btn-google-hover-bg: rgba(0, 0, 0, 0.05);
 
             /* Colores para badges de posición */
-            --badge-delantera-bg: #3b82f6; /* Azul de botones activos */
+            --badge-delantera-bg: #3b82f6; 
             --badge-delantera-text: #fff;
-            --badge-trasera-bg: #ef4444; /* Rojo de botones activos */
+            --badge-trasera-bg: #ef4444; 
             --badge-trasera-text: #fff;
 
             /* Colores para el Skeleton Loader */
@@ -55,27 +59,25 @@
 
         /* === MODO OSCURO AMOLED === */
         body.lp-dark {
-            --bg-color: #000000; /* <-- CAMBIO a Negro Puro */
+            --bg-color: #000000; 
             --text-color: #fff;
             --header-border-color: rgba(255,255,255,0.1);
             --header-x-fill: #fff;
             
-            /* Colores primarios para el botón de borrar filtros (Modo Oscuro) */
             --btn-primary-bg: #b91c1c; 
             --btn-primary-text: #ffffff; 
             --btn-primary-hover-bg: #991b1b;
             --btn-primary-shadow: 0 4px 6px rgba(185, 28, 28, 0.6); 
 
-            /* Material Design Colores Oscuros / Elevación */
-            --material-surface-light: #000000; /* <-- CAMBIO a Negro Puro */
+            --material-surface-light: #000000; 
             --material-surface-border: rgba(255, 255, 255, 0.1);
-            --input-bg: #1a1a1a; /* <-- CAMBIO a gris muy oscuro (para contraste) */
+            --input-bg: #1a1a1a; 
             --input-focus-border: #60a5fa;
             
-            /* Sombras de elevación (Material) - CORREGIDAS para fondo negro */
-            --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03); /* (Ya era un brillo) */
-            --elevation-2: 0 2px 4px rgba(255,255,255,0.07), 0 1px 3px rgba(255,255,255,0.05); /* <-- CORREGIDO (Era sombra negra) */
-            --elevation-4: 0 8px 12px rgba(255,255,255,0.08), 0 4px 6px rgba(255,255,255,0.06); /* <-- CORREGIDO (Era sombra negra) */
+            /* Sombras corregidas para fondo negro */
+            --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03); 
+            --elevation-2: 0 2px 4px rgba(255,255,255,0.07), 0 1px 3px rgba(255,255,255,0.05); 
+            --elevation-4: 0 8px 12px rgba(255,255,255,0.08), 0 4px 6px rgba(255,255,255,0.06); 
 
             --material-ripple-dark: rgba(255, 255, 255, 0.15);
             
@@ -84,15 +86,13 @@
             --icon-arrow-stroke: #FF3B30; 
             --icon-main-stroke: #60a5fa; 
 
-            /* Colores para badges de posición en modo oscuro */
             --badge-delantera-bg: #3b82f6; 
             --badge-delantera-text: #fff;
             --badge-trasera-bg: #ef4444; 
             --badge-trasera-text: #fff;
             
-            /* Colores para el Skeleton Loader en modo oscuro */
-            --skeleton-bg: #111; /* <-- CAMBIO a gris muy oscuro */
-            --skeleton-highlight: #222; /* <-- CAMBIO a gris oscuro */
+            --skeleton-bg: #111; 
+            --skeleton-highlight: #222; 
         }
         
         /* ================ ACCESSIBILITY CLASS ================ */
@@ -118,12 +118,12 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            font-family: 'Inter', sans-serif; /* <-- Fuente base 'Inter' */
         }
 
-        /* ================== MODIFICACIÓN DE HEADER (No Tarjeta) ================== */
+        /* ================== MODIFICACIÓN DE HEADER ================== */
         header { 
             width: 100%; 
-            /* max-width: 1900px; */ 
             margin: 0 auto 1rem auto;
             text-align: center; 
             background-color: transparent; 
@@ -133,7 +133,11 @@
         }
         
         header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: inherit;
+            font-family: 'Orbitron', sans-serif; /* <-- Fuente específica 'Orbitron' */
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            color: inherit;
             display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
             opacity: 1; 
             animation: fadeDown 1s ease 0.3s forwards; 
@@ -149,7 +153,7 @@
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
 
-        /* ================== MODIFICACIÓN DE FOOTER (No flotante) ================== */
+        /* ================== MODIFICACIÓN DE FOOTER ================== */
         .footer-banner {
             position: static; 
             width: 100%;
@@ -170,7 +174,6 @@
             box-shadow: var(--elevation-2);
         }
         .footer-content {
-            /* max-width: 1600px; */ 
             margin: 0 auto;
             display: flex; 
             flex-direction: column;
@@ -199,9 +202,8 @@
             font-size: 0.75rem; 
         }
 
-        /* ================== ESTRUCTURA PRINCIPAL (CLAVE: Ancho de filtro y Gap) ================== */
+        /* ================== ESTRUCTURA PRINCIPAL ================== */
         .main-layout { 
-            /* max-width: 1900px; */ 
             margin: 0 auto; 
             display: flex; 
             gap: 1rem; 
@@ -218,7 +220,7 @@
         }
         .results-panel { flex: 1; }
 
-        /* ================== ESTILOS DE FILTROS Y TARJETAS (Material) ================== */
+        /* ================== ESTILOS DE FILTROS Y TARJETAS ================== */
         .glass {
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
@@ -296,7 +298,7 @@
         
         .result-count-container { font-size:0.75rem; color:#4b5563; margin-top: 1rem; }
 
-        /* ================== ESTILOS BOTÓN BORRAR FILTROS (Material Design) ================== */
+        /* ================== ESTILOS BOTÓN BORRAR FILTROS ================== */
         .clear-filters-btn {
             position: relative; 
             width: 100%; 
@@ -376,17 +378,18 @@
         .skeleton-line.long { width: 80%; }
         /* FIN SKELETON LOADER STYLES */
 
-        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS (REDUCIDOS) ================== */
+        /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
         
+        /* === TAMAÑO DE TARJETA REDUCIDO === */
         .results-wrapper { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); 
             gap: 1rem; 
         }
         
         .result-card {
             display: flex; 
-            flex-direction: column; /* Default: Imagen arriba */
+            flex-direction: column; 
             background-color: var(--material-surface-light); 
             border: 1px solid var(--material-surface-border);
             border-radius:0.75rem; 
@@ -556,7 +559,7 @@
         .animate-lid { animation: open-lid 0.8s ease-in-out; }
         .animate-body { animation: shake-body 0.2s ease-in-out 3; animation-delay: 0.1s; }
 
-        /* ================== BOTONES FLOTANTES (Material Design) ================== */
+        /* ================== BOTONES FLOTANTES ================== */
         .floating-buttons-container { 
             position: fixed; 
             bottom: 18px; 
@@ -636,9 +639,7 @@
         @keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
 
 
-        /* ================== AJUSTES RESPONSIVE (CON CONTAINER QUERIES) ================== */
-
-        /* Regla @container reemplaza la anterior @media (min-width: 769px) */
+        /* ================== AJUSTES RESPONSIVE ================== */
         @container result-card (min-width: 600px) { 
             .result-card {
                 flex-direction: row; 
@@ -646,16 +647,15 @@
                 gap: 1rem;
             }
             .card-content-wrapper { 
-                flex: 1; /* 50% */
+                flex: 1; 
             }
             .card-images-carousel {
-                flex: 1; /* 50% */
+                flex: 1; 
                 max-width: none; 
                 margin-bottom: 0;
             }
         }
         
-        /* Otras reglas @media se mantienen */
         @media (max-width: 992px) { 
             .main-layout { 
                 flex-direction: column; 
@@ -1004,7 +1004,6 @@
         
         const renderResults = (filteredData) => {
             
-            /* Esta es la parte que restauré */
             els.count.textContent = filteredData.length;
             if (filteredData.length === 0) {
                 els.results.innerHTML = `<p class="no-results">No se encontraron pastillas con los filtros seleccionados.</p>`;
