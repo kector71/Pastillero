@@ -109,9 +109,9 @@
         /* ================== GENERAL & BODY ================== */
         * { box-sizing: border-box; margin:0; padding:0; }
         html { height:100%; }
-        body {   
-            background: var(--bg-color);   
-            transition: background 0.5s ease, color 0.5s ease;   
+        body { 
+            background: var(--bg-color); 
+            transition: background 0.5s ease, color 0.5s ease; 
             color: var(--text-color);
             padding: 0.5rem 0 0; 
             display: flex;
@@ -343,7 +343,7 @@
             position: static; 
             transition: none;
         }
-        body.lp-dark .clear-filters-btn svg {  stroke: #ffffff;  }
+        body.lp-dark .clear-filters-btn svg { stroke: #ffffff; }
         
         /* SKELETON LOADER STYLES */
         @keyframes skeleton-pulse {
@@ -544,7 +544,7 @@
             border-bottom: none;
         }
         
-        .card-model, .app-header-row { display: none;  }
+        .card-model, .app-header-row { display: none; }
         
         @keyframes bounce { 0%{transform:scale(1)}30%{transform:scale(1.03)}50%{transform:scale(.98)}100%{transform:scale(1)} }
         @keyframes open-lid { 0%{transform:rotate(0deg) translateY(0px) translateX(0px)}30%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}70%{transform:rotate(-25deg) translateY(-4px) translateX(-2px)}100%{transform:rotate(0deg) translateY(0px) translateX(0px)} }
@@ -587,7 +587,7 @@
             outline:none;
         }
 
-        .material-btn:hover { box-shadow: var(--elevation-4);  }
+        .material-btn:hover { box-shadow: var(--elevation-4); }
         
         body.lp-dark .material-btn {
             background-color: var(--material-surface-light); 
@@ -611,10 +611,10 @@
             animation: ripple-effect 0.6s linear;
             background-color: var(--material-ripple-light); 
         }
-        body.lp-dark .ripple { background-color: var(--material-ripple-dark);  }
+        body.lp-dark .ripple { background-color: var(--material-ripple-dark); }
         @keyframes ripple-effect { to { transform: scale(4); opacity: 0; } }
         
-        .lp-icon-sun { stroke: var(--icon-sun-stroke); }    
+        .lp-icon-sun { stroke: var(--icon-sun-stroke); } 
         .lp-icon-moon { stroke: var(--icon-moon-stroke); }
         .lp-icon-arrow { stroke: var(--icon-arrow-stroke); animation: var(--arrow-glow-animation); }
         
@@ -788,18 +788,18 @@
     
         let brakePadsData = [];
         const els = {
-            body: document.body, headerX: document.querySelector('.header-x'), darkBtn: document.getElementById('darkBtn'),    
-            sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'),    
-            upBtn: document.getElementById('upBtn'),    
-            busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'),    
-            modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'),    
-            oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'),    
-            medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'),    
-            posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTrasera'),    
+            body: document.body, headerX: document.querySelector('.header-x'), darkBtn: document.getElementById('darkBtn'), 
+            sunIcon: document.querySelector('.lp-icon-sun'), moonIcon: document.querySelector('.lp-icon-moon'), 
+            upBtn: document.getElementById('upBtn'), 
+            busqueda: document.getElementById('busquedaRapida'), marca: document.getElementById('filtroMarca'), 
+            modelo: document.getElementById('filtroModelo'), anio: document.getElementById('filtroAnio'), 
+            oem: document.getElementById('filtroOem'), fmsi: document.getElementById('filtroFmsi'), 
+            medidasAncho: document.getElementById('medidasAncho'), medidasAlto: document.getElementById('medidasAlto'), 
+            posDel: document.getElementById('positionDelantera'), posTras: document.getElementById('positionTrasera'), 
             clearBtn: document.getElementById('clearFiltersBtn'),
-            datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'),    
-            datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'),    
-            datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'),    
+            datalistMarca: document.getElementById('marcas'), datalistModelo: document.getElementById('modelos'), 
+            datalistAnio: document.getElementById('anios'), datalistOem: document.getElementById('oemList'), 
+            datalistFmsi: document.getElementById('fmsiList'), results: document.getElementById('results-container'), 
             count: document.getElementById('resultCount'),
             footer: document.getElementById('footerBanner') 
         };
@@ -857,9 +857,9 @@
                 const itemPosicion = item.posición; 
 
                 const busqMatch = !filters.busqueda || 
-                                  ['ref', 'oem', 'fmsi'].some(key => 
-                                      item[key]?.toLowerCase().includes(filters.busqueda)
-                                  ) || itemVehicles.includes(filters.busqueda);
+                                    ['ref', 'oem', 'fmsi'].some(key => 
+                                        item[key]?.toLowerCase().includes(filters.busqueda)
+                                    ) || itemVehicles.includes(filters.busqueda);
                 
                 const appMatch = !filters.marca && !filters.modelo && !filters.anio || 
                                      item.aplicaciones.some(app => 
@@ -878,12 +878,12 @@
 
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || 
-                                             (item.anchoNum >= (filters.ancho - TOLERANCIA) && 
-                                              item.anchoNum <= (filters.ancho + TOLERANCIA));
-                                              
+                                               (item.anchoNum >= (filters.ancho - TOLERANCIA) && 
+                                                item.anchoNum <= (filters.ancho + TOLERANCIA));
+                                            
                 const altoMatchTolerancia = !filters.alto || 
-                                            (item.altoNum >= (filters.alto - TOLERANCIA) && 
-                                             item.altoNum <= (filters.alto + TOLERANCIA));
+                                              (item.altoNum >= (filters.alto - TOLERANCIA) && 
+                                               item.altoNum <= (filters.alto + TOLERANCIA));
 
 
                 return busqMatch && appMatch && oemMatch && fmsiMatch && posMatch && anchoMatchTolerancia && altoMatchTolerancia;
@@ -1039,7 +1039,7 @@
                         <button class="carousel-nav-btn" data-direction="1" aria-label="Siguiente imagen">›</button>
                     </div>
                 `;
-                        
+                            
                 return `<div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms">
                             <div class="card-content-wrapper">
                                 <div class="card-details">
