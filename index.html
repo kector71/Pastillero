@@ -263,6 +263,17 @@
         .modal-ref { font-size: 1.5rem; font-weight: 700; margin-bottom: 0rem; line-height: 1.2; transition: color 0.3s ease; }
         .modal-position .position-badge { font-size: 0.8rem; padding: 0.2rem 0.6rem; }
         .modal-apps-specs { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--material-surface-border); transition: border-color 0.3s ease; }
+        
+        /* AJUSTE SOLICITADO PARA DESTACAR SUBTÍTULOS EN EL MODAL (MARCA Y ESPECIFICACIONES) */
+        .modal-apps-specs .app-brand-header {
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            padding-bottom: 5px; 
+            border-bottom-width: 2px;
+            opacity: 1; 
+        }
+
         @media (max-width: 650px) { .modal-content { grid-template-columns: 1fr; max-height: 85vh; padding: 1rem; } .modal-image-carousel { grid-column: 1 / -1; } .modal-details-content { grid-column: 1 / -1; } .modal-close-btn { font-size: 1.5rem; top: 0.3rem; right: 0.3rem; } .modal-ref { font-size: 1.3rem; } }
 
         /* Animaciones */
