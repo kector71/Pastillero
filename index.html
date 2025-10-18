@@ -177,7 +177,6 @@
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
         .results-wrapper { 
             display: grid; 
-            /* --- AJUSTE 1: Devuelto a 234px para Desktop --- */
             grid-template-columns: repeat(auto-fit, minmax(234px, 1fr)); 
             gap: 0.8rem; 
         }
@@ -259,11 +258,10 @@
 
         /* ================== AJUSTES RESPONSIVE (MEDIA QUERIES) ================== */
         @media (max-width: 767px) { 
-            .main-layout { flex-direction: column; gap: 1.5rem; } 
+            /* --- ¡¡AQUÍ ESTÁ LA CORRECCIÓN!! Se añadió align-items: stretch; --- */
+            .main-layout { flex-direction: column; gap: 1.5rem; align-items: stretch; } 
             .filters-column { flex-basis: auto; width: 100%; } 
             .input-group-horizontal { flex-direction: column; gap: 0.3rem; } 
-
-            /* --- AJUSTE 2: Añadido para forzar 1 columna en móvil --- */
             .results-wrapper { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) { .form-input, .position-btn { font-size: 1rem; padding: 0.75rem; } }
