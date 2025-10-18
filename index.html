@@ -26,7 +26,7 @@
             --btn-primary-hover-bg: #dc2626; 
             --btn-primary-shadow: 0 4px 6px rgba(239, 68, 68, 0.4); 
             
-            --card-inset-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.75); /* Relieve sutil para modo claro */
+            --card-inset-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.75); 
             --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06), var(--card-inset-highlight);
             --elevation-2: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08), var(--card-inset-highlight);
             --elevation-4: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05), var(--card-inset-highlight);
@@ -438,7 +438,6 @@
         const getPositionFilter = () => { const activePositions = []; if (els.posDel.classList.contains('active')) activePositions.push('Delantera'); if (els.posTras.classList.contains('active')) activePositions.push('Trasera'); return activePositions; };
         const hasVehicleFilters = () => { return els.busqueda.value.trim() !== '' || els.marca.value.trim() !== '' || els.modelo.value.trim() !== '' || els.anio.value.trim() !== '' || getPositionFilter().length > 0 || els.oem.value.trim() !== '' || els.fmsi.value.trim() !== '' || els.medidasAncho.value.trim() !== '' || els.medidasAlto.value.trim() !== ''; };
 
-        // --- MODIFICADO: Lógica de filtrado para arrays OEM/FMSI ---
         const filterData = () => {
             if (!brakePadsData.length) return;
             const fbusq = (val) => val.toLowerCase().trim(); const activePos = getPositionFilter();
@@ -448,7 +447,7 @@
                 const itemPosicion = item.posición;
 
                 const busqMatch = !filters.busqueda ||
-                    item.ref?.toLowerCase().includes(filters.busqueda) ||
+                    item.ref?.some(r => r.toLowerCase().includes(filters.busqueda)) || // Busca en cada ref
                     item.oem?.some(o => o.toLowerCase().includes(filters.busqueda)) || 
                     item.fmsi?.some(f => f.toLowerCase().includes(filters.busqueda)) || 
                     itemVehicles.includes(filters.busqueda);
@@ -477,9 +476,10 @@
         
         const renderApplicationsList = (aplicaciones) => { const groupedApps = aplicaciones.reduce((acc, app) => { const marca = app.marca || 'N/A'; if (!acc[marca]) { acc[marca] = []; } acc[marca].push(app); return acc; }, {}); Object.keys(groupedApps).forEach(marca => { groupedApps[marca].sort((a, b) => { const serieA = a.serie || ''; const serieB = b.serie || ''; if (serieA < serieB) return -1; if (serieA > serieB) return 1; const anioA = a.año || ''; const anioB = b.año || ''; if (anioA < anioB) return -1; if (anioA > anioB) return 1; return 0; }); }); let appListHTML = ''; for (const marca in groupedApps) { appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`; groupedApps[marca].forEach(app => { appListHTML += `<div class="app-detail-row"><div>${app.serie || ''}</div><div>${app.litros || ''}</div><div>${app.año || ''}</div></div>`; }); } return appListHTML; };
         
-        // --- MODIFICADO: renderSpecs para mostrar arrays unidos por coma ---
         const renderSpecs = (item) => {
             let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`;
+            const refText = (item.ref && item.ref.length > 0 ? item.ref.join(', ') : 'N/A');
+            specsHTML += `<div class="app-detail-row"><div><strong>Referencias</strong></div><div></div><div>${refText}</div></div>`;
             const oemText = (item.oem && item.oem.length > 0 ? item.oem.join(', ') : 'N/A');
             specsHTML += `<div class="app-detail-row"><div><strong>OEM</strong></div><div></div><div>${oemText}</div></div>`;
             const fmsiText = (item.fmsi && item.fmsi.length > 0 ? item.fmsi.join(', ') : 'N/A');
@@ -497,18 +497,22 @@
             els.results.innerHTML = filteredData.map((item, index) => {
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
-                const imagePath = item.imagen; const firstImageSrc = imagePath.replace("text=", `text=Vista+1+`); 
+                const primaryRef = item.ref && item.ref.length > 0 ? item.ref[0] : 'N/A'; 
+                const imagePath = item.imagen; 
+                const firstImageSrc = imagePath.replace("text=", `text=Vista+1+`); 
+
                 const appSummaryItems = item.aplicaciones.slice(0, 3).map(app => `${app.marca} ${app.serie}`).filter((value, index, self) => self.indexOf(value) === index); 
                 let appSummaryHTML = '';
                 if (appSummaryItems.length > 0) {
                     appSummaryHTML = `<div class="card-app-summary">${appSummaryItems.join(', ')}${item.aplicaciones.length > 3 ? ', ...' : ''}</div>`;
                 }
+                
                 return `
-                    <div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms" tabindex="0" role="button" aria-haspopup="dialog"> 
-                        <div class="card-thumbnail"><img src="${firstImageSrc}" alt="Referencia ${item.ref}" class="result-image" loading="lazy"></div>
+                    <div class="result-card" data-ref="${primaryRef}" style="animation-delay: ${index * 50}ms" tabindex="0" role="button" aria-haspopup="dialog"> 
+                        <div class="card-thumbnail"><img src="${firstImageSrc}" alt="Referencia ${primaryRef}" class="result-image" loading="lazy"></div>
                         <div class="card-content-wrapper">
                             <div class="card-details">
-                                <div class="card-ref">${item.ref}</div>
+                                <div class="card-ref">${primaryRef}</div>
                                 ${posBadge}
                             </div>
                             ${appSummaryHTML} 
@@ -520,16 +524,27 @@
 
         function handleCardClick(event) {
             const card = event.target.closest('.result-card');
-            if (card) { const ref = card.dataset.ref; const itemData = brakePadsData.find(item => item.ref === ref); if (itemData) { openModal(itemData); } }
+            if (card) { 
+                const primaryRef = card.dataset.ref; 
+                const itemData = brakePadsData.find(item => item.ref && item.ref.length > 0 && item.ref[0] === primaryRef); 
+                if (itemData) { 
+                    openModal(itemData); 
+                } 
+            }
         }
 
         function openModal(item) {
-            els.modalRef.textContent = item.ref; const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
+            const primaryRef = item.ref && item.ref.length > 0 ? item.ref[0] : 'N/A';
+            els.modalRef.textContent = primaryRef; 
+
+            const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
             els.modalPosition.innerHTML = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
+            
             const imagePath = item.imagen; const imageCount = 3; let imageTrackHTML = '';
-            for (let i = 0; i < imageCount; i++) { imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" alt="Referencia ${item.ref} Vista ${i + 1}" class="result-image">`; }
+            for (let i = 0; i < imageCount; i++) { imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" alt="Referencia ${primaryRef} Vista ${i + 1}" class="result-image">`; } 
             els.modalCarousel.innerHTML = `<div class="image-track" style="display:flex;" data-current-index="0">${imageTrackHTML}</div> ${imageCount > 1 ? `<div class="carousel-counter">1/${imageCount}</div><button class="carousel-nav-btn" data-direction="-1" aria-label="Imagen anterior">‹</button><button class="carousel-nav-btn" data-direction="1" aria-label="Siguiente imagen">›</button>` : ''}`;
             els.modalCarousel.querySelectorAll('.carousel-nav-btn').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); const direction = parseInt(e.target.dataset.direction); navigateCarousel(els.modalCarousel, direction); }; });
+
             els.modalAppsSpecs.innerHTML = `<div class="applications-list-container">${renderApplicationsList(item.aplicaciones)}${renderSpecs(item)}</div>`;
             els.modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; 
         }
@@ -587,24 +602,24 @@
             els.modal.addEventListener('click', (event) => { if (event.target === els.modal) { closeModal(); } });
         }
 
-        // --- MODIFICADO: inicializarApp para manejar arrays OEM/FMSI en datalists ---
         async function inicializarApp() {
             showSkeletonLoader();
             await new Promise(resolve => setTimeout(resolve, 800));
+            // --- MODIFICADO: Asegúrate que tus datos usan arrays para ref, oem, fmsi ---
             const data = [ 
-                 { "ref": "BX-1234", "oem": ["96567830", "96567830A"], "fmsi": ["7877-D978", "D978"], "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
-                 { "ref": "BX-5678", "oem": ["B4Y0-33-28Z"], "fmsi": ["8340-D1228", "D1228-MZD"], "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
-                 { "ref": "BX-9101", "oem": ["7701209164"], "fmsi": ["7718-D888"], "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
-                 { "ref": "BX-1121", "oem": ["04465-02220"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
-                 { "ref": "BX-5161", "oem": ["58101-H8A00"], "fmsi": ["8447-D1339"], "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
-                 { "ref": "BX-5679", "oem": ["B4Y0-26-48Z"], "fmsi": ["1545-D977"], "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
-                 { "ref": "BX-3141", "oem": ["8V51-2K021-AA"], "fmsi": ["8202-D1089"], "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
-                 { "ref": "BX-1122", "oem": ["5C0-698-151-B"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
-                 { "ref": "BX-3143", "oem": ["D1060-4BA0A"], "fmsi": ["8528-D1410"], "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
-                 { "ref": "BX-1122T", "oem": ["04466-02220"], "fmsi": ["8340-D1228"], "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] },
-                 { "ref": "BX-7777", "oem": ["1K0698151F"], "fmsi": ["8212-D1084"], "posición": "Delantera", "medidas": "156.3 x 74.0", "imagen": "https://via.placeholder.com/300x200.png?text=Golf+GTI", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Golf GTI", "litros": "2.0T", "año": "2015-2021", "especificacion": "MK7" }] },
-                 { "ref": "BX-8888", "oem": ["4G0698451"], "fmsi": ["1545-D1419"], "posición": "Trasera", "medidas": "123.0 x 52.0", "imagen": "https://via.placeholder.com/300x200.png?text=Audi+A6+Tras", "aplicaciones": [{ "marca": "Audi", "serie": "A6", "litros": "2.0T/3.0T", "año": "2012-2018", "especificacion": "C7 Tras." }] },
-                 { "ref": "BX-9999", "oem": ["LR051626"], "fmsi": ["8631-D1515"], "posición": "Delantera", "medidas": "193.2 x 77.8", "imagen": "https://via.placeholder.com/300x200.png?text=Range+Rover", "aplicaciones": [{ "marca": "Land Rover", "serie": "Range Rover Sport", "litros": "3.0/5.0", "año": "2014-2022", "especificacion": "Supercharged" }] }
+                 { "ref": ["BX-1234", "BP-1234-S"], "oem": ["96567830", "96567830A"], "fmsi": ["7877-D978", "D978"], "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
+                 { "ref": ["BX-5678"], "oem": ["B4Y0-33-28Z"], "fmsi": ["8340-D1228", "D1228-MZD"], "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
+                 { "ref": ["BX-9101"], "oem": ["7701209164"], "fmsi": ["7718-D888"], "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
+                 { "ref": ["BX-1121"], "oem": ["04465-02220"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
+                 { "ref": ["BX-5161"], "oem": ["58101-H8A00"], "fmsi": ["8447-D1339"], "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
+                 { "ref": ["BX-5679"], "oem": ["B4Y0-26-48Z"], "fmsi": ["1545-D977"], "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
+                 { "ref": ["BX-3141"], "oem": ["8V51-2K021-AA"], "fmsi": ["8202-D1089"], "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
+                 { "ref": ["BX-1122"], "oem": ["5C0-698-151-B"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
+                 { "ref": ["BX-3143"], "oem": ["D1060-4BA0A"], "fmsi": ["8528-D1410"], "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
+                 { "ref": ["BX-1122T"], "oem": ["04466-02220"], "fmsi": ["8340-D1228"], "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] },
+                 { "ref": ["BX-7777"], "oem": ["1K0698151F"], "fmsi": ["8212-D1084"], "posición": "Delantera", "medidas": "156.3 x 74.0", "imagen": "https://via.placeholder.com/300x200.png?text=Golf+GTI", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Golf GTI", "litros": "2.0T", "año": "2015-2021", "especificacion": "MK7" }] },
+                 { "ref": ["BX-8888"], "oem": ["4G0698451"], "fmsi": ["1545-D1419"], "posición": "Trasera", "medidas": "123.0 x 52.0", "imagen": "https://via.placeholder.com/300x200.png?text=Audi+A6+Tras", "aplicaciones": [{ "marca": "Audi", "serie": "A6", "litros": "2.0T/3.0T", "año": "2012-2018", "especificacion": "C7 Tras." }] },
+                 { "ref": ["BX-9999"], "oem": ["LR051626"], "fmsi": ["8631-D1515"], "posición": "Delantera", "medidas": "193.2 x 77.8", "imagen": "https://via.placeholder.com/300x200.png?text=Range+Rover", "aplicaciones": [{ "marca": "Land Rover", "serie": "Range Rover Sport", "litros": "3.0/5.0", "año": "2014-2022", "especificacion": "Supercharged" }] }
             ];
             brakePadsData = data.map(item => { const partes = item.medidas.split('x').map(s => parseFloat(s.trim())); return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 }; });
             const getAllApplicationValues = (key) => { const allValues = new Set(); brakePadsData.forEach(item => { item.aplicaciones.forEach(app => { const prop = (key === 'modelo') ? 'serie' : key; if (app[prop]) allValues.add(app[prop]); }); }); return [...allValues].sort(); };
