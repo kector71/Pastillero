@@ -26,7 +26,7 @@
             --btn-primary-hover-bg: #dc2626; 
             --btn-primary-shadow: 0 4px 6px rgba(239, 68, 68, 0.4); 
             
-            --card-inset-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.75); /* Relieve sutil para modo claro */
+            --card-inset-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.75); 
             --elevation-1: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06), var(--card-inset-highlight);
             --elevation-2: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08), var(--card-inset-highlight);
             --elevation-4: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05), var(--card-inset-highlight);
@@ -58,8 +58,8 @@
             --btn-primary-hover-bg: #991b1b;
             --btn-primary-shadow: 0 4px 6px rgba(185, 28, 28, 0.6); 
             --material-surface-light: #000000; 
-            --material-surface-border: rgba(255, 255, 255, 0.1);
-            --input-bg: #1a1a1a; 
+            --material-surface-border: rgba(255, 255, 255, 0.25); 
+            --input-bg: #2a2a2a; 
             --input-focus-border: #60a5fa;
 
             --elevation-1: 0 1px 3px rgba(255,255,255,0.05), 0 1px 2px rgba(255,255,255,0.03), inset 0 1px 1px rgba(255, 255, 255, 0.15); 
@@ -113,8 +113,10 @@
         }
         .header-subtitle { 
             font-size: 0.9rem; font-weight: 500; color: var(--text-color); opacity: 0.6; 
-            border-left: none; padding-left: 12px; transition: color 0.5s ease;
+            border-left: none; padding-left: 12px; transition: color 0.5s ease, opacity 0.3s ease;
         }
+        body.lp-dark .header-subtitle { opacity: 0.85; } 
+        
         header .header-x { height: 1.1em; width: auto; display: inline-block; vertical-align: middle; transition: transform 0.6s ease; }
         header .header-x path { fill: var(--header-x-fill); transition: fill 0.5s ease; }
 
@@ -125,13 +127,15 @@
             padding: 0.5rem 1rem; border-top: 1px solid var(--material-surface-border);
             box-shadow: var(--elevation-1); z-index: 100; font-size: 0.8rem;
             text-align: center; 
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         body.lp-dark .footer-banner { box-shadow: var(--elevation-2); }
         .footer-content { margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .footer-links { display: flex; justify-content: center; align-items: center; margin-bottom: 0.5rem; }
-        .footer-links a { color: var(--text-color); opacity: 0.7; text-decoration: none; margin: 0 0.5rem; transition: opacity 0.2s; }
+        .footer-links a { color: var(--text-color); opacity: 0.7; text-decoration: none; margin: 0 0.5rem; transition: opacity 0.2s, color 0.3s ease; }
         .footer-links a:hover { opacity: 1; }
-        .footer-copyright { margin-top: 0; opacity: 0.6; font-size: 0.75rem; }
+        .footer-copyright { margin-top: 0; opacity: 0.6; font-size: 0.75rem; transition: opacity 0.3s ease, color 0.3s ease; }
+        body.lp-dark .footer-copyright { opacity: 0.8; } 
 
         /* ================== ESTRUCTURA PRINCIPAL (Sticky Footer Fix) ================== */
         .main-layout { 
@@ -143,17 +147,35 @@
         .results-panel { flex: 1; }
 
         /* ================== FILTROS Y TARJETAS ================== */
-        .glass { background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:1rem; padding: 0.75rem 1rem; box-shadow: var(--elevation-1); transition: box-shadow 0.3s ease; backdrop-filter: none; }
+        .glass { background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:1rem; padding: 0.75rem 1rem; box-shadow: var(--elevation-1); transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease; backdrop-filter: none; }
         body.lp-dark .glass { box-shadow: var(--elevation-2); }
-        .filter-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; padding-bottom: 0; border-bottom: none; text-align: left; display: flex; align-items: center; gap: 8px; }
+        .filter-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; padding-bottom: 0; border-bottom: none; text-align: left; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease; }
         .glass > .filter-title:not(:first-child) { margin-top: 0.8rem; }
+        body.lp-dark .filter-title { color: rgba(255, 255, 255, 0.9); } 
+
         .form-input { width: 100%; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--material-surface-border); background-color: var(--input-bg); color: var(--text-color); font-size: 0.9rem; transition: all 0.3s ease; box-sizing: border-box; box-shadow: none; margin-bottom: 0.3rem; }
         .form-input:last-of-type { margin-bottom: 0; }
         .position-container { display:flex; gap: 0.4rem; }
         .position-btn { flex: 1; padding: 6px 4px; border-radius: 100px; cursor: pointer; font-size: 0.8rem; font-weight: 500; text-align: center; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; border: 1px solid var(--material-surface-border); background-color: transparent; color: var(--text-color); }
         .position-btn:hover { background-color: var(--btn-google-hover-bg); }
-        #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; box-shadow: var(--elevation-1); }
-        #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; box-shadow: var(--elevation-1); }
+        
+        #positionDelantera.active { background-color: var(--badge-delantera-bg); border-color: var(--badge-delantera-bg); color: #fff; }
+        #positionTrasera.active { background-color: var(--badge-trasera-bg); border-color: var(--badge-trasera-bg); color: #fff; }
+        
+        body.lp-dark .position-btn {
+            border-color: rgba(255, 255, 255, 0.5); 
+            color: rgba(255, 255, 255, 0.9);      
+        }
+        body.lp-dark .position-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+        body.lp-dark #positionDelantera.active,
+        body.lp-dark #positionTrasera.active {
+            box-shadow: var(--elevation-1);
+            color: #fff; 
+        }
+
         .input-group-horizontal { display:flex; gap: 0.3rem; margin-bottom: 0.3rem; } 
         .input-group-horizontal .form-input { margin-bottom: 0; flex: 1; }
         .input-group-horizontal:last-of-type { margin-bottom: 0; }
@@ -176,17 +198,31 @@
 
         /* ================== ESTILOS ESPECÍFICOS DE TARJETAS ================== */
         .results-wrapper { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(234px, 1fr)); 
+            display: flex;       
+            flex-wrap: wrap;     
             gap: 0.8rem; 
         }
-        .result-card { display: flex; flex-direction: column; background-color: var(--material-surface-light); border: 1px solid var(--material-surface-border); border-radius:0.5rem; padding: 0.6rem; box-shadow: var(--elevation-1); opacity: 1; transform: none; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s ease; }
+        .result-card { 
+            display: flex; 
+            flex-direction: column; 
+            background-color: var(--material-surface-light); 
+            border: 1px solid var(--material-surface-border); 
+            border-radius:0.5rem; 
+            padding: 0.6rem; 
+            box-shadow: var(--elevation-1); 
+            opacity: 1; 
+            transform: none; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: box-shadow 0.2s ease, border-color 0.3s ease, background-color 0.3s ease; 
+            flex-basis: 234px; 
+        }
         .result-card:hover, .result-card:focus { box-shadow: var(--elevation-2); outline: 2px solid var(--input-focus-border); outline-offset: 2px; }
         .card-thumbnail { width: 100%; aspect-ratio: 4 / 3; margin-bottom: 0.5rem; border-radius: 0.3rem; overflow: hidden; background-color: var(--skeleton-bg); }
         .result-image { display: block; width: 100%; height: 100%; object-fit: cover; }
         .card-content-wrapper { flex: 1; }
         .card-details { display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.3rem; /* Espacio antes del resumen */ }
-        .card-ref { font-weight: 600; color: var(--text-color); white-space: nowrap; font-size: 0.9rem; line-height: 1.2; }
+        .card-ref { font-weight: 600; color: var(--text-color); white-space: nowrap; font-size: 0.9rem; line-height: 1.2; transition: color 0.3s ease; }
         .position-badge { padding: 0.1rem 0.4rem; border-radius: 50px; font-weight: 500; font-size: 0.65rem; }
         .position-badge.delantera { background-color: var(--badge-delantera-bg); color: var(--badge-delantera-text); }
         .position-badge.trasera { background-color: var(--badge-trasera-bg); color: var(--badge-trasera-text); }
@@ -196,23 +232,25 @@
             font-size: 0.7rem; line-height: 1.3; color: var(--text-color); opacity: 0.7;
             max-height: 2.6em; overflow: hidden; text-overflow: ellipsis; 
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            transition: color 0.3s ease, opacity 0.3s ease;
         }
-        body.lp-dark .card-app-summary { opacity: 0.6; }
+        body.lp-dark .card-app-summary { opacity: 0.8; } 
         /* === FIN ESTILOS RESUMEN === */
 
         /* Estilos internos de aplicaciones/specs (usados solo en modal ahora) */
         .applications-list-container { margin-top: 0; padding-top: 0; }
-        .app-brand-header { font-weight: 700; font-size: 0.85rem; padding: 3px 0; margin-top: 6px; color: var(--text-color); opacity: 0.9; border-bottom: 1px solid var(--material-surface-border); text-transform: uppercase; }
-        .app-detail-row { display: grid; grid-template-columns: 2fr 1fr 1fr; font-size: 0.85rem; line-height: 1.2; padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1); color: var(--text-color); opacity: 0.85; align-items: center; }
+        .app-brand-header { font-weight: 700; font-size: 0.85rem; padding: 3px 0; margin-top: 6px; color: var(--text-color); opacity: 0.9; border-bottom: 1px solid var(--material-surface-border); text-transform: uppercase; transition: color 0.3s ease, border-color 0.3s ease; }
+        .app-detail-row { display: grid; grid-template-columns: 2fr 1fr 1fr; font-size: 0.85rem; line-height: 1.2; padding: 4px 0; border-bottom: 1px dotted rgba(0, 0, 0, 0.1); color: var(--text-color); opacity: 0.85; align-items: center; transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease; }
         .app-detail-row > div:last-child { text-align: right; }
         body.lp-dark .app-detail-row { border-bottom: 1px dotted rgba(255, 255, 255, 0.1); }
+        body.lp-dark .app-detail-row { opacity: 0.9; } 
         .app-detail-row:last-child { border-bottom: none; }
         .card-model, .app-header-row { display: none; }
 
         /* ================== ESTILOS DEL MODAL ================== */
         .modal-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 1rem; cursor: pointer; }
-        .modal-content { background-color: var(--material-surface-light); color: var(--text-color); border-radius: 0.8rem; box-shadow: var(--elevation-4); padding: 1.5rem; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative; cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .modal-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; font-size: 1.8rem; line-height: 1; color: var(--text-color); opacity: 0.6; cursor: pointer; padding: 0.2rem; }
+        .modal-content { background-color: var(--material-surface-light); color: var(--text-color); border-radius: 0.8rem; box-shadow: var(--elevation-4); padding: 1.5rem; width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative; cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        .modal-close-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; font-size: 1.8rem; line-height: 1; color: var(--text-color); opacity: 0.6; cursor: pointer; padding: 0.2rem; transition: color 0.3s ease, opacity 0.2s ease; }
         .modal-close-btn:hover { opacity: 1; }
         .modal-image-carousel { grid-column: 1 / 2; width: 100%; aspect-ratio: 4 / 3; border-radius: 0.5rem; overflow: hidden; position: relative; background-color: var(--skeleton-bg); }
         .modal-image-carousel .image-track { display: flex; height: 100%; }
@@ -222,9 +260,9 @@
         .modal-image-carousel .carousel-nav-btn[data-direction="-1"] { left: 0; border-radius: 0 0.4rem 0.4rem 0; padding-right: 0.6rem; }
         .modal-image-carousel .carousel-nav-btn[data-direction="1"] { right: 0; left: auto; border-radius: 0.4rem 0 0 0.4rem; padding-left: 0.6rem; }
         .modal-details-content { grid-column: 2 / 3; display: flex; flex-direction: column; gap: 0.8rem; }
-        .modal-ref { font-size: 1.5rem; font-weight: 700; margin-bottom: 0rem; line-height: 1.2; }
+        .modal-ref { font-size: 1.5rem; font-weight: 700; margin-bottom: 0rem; line-height: 1.2; transition: color 0.3s ease; }
         .modal-position .position-badge { font-size: 0.8rem; padding: 0.2rem 0.6rem; }
-        .modal-apps-specs { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--material-surface-border); }
+        .modal-apps-specs { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--material-surface-border); transition: border-color 0.3s ease; }
         @media (max-width: 650px) { .modal-content { grid-template-columns: 1fr; max-height: 85vh; padding: 1rem; } .modal-image-carousel { grid-column: 1 / -1; } .modal-details-content { grid-column: 1 / -1; } .modal-close-btn { font-size: 1.5rem; top: 0.3rem; right: 0.3rem; } .modal-ref { font-size: 1.3rem; } }
 
         /* Animaciones */
@@ -238,7 +276,7 @@
         /* ================== BOTONES FLOTANTES ================== */
         .floating-buttons-container { position: fixed; bottom: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
         .floating-buttons-container.left { left: 18px; } .floating-buttons-container.right { right: 18px; } 
-        .material-btn { position: relative; width: 48px; height: 48px; border-radius: 50%; background-color: var(--material-surface-light); color: var(--text-color); box-shadow: var(--elevation-2); display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease; border: 1px solid var(--material-surface-border); outline:none; }
+        .material-btn { position: relative; width: 48px; height: 48px; border-radius: 50%; background-color: var(--material-surface-light); color: var(--text-color); box-shadow: var(--elevation-2); display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease; border: 1px solid var(--material-surface-border); outline:none; }
         .material-btn:hover { box-shadow: var(--elevation-4); }
         body.lp-dark .material-btn { background-color: var(--material-surface-light); border-color: var(--material-surface-border); box-shadow: var(--elevation-2); }
         .material-btn svg { width: 22px; height: 22px; fill:none; stroke-width:2; position:absolute; transition: opacity 0.4s, transform 0.4s, stroke 0.4s, filter 0.4s; }
@@ -258,11 +296,14 @@
 
         /* ================== AJUSTES RESPONSIVE (MEDIA QUERIES) ================== */
         @media (max-width: 767px) { 
-            /* --- ¡¡AQUÍ ESTÁ LA CORRECCIÓN!! Se añadió align-items: stretch; --- */
             .main-layout { flex-direction: column; gap: 1.5rem; align-items: stretch; } 
             .filters-column { flex-basis: auto; width: 100%; } 
             .input-group-horizontal { flex-direction: column; gap: 0.3rem; } 
-            .results-wrapper { grid-template-columns: 1fr; }
+            
+            .results-wrapper { 
+                display: grid; 
+                grid-template-columns: 1fr; 
+            }
         }
         @media (max-width: 600px) { .form-input, .position-btn { font-size: 1rem; padding: 0.75rem; } }
         @media (max-width: 480px) {
@@ -274,12 +315,19 @@
              .position-badge { font-size: 0.6rem; padding: 0.1rem 0.35rem;}
         }
 
+        /* Aumentar tamaño del modal en pantallas más grandes (tablets/PC) */
+        @media (min-width: 768px) { 
+            .modal-content {
+                max-width: 1575px; 
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Brake <svg class="header-x" xmlns="http://www-w3-org/2000/svg" viewBox="0 0 36 24"><path d="M8.98885921,23.8523026 C8.8942483,23.9435442 8.76801031,24 8.62933774,24 L2.03198365,24 C1.73814918,24 1.5,23.7482301 1.5,23.4380086 C1.5,23.2831829 1.55946972,23.1428989 1.65570253,23.0416777 L13.2166154,12.4291351 C13.3325814,12.3262031 13.4061076,12.1719477 13.4061076,11.999444 C13.4061076,11.8363496 13.3401502,11.6897927 13.2352673,11.587431 L1.68841087,0.990000249 C1.57298556,0.88706828 1.5,0.733668282 1.5,0.561734827 C1.5,0.251798399 1.73814918,2.85130108e-05 2.03198365,2.85130108e-05 L8.62933774,2.85130108e-05 C8.76855094,2.85130108e-05 8.89532956,0.0561991444 8.98994048,0.148296169 L2.14358709e1,11.5757407 C2.1548593e1,11.6783875 2.16196864e1,11.8297916 2.16196864e1,11.999444 C2.16196864e1,12.1693815 2.15483227e1,12.3219261 2.14350599e1,12.4251432 L8.98885921,23.8523026 Z M26.5774333,23.8384453 L20.1765996,17.9616286 C20.060093,17.8578413 19.9865669,17.703871 19.9865669,17.5310822 C19.9865669,17.3859509 20.0390083,17.2536506 20.1246988,17.153855 L23.4190508,14.1291948 C23.5163648,14.0165684 23.6569296,13.945571 23.8131728,13.945571 C23.9602252,13.945571 24.0929508,14.0082997 24.1894539,14.1092357 L33.861933,22.9913237 C33.9892522,23.0939706 34.0714286,23.2559245 34.0714286,23.4381226 C34.0714286,23.748059 33.8332794,23.9998289 33.5394449,23.9998289 L26.9504707,23.9998289 C26.8053105,23.9998289 26.6733958,23.9382408 26.5774333,23.8384453 Z M26.5774333,0.161098511 C26.6733958,0.0615881034 26.8053105,0 26.9504707,0 L33.5394449,0 C33.8332794,0 34.0714286,0.251769886 34.0714286,0.561706314 C34.0714286,0.743904453 33.9892522,0.905573224 33.861933,1.00822006 L24.1894539,9.89030807 C24.0929508,9.99152926 23.9602252,10.0542579 23.8131728,10.0542579 C23.6569296,10.0542579 23.5163648,9.98354562 23.4190508,9.87063409 L20.1246988,6.8459739 C20.0390083,6.74617837 19.9865669,6.613878 19.9865669,6.46874677 C19.9865669,6.29624305 20.060093,6.14198767 20.1765996,6.03848544 L26.5774333,0.161098511 Z" /></svg>
+        <h1>Brake <svg class="header-x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24"><path d="M8.98885921,23.8523026 C8.8942483,23.9435442 8.76801031,24 8.62933774,24 L2.03198365,24 C1.73814918,24 1.5,23.7482301 1.5,23.4380086 C1.5,23.2831829 1.55946972,23.1428989 1.65570253,23.0416777 L13.2166154,12.4291351 C13.3325814,12.3262031 13.4061076,12.1719477 13.4061076,11.999444 C13.4061076,11.8363496 13.3401502,11.6897927 13.2352673,11.587431 L1.68841087,0.990000249 C1.57298556,0.88706828 1.5,0.733668282 1.5,0.561734827 C1.5,0.251798399 1.73814918,2.85130108e-05 2.03198365,2.85130108e-05 L8.62933774,2.85130108e-05 C8.76855094,2.85130108e-05 8.89532956,0.0561991444 8.98994048,0.148296169 L2.14358709e1,11.5757407 C2.1548593e1,11.6783875 2.16196864e1,11.8297916 2.16196864e1,11.999444 C2.16196864e1,12.1693815 2.15483227e1,12.3219261 2.14350599e1,12.4251432 L8.98885921,23.8523026 Z M26.5774333,23.8384453 L20.1765996,17.9616286 C20.060093,17.8578413 19.9865669,17.703871 19.9865669,17.5310822 C19.9865669,17.3859509 20.0390083,17.2536506 20.1246988,17.153855 L23.4190508,14.1291948 C23.5163648,14.0165684 23.6569296,13.945571 23.8131728,13.945571 C23.9602252,13.945571 24.0929508,14.0082997 24.1894539,14.1092357 L33.861933,22.9913237 C33.9892522,23.0939706 34.0714286,23.2559245 34.0714286,23.4381226 C34.0714286,23.748059 33.8332794,23.9998289 33.5394449,23.9998289 L26.9504707,23.9998289 C26.8053105,23.9998289 26.6733958,23.9382408 26.5774333,23.8384453 Z M26.5774333,0.161098511 C26.6733958,0.0615881034 26.8053105,0 26.9504707,0 L33.5394449,0 C33.8332794,0 34.0714286,0.251769886 34.0714286,0.561706314 C34.0714286,0.743904453 33.9892522,0.905573224 33.861933,1.00822006 L24.1894539,9.89030807 C24.0929508,9.99152926 23.9602252,10.0542579 23.8131728,10.0542579 C23.6569296,10.0542579 23.5163648,9.98354562 23.4190508,9.87063409 L20.1246988,6.8459739 C20.0390083,6.74617837 19.9865669,6.613878 19.9865669,6.46874677 C19.9865669,6.29624305 20.060093,6.14198767 20.1765996,6.03848544 L26.5774333,0.161098511 Z" /></svg>
             <span class="header-subtitle">Consulta rápida. Frenado seguro.</span>
         </h1>
     </header>
@@ -392,15 +440,24 @@
 
         const filterData = () => {
             if (!brakePadsData.length) return;
-            const fbusq = (val) => val.toLowerCase().trim(); const activePos = getPositionFilter(); 
+            const fbusq = (val) => val.toLowerCase().trim(); const activePos = getPositionFilter();
             const filters = { busqueda: fbusq(els.busqueda.value), marca: fbusq(els.marca.value), modelo: fbusq(els.modelo.value), anio: fbusq(els.anio.value), oem: fbusq(els.oem.value), fmsi: fbusq(els.fmsi.value), ancho: parseFloat(els.medidasAncho.value), alto: parseFloat(els.medidasAlto.value), pos: activePos };
             const filtered = brakePadsData.filter(item => {
                 const itemVehicles = item.aplicaciones.map(app => `${app.marca} ${app.serie} ${app.litros} ${app.año} ${app.especificacion}`).join(' ').toLowerCase();
-                const itemOem = item.oem?.toLowerCase() || ''; const itemFmsi = item.fmsi?.toLowerCase() || ''; const itemPosicion = item.posición; 
-                const busqMatch = !filters.busqueda || ['ref', 'oem', 'fmsi'].some(key => item[key]?.toLowerCase().includes(filters.busqueda)) || itemVehicles.includes(filters.busqueda);
+                const itemPosicion = item.posición;
+
+                const busqMatch = !filters.busqueda ||
+                    item.ref?.some(r => r.toLowerCase().includes(filters.busqueda)) || // Busca en cada ref
+                    item.oem?.some(o => o.toLowerCase().includes(filters.busqueda)) || 
+                    item.fmsi?.some(f => f.toLowerCase().includes(filters.busqueda)) || 
+                    itemVehicles.includes(filters.busqueda);
+
                 const appMatch = !filters.marca && !filters.modelo && !filters.anio || item.aplicaciones.some(app => (!filters.marca || app.marca.toLowerCase().includes(filters.marca)) && (!filters.modelo || app.serie.toLowerCase().includes(filters.modelo)) && (!filters.anio || app.año.toLowerCase().includes(filters.anio)));
-                const oemMatch = !filters.oem || itemOem.includes(filters.oem); const fmsiMatch = !filters.fmsi || itemFmsi.includes(filters.fmsi);
-                let posMatch = true; if (filters.pos.length > 0) { posMatch = filters.pos.includes(itemPosicion); } 
+
+                const oemMatch = !filters.oem || (item.oem && item.oem.some(o => o.toLowerCase().includes(filters.oem)));
+                const fmsiMatch = !filters.fmsi || (item.fmsi && item.fmsi.some(f => f.toLowerCase().includes(filters.fmsi)));
+
+                let posMatch = true; if (filters.pos.length > 0) { posMatch = filters.pos.includes(itemPosicion); }
                 const TOLERANCIA = 1.0;
                 const anchoMatchTolerancia = !filters.ancho || (item.anchoNum >= (filters.ancho - TOLERANCIA) && item.anchoNum <= (filters.ancho + TOLERANCIA));
                 const altoMatchTolerancia = !filters.alto || (item.altoNum >= (filters.alto - TOLERANCIA) && item.altoNum <= (filters.alto + TOLERANCIA));
@@ -418,7 +475,20 @@
         }
         
         const renderApplicationsList = (aplicaciones) => { const groupedApps = aplicaciones.reduce((acc, app) => { const marca = app.marca || 'N/A'; if (!acc[marca]) { acc[marca] = []; } acc[marca].push(app); return acc; }, {}); Object.keys(groupedApps).forEach(marca => { groupedApps[marca].sort((a, b) => { const serieA = a.serie || ''; const serieB = b.serie || ''; if (serieA < serieB) return -1; if (serieA > serieB) return 1; const anioA = a.año || ''; const anioB = b.año || ''; if (anioA < anioB) return -1; if (anioA > anioB) return 1; return 0; }); }); let appListHTML = ''; for (const marca in groupedApps) { appListHTML += `<div class="app-brand-header">${marca.toUpperCase()}</div>`; groupedApps[marca].forEach(app => { appListHTML += `<div class="app-detail-row"><div>${app.serie || ''}</div><div>${app.litros || ''}</div><div>${app.año || ''}</div></div>`; }); } return appListHTML; };
-        const renderSpecs = (item) => { let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`; specsHTML += `<div class="app-detail-row"><div><strong>OEM</strong></div><div></div><div>${item.oem || 'N/A'}</div></div>`; specsHTML += `<div class="app-detail-row"><div><strong>Platina FMSI</strong></div><div></div><div>${item.fmsi || 'N/A'}</div></div>`; specsHTML += `<div class="app-detail-row"><div><strong>Ancho</strong></div><div></div><div>${item.anchoNum || 'N/A'} mm</div></div>`; specsHTML += `<div class="app-detail-row"><div><strong>Alto</strong></div><div></div><div>${item.altoNum || 'N/A'} mm</div></div>`; return specsHTML; };
+        
+        const renderSpecs = (item) => {
+            let specsHTML = `<div class="app-brand-header">ESPECIFICACIONES</div>`;
+            const refText = (item.ref && item.ref.length > 0 ? item.ref.join(', ') : 'N/A');
+            specsHTML += `<div class="app-detail-row"><div><strong>Referencias</strong></div><div></div><div>${refText}</div></div>`;
+            const oemText = (item.oem && item.oem.length > 0 ? item.oem.join(', ') : 'N/A');
+            specsHTML += `<div class="app-detail-row"><div><strong>OEM</strong></div><div></div><div>${oemText}</div></div>`;
+            const fmsiText = (item.fmsi && item.fmsi.length > 0 ? item.fmsi.join(', ') : 'N/A');
+            specsHTML += `<div class="app-detail-row"><div><strong>Platina FMSI</strong></div><div></div><div>${fmsiText}</div></div>`;
+            specsHTML += `<div class="app-detail-row"><div><strong>Ancho</strong></div><div></div><div>${item.anchoNum || 'N/A'} mm</div></div>`;
+            specsHTML += `<div class="app-detail-row"><div><strong>Alto</strong></div><div></div><div>${item.altoNum || 'N/A'} mm</div></div>`;
+            return specsHTML;
+        };
+
         const showSkeletonLoader = (count = 6) => { let skeletonHTML = ''; for (let i = 0; i < count; i++) { skeletonHTML += `<div class="skeleton-card"><div class="skeleton-line long"></div><div class="skeleton-line short"></div><div class="skeleton-box"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>`; } els.results.innerHTML = skeletonHTML; };
 
         const renderResults = (filteredData) => {
@@ -427,20 +497,22 @@
             els.results.innerHTML = filteredData.map((item, index) => {
                 const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
                 const posBadge = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
-                const imagePath = item.imagen; const firstImageSrc = imagePath.replace("text=", `text=Vista+1+`); 
-                // --- Generar resumen de aplicaciones ---
+                const primaryRef = item.ref && item.ref.length > 0 ? item.ref[0] : 'N/A'; 
+                const imagePath = item.imagen; 
+                const firstImageSrc = imagePath.replace("text=", `text=Vista+1+`); 
+
                 const appSummaryItems = item.aplicaciones.slice(0, 3).map(app => `${app.marca} ${app.serie}`).filter((value, index, self) => self.indexOf(value) === index); 
                 let appSummaryHTML = '';
                 if (appSummaryItems.length > 0) {
                     appSummaryHTML = `<div class="card-app-summary">${appSummaryItems.join(', ')}${item.aplicaciones.length > 3 ? ', ...' : ''}</div>`;
                 }
-                // --- Fin Resumen ---
+                
                 return `
-                    <div class="result-card" data-ref="${item.ref}" style="animation-delay: ${index * 50}ms" tabindex="0" role="button" aria-haspopup="dialog"> 
-                        <div class="card-thumbnail"><img src="${firstImageSrc}" alt="Referencia ${item.ref}" class="result-image" loading="lazy"></div>
+                    <div class="result-card" data-ref="${primaryRef}" style="animation-delay: ${index * 50}ms" tabindex="0" role="button" aria-haspopup="dialog"> 
+                        <div class="card-thumbnail"><img src="${firstImageSrc}" alt="Referencia ${primaryRef}" class="result-image" loading="lazy"></div>
                         <div class="card-content-wrapper">
                             <div class="card-details">
-                                <div class="card-ref">${item.ref}</div>
+                                <div class="card-ref">${primaryRef}</div>
                                 ${posBadge}
                             </div>
                             ${appSummaryHTML} 
@@ -452,16 +524,27 @@
 
         function handleCardClick(event) {
             const card = event.target.closest('.result-card');
-            if (card) { const ref = card.dataset.ref; const itemData = brakePadsData.find(item => item.ref === ref); if (itemData) { openModal(itemData); } }
+            if (card) { 
+                const primaryRef = card.dataset.ref; 
+                const itemData = brakePadsData.find(item => item.ref && item.ref.length > 0 && item.ref[0] === primaryRef); 
+                if (itemData) { 
+                    openModal(itemData); 
+                } 
+            }
         }
 
         function openModal(item) {
-            els.modalRef.textContent = item.ref; const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
+            const primaryRef = item.ref && item.ref.length > 0 ? item.ref[0] : 'N/A';
+            els.modalRef.textContent = primaryRef; 
+
+            const posBadgeClass = item.posición === 'Delantera' ? 'delantera' : 'trasera';
             els.modalPosition.innerHTML = `<span class="position-badge ${posBadgeClass}">${item.posición}</span>`;
+            
             const imagePath = item.imagen; const imageCount = 3; let imageTrackHTML = '';
-            for (let i = 0; i < imageCount; i++) { imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" alt="Referencia ${item.ref} Vista ${i + 1}" class="result-image">`; }
+            for (let i = 0; i < imageCount; i++) { imageTrackHTML += `<img src="${imagePath.replace("text=", `text=Vista+${i + 1}+`)}" alt="Referencia ${primaryRef} Vista ${i + 1}" class="result-image">`; } 
             els.modalCarousel.innerHTML = `<div class="image-track" style="display:flex;" data-current-index="0">${imageTrackHTML}</div> ${imageCount > 1 ? `<div class="carousel-counter">1/${imageCount}</div><button class="carousel-nav-btn" data-direction="-1" aria-label="Imagen anterior">‹</button><button class="carousel-nav-btn" data-direction="1" aria-label="Siguiente imagen">›</button>` : ''}`;
             els.modalCarousel.querySelectorAll('.carousel-nav-btn').forEach(btn => { btn.onclick = (e) => { e.stopPropagation(); const direction = parseInt(e.target.dataset.direction); navigateCarousel(els.modalCarousel, direction); }; });
+
             els.modalAppsSpecs.innerHTML = `<div class="applications-list-container">${renderApplicationsList(item.aplicaciones)}${renderSpecs(item)}</div>`;
             els.modal.style.display = 'flex'; document.body.style.overflow = 'hidden'; 
         }
@@ -506,13 +589,12 @@
                 createSparks(els.clearBtn);
                 clearAllFilters();
 
-                // Usar setTimeout para re-habilitar y limpiar clases
                 setTimeout(() => {
                     els.clearBtn.classList.remove('animate-button');
                     if (trashLid) trashLid.classList.remove('animate-lid');
                     if (trashBody) trashBody.classList.remove('animate-body');
                     els.clearBtn.disabled = false;
-                }, 900); // Duración ligeramente mayor a la animación más larga (0.8s)
+                }, 900); 
             });
              // === FIN BOTÓN BORRAR FILTROS ===
 
@@ -523,25 +605,31 @@
         async function inicializarApp() {
             showSkeletonLoader();
             await new Promise(resolve => setTimeout(resolve, 800));
-            // === MÁS DATOS DE EJEMPLO ===
+            // --- MODIFICADO: Asegúrate que tus datos usan arrays para ref, oem, fmsi ---
             const data = [ 
-                 { "ref": "BX-1234", "oem": "96567830", "fmsi": "7877-D978", "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
-                { "ref": "BX-5678", "oem": "B4Y0-33-28Z", "fmsi": "8340-D1228", "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
-                { "ref": "BX-9101", "oem": "7701209164", "fmsi": "7718-D888", "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
-                { "ref": "BX-1121", "oem": "04465-02220", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
-                { "ref": "BX-5161", "oem": "58101-H8A00", "fmsi": "8447-D1339", "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
-                { "ref": "BX-5679", "oem": "B4Y0-26-48Z", "fmsi": "1545-D977", "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
-                { "ref": "BX-3141", "oem": "8V51-2K021-AA", "fmsi": "8202-D1089", "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
-                { "ref": "BX-1122", "oem": "5C0-698-151-B", "fmsi": "8212-D1293", "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
-                { "ref": "BX-3143", "oem": "D1060-4BA0A", "fmsi": "8528-D1410", "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
-                { "ref": "BX-1122T", "oem": "04466-02220", "fmsi": "8340-D1228", "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] },
-                { "ref": "BX-7777", "oem": "1K0698151F", "fmsi": "8212-D1084", "posición": "Delantera", "medidas": "156.3 x 74.0", "imagen": "https://via.placeholder.com/300x200.png?text=Golf+GTI", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Golf GTI", "litros": "2.0T", "año": "2015-2021", "especificacion": "MK7" }] },
-                { "ref": "BX-8888", "oem": "4G0698451", "fmsi": "1545-D1419", "posición": "Trasera", "medidas": "123.0 x 52.0", "imagen": "https://via.placeholder.com/300x200.png?text=Audi+A6+Tras", "aplicaciones": [{ "marca": "Audi", "serie": "A6", "litros": "2.0T/3.0T", "año": "2012-2018", "especificacion": "C7 Tras." }] },
-                 { "ref": "BX-9999", "oem": "LR051626", "fmsi": "8631-D1515", "posición": "Delantera", "medidas": "193.2 x 77.8", "imagen": "https://via.placeholder.com/300x200.png?text=Range+Rover", "aplicaciones": [{ "marca": "Land Rover", "serie": "Range Rover Sport", "litros": "3.0/5.0", "año": "2014-2022", "especificacion": "Supercharged" }] }
+                 { "ref": ["BX-1234", "BP-1234-S"], "oem": ["96567830", "96567830A"], "fmsi": ["7877-D978", "D978"], "posición": "Delantera", "medidas": "131.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Spark+GT", "aplicaciones": [ { "marca": "Chevrolet", "serie": "Spark GT", "litros": "1.2", "año": "2018-2022", "especificacion": "Todas" }, { "marca": "Chevrolet", "serie": "Sail", "litros": "1.4", "año": "2015-2018", "especificacion": "Sedán" }, { "marca": "Daewoo", "serie": "Matiz", "litros": "0.8/1.0", "año": "2010-2015", "especificacion": "City" } ] },
+                 { "ref": ["BX-5678"], "oem": ["B4Y0-33-28Z"], "fmsi": ["8340-D1228", "D1228-MZD"], "posición": "Delantera", "medidas": "141.9 x 58.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Base/Premium" }, { "marca": "Mazda", "serie": "CX-30", "litros": "2.0", "año": "2020-2024", "especificacion": "AWD" } ] },
+                 { "ref": ["BX-9101"], "oem": ["7701209164"], "fmsi": ["7718-D888"], "posición": "Delantera", "medidas": "116.5 x 52.5", "imagen": "https://via.placeholder.com/300x200.png?text=Logan", "aplicaciones": [ { "marca": "Renault", "serie": "Logan", "litros": "1.6", "año": "2016-2021", "especificacion": "8V/16V" }, { "marca": "Renault", "serie": "Sandero", "litros": "1.6", "año": "2016-2021", "especificacion": "Stepway/GT Line" }, { "marca": "Dacia", "serie": "Logan I", "litros": "1.4", "año": "2010-2015", "especificacion": "" } ] },
+                 { "ref": ["BX-1121"], "oem": ["04465-02220"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "134.8 x 54.9", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla", "aplicaciones": [ { "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Hybrid" } ] },
+                 { "ref": ["BX-5161"], "oem": ["58101-H8A00"], "fmsi": ["8447-D1339"], "posición": "Delantera", "medidas": "129.2 x 55.4", "imagen": "https://via.placeholder.com/300x200.png?text=Rio", "aplicaciones": [ { "marca": "Kia", "serie": "Rio", "litros": "1.4/1.6", "año": "2018-2023", "especificacion": "Todos" }, { "marca": "Hyundai", "serie": "Accent", "litros": "1.6", "año": "2018-2022", "especificacion": "HB/Sedán" } ] },
+                 { "ref": ["BX-5679"], "oem": ["B4Y0-26-48Z"], "fmsi": ["1545-D977"], "posición": "Trasera", "medidas": "95.5 x 41.2", "imagen": "https://via.placeholder.com/300x200.png?text=Mazda+3+Tras", "aplicaciones": [ { "marca": "Mazda", "serie": "3", "litros": "2.0/2.5", "año": "2019-2023", "especificacion": "Trasera Disco" }, { "marca": "Mazda", "serie": "CX-5", "litros": "2.5", "año": "2017-2022", "especificacion": "Trasera" } ] },
+                 { "ref": ["BX-3141"], "oem": ["8V51-2K021-AA"], "fmsi": ["8202-D1089"], "posición": "Delantera", "medidas": "131.1 x 50.3", "imagen": "https://via.placeholder.com/300x200.png?text=Fiesta", "aplicaciones": [{ "marca": "Ford", "serie": "Fiesta", "litros": "1.6", "año": "2014-2019", "especificacion": "Todos" }] },
+                 { "ref": ["BX-1122"], "oem": ["5C0-698-151-B"], "fmsi": ["8212-D1293"], "posición": "Delantera", "medidas": "155.1 x 66.0", "imagen": "https://via.placeholder.com/300x200.png?text=Jetta", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Jetta", "litros": "2.0T", "año": "2019-2023", "especificacion": "GLI" }] },
+                 { "ref": ["BX-3143"], "oem": ["D1060-4BA0A"], "fmsi": ["8528-D1410"], "posición": "Delantera", "medidas": "132.5 x 54.2", "imagen": "https://via.placeholder.com/300x200.png?text=Kicks", "aplicaciones": [{ "marca": "Nissan", "serie": "Kicks", "litros": "1.6", "año": "2018-2023", "especificacion": "Todos" }] },
+                 { "ref": ["BX-1122T"], "oem": ["04466-02220"], "fmsi": ["8340-D1228"], "posición": "Trasera", "medidas": "85.0 x 42.0", "imagen": "https://via.placeholder.com/300x200.png?text=Corolla+Tras", "aplicaciones": [{ "marca": "Toyota", "serie": "Corolla", "litros": "1.8", "año": "2020-2024", "especificacion": "Trasera" }] },
+                 { "ref": ["BX-7777"], "oem": ["1K0698151F"], "fmsi": ["8212-D1084"], "posición": "Delantera", "medidas": "156.3 x 74.0", "imagen": "https://via.placeholder.com/300x200.png?text=Golf+GTI", "aplicaciones": [{ "marca": "Volkswagen", "serie": "Golf GTI", "litros": "2.0T", "año": "2015-2021", "especificacion": "MK7" }] },
+                 { "ref": ["BX-8888"], "oem": ["4G0698451"], "fmsi": ["1545-D1419"], "posición": "Trasera", "medidas": "123.0 x 52.0", "imagen": "https://via.placeholder.com/300x200.png?text=Audi+A6+Tras", "aplicaciones": [{ "marca": "Audi", "serie": "A6", "litros": "2.0T/3.0T", "año": "2012-2018", "especificacion": "C7 Tras." }] },
+                 { "ref": ["BX-9999"], "oem": ["LR051626"], "fmsi": ["8631-D1515"], "posición": "Delantera", "medidas": "193.2 x 77.8", "imagen": "https://via.placeholder.com/300x200.png?text=Range+Rover", "aplicaciones": [{ "marca": "Land Rover", "serie": "Range Rover Sport", "litros": "3.0/5.0", "año": "2014-2022", "especificacion": "Supercharged" }] }
             ];
             brakePadsData = data.map(item => { const partes = item.medidas.split('x').map(s => parseFloat(s.trim())); return { ...item, anchoNum: partes[0] || 0, altoNum: partes[1] || 0 }; });
             const getAllApplicationValues = (key) => { const allValues = new Set(); brakePadsData.forEach(item => { item.aplicaciones.forEach(app => { const prop = (key === 'modelo') ? 'serie' : key; if (app[prop]) allValues.add(app[prop]); }); }); return [...allValues].sort(); };
-            fillDatalist(els.datalistMarca, getAllApplicationValues('marca')); fillDatalist(els.datalistModelo, getAllApplicationValues('modelo')); fillDatalist(els.datalistAnio, getAllApplicationValues('año')); fillDatalist(els.datalistOem, brakePadsData.map(i => i.oem).filter(Boolean).sort()); fillDatalist(els.datalistFmsi, brakePadsData.map(i => i.fmsi).filter(Boolean).sort());
+            fillDatalist(els.datalistMarca, getAllApplicationValues('marca')); fillDatalist(els.datalistModelo, getAllApplicationValues('modelo')); fillDatalist(els.datalistAnio, getAllApplicationValues('año'));
+
+            const allOems = [...new Set(brakePadsData.flatMap(i => i.oem || []))].filter(Boolean).sort();
+            const allFmsis = [...new Set(brakePadsData.flatMap(i => i.fmsi || []))].filter(Boolean).sort();
+            fillDatalist(els.datalistOem, allOems);
+            fillDatalist(els.datalistFmsi, allFmsis);
+
             applyFiltersFromURL(); filterData();
         }
 
